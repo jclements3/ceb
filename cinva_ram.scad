@@ -567,7 +567,7 @@ fulcrum_rest_z = fulcrum_z + pin_r;      // bar bottom rests on top of pin
 lever_fulcrum_along_bar = 13.625;         // grip end to fulcrum contact
 lever_hole_along_bar = 18.625;            // grip end to hole center (19.625 - 1.0)
 
-lever_angle = 90;
+lever_angle = 87;
 
 // lever_pin_z: Cross_Back top (z_local=+1.25) at grip end (x_local=-18.625)
 // aligns with Clamp notch bottom (Z=22.706)
@@ -831,16 +831,16 @@ translate([axle_x, 4.750 - 1.500, axle_z])
 // Cross_Front top surface at grip-end left edge
 _cf_top_z = 18.625*sin(lever_angle) - cos(lever_angle) + lever_pin_z;
 
-// Notch center bottom relative to Axle (average of notch opening X, at Z=22.500)
-// Notch opening: bar-bottom-right (7.554) to tab-bottom-left (8.196)
-_notch_cx_dx = (4.625 + 2.929 + 4.625 + 3.571)/2 - axle_x;  // 2.853
-_notch_cx_dz = 22.500 - axle_z;                                // -0.500
-_notch_R = sqrt(_notch_cx_dx*_notch_cx_dx + _notch_cx_dz*_notch_cx_dz);
-_notch_phi = atan2(_notch_cx_dz, _notch_cx_dx);
+// Scoop contact point — low end of segment 2: clamp (3.652, 0.345)
+// Unrotated world: X = 4.625 + 3.652 = 8.277, Z = 22.500 + 0.345 = 22.845
+_scoop_dx = 4.625 + 3.652 - axle_x;   // 3.255
+_scoop_dz = 22.500 + 0.345 - axle_z;  // -0.155
+_scoop_R = sqrt(_scoop_dx*_scoop_dx + _scoop_dz*_scoop_dz);
+_scoop_phi = atan2(_scoop_dz, _scoop_dx);
 
-// Rotate clamp so notch center Z aligns with Cross_Front top
+// Rotate clamp so scoop low point Z aligns with Cross_Front top
 _clamp_target_dz = _cf_top_z - axle_z;
-clamp_angle = asin(_clamp_target_dz / _notch_R) - _notch_phi - 8;
+clamp_angle = asin(_clamp_target_dz / _scoop_R) - _scoop_phi;
 
 color("pink")
 translate([axle_x, 0, axle_z])
