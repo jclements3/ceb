@@ -170,18 +170,20 @@ module M_LatchSpacer() {
 module Clamp_Left() {
     difference() {
         linear_extrude(height=T)
-            polygon(points=[
-                [0, 0],             // bar bottom-left
-                [2.929, 0],         // bar bottom-right (horiz 2.929)
+            polygon(points=concat(
+                // bottom-left R0.250 round (center 0.250, 0.250)
+                [for (a = [180:10:270]) [0.250 + 0.250*cos(a), 0.250 + 0.250*sin(a)]],
+                [[2.929, 0],         // bar bottom-right (horiz 2.929)
                 [3.048, 0.504],     // notch right (0.518 parallel wall)
                 [3.652, 0.345],     // notch left (0.625 bottom)
                 [3.571, 0],         // tab bottom-left (0.354 parallel wall)
                 [3.880, 0],         // tab bottom-right (horiz 0.309)
-                [4.147, 1.000],     // top of angled face
-                [0, 1.000],         // bar top-left (vert 1.000)
-            ]);                     // close: horiz back to (0,0)
-        // 0.437" dia hole — 0.500" from left edge, 0.397" from bottom
-        translate([0.500, 0.397, -0.01])
+                [4.147, 1.000]],    // top of angled face
+                // top-left R0.250 round (center 0.250, 0.750)
+                [for (a = [90:10:180]) [0.250 + 0.250*cos(a), 0.750 + 0.250*sin(a)]]
+            ));
+        // 0.437" dia hole — 0.397" from left end, centered in 1" height
+        translate([0.397, 0.500, -0.01])
             cylinder(d=0.437, h=T+0.02);
     }
 }
@@ -399,9 +401,9 @@ module Pivot() {
     difference() {
         union() {
             cube([2, 2, 6]);
-            // Front block at top — 0.794(X) x 2(Y) x 0.794(Z)
-            translate([-0.794, 0, 6 - 0.794])
-                cube([0.794, 2, 0.794]);
+            // Front block at top — 1.000(X) x 2(Y) x 1.000(Z)
+            translate([-1.000, 0, 6 - 1.000])
+                cube([1.000, 2, 1.000]);
         }
 
         // 1" dia x 4" deep sunk hole from top — centered in X/Y
@@ -414,8 +416,8 @@ module Pivot() {
             rotate([-90, 0, 0])
                 cylinder(d=1.000, h=2.02);
 
-        // 0.437" dia hole through front block in Y — 0.397" from front end
-        translate([-0.794 + 0.397, -0.01, 6 - 0.794/2])
+        // 0.437" dia hole through front block in Y — 0.397" from front edge, centered vertically
+        translate([-1.000 + 0.397, -0.01, 6 - 0.500])
             rotate([-90, 0, 0])
                 cylinder(d=0.437, h=2.02);
 
@@ -460,14 +462,13 @@ module Ramp(depth=6.500) {
             polygon(points=[
                 [0, 0],
                 [12, 0],
-                [12, 0.25],
-                [right_peak_x, peak_y],
-                [left_peak_x, peak_y],
-                [0, 1],
+                [12, 1],
+                [12 - left_peak_x, peak_y],
+                [12 - right_peak_x, peak_y],
+                [0, 0.25],
             ]);
-            // R0.625" scoop flush against 6.038 slope,
-            // 1" horizontal flat after 4.810 slope
-            translate([right_peak_x - 0.625, peak_y + 0.125])
+            // R0.625" scoop flush against slope
+            translate([12 - right_peak_x + 0.625, peak_y + 0.125])
                 circle(r=0.625);
         }
 }
@@ -510,12 +511,12 @@ module Base_Bracket() {
         translate([len - 3.000, leg / 2, -0.01])
             cylinder(d=0.500, h=T+0.02);
 
-        // 0.500" bolt holes in vertical leg — match baseboard mounting holes
-        // At X=7 and X=13 (baseboard at 1/3 point = X=16, holes 3" and 9" in)
-        translate([7.000, -0.01, 1.000])
+        // 0.500" bolt holes in vertical leg — match side plate mounting holes
+        // Side holes at world X=7 and X=13; bracket starts at X=4, so local X=3 and X=9
+        translate([3.000, -0.01, 1.000])
             rotate([-90, 0, 0])
                 cylinder(d=0.500, h=T+0.02);
-        translate([13.000, -0.01, 1.000])
+        translate([9.000, -0.01, 1.000])
             rotate([-90, 0, 0])
                 cylinder(d=0.500, h=T+0.02);
     }
@@ -537,13 +538,23 @@ ox = 56;    // X offset — clear of foot bracket at origin
 // --- Base brackets: vertical legs on inside 7" apart, feet pointing outward ---
 // Left bracket: shifted +2" in Y, foot extends -Y
 color("green")
-translate([0, 2.000, 0])
+translate([4.000, 2.000, 0])
     mirror([0, 1, 0])
         Base_Bracket_Left();
-// Right bracket: outside right side plate
+// Right bracket: outside right side plate, vertical leg touching side
 color("green")
-translate([0, 7.750 + 2*T, 0])
+translate([4.000, 7.750 + T, 0])
     Base_Bracket_Right();
+
+// --- Animation ---
+// Enable: View > Animate, set FPS=10, Steps=100
+// $t goes 0 to 1: handle pull from rest to fulcrum
+pull_angle = $t * 50;  // brown assembly rotates 0-50° around Spacer pin
+spacer_x = 6.625;
+spacer_z = 18.500;
+
+// --- Press assembly ---
+{
 
 // --- Baseboards (Part D) standing vertical at 1/3 point on feet ---
 // Feet are 48" long; 1/3 = 16". Baseboard 15" wide along X, 12" tall in Z.
@@ -551,14 +562,14 @@ translate([0, 7.750 + 2*T, 0])
 // One on each foot, against the inside face of each vertical leg.
 
 // Left side — resting on left base, origin side (Y=1.5 to 1.75)
-translate([16.000, 2.000 - T, T])
+%translate([16.000, 2.000 - T, T])
     rotate([0, 0, 0])
         rotate([90, 0, 0])
             rotate([0, 0, 90])
                 D_Side_Left();
 
 // Right side — inner face at shelf right edge (Y=7.750), between shelf and bracket
-translate([16.000, 7.750 + T, T])
+%translate([16.000, 7.750 + T, T])
     rotate([0, 0, 0])
         rotate([90, 0, 0])
             rotate([0, 0, 90])
@@ -575,22 +586,11 @@ translate([4.000 - T, 1.500, T + 15.000])
 // --- Shelf (12x6x0.25) spanning between the two sides ---
 // 12" in X (along feet), 6" in Y (between sides), T thick
 // Left edge touching left side (Y=1.75), right edge at Y=7.75
-shelf_z = 12.000;  // shelf top 3" from top of side
-color([0.60, 0.58, 0.55])
+shelf_z = load_pin_z + 3.000;  // piston hole (3" from bottom) aligns with Load pin
+color("teal")
 translate([4.000, 1.750, shelf_z])
     cube([12.000, 6.000, T]);
 
-// --- Shelf brackets (11x2x0.25) under shelf, 0.5" toward center from each side ---
-// Vertical (standing on edge), 11" along X, 2" tall in Z, T thick in Y
-// Left bracket: 0.5" in from shelf left edge
-color([0.55, 0.50, 0.45])
-translate([4.500, 1.750 + 0.500, shelf_z - 2.000])
-    cube([11.000, T, 2.000]);
-
-// Right bracket: 0.5" in from shelf right edge
-color([0.55, 0.50, 0.45])
-translate([4.500, 7.750 - 0.500 - T, shelf_z - 2.000])
-    cube([11.000, T, 2.000]);
 
 // --- Piston plates (4x 7.25x6x0.25, welded in pairs = 0.5" thick each) ---
 // Touching inside face of each bracket
@@ -599,23 +599,26 @@ translate([4.500, 7.750 - 0.500 - T, shelf_z - 2.000])
 bracket_left_inner = 1.750 + 0.500 + T;   // Y=2.500
 bracket_right_inner = 7.750 - 0.500 - T;  // Y=7.000
 
-// Left piston pair: touching left bracket inner face
-// 6" in X centered on 12" shelf: X = 4 + (12-6)/2 = 7
-color([0.60, 0.58, 0.55])
-translate([7.000, bracket_left_inner, shelf_z - 6.000])
-    cube([6.000, 2*T, 6.000]);
+// Left piston plate: 7.250 x 6.000 x 0.500 (2 plates welded)
+// 1" hole at 6.250" from left, 3.000" from top — aligns with Load pin at X=10
+color("teal")
+translate([10.000 - 6.250, bracket_left_inner, shelf_z - 6.000])
+    difference() {
+        cube([7.250, 2*T, 6.000]);
+        translate([6.250, -0.01, 3.000])
+            rotate([-90, 0, 0])
+                cylinder(d=1.000, h=2*T+0.02, $fn=32);
+    }
 
-// Right piston pair: touching right bracket inner face
-color([0.60, 0.58, 0.55])
-translate([7.000, bracket_right_inner - 2*T, shelf_z - 6.000])
-    cube([6.000, 2*T, 6.000]);
-
-// Load pin — through piston holes and pivot block, extends 1" past each side
-color("purple")
-translate([7.000 + 3.000, 0.500, shelf_z - 6.000 + 0.500])
-    rotate([-90, 0, 0])
-        cylinder(d=0.95, h=8.500);
-
+// Right piston plate: 7.250 x 6.000 x 0.500 (2 plates welded)
+color("teal")
+translate([10.000 - 6.250, bracket_right_inner - 2*T, shelf_z - 6.000])
+    difference() {
+        cube([7.250, 2*T, 6.000]);
+        translate([6.250, -0.01, 3.000])
+            rotate([-90, 0, 0])
+                cylinder(d=1.000, h=2*T+0.02, $fn=32);
+    }
 
 // --- Ramp (solid V-shape) on top of the Top plate ---
 // Top plate surface at Z = T + 15.000 + T = 15.500
@@ -638,23 +641,32 @@ translate([4.000, ramp_y2 + T, ramp_z])
     rotate([90, 0, 0])
         Ramp(depth=T);
 
-// Spacer — 1" dia bar, 3" long, resting in ramp scoops
-// Centered at Y=4.75
+// Spacer — 1" dia bar, 3" long, through Pivot/Wing upper holes (FIXED — rotation axis)
 spacer_length = 3.000;
 color("purple")
-translate([10.000, 4.750 - spacer_length/2, 18.500])
+translate([spacer_x, 4.750 - spacer_length/2, spacer_z])
     rotate([-90, 0, 0])
         cylinder(d=1.000, h=spacer_length);
 
-// Roller — 1" dia bar through Pivot/Wing holes, extends 1" past each ramp
-// At X=6.625 (Pivot hole center), Z=18.5
-// From Y = ramp_y1 - 1.0 to Y = ramp_y2 + T + 1.0
 roller_y_start = ramp_y1 - 1.000;           // 1.750
 roller_length = (ramp_y2 + T) - ramp_y1 + 2.000;  // 6.000
+
+// === MOVING ASSEMBLY — rotates around Spacer pin ===
+translate([spacer_x, 0, spacer_z])
+    rotate([0, pull_angle, 0])
+        translate([-spacer_x, 0, -spacer_z]) {
+
+// Roller — moves with assembly
 color("purple")
-translate([6.625, roller_y_start, 18.500])
+translate([10.000, roller_y_start, 18.500])
     rotate([-90, 0, 0])
         cylinder(d=1.000, h=roller_length);
+
+// Load pin — moves with assembly
+color("purple")
+translate([lever_pin_x, 0.500, lever_pin_z])
+    rotate([-90, 0, 0])
+        cylinder(d=0.95, h=8.500);
 
 // --- Lever (Part N) — Class 2: Fulcrum at front, Load at slot ---
 // Fulcrum pin: X=5.0, Z=7.75 — bar rests ON TOP of pin
@@ -663,13 +675,26 @@ translate([6.625, roller_y_start, 18.500])
 // Fulcrum contact is 13.625" from bar grip end
 
 lever_pin_x = 10.000;
-lever_pin_z = shelf_z - 6.000 + 0.500;  // 6.5
 fulcrum_x = 5.000;
 fulcrum_z = 7.750;
 pin_r = 0.475;                           // pin d=0.95
 fulcrum_rest_z = fulcrum_z + pin_r;      // bar bottom rests on top of pin
-lever_angle = 90;                         // degrees — hole aligns with Load pin
 lever_fulcrum_along_bar = 13.625;         // grip end to fulcrum contact
+lever_hole_along_bar = 18.625;            // grip end to hole center (19.625 - 1.0)
+
+lever_angle = 90;
+
+// lever_pin_z: Cross_Back top (z_local=+1.25) at grip end (x_local=-18.625)
+// aligns with Clamp notch bottom (Z=22.706)
+_clamp_notch_z = 22.500;
+lever_pin_z = _clamp_notch_z - 18.625*sin(lever_angle) - 1.25*cos(lever_angle);  // ≈ 3.875
+
+// Load pin world Z after brown assembly rotation around Spacer
+_lp_dx = lever_pin_x - spacer_x;   // 3.375
+_lp_dz = lever_pin_z - spacer_z;   // -14.625
+_lp_R = sqrt(_lp_dx*_lp_dx + _lp_dz*_lp_dz);
+_lp_phi = atan2(_lp_dz, _lp_dx);
+load_pin_z = spacer_z + _lp_R * sin(_lp_phi + pull_angle);
 
 // Fulcrum pin — through side plate holes
 color("purple")
@@ -677,44 +702,83 @@ translate([fulcrum_x, 0.500, fulcrum_z])
     rotate([-90, 0, 0])
         cylinder(d=0.95, h=8.500);
 
-// Left lever bar + round end (unioned) — at left end of crosses
-color("orange")
-translate([fulcrum_x, cross_center_y - 8.000/2, fulcrum_rest_z])
-    rotate([0, lever_angle, 0])
-        translate([-lever_fulcrum_along_bar, 0, 0])
-            union() {
-                cube([19.625, T, 2.000]);
-                translate([19.625, 0, 1.000])
-                    rotate([-90, 0, 0])
-                        cylinder(r=1.000, h=T);
-            }
-
-// Right lever bar + round end (unioned) — at right end of crosses
-color("orange")
-translate([fulcrum_x, cross_center_y + 8.000/2 - T, fulcrum_rest_z])
-    rotate([0, lever_angle, 0])
-        translate([-lever_fulcrum_along_bar, 0, 0])
-            union() {
-                cube([19.625, T, 2.000]);
-                translate([19.625, 0, 1.000])
-                    rotate([-90, 0, 0])
-                        cylinder(r=1.000, h=T);
-            }
-
-// Cross_Back (8x2) — at grip tip, levers welded here
+// Lever rotates around load pin (hole goes around it)
+// Hole center in bar-local coords: (18.625, 0, 1.0)
 cross_center_y = (1.500 + 8.000) / 2;  // 4.750
-color("orange")
-translate([fulcrum_x, cross_center_y - 8.000/2, fulcrum_rest_z])
-    rotate([0, lever_angle, 0])
-        translate([-lever_fulcrum_along_bar, 0, 0])
-            cube([T, 8.000, 2.000]);
 
-// Cross_Front (8x2) — 2" back from Cross_Back
+// Lever bar profile: R0.25" rounded bottom corners, square top corners
+// X = bar length (0=grip, 19.625=load), Y = bar height (0=bottom, 2=top)
+// Grip end (X=0) = square corners (welded to crosses)
+// Load end (X=19.625) = R0.25" rounded corners (closest to origin)
+module lever_bar_profile() {
+    difference() {
+        polygon([
+            [0, 0],              // grip bottom-left (square)
+            [19.375, 0],         // bottom straight to load arc
+            [19.418, 0.004],     // load bottom arc (center 19.375, 0.25, r=0.25)
+            [19.461, 0.015],
+            [19.500, 0.033],
+            [19.536, 0.058],
+            [19.567, 0.089],
+            [19.592, 0.125],
+            [19.610, 0.165],
+            [19.621, 0.207],
+            [19.625, 0.250],     // load right side
+            [19.625, 1.750],     // load right side up to top arc
+            [19.621, 1.793],     // load top arc (center 19.375, 1.75, r=0.25)
+            [19.610, 1.835],
+            [19.592, 1.875],
+            [19.567, 1.911],
+            [19.536, 1.942],
+            [19.500, 1.967],
+            [19.461, 1.985],
+            [19.418, 1.996],
+            [19.375, 2.000],     // load top arc end
+            [0, 2.000],          // grip top-left (square)
+        ]);
+        // 1" dia hole for load pin
+        translate([18.625, 1.0])
+            circle(d=1.000, $fn=32);
+    }
+}
+
+// Lever assembly — all parts move as one unit
 color("orange")
-translate([fulcrum_x, cross_center_y - 8.000/2, fulcrum_rest_z])
-    rotate([0, lever_angle, 0])
-        translate([-lever_fulcrum_along_bar + 2.000, 0, 0])
-            cube([T, 8.000, 2.000]);
+translate([lever_pin_x, 0, lever_pin_z])
+    rotate([0, lever_angle, 0]) {
+        // Left lever bar
+        translate([0, cross_center_y - 8.000/2, 0])
+            translate([-lever_hole_along_bar, T, -1.0])
+                rotate([90, 0, 0])
+                    linear_extrude(height=T)
+                        lever_bar_profile();
+
+        // Right lever bar
+        translate([0, cross_center_y + 8.000/2 - T, 0])
+            translate([-lever_hole_along_bar, T, -1.0])
+                rotate([90, 0, 0])
+                    linear_extrude(height=T)
+                        lever_bar_profile();
+
+        // Cross_Back (8x2) — at grip end, flat on top of bars
+        translate([-lever_hole_along_bar, cross_center_y - 8.000/2, 1.0])
+            cube([2.000, 8.000, T]);
+
+        // Cross_Front (8x2) — at grip end, flat on bottom of bars
+        translate([-lever_hole_along_bar, cross_center_y - 8.000/2, -1.0 - T])
+            cube([2.000, 8.000, T]);
+
+        // Spacer — welded between crosses, 1.5x2x4 with 1" Roller hole
+        // Spans from crosses toward load pin, between Tail inner faces
+        translate([-17.625, 4.000, -1.0])
+            difference() {
+                cube([4.000, 1.500, 2.000]);
+                // 1" dia hole for Roller at local x=3.0, z=1.0
+                translate([3.000, -0.01, 1.000])
+                    rotate([-90, 0, 0])
+                        cylinder(d=1.000, h=1.520);
+            }
+    }
 
 // Pivot block — standing above ramps
 // Right face at X=7.625 (touching tail tips)
@@ -723,41 +787,58 @@ color("brown")
 translate([5.625, 3.750, 17.500])
     Pivot();
 
+// Handle — 6' (72") bar in Pivot sunk hole, extends upward
+// Sunk hole: 1" dia, center at (6.625, 4.750), Z=19.5..23.5
+color("brown")
+translate([6.625, 4.750, 19.500])
+    cylinder(d=0.95, h=72.000);
+
 // Axle — 7/16" dia, 3" long, through front block hole
 // Center: X=5.228, Z=23.103, Y centered at 4.75
-axle_x = 5.625 + (-0.794 + 0.397);      // 5.228
-axle_z = 17.500 + (6 - 0.794/2);         // 23.103
+axle_x = 5.625 + (-1.000 + 0.397);      // 5.022
+axle_z = 17.500 + (6 - 0.500);           // 23.000
 color("purple")
 translate([axle_x, 4.750 - 1.500, axle_z])
     rotate([-90, 0, 0])
         cylinder(d=0.437, h=3.000);
 
-// Clamp — two latch brackets around Axle, welded to spacer plate
-// Bracket hole at (3.647, 0.638) in module coords
-// rotate([90,0,0]): (x,y,z)→(x,-z,y)  — module Y becomes world +Z
-// Hole (0.500, 0.397, 0) → (0.500, 0, 0.397)
-// For hole at Axle (5.228, Y, 23.103): translate_z = 23.103 - 0.397 = 22.706
-// Bracket X range: 4.728 to 8.875 (hook at high X)
-// Bracket Z range: 22.706 to 23.706
-// Clamps 0.25" inside Cap ends, equal about Y=4.75
-// After rotate, bracket Y = translate_y - T to translate_y
-color("pink")
-translate([4.728, 3.625, 22.706])
-    rotate([90, 0, 0])
-        Clamp_Left();
+// Clamp assembly — rotates around Axle to grab Cross_Front
+// Cross_Front top surface at grip-end left corner (x_local=-18.625, z_local=-1.0):
+//   world X ≈ 7.87, Z ≈ 22.73 at lever_angle ≈ 86.5°
+// Notch bar-bottom-right (profile [2.929, 0]) unrotated: world (7.657, 22.706)
+// Notch is already at the cross bar — rotate Clamp slightly to engage
+
+// Cross_Front top surface at grip-end left edge
+_cf_top_z = 18.625*sin(lever_angle) - cos(lever_angle) + lever_pin_z;
+
+// Notch center bottom relative to Axle (average of notch opening X, at Z=22.500)
+// Notch opening: bar-bottom-right (7.554) to tab-bottom-left (8.196)
+_notch_cx_dx = (4.625 + 2.929 + 4.625 + 3.571)/2 - axle_x;  // 2.853
+_notch_cx_dz = 22.500 - axle_z;                                // -0.500
+_notch_R = sqrt(_notch_cx_dx*_notch_cx_dx + _notch_cx_dz*_notch_cx_dz);
+_notch_phi = atan2(_notch_cx_dz, _notch_cx_dx);
+
+// Rotate clamp so notch center Z aligns with Cross_Front top
+_clamp_target_dz = _cf_top_z - axle_z;
+clamp_angle = asin(_clamp_target_dz / _notch_R) - _notch_phi - 8;
 
 color("pink")
-translate([4.728, 5.875 + T, 22.706])
-    rotate([90, 0, 0])
-        Clamp_Right();
+translate([axle_x, 0, axle_z])
+    rotate([0, -clamp_angle, 0])
+        translate([-axle_x, 0, -axle_z]) {
+            translate([4.625, 3.625, 22.500])
+                rotate([90, 0, 0])
+                    Clamp_Left();
 
-// Cap (1x2.75) welded to angled end of Clamps (hook end)
-// Angled face: (8.608, Z=22.706) to (8.875, Z=23.706), tilts 14.93° from vertical
-// Cap tilted to match the Clamp end angle
-color("pink")
-translate([8.608, 4.750 - 2.750/2, 22.706])
-    rotate([0, atan(0.267/1.000), 0])
-        cube([T, 2.750, 1.000]);
+            translate([4.625, 5.875 + T, 22.500])
+                rotate([90, 0, 0])
+                    Clamp_Right();
+
+            // Cap
+            translate([8.505, 4.750 - 2.750/2, 22.500])
+                rotate([0, atan(0.267/1.000), 0])
+                    cube([T, 2.750, 1.000]);
+        }
 
 // Wing and Tail plates — horizontal, holes surround Spacer (X=10, Z=18.5)
 // After rotate([0,0,90]) rotate([0,90,0]):
@@ -768,14 +849,14 @@ translate([8.608, 4.750 - 2.750/2, 22.706])
 
 // Wings — flat against Pivot Y faces (sides)
 // Wing_Left: Y=3.50..3.75, touching Pivot left face at Y=3.75
-color([0.65, 0.55, 0.45])
+color("brown")
 translate([11.250, 3.750 - T, 19.500])
     rotate([0, 0, 90])
         rotate([0, 90, 0])
             Wing_Left();
 
 // Wing_Right: Y=5.75..6.00, touching Pivot right face at Y=5.75
-color([0.65, 0.55, 0.45])
+color("brown")
 translate([11.250, 5.750, 19.500])
     rotate([0, 0, 90])
         rotate([0, 90, 0])
@@ -783,18 +864,20 @@ translate([11.250, 5.750, 19.500])
 
 // Tails — inside Pivot Y range, tips touching Pivot right face at X=7.625
 // Tail_Left: Y=3.75..4.00
-color([0.65, 0.55, 0.45])
+color("brown")
 translate([11.250, 3.750, 19.500])
     rotate([0, 0, 90])
         rotate([0, 90, 0])
             Tail_Left();
 
 // Tail_Right: Y=5.50..5.75
-color([0.65, 0.55, 0.45])
+color("brown")
 translate([11.250, 5.750 - T, 19.500])
     rotate([0, 0, 90])
         rotate([0, 90, 0])
             Tail_Right();
+
+} // === END MOVING ASSEMBLY ===
 
 // --- Front and Back (7.5x6.5x0.25) — welded to outside of shelf ---
 // 6.5" in Y (connecting sides), 7.5" in Z (hanging from top), T in X
@@ -808,6 +891,8 @@ translate([4.000 - T, 1.500, T + 15.000 - 7.500])
 color("blue")
 translate([4.000 + 12.000, 1.500, T + 15.000 - 7.500])
     cube([T, 6.500, 7.500]);
+
+} // end press assembly translate
 
 /*  --- HIDDEN FOR NOW ---
 
