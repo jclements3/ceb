@@ -329,8 +329,8 @@ module D_Side() {
         translate([1.000, 9.000, -0.01])
             cylinder(d=0.500, h=T+0.02);
 
-        // 8.000 x 1.000 rectangular piston slot — centered on rod
-        translate([w - 5.000 - 8.000, 5.500, -0.01])
+        // 8.000 x 1.000 rectangular piston slot — bottom barely touches Load bar
+        translate([3.150, 5.500, -0.01])
             cube([8.000, 1.000, T+0.02]);
     }
 }
@@ -553,8 +553,39 @@ pull_angle = $t * 50;  // brown assembly rotates 0-50° around Spacer pin
 spacer_x = 6.625;
 spacer_z = 18.500;
 
+// --- Lever (Part N) — Class 2: Fulcrum at front, Load at slot ---
+// Fulcrum pin: X=5.0, Z=7.75 — bar rests ON TOP of pin
+// Load pin: X=10.0, Z=6.5 (lever hole goes around)
+// Bar: 19.625" long, hole 1" from end, centered on 2" width
+// Fulcrum contact is 13.625" from bar grip end
+
+lever_pin_x = 10.000;
+fulcrum_x = 5.000;
+fulcrum_z = 7.750;
+pin_r = 0.475;                           // pin d=0.95
+fulcrum_rest_z = fulcrum_z + pin_r;      // bar bottom rests on top of pin
+lever_fulcrum_along_bar = 13.625;         // grip end to fulcrum contact
+lever_hole_along_bar = 18.625;            // grip end to hole center (19.625 - 1.0)
+
+lever_angle = 90;
+
+// lever_pin_z: Cross_Back top (z_local=+1.25) at grip end (x_local=-18.625)
+// aligns with Clamp notch bottom (Z=22.706)
+_clamp_notch_z = 22.500;
+lever_pin_z = _clamp_notch_z - 18.625*sin(lever_angle) - 1.25*cos(lever_angle);  // ≈ 3.875
+
+// Load pin world Z after brown assembly rotation around Spacer
+_lp_dx = lever_pin_x - spacer_x;   // 3.375
+_lp_dz = lever_pin_z - spacer_z;   // -14.625
+_lp_R = sqrt(_lp_dx*_lp_dx + _lp_dz*_lp_dz);
+_lp_phi = atan2(_lp_dz, _lp_dx);
+load_pin_z = spacer_z + _lp_R * sin(_lp_phi + pull_angle);
+
+// Lever rotates around load pin (hole goes around it)
+// Hole center in bar-local coords: (18.625, 0, 1.0)
+cross_center_y = (1.500 + 8.000) / 2;  // 4.750
+
 // --- Press assembly ---
-{
 
 // --- Baseboards (Part D) standing vertical at 1/3 point on feet ---
 // Feet are 48" long; 1/3 = 16". Baseboard 15" wide along X, 12" tall in Z.
@@ -586,36 +617,50 @@ translate([4.000 - T, 1.500, T + 15.000])
 // --- Shelf (12x6x0.25) spanning between the two sides ---
 // 12" in X (along feet), 6" in Y (between sides), T thick
 // Left edge touching left side (Y=1.75), right edge at Y=7.75
-shelf_z = load_pin_z + 3.000;  // piston hole (3" from bottom) aligns with Load pin
+shelf_z = load_pin_z + 6.250;  // piston hole (1" from bottom of 7.25" plate) aligns with Load pin
 color("teal")
 translate([4.000, 1.750, shelf_z])
     cube([12.000, 6.000, T]);
 
 
-// --- Piston plates (4x 7.25x6x0.25, welded in pairs = 0.5" thick each) ---
-// Touching inside face of each bracket
-// Left bracket inner face at Y = 1.750 + 0.500 + T = 2.500
-// Right bracket inner face at Y = 7.750 - 0.500 - T = 7.000
+// --- Braces (11x2x0.25) under shelf, welded to pistons ---
+// Vertical (standing on edge), 11" along X, 2" tall in Z, T thick in Y
 bracket_left_inner = 1.750 + 0.500 + T;   // Y=2.500
 bracket_right_inner = 7.750 - 0.500 - T;  // Y=7.000
 
-// Left piston plate: 7.250 x 6.000 x 0.500 (2 plates welded)
-// 1" hole at 6.250" from left, 3.000" from top — aligns with Load pin at X=10
+// Left brace
 color("teal")
-translate([10.000 - 6.250, bracket_left_inner, shelf_z - 6.000])
+translate([4.500, bracket_left_inner, shelf_z - 2.000])
+    cube([11.000, T, 2.000]);
+
+// Right brace
+color("teal")
+translate([4.500, bracket_right_inner - T, shelf_z - 2.000])
+    cube([11.000, T, 2.000]);
+
+// --- Piston plates (4x 7.250x6.000x0.25, welded in pairs = 0.5" thick each) ---
+// Vertical in X-Z plane, thin in Y, rotated 90° from drawing orientation
+// Rotated: 6.000 in X, 7.250 in Z, hole at X=3.000 from left, Z=1.000 from bottom
+// Hole aligns with Load bar at X=10.0
+piston_x = 10.000 - 3.000;     // 7.000, positions hole at X=10.0
+piston_z = shelf_z - 7.250;    // top flush with shelf bottom
+
+// Left piston pair: 6.000 x 0.500 x 7.250, welded to left brace
+color("teal")
+translate([piston_x, bracket_left_inner + 0.250, piston_z])
     difference() {
-        cube([7.250, 2*T, 6.000]);
-        translate([6.250, -0.01, 3.000])
+        cube([6.000, 2*T, 7.250]);
+        translate([3.000, -0.01, 1.000])
             rotate([-90, 0, 0])
                 cylinder(d=1.000, h=2*T+0.02, $fn=32);
     }
 
-// Right piston plate: 7.250 x 6.000 x 0.500 (2 plates welded)
+// Right piston pair: 6.000 x 0.500 x 7.250, welded to right brace
 color("teal")
-translate([10.000 - 6.250, bracket_right_inner - 2*T, shelf_z - 6.000])
+translate([piston_x, bracket_right_inner - 2*T - 0.250, piston_z])
     difference() {
-        cube([7.250, 2*T, 6.000]);
-        translate([6.250, -0.01, 3.000])
+        cube([6.000, 2*T, 7.250]);
+        translate([3.000, -0.01, 1.000])
             rotate([-90, 0, 0])
                 cylinder(d=1.000, h=2*T+0.02, $fn=32);
     }
@@ -651,6 +696,12 @@ translate([spacer_x, 4.750 - spacer_length/2, spacer_z])
 roller_y_start = ramp_y1 - 1.000;           // 1.750
 roller_length = (ramp_y2 + T) - ramp_y1 + 2.000;  // 6.000
 
+// Fulcrum pin — through side plate holes
+color("purple")
+translate([fulcrum_x, 0.500, fulcrum_z])
+    rotate([-90, 0, 0])
+        cylinder(d=0.95, h=8.500);
+
 // === MOVING ASSEMBLY — rotates around Spacer pin ===
 translate([spacer_x, 0, spacer_z])
     rotate([0, pull_angle, 0])
@@ -668,43 +719,7 @@ translate([lever_pin_x, 0.500, lever_pin_z])
     rotate([-90, 0, 0])
         cylinder(d=0.95, h=8.500);
 
-// --- Lever (Part N) — Class 2: Fulcrum at front, Load at slot ---
-// Fulcrum pin: X=5.0, Z=7.75 — bar rests ON TOP of pin
-// Load pin: X=10.0, Z=6.5 (lever hole goes around)
-// Bar: 19.625" long, hole 1" from end, centered on 2" width
-// Fulcrum contact is 13.625" from bar grip end
-
-lever_pin_x = 10.000;
-fulcrum_x = 5.000;
-fulcrum_z = 7.750;
-pin_r = 0.475;                           // pin d=0.95
-fulcrum_rest_z = fulcrum_z + pin_r;      // bar bottom rests on top of pin
-lever_fulcrum_along_bar = 13.625;         // grip end to fulcrum contact
-lever_hole_along_bar = 18.625;            // grip end to hole center (19.625 - 1.0)
-
-lever_angle = 90;
-
-// lever_pin_z: Cross_Back top (z_local=+1.25) at grip end (x_local=-18.625)
-// aligns with Clamp notch bottom (Z=22.706)
-_clamp_notch_z = 22.500;
-lever_pin_z = _clamp_notch_z - 18.625*sin(lever_angle) - 1.25*cos(lever_angle);  // ≈ 3.875
-
-// Load pin world Z after brown assembly rotation around Spacer
-_lp_dx = lever_pin_x - spacer_x;   // 3.375
-_lp_dz = lever_pin_z - spacer_z;   // -14.625
-_lp_R = sqrt(_lp_dx*_lp_dx + _lp_dz*_lp_dz);
-_lp_phi = atan2(_lp_dz, _lp_dx);
-load_pin_z = spacer_z + _lp_R * sin(_lp_phi + pull_angle);
-
-// Fulcrum pin — through side plate holes
-color("purple")
-translate([fulcrum_x, 0.500, fulcrum_z])
-    rotate([-90, 0, 0])
-        cylinder(d=0.95, h=8.500);
-
-// Lever rotates around load pin (hole goes around it)
-// Hole center in bar-local coords: (18.625, 0, 1.0)
-cross_center_y = (1.500 + 8.000) / 2;  // 4.750
+} // pause MOVING ASSEMBLY for module definition
 
 // Lever bar profile: R0.25" rounded bottom corners, square top corners
 // X = bar length (0=grip, 19.625=load), Y = bar height (0=bottom, 2=top)
@@ -741,6 +756,11 @@ module lever_bar_profile() {
             circle(d=1.000, $fn=32);
     }
 }
+
+// Resume MOVING ASSEMBLY
+translate([spacer_x, 0, spacer_z])
+    rotate([0, pull_angle, 0])
+        translate([-spacer_x, 0, -spacer_z]) {
 
 // Lever assembly — all parts move as one unit
 color("orange")
@@ -883,16 +903,14 @@ translate([11.250, 5.750 - T, 19.500])
 // 6.5" in Y (connecting sides), 7.5" in Z (hanging from top), T in X
 // Top flush with side tops at Z=15.25
 // Front: outside shelf front edge (X=4.0-T)
-color("blue")
-translate([4.000 - T, 1.500, T + 15.000 - 7.500])
+%translate([4.000 - T, 1.500, T + 15.000 - 7.500])
     cube([T, 6.500, 7.500]);
 
 // Back: outside shelf back edge (X=16.0)
-color("blue")
-translate([4.000 + 12.000, 1.500, T + 15.000 - 7.500])
+%translate([4.000 + 12.000, 1.500, T + 15.000 - 7.500])
     cube([T, 6.500, 7.500]);
 
-} // end press assembly translate
+// --- end press assembly ---
 
 /*  --- HIDDEN FOR NOW ---
 
