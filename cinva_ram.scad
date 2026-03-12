@@ -261,8 +261,8 @@ module Ramp(depth=6.500) {
                 [12 - right_peak_x, peak_y],
                 [0, 0.25],
             ]);
-            // R0.625" scoop flush against slope
-            translate([12 - right_peak_x + 0.625, peak_y + 0.125])
+            // R0.625" scoop at peak center
+            translate([12 - right_peak_x + 0.625, peak_y])
                 circle(r=0.625);
         }
 }
@@ -335,30 +335,46 @@ translate([4.000, 3.000 + T, 0])
 // _anim: 0 = start (right slope), ~0.5 = peak/notch, 1 = end (left slope)
 // Roller rolls up right slope, over peak notch, down left slope
 // Use _t_override from command line (-D _t_override=0.5), else $t
-_t_override = -1;
+_t_override = 0.5;
 _anim = (_t_override >= 0) ? _t_override : $t;
 
 // Roller X position driven by _anim
 _roller_start_x = 13.500;   // right slope (low side)
 _roller_end_x = 7.000;      // left slope (past peak)
-roller_x = _roller_start_x + _anim * (_roller_end_x - _roller_start_x);
+_raw_roller_x = _roller_start_x + _anim * (_roller_end_x - _roller_start_x);
+
+// Scoop notch at peak — roller (r=0.5) sits inside scoop (R=0.625)
+_scoop_cx = 4.0 + 12 - 6.624 + 0.625;   // 10.001 world X
+_scoop_cz = 15.5 + 3.0;                 // 18.500 world Z (at peak surface)
+_scoop_r = 0.625;
+_roller_r = 0.500;
+_scoop_eff = _scoop_r - _roller_r;       // 0.125
+// Scoop opening half-width at peak surface
+_scoop_half_w = _scoop_r;                // 0.625 (full radius, center at peak)
+_in_scoop = (abs(_raw_roller_x - _scoop_cx) <= _scoop_half_w);
+
+// When in scoop, roller snaps to scoop center and sits at bottom
+roller_x = _in_scoop ? _scoop_cx : _raw_roller_x;
 
 // Ramp surface Z at roller X (piecewise: right slope / peak / left slope)
 // Ramp placed at translate([4, y, 15.5]): local_x = world_x - 4
 // Right slope: (11.626, 18.5) to (16.0, 16.5)
-// Peak: (9.376, 18.5) to (11.626, 18.5) with scoop notch at X≈10
 // Left slope: (4.0, 15.75) to (9.376, 18.5)
-_ramp_lx = roller_x - 4.0;
-_ramp_surface_z =
+_ramp_lx = _raw_roller_x - 4.0;
+_ramp_flat_z =
     (_ramp_lx > 7.626) ? 15.5 + 1.0 + (12 - _ramp_lx) / 4.374 * 2.0 :
     (_ramp_lx < 5.376) ? 15.5 + 0.25 + _ramp_lx / 5.376 * 2.75 :
     15.5 + 3.0;
-roller_z = _ramp_surface_z + 0.500;
+
+roller_z = _in_scoop ?
+    _scoop_cz - _scoop_r + _roller_r :    // 18.375 — roller bottom at scoop bottom
+    _ramp_flat_z + _roller_r;
+
 
 // Assembly shift: entire Pivot assembly translates with roller
-// Rest position: roller at (10, 18.5) in the scoop notch
-_asm_dx = roller_x - 10.000;
-_asm_dz = roller_z - 18.500;
+// Rest position: roller in scoop (bottom at scoop bottom)
+_asm_dx = roller_x - _scoop_cx;
+_asm_dz = roller_z - (_scoop_cz - _scoop_r + _roller_r);
 
 // Spacer world position (moves with assembly)
 spacer_x = 6.625 + _asm_dx;

@@ -61,7 +61,7 @@ Primary file: `cinva_ram.scad`
 | Part           | Description                                                   |
 |----------------|---------------------------------------------------------------|
 | **Receiver**   | Cylinder with 0.5" hole welded to Side plate — receives the pin |
-| **Tab**        | Bracket welded to Top plate, extends over Receiver              |
+| **Tab**        | Tapered bracket welded to Top plate — butts against Ramp, conforms to Receiver |
 | **Pin**        | 0.5" dia cylinder welded to Tab, drops into Receiver            |
 
 ### Green — Base
@@ -92,13 +92,13 @@ bash export_dxf.sh
 
 | Drawing | Description |
 |---------|-------------|
-| cinva1.jpg | Sheet 1 — Mold box walls |
-| cinva2.jpg | Sheet 2 — Toggle links (Wing/Tail) |
+| cinva1.jpg | Sheet 1 — EndPlate (brick chamber walls) |
+| cinva2.jpg | Sheet 2 — Wing and Tail (toggle links) |
 | cinva3.jpg | Sheet 3 — Clamp bracket |
-| cinva4.jpg | Sheet 4 — Lever handle and cross bars |
-| cinva5.jpg | Sheet 5 — Cover |
-| cinva6.jpg | Sheet 6 — Bearing plates |
-| cinva7.jpg | Sheet 7 — Baseboard (Side) and piston |
+| cinva4.jpg | Sheet 4 — Lever bars and cross bars |
+| cinva5.jpg | Sheet 5 — Ramp profile |
+| cinva6.jpg | Sheet 6 — Side plate details |
+| cinva7.jpg | Sheet 7 — Side plate and Piston |
 
 ## Reference Photos
 
