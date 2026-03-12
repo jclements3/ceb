@@ -392,7 +392,7 @@ lever_hole_along_bar = 18.625;
 // Lever spacer block hole is 14.625" from load bar hole
 // Roller position constrains lever angle and load bar Z
 _lever_roller_dist = 14.625;
-lever_angle = acos(min(1, max(-1, (lever_pin_x - roller_x) / _lever_roller_dist)));
+lever_angle = 87;   // tilted toward origin — cross barely touches clamp notch
 load_pin_z = roller_z - _lever_roller_dist * sin(lever_angle);
 
 cross_center_y = 0;  // centered on Y=0
@@ -525,9 +525,9 @@ translate([piston_x, bracket_inner_y - 2*T - 0.250, piston_z])
                 cylinder(d=1.000, h=2*T+0.02, $fn=32);
     }
 
-spacer_length = 6.000;
-roller_y_start = -1.500;   // centered on Y=0
-roller_length = 3.000;
+spacer_length = 3.000;
+roller_y_start = -3.000;   // centered on Y=0, spans between ramps
+roller_length = 6.000;
 
 // Fulcrum pin — through side plate holes (FIXED)
 color("purple")
@@ -621,7 +621,7 @@ translate([lever_pin_x, 0, load_pin_z])
 translate([_asm_dx, 0, _asm_dz]) {
 
 // Spacer — 1" dia, through Pivot/Wing upper holes
-color("purple")
+color("brown")
 translate([6.625, -spacer_length/2, 18.500])
     rotate([-90, 0, 0])
         cylinder(d=1.000, h=spacer_length);
