@@ -27,7 +27,7 @@ Primary file: `cinva_ram.scad`
 | Part       | Description                                                        |
 |------------|--------------------------------------------------------------------|
 | **Clamp**  | Hook-shaped bracket on axle that grabs the cross to lock the lever |
-| **Spacer** | Plate between left and right clamp brackets                        |
+| **Grabber** | Plate between left and right clamp brackets                       |
 
 ### Purple — Pins and bars (round stock)
 | Part            | Description                                          |
@@ -108,3 +108,52 @@ bash export_dxf.sh
 | ![](Blockpress1.jpg) | Mold box welded, cover open showing hinge and interior |
 | ![](Blockpress003.jpg) | Piston body close-up — rectangular with pivot hole and bronze bushing |
 | ![](Compressedearthblockpressing17.jpg) | Complete press in use, ejecting a compressed earth block |
+
+---
+
+# CETA-RAM Brick Making Machine
+
+OpenSCAD and FreeCAD models of the CETA-RAM compressed earth block press,
+based on the OHO e.V. engineering drawings (CC-BY-SA 4.0).
+
+Brick size: **12" x 6" x ~4"** (compressed)
+
+## Files
+
+| File | Description |
+|------|-------------|
+| `ceta-ram/ceta_ram.scad` | OpenSCAD model — metric (mm), all 6 assemblies |
+| `ceta-ram/ceta_ram_imperial.scad` | OpenSCAD model — imperial (inches), US steel sizes |
+| `ceta-ram/ceta_ram_imperial.py` | FreeCAD Python macro — imperial, parametric |
+| `ceta-ram/CETA_RAM_Imperial.FCStd` | Pre-built FreeCAD file (open directly) |
+| `ceta-ram/CETA-RAM_Reference.md` | Complete BOM and dimensions from OHO drawings |
+
+## Imperial Steel Sizes
+
+| Metric | Imperial | Use |
+|--------|----------|-----|
+| 13mm plate | 1/2" | Sides, supports, brackets |
+| 10mm plate | 3/8" | Base, top, piston plates |
+| 6mm plate | 1/4" | Cap plate, side levers |
+| 152x52x8 C-channel | C6x8.2 | Beams (2 pcs @ 18") |
+| ∅60 rod | 2-3/8" | Main bars (2 pcs @ 18") |
+| ∅44 rod | 1-3/4" | Handle (17-3/4") |
+| ∅32 rod | 1-1/4" | Pins and rods |
+| ∅20 rod | 3/4" | Support rod |
+| ∅12 rod | 1/2" | Small pin |
+| ∅70/60 tube | 2-3/4" OD / 2-3/8" ID | Piston rods |
+| ∅44/32 tube | 1-3/4" OD / 1-1/4" ID | Piston rod 1, cap |
+| ∅50/32 tube | 2" OD / 1-1/4" ID | Bushings |
+| ∅40/20 tube | 1-1/2" OD / 3/4" ID | Support tubes |
+| 2"x2"x1/4" angle | — | Cover levers (2 pcs @ 9-1/16") |
+| M12/M14 bolts | 1/2"-13 | All fasteners |
+
+## Reference Data
+
+| Source | Location |
+|--------|----------|
+| Engineering drawings (53 pages) | `ceta-ram/pdf/` |
+| STEP files (6 sub-assemblies) | `ceta-ram/cad/STP-files/Stp/` |
+| Autodesk Inventor files | `ceta-ram/cad/CAD-files/Cad/` |
+| AutoCAD 2D drawings | `ceta-ram/cad/DWG-files/` |
+| Photos/renders | `ceta-ram/images/` |
