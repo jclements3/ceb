@@ -148,6 +148,37 @@ Brick size: **12" x 6" x ~4"** (compressed)
 | 2"x2"x1/4" angle | — | Cover levers (2 pcs @ 9-1/16") |
 | M12/M14 bolts | 1/2"-13 | All fasteners |
 
+## CINVA-Ram vs CETA-RAM Comparison
+
+Both presses make a **12" x 6" x ~4"** brick, but the CETA-RAM produces
+**cored bricks** (two 2-3/4" holes) while the CINVA-Ram makes **solid bricks**.
+
+### Brick Weight Comparison
+
+| Brick Type | Weight |
+|-----------|--------|
+| CINVA-Ram (solid) | 20.0 lb |
+| CETA-RAM (empty cores) | 16.7 lb |
+| CETA-RAM + foam fill | ~16.8 lb |
+| CETA-RAM + concrete fill | 20.8 lb |
+
+### Wall Weight (8' wide x 6' tall = 144 bricks)
+
+| Wall Type | Weight |
+|-----------|--------|
+| Solid CINVA-Ram | 2,880 lb |
+| CETA-RAM + foam + 1 bond beam | 2,468 lb |
+| CETA-RAM all grouted | 2,995 lb |
+
+### Recommended Cabin Wall Assembly (CETA-RAM)
+
+- **Cores filled with closed-cell foam** — adds insulation (earth alone is ~R-0.2/inch)
+- **Bond beams every 6'** — one course of grouted cores with horizontal rebar
+- **Bond beam at top** — distributes roof load, ties walls together
+- Result: thermal mass on both faces + insulation in middle + structural bond beams
+- ~400 lb lighter per 8' wall section vs solid bricks
+- 3 lb lighter per brick = less fatigue over thousands of bricks
+
 ## Reference Data
 
 | Source | Location |
