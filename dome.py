@@ -32,6 +32,12 @@ DENSITY  = 120.0   # CEB density, lb/ft³
 PHI      = (1 + math.sqrt(5)) / 2
 R_INNER  = R_OUTER - WALL
 
+# Doors — peace sign layout (viewed from above)
+# Front door straight ahead, two more at 45° to each side
+DOOR_W = 52.0    # min door width, inches (snaps to brick centers)
+DOOR_H = 72.0    # min door height, inches (snaps to brick centers)
+DOOR_ANGLES = [0, 144, -144]  # front, bedroom (back-left), utility (back-right)
+
 # ────────────────────────────────────────────────────────────────────────────
 # Vector helpers
 # ────────────────────────────────────────────────────────────────────────────
@@ -47,6 +53,20 @@ def dist3(a,b): return math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2+(a[2]-b[2])**2)
 def centroid3(pts):
     n=len(pts)
     return (sum(p[0] for p in pts)/n,sum(p[1] for p in pts)/n,sum(p[2] for p in pts)/n)
+def rotate_to_z(verts, target):
+    """Rotate all verts so that unit vector 'target' aligns with +Z."""
+    t=norm3(target)
+    if abs(t[2]-1.0)<1e-10: return list(verts)
+    if abs(t[2]+1.0)<1e-10: return [(p[0],-p[1],-p[2]) for p in verts]
+    ax=(-t[1],t[0],0.0); s=math.sqrt(ax[0]**2+ax[1]**2)
+    ax=(ax[0]/s,ax[1]/s,0.0); c=t[2]
+    def rot(p):
+        cp=cross3(ax,p); dp=dot3(ax,p)
+        return (p[0]*c+cp[0]*s+ax[0]*dp*(1-c),
+                p[1]*c+cp[1]*s+ax[1]*dp*(1-c),
+                p[2]*c+cp[2]*s+ax[2]*dp*(1-c))
+    return [rot(v) for v in verts]
+
 def area_poly3(pts):
     if len(pts)<3: return 0.0
     c=centroid3(pts); n=len(pts); a=0.0
@@ -202,7 +222,7 @@ def goldberg_cells(base_verts, pent_faces, hex_faces, freq, R):
 # ────────────────────────────────────────────────────────────────────────────
 # OpenSCAD brick (one polyhedron per tile)
 # ────────────────────────────────────────────────────────────────────────────
-def scad_brick(outer_pts,wall,label):
+def scad_brick(outer_pts,wall,label,clip_z0=False):
     n=len(outer_pts)
     R0=math.sqrt(outer_pts[0][0]**2+outer_pts[0][1]**2+outer_pts[0][2]**2)
     inner=[scale3(p,R0-wall) for p in outer_pts]
@@ -211,7 +231,14 @@ def scad_brick(outer_pts,wall,label):
     sides=[[i,(i+1)%n,(i+1)%n+n] for i in range(n)]+[[i,(i+1)%n+n,i+n] for i in range(n)]
     ps=",".join(f"[{p[0]:.4f},{p[1]:.4f},{p[2]:.4f}]" for p in pts)
     fs=",".join(str(f) for f in [of,inf]+sides)
-    return f"    // {label}\n    polyhedron(points=[{ps}],faces=[{fs}],convexity=4);\n"
+    poly=f"polyhedron(points=[{ps}],faces=[{fs}],convexity=4);"
+    if clip_z0:
+        S=R0*4
+        return (f"    // {label} (clipped)\n"
+                f"    intersection() {{ {poly}\n"
+                f"      translate([0,0,{S/2}]) cube({S}, center=true);\n"
+                f"    }}\n")
+    return f"    // {label}\n    {poly}\n"
 
 def brick_weight(outer,wall,density):
     R0=math.sqrt(outer[0][0]**2+outer[0][1]**2+outer[0][2]**2)
@@ -281,48 +308,152 @@ if __name__==u"__main__":
 
     print(f"\nBuilding frequency {FREQ} geodesic subdivision...")
     bv,pf,hf=build_trunc_ico()
+    # Rotate to vertex-up: align topmost pentagon center with +Z
+    top_pc=max((centroid3([bv[i] for i in f]) for f in pf), key=lambda p: p[2])
+    bv=rotate_to_z(bv,top_pc)
+    # Spin around Z so the front pentagon aligns with +X axis
+    pent_centers=[centroid3([bv[i] for i in f]) for f in pf]
+    front_pc=min(pent_centers, key=lambda p: abs(math.atan2(p[1],p[0])))
+    spin=-math.atan2(front_pc[1],front_pc[0])
+    cs,sn=math.cos(spin),math.sin(spin)
+    bv=[(v[0]*cs-v[1]*sn, v[0]*sn+v[1]*cs, v[2]) for v in bv]
     print(f"  Base: {len(bv)} verts, {len(pf)} pentagons, {len(hf)} hexagons")
 
     pent_cells,hex_cells=goldberg_cells(bv,pf,hf,FREQ,R_OUTER)
     print(f"  Tiles: {len(pent_cells)} pent + {len(hex_cells)} hex = {len(pent_cells)+len(hex_cells)}")
 
-    thresh=-R_OUTER*0.02
-    hemi_pent=[c for c in pent_cells if centroid3(c)[2]>=thresh]
-    hemi_hex =[c for c in hex_cells  if centroid3(c)[2]>=thresh]
-    n_total=len(hemi_pent)+len(hemi_hex)
-    print(f"  Hemisphere: {len(hemi_pent)} pent + {len(hemi_hex)} hex = {n_total} bricks")
+    # Keep any brick with at least one vertex above z=0 (clipped flat at base)
+    # Exclude all pentagons (apex = smoke hole, ring = glass skylights)
+    hemi_hex =[c for c in hex_cells  if max(p[2] for p in c)>=0]
 
-    if hemi_pent: print(f"  Sample pent weight: {brick_weight(hemi_pent[0],WALL,DENSITY):.2f} lb")
+    # Snap door cubes to brick centers
+    all_hemi=hemi_hex
+    def snap_to_brick(candidates, key_fn, min_val):
+        """Return the key_fn value of the first brick center >= min_val."""
+        for c in sorted(candidates, key=lambda c: key_fn(c)):
+            v=key_fn(c)
+            if v>=min_val: return v
+        return min_val
+
+    door_cuts=[]
+    for deg in DOOR_ANGLES:
+        daz=math.radians(deg)
+        def ang_from_door(c, _daz=daz):
+            a=math.atan2(centroid3(c)[1],centroid3(c)[0])
+            d=abs(a-_daz); return min(d, 2*math.pi-d)
+        min_half=math.atan2(DOOR_W/2, R_OUTER)
+        half_w=snap_to_brick(all_hemi, ang_from_door, min_half)
+        near=[c for c in all_hemi if ang_from_door(c)<half_w*0.5]
+        door_top=snap_to_brick(near, lambda c: centroid3(c)[2], DOOR_H)
+        door_cuts.append((daz, half_w, door_top))
+        chord=2*R_OUTER*math.sin(half_w)
+        print(f"  Door at {deg}°: {chord:.1f}\" x {door_top:.1f}\" (snapped to brick centers)")
+
+    n_total=len(hemi_hex)
+    print(f"  Hemisphere: {n_total} hex bricks (pentagons removed for skylights)")
+
     if hemi_hex:  print(f"  Sample hex weight:  {brick_weight(hemi_hex[0], WALL,DENSITY):.2f} lb")
 
-    actual_tw=(sum(brick_weight(c,WALL,DENSITY) for c in hemi_pent)+
-               sum(brick_weight(c,WALL,DENSITY) for c in hemi_hex))
+    actual_tw=sum(brick_weight(c,WALL,DENSITY) for c in hemi_hex)
     print(f"  Actual total weight: {actual_tw:.0f} lb ({actual_tw/2000:.1f} tons)")
 
     print("\nWriting ceb_dome.scad...")
     out=[]
     out.append(f"// CEB Geodesic Dome — Class I Frequency {FREQ}")
     out.append(f"// Outer R={R_OUTER}\"  Inner R={R_INNER}\"  Wall={WALL}\"  density={DENSITY} lb/ft3")
-    out.append(f"// {len(hemi_pent)} pentagon + {len(hemi_hex)} hexagon hemisphere bricks")
+    out.append(f"// {len(hemi_hex)} hexagon hemisphere bricks (pentagons = glass skylights)")
     out.append(f"// Goldberg tile edge ~{g['goldberg_edge']:.3f}\"")
     out.append(f"// Est. hemisphere weight: {actual_tw/2000:.1f} tons    Units: inches")
     out.append("")
-    out.append("union() {")
-    out.append(f"  // ── PENTAGON BRICKS ({len(hemi_pent)}) ──")
-    out.append("  color(\"DarkOrange\")")
+    out.append("difference() {")
     out.append("  union() {")
-    for i,c in enumerate(hemi_pent):
-        out.append(scad_brick(c,WALL,f"pent {i+1}/{len(hemi_pent)}"))
-    out.append("  }")
-    out.append(f"  // ── HEXAGON BRICKS ({len(hemi_hex)}) ──")
-    out.append("  color(\"SteelBlue\")")
-    out.append("  union() {")
+    out.append(f"    // ── HEXAGON BRICKS ({len(hemi_hex)}) ──")
+    out.append("    color(\"SteelBlue\")")
+    out.append("    union() {")
     for i,c in enumerate(hemi_hex):
-        out.append(scad_brick(c,WALL,f"hex {i+1}/{len(hemi_hex)}"))
+        inner_z = [scale3(p,R_INNER)[2] for p in [norm3(p) for p in c]]
+        clip = min(p[2] for p in c) < 0 or min(inner_z) < 0
+        out.append(scad_brick(c,WALL,f"hex {i+1}/{len(hemi_hex)}",clip_z0=clip))
+    out.append("    }")
     out.append("  }")
+    # Door cutouts
+    for daz,half_w,door_top in door_cuts:
+        chord=2*R_OUTER*math.sin(half_w)
+        out.append(f"  // ── DOOR at {math.degrees(daz):.1f}° ({chord:.1f}\" x {door_top:.1f}\") ──")
+        out.append(f"  rotate([0, 0, {math.degrees(daz):.4f}])")
+        out.append(f"    translate([{R_OUTER:.3f}, 0, {door_top/2:.3f}])")
+        out.append(f"    cube([{WALL*3:.1f}, {chord:.3f}, {door_top:.3f}], center=true);")
     out.append("}")
 
     scad="\n".join(out)
     with open("ceb_dome.scad","w") as f: f.write(scad)
     print(f"  ceb_dome.scad  ({len(scad)//1024} KB, {n_total} bricks)")
     print("  Open in OpenSCAD → F5 preview  (F6 for full render, slow)")
+
+    # ── MOLD GENERATION ──────────────────────────────────────────────────
+    # Standard regular shapes matching the hex_brick module
+    margin=1.0
+    # Compute average edges from actual geodesic geometry
+    ratio=R_INNER/R_OUTER
+    pent_hemi=[c for c in pent_cells if max(p[2] for p in c)>=0]
+    pent_edges=[dist3(c[i],c[(i+1)%5]) for c in pent_hemi for i in range(5)]
+    pent_edge=sum(pent_edges)/len(pent_edges) if pent_edges else 8.0
+    hex_edges=[dist3(c[i],c[(i+1)%6]) for c in hemi_hex for i in range(6)]
+    e=sum(hex_edges)/len(hex_edges)
+    ei=e*ratio
+    pent_ei=pent_edge*ratio
+    pent_outer_2d=[(pent_edge*math.cos(math.radians(72*i+90)),
+                    pent_edge*math.sin(math.radians(72*i+90))) for i in range(5)]
+    pent_inner_2d=[(pent_ei*math.cos(math.radians(72*i+90)),
+                    pent_ei*math.sin(math.radians(72*i+90))) for i in range(5)]
+    # Hex: regular, edge = goldberg_edge
+    hex_outer_2d=[(e*math.cos(math.radians(60*i)),
+                   e*math.sin(math.radians(60*i))) for i in range(6)]
+    hex_inner_2d=[(ei*math.cos(math.radians(60*i)),
+                   ei*math.sin(math.radians(60*i))) for i in range(6)]
+
+    def scad_frustum_mold(outer_2d, inner_2d, wall, label, margin=1.0):
+        xs=[p[0] for p in outer_2d]; ys=[p[1] for p in outer_2d]
+        bx=max(xs)-min(xs)+2*margin; by=max(ys)-min(ys)+2*margin
+        depth=wall+margin
+        po=",".join(f"[{p[0]:.4f},{p[1]:.4f}]" for p in outer_2d)
+        pi_=",".join(f"[{p[0]:.4f},{p[1]:.4f}]" for p in inner_2d)
+        lines=[]
+        lines.append(f"// MOLD: {label}")
+        lines.append(f"// Outer edge: {math.dist(outer_2d[0],outer_2d[1]):.3f}\"")
+        lines.append(f"// Inner edge: {math.dist(inner_2d[0],inner_2d[1]):.3f}\"")
+        lines.append(f"// Depth: {depth:.2f}\" ({wall}\" brick + {margin}\" margin)")
+        lines.append("difference() {")
+        lines.append(f"  translate([0,0,{depth/2:.3f}])")
+        lines.append(f"    cube([{bx:.3f},{by:.3f},{depth:.3f}], center=true);")
+        lines.append(f"  // Frustum cavity: outer face at top, inner face at bottom")
+        lines.append(f"  translate([0,0,{margin}])")
+        lines.append(f"    hull() {{")
+        lines.append(f"      linear_extrude(height=0.01) polygon(points=[{pi_}]);")
+        lines.append(f"      translate([0,0,{wall}]) linear_extrude(height=0.01) polygon(points=[{po}]);")
+        lines.append(f"    }}")
+        lines.append("}")
+        return "\n".join(lines)
+
+    mold_out=[]
+    mold_out.append(f"// CEB Dome Brick Molds — Frequency {FREQ}")
+    mold_out.append(f"// Standard frustum shapes: outer face larger, inner face smaller")
+    mold_out.append(f"// Outer/inner ratio: {ratio:.5f} (R_inner/R_outer = {R_INNER}/{R_OUTER})")
+    mold_out.append(f"// Units: inches")
+    mold_out.append("")
+    mold_out.append(f"// PENTAGON skylight mold (outer edge {pent_edge:.3f}\", inner edge {pent_ei:.3f}\")")
+    mold_out.append(scad_frustum_mold(pent_outer_2d, pent_inner_2d, WALL, "Pentagon skylight"))
+    pxs=[p[0] for p in pent_outer_2d]
+    pw=max(pxs)-min(pxs)
+    mold_out.append("")
+    mold_out.append(f"translate([{pw+4:.0f}, 0, 0]) {{")
+    mold_out.append(f"// HEXAGON brick mold (outer edge {e:.3f}\", inner edge {ei:.3f}\")")
+    mold_out.append(scad_frustum_mold(hex_outer_2d, hex_inner_2d, WALL, "Hexagon brick"))
+    mold_out.append("}")
+
+    mold_scad="\n".join(mold_out)
+    with open("ceb_molds.scad","w") as f: f.write(mold_scad)
+    print(f"\n  ceb_molds.scad  (frustum molds — inner face tapers toward dome center)")
+    print(f"    Pentagon: outer edge {pent_edge:.3f}\", inner edge {pent_ei:.3f}\"")
+    print(f"    Hexagon:  outer edge {e:.3f}\", inner edge {ei:.3f}\"")
+    print(f"    Taper ratio: {ratio:.5f}")
