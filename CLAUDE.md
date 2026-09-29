@@ -23,6 +23,15 @@ openscad -o frame.png -D '_t_override=0.5' cinva_ram.scad
 
 Note `_t_override` is currently hardcoded to 0.5 inside `cinva_ram.scad`; set it negative to fall back to OpenSCAD's `$t` animation variable.
 
+Parametric build123d model of the CINVA-Ram and its ISO 128 drawing set (brick size is a parameter; `LD_LIBRARY_PATH` works around conda's pyexpat being linked against the older system libexpat):
+
+```
+export LD_LIBRARY_PATH=$HOME/miniconda3/lib
+python3 cinva_ram_b123d.py --brick 14x7x4            # summary; add --step out.step
+python3 cinva_drawings.py --brick 14x7x4             # -> drawings/14x7x4/{sheets/*.svg, dxf/, .pdf, .step, manifest.json}
+python3 cinva_drawings.py --only side,ramp --no-pdf  # a few sheets only
+```
+
 Regenerate the dome model (writes `ceb_dome.scad` and `ceb_molds.scad`):
 
 ```
@@ -45,6 +54,7 @@ FreeCAD scripts (`cinva_ram.py`, `ceta-ram/ceta_ram_imperial.py`) import the `Fr
 - `cinva_ram.scad` — the part library: ~19 named modules (one per plate/part), with a flat "spread all parts" layout at the bottom for viewing/export. Parts are color-coded by sub-assembly (brown=pivot, orange=lever, pink=clamp, purple=pins, teal=shelf, red=ramps/top, gray=structure, white=hinge, green=base) — the README tables mirror this color scheme.
 - `cinva_assembly.scad` — `use <cinva_ram.scad>` and places every part in its assembled position, with the `$t`-driven toggle/lever animation. Key reference positions (mold dimensions, pivot locations) are defined as named constants at the top.
 - `cinva_ram.py` is the FreeCAD equivalent of the part library.
+- `cinva_ram_b123d.py` is the build123d port of the part library and the assembly at the bottom of `cinva_ram.scad` (not `cinva_assembly.scad`, which is stale and calls modules that no longer exist). `Params` derives every brick-dependent size from `brick_l/brick_w/brick_h`; the `parts()` registry holds each part's builder, BOM data and dimension list for its drawing. `cinva_drawings.py` turns the registry into first-angle ISO 128 sheets. Both files work in inches.
 
 **Generated files — do not hand-edit:** `ceb_dome.scad` (1010 hexagon polyhedra) and `ceb_molds.scad` are outputs of `dome.py`. To change the dome, edit the parameters block at the top of `dome.py` (`R_OUTER`, `WALL`, `FREQ`) and rerun it.
 

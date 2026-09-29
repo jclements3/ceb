@@ -6,6 +6,14 @@ All dimensions in inches. Material: 1/4" (0.250") steel plate unless noted.
 
 Primary file: `cinva_ram.scad`
 
+A parametric build123d port (`cinva_ram_b123d.py`) derives the mold, shelf, top, ramps, end plates, lever crosses and pins from the brick size, and `cinva_drawings.py` generates ISO 128 detail drawings (first-angle projection, decimal inches), a two-sheet general assembly with parts list, DXF flat patterns and a STEP assembly:
+
+```
+LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_drawings.py --brick 14x7x4
+```
+
+Output lands in `drawings/<LxWxH>/`. A larger brick lowers compaction pressure for the same lever pull (14 x 7 gives 73% of the 12 x 6 press).
+
 ## Parts by Assembly
 
 ### Brown — Pivot assembly (moves along ramp)
