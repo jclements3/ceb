@@ -6,13 +6,14 @@ All dimensions in inches. Material: 1/4" (0.250") steel plate unless noted.
 
 Primary file: `cinva_ram.scad`
 
-A parametric build123d port (`cinva_ram_b123d.py`) derives the mold, shelf, top, ramps, end plates, lever crosses and pins from the brick size, and `cinva_drawings.py` generates ISO 128 detail drawings (first-angle projection, decimal inches), a two-sheet general assembly with parts list, DXF flat patterns and a STEP assembly:
+**14 x 7 x 4 shop drawings.** `cinva_ram_b123d.py` is a parametric build123d redesign of the press for a 14 x 7 x 4 in brick (brick size is a parameter). It uses the original CINVA-Ram mechanism: a yoke hangs from a pin through the piston and vertical slots in the mold walls; the handle pivots on top of the yoke and a roller on the handle bears on ribs on the lid, so pulling the handle down lifts the piston against the lid. The roller rides a continuous concave track (R10) and the handle locks slightly over centre on a stop. The lid hinges at the eject-roller end so pressing loads hold it shut, and it flips open to rest on a stop just past vertical for ejection. The model solves the linkage for the fill, compress and eject positions, checks every position and motion for collisions, and runs first-order strength checks (200 psi working, 306 psi design). `cinva_drawings.py` produces the ISO 128 set: general assembly with parts list, assembly views, operating positions, operation and design data, one detail sheet per part, DXF cut files, a PDF and a STEP assembly.
 
 ```
-LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_drawings.py --brick 14x7x4
+LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_ram_b123d.py --check   # summary, strength and clearance checks
+LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_drawings.py            # -> drawings/14x7x4/
 ```
 
-Output lands in `drawings/<LxWxH>/`. A larger brick lowers compaction pressure for the same lever pull (14 x 7 gives 73% of the 12 x 6 press).
+The OpenSCAD model below (`cinva_ram.scad`) is the older interpretation of the scanned drawings; its lever geometry does not actually move the piston through a compression stroke.
 
 ## Parts by Assembly
 

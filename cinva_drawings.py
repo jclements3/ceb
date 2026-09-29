@@ -372,11 +372,13 @@ def _dim_line(sh, a, b, label, angle):
     sh.text(label, mid.X, mid.Y, TXT, ha="center", va="bottom", angle=angle)
 
 
-def dim_leader(sh: Sheet, pl: Placed, c3, size, ang, prefix, radius=False, length=8.0):
+def dim_leader(sh: Sheet, pl: Placed, c3, size, ang, prefix, radius=False, length=8.0, inward=False):
     c = pl.P(c3)
     r = (size if radius else size / 2) * pl.k
     u = Vector(math.cos(math.radians(ang)), math.sin(math.radians(ang)))
     p = c + u * r
+    if inward:                  # concave arc: leader comes from the centre side
+        u = -u
     if length < 0:  # run out past the view's right/left dimension stack
         bx0, _, bx1, _ = pl.paper_bbox
         edge = bx1 - length if u.X >= 0 else bx0 + length
@@ -401,9 +403,9 @@ def draw_dims(sh, placed: dict[str, Placed], dims):
         if kind in ("H", "V"):
             mode = dm[5] if len(dm) > 5 and isinstance(dm[5], str) else "bbox"
             dim_linear(sh, pl, dm[2], dm[3], dm[4], kind == "H", mode)
-        elif kind in ("D", "R"):
-            dim_leader(sh, pl, dm[2], dm[3], dm[4], dm[5], radius=kind == "R",
-                       length=dm[6] if len(dm) > 6 else 8.0)
+        elif kind in ("D", "R", "Ri"):
+            dim_leader(sh, pl, dm[2], dm[3], dm[4], dm[5], radius=kind != "D",
+                       length=dm[6] if len(dm) > 6 else 8.0, inward=kind == "Ri")
 
 
 # ==========================================================
@@ -422,7 +424,7 @@ def margins(dims, vname):
         elif dm[0] == "V" and not (len(dm) > 5 and dm[5] == "p"):
             i = 2 if dm[4] > 0 else 0
             m[i] = max(m[i], abs(dm[4]) + TXT + 3)
-        elif dm[0] in ("D", "R"):
+        elif dm[0] in ("D", "R", "Ri"):
             ang = dm[4] % 360
             i = 2 if ang < 90 or ang > 270 else 0
             ln = dm[6] if len(dm) > 6 else 8.0
@@ -544,7 +546,7 @@ def _parts_list(sh, p, plist):
     x0 = x1 - TB_W
     y = M_OTHER + TB_H
     rowh = 5.5
-    cols = [0, 12, 24, 84, 136, 180]
+    cols = [0, 9, 17, 68, 128, 144, 180]
 
     def row(vals, y, bold=False):
         sh.line((x0, y + rowh), (x1, y + rowh), "border" if bold else "thin")
@@ -552,10 +554,10 @@ def _parts_list(sh, p, plist):
             sh.line((x0 + c, y), (x0 + c, y + rowh), "thin")
         for c, v in zip(cols, vals):
             sh.text(v, x0 + c + 1.2, y + 1.4, TXT_SMALL)
-    row(["Item", "Qty", "Title", "Stock", "Drawing no."], y, bold=True)
+    row(["Item", "Qty", "Title", "Stock", "lb ea", "Drawing no."], y, bold=True)
     y += rowh
     for pt in plist:
-        row([str(pt.item), str(pt.qty), pt.name, pt.stock, f"CR-{p.label}-{pt.item:02d}"], y)
+        row([str(pt.item), str(pt.qty), pt.name, pt.stock, f"{pt.weight(p):.1f}", f"CR-{p.label}-{pt.item:02d}"], y)
         y += rowh
     sh.line((x0, M_OTHER + TB_H), (x0, y), "border")
     sh.line((x1, M_OTHER + TB_H), (x1, y), "border")
@@ -590,65 +592,227 @@ def _balloons(sh, pl, inst, items):
 
 
 def _design_notes(p):
-    ref = m.Params()
-    return [f"Brick {p.brick_l:g} x {p.brick_w:g} x {p.brick_h:g}; mold face {p.brick_l * p.brick_w:g} sq in.",
-            f"Pressure at equal lever force: {p.pressure_ratio(ref):.0%} of the 12 x 6 press.",
-            f"Shown at anim = {p.anim:g} (roller locked in ramp scoop). Handle shown broken, "
-            f"full length {p.handle_len:g}."]
+    return [f"Brick {p.brick_l:g} x {p.brick_w:g} x {p.brick_h:g}; fill {p.fill:.2f} deep (ratio {p.fill / p.brick_h:.2f}).",
+            f"Shown compressed and locked. Handle shown broken, full length {p.handle_len:g}.",
+            "See sheet 4 for operation, loads and strength checks."]
+
+
+def _mass(p, plist):
+    return sum(pt.weight(p) * pt.qty for pt in plist)
 
 
 def assembly_sheet(p: m.Params, plist, n_sheets, path):
     """Sheet 1: isometric view with balloons + parts list."""
     sh = Sheet("A3")
     border(sh)
-    inst = m.assembly(p, handle_len=12.0)
+    inst = m.assembly(p, "locked", handle_len=16.0)
     comp = Compound([s for _, _, s in inst])
     iv = View(Vector(1, -1, 0.8).normalized(), Vector(0, 0, 1))
     iv.up = (iv.up - iv.d * iv.up.dot(iv.d)).normalized()
     area_x0, area_x1 = M_LEFT, sh.W - M_OTHER - TB_W
-    pl = _asm_view(sh, comp, iv, IN / 5, (area_x0 + area_x1) / 2, sh.H - M_OTHER - 22, hidden=False)
-    _view_label(sh, pl, "ISOMETRIC VIEW", below=20)
+    pl = _asm_view(sh, comp, iv, IN / 10, (area_x0 + area_x1) / 2, sh.H - M_OTHER - 30, hidden=False)
+    _view_label(sh, pl, "ISOMETRIC VIEW", below=22)
     _balloons(sh, pl, inst, {pt.key: pt.item for pt in plist})
     y = _parts_list(sh, p, plist)
-    general_notes(sh, _design_notes(p), y0=y)
+    general_notes(sh, _design_notes(p) + [f"Steel weight about {_mass(p, plist):.0f} lb."], y0=y)
     title_block(sh, "CINVA-Ram Block Press", f"General assembly, {p.label} brick", f"CR-{p.label}-00",
-                1, n_sheets, "1:5", "See parts list", 1, "Assembly drawing")
+                1, n_sheets, "1:10", "See parts list", 1, "Assembly drawing")
     sh.svg(path)
 
 
 def assembly_views_sheet(p: m.Params, n_sheets, path):
-    """Sheet 2: front + left views (first angle) with overall/interface dimensions."""
+    """Sheet 2: front + left views (first angle), compressed and locked."""
     sh = Sheet("A3")
     border(sh)
-    inst = m.assembly(p, handle_len=12.0)
+    inst = m.assembly(p, "locked", handle_len=16.0)
     comp = Compound([s for _, _, s in inst])
     fv = View(Vector(0, -1, 0), Vector(0, 0, 1))
     lv = View(-fv.right, fv.up)
     k = IN / 5
-    ytop = sh.H - M_OTHER - 20
-    pf = _asm_view(sh, comp, fv, k, M_LEFT + 30 + 36 * k / 2, ytop)
-    # left view shares the front view's vertical position (projection alignment)
+    rx0, rx1 = p.rail_x
+    ytop = sh.H - M_OTHER - 18
+    pf = _asm_view(sh, comp, fv, k, M_LEFT + 40 + (rx1 - rx0) * k / 2, ytop)
     vis, hid = project(comp, lv)
     u0, v0, u1, v1 = uv_bbox(vis)
-    ox = pf.paper_bbox[2] + 45 - u0 * k
+    ox = pf.paper_bbox[2] + 40 - u0 * k
     pl = Placed(lv, k, ox, pf.oy, (u0, v0, u1, v1))
     sh.layers["visible"] += to_paper(vis, pl)
     sh.layers["hidden"] += to_paper(hid, pl)
-    L, W, t = p.brick_l, p.brick_w, p.t
-    # front view
-    dim_linear(sh, pf, (p.x0, 0, 0), (p.x0 + p.base_len, 0, 0), -10, True)
-    dim_linear(sh, pf, (p.x0, 0, t), (p.x0 + L, 0, t), -30, True, label=f"{L:.3f} MOLD")
-    dim_linear(sh, pf, (p.x0 - t, 0, 0), (p.x0 - t, 0, p.top_z), -10, False)
-    dim_linear(sh, pf, (p.x0 - t, 0, 0), (p.x0 - t, 0, p.top_z - p.end_h), -20, False)
-    dim_linear(sh, pf, (p.fulcrum_x, 0, 0), (p.xc, 0, 0), -20, True)
-    # left view
-    dim_linear(sh, pl, (0, -p.side_y, t), (0, p.side_y, t), -30, True, label=f"{W:.3f} MOLD")
-    dim_linear(sh, pl, (0, -(p.side_y + t + 2), 0), (0, p.side_y + t + 2, 0), -10, True)
-    dim_linear(sh, pl, (0, p.pin_len / 2, p.fulcrum_z), (0, -p.pin_len / 2, p.fulcrum_z), -20, True)
+    L, W = p.brick_l, p.brick_w
+    ex, ez = p.eject_roller
+    q = p.q_z(90.0)
+    dim_linear(sh, pf, (rx0, 0, 0), (rx1, 0, 0), -10, True)
+    dim_linear(sh, pf, (0, 0, p.zb), (L, 0, p.zb), -20, True, label=f"{L:.3f} MOLD")
+    dim_linear(sh, pf, (p.xc, 0, 0), (ex, 0, ez), -30, True)
+    dim_linear(sh, pf, (rx0, 0, 0), (-p.t_end, 0, p.zt), -10, False)
+    dim_linear(sh, pf, (rx0, 0, 0), (p.xc, 0, q), -20, False)
+    dim_linear(sh, pf, (rx1, 0, 0), (ex, 0, ez), 10, False)
+    dim_linear(sh, pl, (0, -p.wall_y, p.zb), (0, p.wall_y, p.zb), -20, True, label=f"{W:.3f} MOLD")
+    dim_linear(sh, pl, (0, -(p.rail_y + 1), 0), (0, p.rail_y + 1, 0), -10, True)
     general_notes(sh, _design_notes(p))
     title_block(sh, "CINVA-Ram Block Press", f"Assembly views, {p.label} brick", f"CR-{p.label}-00",
                 2, n_sheets, "1:5", "See parts list", 1, "Assembly drawing")
     sh.svg(path)
+
+
+def positions_sheet(p: m.Params, n_sheets, path):
+    """Sheet 3: the four operating positions, front view."""
+    sh = Sheet("A3")
+    border(sh)
+    fv = View(Vector(0, -1, 0), Vector(0, 0, 1))
+    order = [("fill", "1  FILL"), ("start", "2  START OF COMPRESSION"),
+             ("locked", "3  COMPRESSED AND LOCKED"), ("eject", "4  EJECT")]
+    ps = m.poses(p)
+    projs = {}
+    for key, _ in order:
+        comp = Compound([s for _, _, s in m.assembly(p, key)])
+        vis, _ = project(comp, fv)
+        projs[key] = (vis, uv_bbox(vis))
+    # slots: tall start view in its own column; fill + eject side by side; locked (wide) below them
+    x0, x1, ytop = M_LEFT + 6, sh.W - M_OTHER - 6, sh.H - M_OTHER - 6
+    xs = x0 + 90
+    for sc in ((1, 10), (1, 20), (1, 50)):
+        k = IN * sc[0] / sc[1]
+        w = {key: (b[2] - b[0]) * k for key, (_, b) in projs.items()}
+        h = {key: (b[3] - b[1]) * k for key, (_, b) in projs.items()}
+        row1 = max(h["fill"], h["eject"]) + 16
+        if (w["start"] <= 86 and h["start"] + 16 <= ytop - M_OTHER - 6 and w["fill"] + w["eject"] + 12 <= x1 - xs
+                and w["locked"] <= x1 - xs and row1 + h["locked"] + 30 <= ytop - (M_OTHER + TB_H + 40)):
+            break
+    mid = xs + (x1 - xs) / 2
+    slots = {"start": ((x0 + xs) / 2, ytop), "fill": (xs + (x1 - xs) / 4, ytop),
+             "eject": (xs + 3 * (x1 - xs) / 4, ytop), "locked": (mid, ytop - row1 - 12)}
+    for key, cap in order:
+        vis, (u0, v0, u1, v1) = projs[key]
+        cx, ctop = slots[key]
+        pl = Placed(fv, k, cx - (u0 + u1) / 2 * k, ctop - 12 - v1 * k, (u0, v0, u1, v1))
+        sh.layers["visible"] += to_paper(vis, pl)
+        po = ps[key]
+        sh.text(cap, cx, ctop, TXT, ha="center", va="top")
+        piston = po.zp + p.pin_below_cap - p.zt
+        sh.text(f"yoke {po.theta:.1f} deg, handle {po.psi:.1f} deg, piston {piston:+.3f}",
+                cx, ctop - 6, TXT_SMALL, ha="center", va="top")
+    notes = ["Positions computed from the linkage; all four and the motions between them were checked for clearance.",
+             "Yoke tilt from vertical toward the eject roller; handle angle from the yoke axis, positive away from "
+             "the eject roller; piston = piston top relative to the mold top."]
+    general_notes(sh, notes)
+    title_block(sh, "CINVA-Ram Block Press", f"Operating positions, {p.label} brick", f"CR-{p.label}-00",
+                3, n_sheets, scale_str(sc), "-", 1, "Assembly drawing")
+    sh.svg(path)
+
+
+def _table(sh, x, y, cols, rows, head=None, rowh=5.2, size=TXT_SMALL):
+    """Rows drawn downward from y (top). cols = column x offsets incl. right edge."""
+    w = cols[-1]
+    allr = ([head] if head else []) + rows
+    for i, r in enumerate(allr):
+        yy = y - (i + 1) * rowh
+        sh.line((x, yy), (x + w, yy), "border" if (head and i == 0) else "thin")
+        for c, v in zip(cols, r):
+            sh.text(str(v), x + c + 1.2, yy + 1.3, size)
+    sh.line((x, y), (x + w, y), "border")
+    for c in cols:
+        sh.line((x + c, y), (x + c, y - len(allr) * rowh), "thin" if 0 < c < w else "border")
+    return y - len(allr) * rowh
+
+
+def design_sheet(p: m.Params, plist, n_sheets, path):
+    """Sheet 4: operation, press data, stroke/force chart, strength checks."""
+    sh = Sheet("A3")
+    border(sh)
+    ps = m.poses(p)
+    xl, yt = M_LEFT + 6, sh.H - M_OTHER - 8
+    sh.text("PRESS DATA", xl, yt, TXT)
+    data = [
+        ("Brick (pressed)", f"{p.brick_l:g} x {p.brick_w:g} x {p.brick_h:g} in, {p.area:g} sq in face"),
+        ("Loose fill depth", f"{p.fill:.3f} in (strike off level with mold top)"),
+        ("Compression", f"{p.rise:.3f} in piston stroke, ratio {p.fill / p.brick_h:.2f}"),
+        ("Working pressure", f"{p.p_work:g} psi = {p.f_work:,.0f} lbf on the piston"),
+        ("Design (overfill) load", f"{p.p_design:g} psi = {p.f_design:,.0f} lbf, all parts checked"),
+        ("Handle", f"{p.handle_len:g} in from pivot Q, swings {p.psi0:.0f} to {p.psi_stop:.0f} deg (over centre)"),
+        ("Peak push on handle", f"{p.peak_hand(150):.0f} / {p.peak_hand(200):.0f} / {p.peak_hand(250):.0f} lbf "
+                                f"at 150 / 200 / 250 psi"),
+        ("Ejection", f"piston rises {p.brick_h + p.eject_over:.3f} in; yoke tilts "
+                     f"{m.solve_theta(p, p.zp_comp)[1]:.0f} to {ps['eject'].theta:.0f} deg"),
+        ("Steel weight", f"about {_mass(p, plist):.0f} lb"),
+    ]
+    y = _table(sh, xl, yt - 3, [0, 48, 190], [list(r) for r in data])
+    y -= 10
+    sh.text("OPERATION", xl, y, TXT)
+    steps = [
+        "Handle latched to the yoke (latch pin in), yoke tilted back onto the eject roller. Piston at bottom.",
+        "Open the lid. Oil the mold walls. Fill loose soil mix to the top, press into the corners, strike off level.",
+        "Close the lid. Swing handle and yoke upright together until the saddle roller sits on the lid track.",
+        "Pull the latch pin. Pull the handle over, away from the eject roller, down past horizontal onto the "
+        "handle stop; it goes slightly over centre and stays there. Use two or three firm pushes; it must reach the stop.",
+        "Lift the handle back up over centre (it takes little force) to upright, insert the latch pin, and tilt "
+        "handle and yoke back onto the eject roller.",
+        "Open the lid toward the eject roller. Push the handle down to raise the brick clear of the mold. "
+        "Lift the brick straight off by its ends.",
+        "Weigh or measure each fill: too little soil gives weak bricks; too much overloads the press.",
+    ]
+    import textwrap
+    y -= 2
+    for i, st in enumerate(steps, 1):
+        for line in textwrap.wrap(f"{i}. {st}", 84, subsequent_indent="    "):
+            y -= 4.2
+            sh.text(line, xl, y, TXT_SMALL)
+    y_ops = y
+    # ---- chart ----
+    cx0, cx1 = sh.W - M_OTHER - TB_W + 14, sh.W - M_OTHER - 16
+    cy1 = sh.H - M_OTHER - 18
+    cy0 = cy1 - 80
+    sh.text("HAND FORCE AND PISTON RISE OVER THE STROKE", (cx0 + cx1) / 2 - 4, cy1 + 8, TXT_SMALL, ha="center")
+    sh.poly([(cx0, cy0), (cx1, cy0), (cx1, cy1), (cx0, cy1)], "thin")
+    a0 = p.psi0
+    fmax = 50 * math.ceil(p.peak_hand(250) / 50)
+    X = lambda a: cx0 + (a - a0) / (90 - a0) * (cx1 - cx0)
+    Yf = lambda f: cy0 + f / fmax * (cy1 - cy0)
+    Yr = lambda r: cy0 + r / p.rise * (cy1 - cy0)
+    for a in range(0, 91, 15):
+        sh.line((X(a), cy0), (X(a), cy0 - 1.5))
+        sh.text(f"{a}", X(a), cy0 - 2.5, TXT_SMALL, ha="center", va="top")
+    for f in range(0, fmax + 1, 50):
+        sh.line((cx0 - 1.5, Yf(f)), (cx0, Yf(f)))
+        sh.text(f"{f}", cx0 - 2.5, Yf(f), TXT_SMALL, ha="right", va="center")
+    for r in (0, 1, 2, p.rise):
+        sh.line((cx1, Yr(r)), (cx1 + 1.5, Yr(r)))
+        sh.text(f"{r:g}", cx1 + 2.5, Yr(r), TXT_SMALL, va="center")
+    sh.text("handle angle (deg)", (cx0 + cx1) / 2, cy0 - 8, TXT_SMALL, ha="center", va="top")
+    sh.text("hand force (lbf)", cx0 - 12, (cy0 + cy1) / 2, TXT_SMALL, ha="center", va="bottom", angle=90)
+    sh.text("piston rise (in)", cx1 + 10, (cy0 + cy1) / 2, TXT_SMALL, ha="center", va="top", angle=90)
+    for pr, layer in ((250, "center"), (200, "visible"), (150, "hidden")):
+        pts = [(X(r[0]), Yf(r[3])) for r in p.stroke_table(pr, step=1)]
+        sh.poly(pts, layer, close=False)
+    pts = [(X(r[0]), Yr(r[1])) for r in p.stroke_table(p.p_work, step=1)]
+    sh.poly(pts, "thin", close=False)
+    ly = cy0 - 16
+    for layer, lab in (("visible", "hand force, 200 psi"), ("hidden", "hand force, 150 psi"),
+                       ("center", "hand force, 250 psi"), ("thin", "piston rise")):
+        sh.line((cx0, ly), (cx0 + 10, ly), layer)
+        sh.text(lab, cx0 + 12, ly, TXT_SMALL, va="center")
+        ly -= 4.5
+    # ---- strength table ----
+    rows = []
+    for item, basis, sig, allow in m.checks(p):
+        rows.append([item, f"{sig / 1000:.1f}", f"{allow / 1000:.1f}", f"{sig / allow:.2f}"])
+    ty = y_ops - 10
+    sh.text(f"STRENGTH CHECKS AT {p.f_design:,.0f} LBF (ksi)", xl, ty, TXT)
+    _table(sh, xl, ty - 3, [0, 58, 136, 152, 168, 184], [[r[0], b, *r[1:]] for r, (_, b, _, _) in zip(rows, m.checks(p))],
+           head=["Item", "Basis", "Stress", "Allow", "Ratio"], rowh=4.8)
+    notes = ["First-order hand calculations; build one press and load-test before production.",
+             "Allowables: A36 0.66 Fy bending, 0.5 Fu net tension; 4140 prehard 0.6 Fy; AR400 contact 0.3 p <= 0.5 Fy.",
+             "Soil model: pressure rises as (e^5x - 1)/(e^5 - 1) over the stroke; lateral wall pressure 0.5 x vertical."]
+    general_notes(sh, notes)
+    title_block(sh, "CINVA-Ram Block Press", f"Operation and design data, {p.label} brick", f"CR-{p.label}-00",
+                4, n_sheets, "-", "-", 1, "Design data")
+    sh.svg(path)
+
+
+ASM_SHEETS = [("assembly", "General Assembly", "00a_assembly.svg", "1:10"),
+              ("assembly_views", "Assembly Views", "00b_assembly_views.svg", "1:5"),
+              ("positions", "Operating Positions", "00c_positions.svg", "1:20"),
+              ("design", "Operation and Design Data", "00d_design.svg", "-")]
 
 
 def build_all(p: m.Params, out, only=None):
@@ -657,30 +821,33 @@ def build_all(p: m.Params, out, only=None):
     os.makedirs(sheets_dir, exist_ok=True)
     os.makedirs(dxf_dir, exist_ok=True)
     plist = m.parts(p)
-    n = len(plist) + 2
+    n0 = len(ASM_SHEETS)
+    n = len(plist) + n0
     paths = []
     manifest = []
-    if not only or "assembly" in only:
-        path = os.path.join(sheets_dir, "00a_assembly.svg")
-        assembly_sheet(p, plist, n, path)
+    makers = {"assembly": lambda path: assembly_sheet(p, plist, n, path),
+              "assembly_views": lambda path: assembly_views_sheet(p, n, path),
+              "positions": lambda path: positions_sheet(p, n, path),
+              "design": lambda path: design_sheet(p, plist, n, path)}
+    for i, (key, name, fname, scale) in enumerate(ASM_SHEETS, 1):
+        if only and key not in only and "assembly" not in only:
+            continue
+        path = os.path.join(sheets_dir, fname)
+        makers[key](path)
         paths.append(path)
-        path = os.path.join(sheets_dir, "00b_assembly_views.svg")
-        assembly_views_sheet(p, n, path)
-        paths.append(path)
-        manifest += [dict(key="assembly", item=0, name="General Assembly", sheet=1, file="00a_assembly.svg",
-                          size="A3", scale="1:5", qty=1, stock="See parts list"),
-                     dict(key="assembly_views", item=0, name="Assembly Views", sheet=2,
-                          file="00b_assembly_views.svg", size="A3", scale="1:5", qty=1, stock="See parts list")]
-        print("  00 assembly (2 sheets)")
+        manifest.append(dict(key=key, item=0, name=name, sheet=i, file=fname, size="A3", scale=scale,
+                             qty=1, stock="See parts list", group="Assembly"))
+        print(f"  {fname}")
     for pt in plist:
         if only and pt.key not in only:
             continue
         path = os.path.join(sheets_dir, f"{pt.item:02d}_{pt.key}.svg")
-        size, sc = part_sheet(p, pt, pt.item + 2, n, path, dxf_dir)
+        size, sc = part_sheet(p, pt, pt.item + n0, n, path, dxf_dir)
         paths.append(path)
-        manifest.append(dict(key=pt.key, item=pt.item, name=pt.name, sheet=pt.item + 2,
+        manifest.append(dict(key=pt.key, item=pt.item, name=pt.name, sheet=pt.item + n0,
                              file=os.path.basename(path), size=size, scale=scale_str(sc), qty=pt.qty,
-                             stock=pt.stock, color=pt.color, dxf=pt.flat))
+                             stock=pt.stock, color=pt.color, dxf=pt.flat, group=pt.group,
+                             mass=round(pt.weight(p), 1)))
         print(f"  {pt.item:02d} {pt.name:28s} {size} {scale_str(sc)}")
     if not only:
         import json
@@ -706,20 +873,19 @@ def to_pdf(svgs, pdf_path):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--brick", default="12x6x4")
-    ap.add_argument("--t", type=float, default=0.25)
+    ap.add_argument("--brick", default="14x7x4")
     ap.add_argument("--out", help="output dir (default drawings/<LxWxH>)")
     ap.add_argument("--only", help="comma list of part keys (and/or 'assembly')")
     ap.add_argument("--no-pdf", action="store_true")
     a = ap.parse_args()
-    p = m.Params(**m.parse_brick(a.brick), t=a.t)
+    p = m.Params(**m.parse_brick(a.brick))
     out = a.out or os.path.join("drawings", p.label)
     only = set(a.only.split(",")) if a.only else None
     print(f"CINVA-Ram {p.label} -> {out}")
     paths = build_all(p, out, only)
     if not only:
         step = os.path.join(out, f"CINVA-Ram_{p.label}.step")
-        export_step(m.assembly_compound(p), step, unit=Unit.IN)
+        export_step(m.assembly_compound(p, "locked"), step, unit=Unit.IN)
         print(f"  {step}")
     if not a.no_pdf and paths:
         pdf = os.path.join(out, f"CINVA-Ram_{p.label}.pdf")
