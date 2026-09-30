@@ -740,12 +740,12 @@ def design_sheet(p: m.Params, plist, n_sheets, path):
     y -= 10
     sh.text("OPERATION", xl, y, TXT)
     steps = [
-        "Handle latched to the yoke (latch pin in), yoke tilted back onto the eject roller. Piston at bottom.",
+        "Latch claw shut on the catch bar (handle locked to the yoke), yoke tilted back onto the eject roller. Piston at bottom.",
         "Open the lid. Oil the mold walls. Fill loose soil mix to the top, press into the corners, strike off level.",
         "Close the lid. Swing handle and yoke upright together until the saddle roller sits on the lid track.",
-        "Pull the latch pin. Pull the handle over, away from the eject roller, down past horizontal onto the "
+        "Push the claw thumb bar down to flip the claw open onto its stop rod. Pull the handle over, away from the eject roller, past horizontal onto the "
         "handle stop; it goes slightly over centre and stays there. Use two or three firm pushes; it must reach the stop.",
-        "Lift the handle back up over centre (it takes little force) to upright, insert the latch pin, and tilt "
+        "Lift the handle back up over centre (it takes little force) to upright, drop the claw onto the catch bar, and tilt "
         "handle and yoke back onto the eject roller.",
         "Open the lid toward the eject roller. Push the handle down to raise the brick clear of the mold. "
         "Lift the brick straight off by its ends.",

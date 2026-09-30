@@ -11,6 +11,8 @@ Primary file: `cinva_ram.scad`
 ```
 LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_ram_b123d.py --check   # summary, strength and clearance checks
 LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_drawings.py            # -> drawings/14x7x4/
+LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_animation.py           # -> animation/press.json
+cd animation && python3 -m http.server   # then open http://localhost:8000 (3D animation, #p5 jumps to phase 5)
 ```
 
 The OpenSCAD model below (`cinva_ram.scad`) is the older interpretation of the scanned drawings; its lever geometry does not actually move the piston through a compression stroke.

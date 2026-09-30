@@ -82,7 +82,18 @@ class Params:
     eject_dx: float = 30.0        # eject roller: this far +X of mold centre
     eject_dz: float = 2.5         # ... and this far above the mold top
     d_eroll: float = 3.0
-    latch_r: float = 2.5          # latch hole: this far above Q on the yoke axis
+    # central latch claw (CINVA "lever latch"): one claw, pivoting on a tie between horns on the
+    # yoke bars, hooks a catch bar between the handle cheeks
+    catch_x: float = 1.0          # catch bar centre in cheek coords (across the handle) ...
+    catch_z: float = 2.6          # ... and along the handle from Q
+    catch_d: float = 1.50         # catch bar, 4140
+    claw_k: float = 2.5           # claw pivot -> catch bar centre
+    claw_t: float = 0.75          # each of the two claw plates
+    claw_y0: float = 1.25         # inner face of the claw plates from the centreline
+    tie_d: float = 1.75           # claw pivot tie between the yoke horns, 4140
+    bridge_a: float = 5.75        # plain handle bridge, from Q along the handle (clear of the claw's swing)
+    bridge_b: float = 8.5         # bored handle bridge
+    eject_force: float = 2000.0   # lbf on the piston while ejecting (latch design load)
     eject_min_t: float = 10.0
     lid_open: float = 100.0       # lid opening angle, degrees     # handle must touch the eject roller at least this far from Q
 
@@ -369,7 +380,17 @@ def track_h_at(p: Params, x):
 def rib_points(p: Params):
     L, te = p.brick_l, p.t_end
     t0, t1 = p.track
-    return [(-te, 0), (L + te, 0), (L + te, 1.0), (t1, track_h_at(p, t1)), (t0, track_h_at(p, t0)), (-te, 1.0)]
+    kx, kh = rib_knee(p)
+    return [(-te, 0), (L + te, 0), (L + te, RIB_END_EJECT), (kx, kh), (t1, track_h_at(p, t1)), (t0, track_h_at(p, t0)),
+            (-te, 1.0)]
+
+
+RIB_END_EJECT = 0.5   # rib height at the eject end (clears the catch bar as the yoke tips back)
+
+
+def rib_knee(p: Params):
+    """Knee on the eject-side slope: drops the rib away under the catch bar and tilting roller."""
+    return p.track[1] + 1.0, p.track_h - 1.3
 
 
 def cover_rib(p: Params):
@@ -382,8 +403,8 @@ def cover_lug(p: Params):
     """XZ profile: x from X = L - 1.5, y from Z = mold top - 1.5. Sits on the lid top and
     wraps down past the lid end to the hinge hole below the lid."""
     te = p.t_end
-    s = Pos(0, 2.0, 0) * Box(3.0 + te, 0.5, 0.5, align=Align.MIN)
-    s += Pos(1.5 + te, 0.75, 0) * Box(1.5, 1.75, 0.5, align=Align.MIN)
+    s = Pos(0, 2.0, 0) * Box(1.5 + te, 0.5, 0.5, align=Align.MIN)          # on the lid top (weld)
+    s += Pos(1.5 + te, 0.75, 0) * Box(1.5, 1.25, 0.5, align=Align.MIN)     # past the lid end, no higher than the lid
     px, pz = 2.25 + te, 0.75
     s += Pos(px, pz, 0) * Cylinder(0.75, 0.5, align=(Align.CENTER, Align.CENTER, Align.MIN))
     # stop tail: touches the end wall face when the lid is open lid_open degrees
@@ -419,17 +440,17 @@ STOP_X = (-7.0, -5.0)   # stop post footprint, relative to the mold centre
 
 
 def handle_low_point(p: Params, psi):
-    """Lowest Z of the bored bridge over the stop post, handle at psi, yoke upright."""
+    """Lowest Z of the handle bridges over the stop post, handle at psi, yoke upright."""
     a = math.radians(-psi)
     q = p.q_z(psi)
     best = 1e9
-    for i in range(11):
-        for j in range(11):
-            xl, zl = -1.25 + 2.5 * i / 10, 6.25 + 0.75 * j / 10
-            X = xl * math.cos(a) + zl * math.sin(a)
-            Z = -xl * math.sin(a) + zl * math.cos(a)
-            if STOP_X[0] <= X <= STOP_X[1]:
-                best = min(best, q + Z)
+    pts = [(-1.25 + 2.5 * i / 10, z0 + 0.75 * j / 10)
+           for z0 in (p.bridge_a, p.bridge_b) for i in range(11) for j in range(11)]
+    for xl, zl in pts:
+        X = xl * math.cos(a) + zl * math.sin(a)
+        Z = -xl * math.sin(a) + zl * math.cos(a)
+        if STOP_X[0] <= X <= STOP_X[1]:
+            best = min(best, q + Z)
     return best
 
 
@@ -454,15 +475,18 @@ def piston_diaphragm(p: Params):
 
 # ---- yoke ----
 def yoke_bar(p: Params):
-    """x across the bar (centred), y along the yoke from P (0) to Q (yoke_len)."""
+    """x across the bar (centred), y along the yoke from P (0) to Q (yoke_len). The horn beside Q
+    carries the claw tie and the claw stop rod."""
     Ly, w, r = p.yoke_len, p.w_bar, p.w_bar / 2
-    top = Ly + p.latch_r
-    b = Pos(-r, 0, 0) * Box(w, top, p.t_bar, align=Align.MIN)
+    cl = claw_geom(p)
+    (cx, cz), (sx, sz) = cl["C"], cl["stop"]
+    b = Pos(-r, 0, 0) * Box(w, Ly, p.t_bar, align=Align.MIN)
     b += Cylinder(r, p.t_bar, align=(Align.CENTER, Align.CENTER, Align.MIN))
-    b += Pos(0, top, 0) * Cylinder(r, p.t_bar, align=(Align.CENTER, Align.CENTER, Align.MIN))
+    b += hull_plate([(0, Ly, r), (0, Ly - 3.0, r), (cx, Ly + cz, 1.3), (sx, Ly + sz, 0.75)], [], p.t_bar)
     b -= hole(0, 0, p.d_pin + 1 / 32, p.t_bar)
     b -= hole(0, Ly, p.d_qpin + 1 / 32, p.t_bar)
-    return b - hole(0, top, 0.781, p.t_bar)
+    b -= hole(cx, Ly + cz, p.tie_d + 1 / 32, p.t_bar)
+    return b - hole(sx, Ly + sz, 0.781, p.t_bar)
 
 
 def main_pin(p: Params):
@@ -481,24 +505,106 @@ def q_pin(p: Params):
     return pin
 
 
-def latch_pin(p: Params):
-    return rod(0.75, 2 * (p.bar_y + p.t_bar) + 1.5, "X")
+def _rot(v, deg):
+    c, s_ = math.cos(math.radians(deg)), math.sin(math.radians(deg))
+    return (v[0] * c - v[1] * s_, v[0] * s_ + v[1] * c)
+
+
+def catch_yoke(p: Params):
+    """Catch bar centre in the yoke frame (Q at origin) with the handle at psi0."""
+    s = math.radians(p.psi0)
+    x, z = p.catch_x, p.catch_z
+    return (x * math.cos(s) - z * math.sin(s), x * math.sin(s) + z * math.cos(s))
+
+
+CLAW_W = 0.75                 # arm half-width
+CLAW_EAR = (-2.2, 0.6, 0.9)   # counterweight tail (x, y, r): puts the centre of mass where gravity shuts the claw
+
+
+def claw_profile(p: Params, k):
+    """One claw plate. Local: origin at the pivot, x along the arm to the catch bar, +y = notch mouth.
+    Notch side walls are arcs about the pivot, so the catch bar slides straight out when the claw
+    swings open and latch loads (along the arm) bear square on them."""
+    rn = p.catch_d / 2 + 1 / 32
+    t = p.claw_t
+    cyl = lambda r, x=0.0, y=0.0: Pos(x, y, 0) * Cylinder(r, t, align=(Align.CENTER, Align.CENTER, Align.MIN))
+    s = cyl(1.3)
+    s += Pos(0, -CLAW_W, 0) * Box(k - 0.8, 2 * CLAW_W, t, align=Align.MIN)
+    s += Pos(k - 1.4, -1.45, 0) * Box(2.85, 2.35, t, align=Align.MIN)
+    ex, ey, er = CLAW_EAR
+    s += hull_plate([(0, 0, 1.3), (ex, ey, er)], [], t)
+    ring = Pos(0, 0, -0.01) * (Cylinder(k + rn, t + 0.02, align=(Align.CENTER, Align.CENTER, Align.MIN))
+                               - Cylinder(k - rn, t + 0.02, align=(Align.CENTER, Align.CENTER, Align.MIN)))
+    s -= ring & (Pos(k - 2.0, 0, -0.02) * Box(4.0, 3.0, t + 0.04, align=Align.MIN))
+    s -= hole(k, 0, 2 * rn, t)
+    s -= hole(ex, ey, 0.875 + 1 / 32, t)                          # thumb bar
+    return s - hole(0, 0, p.tie_d + 1 / 32, t)
+
+
+def claw_geom(p: Params):
+    """Central claw layout in the yoke frame (x' across, z' along the yoke), origin at Q.
+    S: catch bar centre (handle at psi0).  The claw arm C->S lies along the catch bar's path about Q,
+    so latch loads push along the arm and cannot rotate the claw.  C sits clockwise of the handle
+    head, in space the head never sweeps.  The claw shuts by turning counter-clockwise (gravity)
+    and opens clockwise onto a stop rod."""
+    S = catch_yoke(p)
+    R = math.hypot(*S)
+    t = (-S[1] / R, S[0] / R)                                  # path of the catch bar (handle turning +psi)
+    C = (S[0] - p.claw_k * t[0], S[1] - p.claw_k * t[1])
+    arm = math.degrees(math.atan2(t[1], t[0]))
+    cg = claw_weldment_cg(p)
+    cg_ang = math.degrees(math.atan2(cg[1], cg[0])) + arm      # centre of mass direction, shut
+    opening = cg_ang - 85.0                                    # clockwise swing to 5 deg past vertical
+    stop = _rot((p.claw_k - 1.2, -(1.45 + 0.375 + 0.005)), arm - opening)   # under the flat face of the claw head
+    return dict(S=S, R=R, C=C, k=p.claw_k, arm=arm, cg_ang=cg_ang, open=opening,
+                stop=(C[0] + stop[0], C[1] + stop[1]))
+
+
+def claw_weldment_cg(p: Params):
+    plate_ = claw_profile(p, p.claw_k)
+    c1, v1 = plate_.center(), plate_.volume
+    v2 = math.pi * (0.875 / 2) ** 2 * 2 * p.claw_y0
+    ex, ey, _ = CLAW_EAR
+    return ((c1.X * v1 + ex * v2) / (v1 + v2), (c1.Y * v1 + ey * v2) / (v1 + v2))
+
+
+def claw(p: Params):
+    return claw_profile(p, p.claw_k)
+
+
+def claw_thumb(p: Params):
+    return rod(0.875, 2 * p.claw_y0 + 2 * p.claw_t, "Y")
+
+
+def claw_tie(p: Params):
+    return rod(p.tie_d, 2 * (p.bar_y + p.t_bar), "Y")
+
+
+def tie_spacer(p: Params):
+    return tube(2.5, p.tie_d + 1 / 16, p.bar_y - p.claw_y0 - p.claw_t - 0.0625, "Y")
+
+
+def claw_stop(p: Params):
+    return rod(0.75, 2 * (p.bar_y + p.t_bar), "Y")
+
+
+def catch_bar(p: Params):
+    return rod(p.catch_d, 2 * (p.cheek_y + p.t_cheek), "Y")
 
 
 # ---- handle head ----
 def cheek_points(p: Params):
     """Hole centres in cheek-local coords (x = -X at psi = 0, y = along handle)."""
-    s = math.radians(p.psi0)  # latch hole sits on the yoke axis when psi = psi0
-    return dict(q=(0.0, 0.0), roll=(-p.arm, 0.0), latch=(p.latch_r * math.sin(s), p.latch_r * math.cos(s)))
+    return dict(q=(0.0, 0.0), roll=(-p.arm, 0.0), catch=(p.catch_x, p.catch_z))
 
 
 def cheek(p: Params):
     h = cheek_points(p)
-    lx, ly = h["latch"]
-    s = hull_plate([(0, 0, 1.5), (-p.arm, 0, 1.5), (lx, ly, 0.875)], [(-1.25, 2.5, 1.25, 7.0)], p.t_cheek)
+    cx, cy = h["catch"]
+    s = hull_plate([(0, 0, 1.5), (-p.arm, 0, 1.5), (cx, cy, 1.25)], [(-1.25, 2.5, 1.25, p.bridge_b + 0.75)], p.t_cheek)
     s -= hole(0, 0, p.d_qpin + 1 / 32, p.t_cheek)
     s -= hole(-p.arm, 0, p.d_pin + 1 / 32, p.t_cheek)
-    return s - hole(lx, ly, 0.781, p.t_cheek)
+    return s - hole(cx, cy, p.catch_d + 1 / 32, p.t_cheek)
 
 
 def saddle_roller(p: Params):
@@ -515,7 +621,7 @@ def bridge(p: Params, bored=False):
 
 
 def handle_tube(p: Params):
-    return tube(p.handle_od, p.handle_od - 0.4, p.handle_len - 4.25, "Z")
+    return tube(p.handle_od, p.handle_od - 0.4, p.handle_len - p.bridge_a - 0.75, "Z")
 
 
 # ==========================================================
@@ -529,6 +635,7 @@ class Pose:
     psi: float        # handle angle relative to the yoke (deg, + toward -X)
     zp: float         # pin P height
     cover: float      # cover opening angle (deg)
+    claw: float | None = None   # claw opening (deg); default: shut when the handle is at psi0, else open
 
 
 def _handle_frame(p, th, psi, zp):
@@ -633,7 +740,10 @@ def parts(p: Params) -> list[Part]:
     s0, s1 = p.slot
     Ly = p.yoke_len
     ch = cheek_points(p)
-    lx, ly = ch["latch"]
+    lx, ly = ch["catch"]
+    cl = claw_geom(p)
+    (cpx, cpz), (spx, spz) = cl["C"], cl["stop"]
+    k = p.claw_k
     t0, t1 = p.track
     h0, h1 = track_h_at(p, t0), track_h_at(p, t1)
     ex, ez = p.eject_roller
@@ -694,9 +804,11 @@ def parts(p: Params) -> list[Part]:
         Part("rib", "Lid Rib (Roller Track)", 2, pl(p.t_rib) + " AR400", "red", cover_rib, group="Lid",
              dims=lambda p: [("H", "F", (-p.t_end, 0, 0), (L + p.t_end, 0, 0), -10),
                              ("V", "F", (-p.t_end, 0, 0), (-p.t_end, 1.0, 0), -8),
-                             ("V", "F", (L + p.t_end, 0, 0), (L + p.t_end, 1.0, 0), 8),
+                             ("V", "F", (L + p.t_end, 0, 0), (L + p.t_end, RIB_END_EJECT, 0), 8),
                              ("V", "F", (L + p.t_end, 0, 0), (t1, h1, 0), 16),
                              ("V", "F", (L + p.t_end, 0, 0), (p.xc, p.track_h, 0), 24),
+                             ("V", "F", (L + p.t_end, 0, 0), (rib_knee(p)[0], rib_knee(p)[1], 0), 32),
+                             ("H", "F", (-p.t_end, 0, 0), (rib_knee(p)[0], rib_knee(p)[1], 0), -42),
                              ("V", "F", (-p.t_end, 0, 0), (t0, h0, 0), -16),
                              ("H", "F", (-p.t_end, 0, 0), (t0, h0, 0), -18),
                              ("H", "F", (-p.t_end, 0, 0), (p.xc, p.track_h, 0), -26),
@@ -709,9 +821,9 @@ def parts(p: Params) -> list[Part]:
                     "Grind the track smooth and square to the plate within 1/64.",
                     "Weld to lid plate both sides full length, low-hydrogen rod, preheat 300 F.")),
         Part("clug", "Lid Hinge Lug", 2, pl(0.5) + " A36", "red", cover_lug, group="Lid",
-             dims=lambda p: [("H", "F", (0, 2.5, 0), (3.0 + p.t_end, 2.5, 0), 8), ("V", "F", (3.0 + p.t_end, 0, 0), (3.0 + p.t_end, 2.5, 0), 8),
-                             ("H", "F", (0, 2.0, 0), (1.5 + p.t_end, 2.0, 0), -8, "p"), ("V", "F", (0, 2.0, 0), (0, 2.5, 0), -8),
-                             ("H", "F", (0, 2.5, 0), (2.25 + p.t_end, 0.75, 0), 16), ("V", "F", (3.0 + p.t_end, 0, 0), (2.25 + p.t_end, 0.75, 0), 16),
+             dims=lambda p: [("H", "F", (0, 2.5, 0), (3.0 + p.t_end, 2.0, 0), 8), ("V", "F", (3.0 + p.t_end, 0, 0), (3.0 + p.t_end, 2.0, 0), 8),
+                             ("H", "F", (0, 2.5, 0), (1.5 + p.t_end, 2.5, 0), 16), ("V", "F", (0, 2.0, 0), (0, 2.5, 0), -8),
+                             ("H", "F", (0, 2.5, 0), (2.25 + p.t_end, 0.75, 0), 24), ("V", "F", (3.0 + p.t_end, 0, 0), (2.25 + p.t_end, 0.75, 0), 16),
                              ("D", "F", (2.25 + p.t_end, 0.75, 0), 0.781, 200, "", 10), ("R", "F", (2.25 + p.t_end, 0.75, 0), 0.75, 300, "", 8),
                              ("H", "L", (0, 0, 0), (0, 0, 0.5), -10)],
              notes=("Weld on the lid top at the eject end, inner edge against the lid end face, "
@@ -741,34 +853,71 @@ def parts(p: Params) -> list[Part]:
              notes=("Weld between the webs at each end, under the cap.",)),
 
         # ---------------- yoke ----------------
-        Part("bar", "Yoke Bar", 2, '3 x 3/4 flat bar A36', "orange", yoke_bar, group="Yoke",
-             dims=lambda p: [("V", "F", (1.5, 0, 0), (0, Ly, 0), 10), ("V", "F", (1.5, 0, 0), (0, Ly + p.latch_r, 0), 18),
+        Part("bar", "Yoke Bar", 2, '0.750" plate A36 (profile)', "orange", yoke_bar, group="Yoke",
+             dims=lambda p: [("V", "F", (1.5, 0, 0), (0, Ly, 0), 10), ("V", "F", (1.5, 0, 0), (cpx, Ly + cpz, 0), 18),
+                             ("V", "F", (1.5, 0, 0), (spx, Ly + spz, 0), 26),
                              ("H", "F", (-1.5, 0, 0), (1.5, 0, 0), -10),
+                             ("H", "F", (0, Ly + 1.5, 0), (cpx, Ly + cpz, 0), 8), ("H", "F", (0, Ly + 1.5, 0), (spx, Ly + spz, 0), 16),
                              ("D", "F", (0, 0, 0), p.d_pin + 1 / 32, 200, "P ", 12),
-                             ("D", "F", (0, Ly, 0), p.d_qpin + 1 / 32, 200, "Q ", 12),
-                             ("D", "F", (0, Ly + p.latch_r, 0), 0.781, 160, "LATCH ", 10),
-                             ("R", "F", (0, 0, 0), 1.5, 300, "2x ", 8), ("H", "L", (0, 0, 0), (0, 0, p.t_bar), -10)],
-             notes=("Drill both bars clamped together so hole spacing matches exactly.",)),
+                             ("D", "F", (0, Ly, 0), p.d_qpin + 1 / 32, 160, "Q ", 12),
+                             ("D", "F", (cpx, Ly + cpz, 0), p.tie_d + 1 / 32, 20, "TIE ", 12),
+                             ("D", "F", (spx, Ly + spz, 0), 0.781, 330, "STOP ROD ", 12),
+                             ("R", "F", (0, 0, 0), 1.5, 300, "", 8), ("H", "L", (0, 0, 0), (0, 0, p.t_bar), -10)],
+             notes=("Drill both bars clamped together so hole spacing matches exactly.",
+                    "Horn outline: tangent arcs R1.500 about Q and 3.000 below it, R1.300 about the tie hole, "
+                    "R0.750 about the stop-rod hole (cut from the DXF).",
+                    "Claw tie and stop rod are welded into both bars, which makes the yoke one rigid frame.")),
         Part("ppin", "Main Pin P", 1, f'{p.d_pin:.3f}" round 4140 prehard', "purple", main_pin, group="Yoke",
              views=("F", "L"), flat=False, dims=lambda p: _pin_dims(p.d_pin, pin_n),
              notes=("Cross holes 9/32 for 1/4 hitch or cotter pins.",)),
         Part("qpin", "Stub Pin Q", 2, f'{p.d_qpin:.3f}" round 4140 prehard', "purple", q_pin, group="Yoke",
              views=("F", "L"), flat=False, dims=lambda p: _pin_dims(p.d_qpin, q_n),
              notes=("Cross holes 9/32 for 1/4 hitch or cotter pins.",)),
-        Part("lpin", "Latch Pin", 1, '0.750" round 1018', "purple", latch_pin, group="Yoke",
-             views=("F", "L"), flat=False, dims=lambda p: _pin_dims(0.75, 2 * (p.bar_y + p.t_bar) + 1.5, cross=False),
-             notes=("Weld a 3/8 bar T-handle on one end; hitch pin hole at the other.",)),
+        Part("claw", "Claw Plate", 2, pl(p.claw_t) + " A36", "pink", claw, group="Yoke",
+             dims=lambda p: [("H", "F", (0, 0, 0), (k, 0, 0), -14),
+                             ("H", "F", (-1.3, 0, 0), (k + 1.45, 0, 0), -22),
+                             ("V", "F", (k + 1.45, -1.45, 0), (k + 1.45, 0.9, 0), 10),
+                             ("V", "F", (k + 1.45, -1.45, 0), (k, 0, 0), 18),
+                             ("H", "F", (0, 0, 0), (CLAW_EAR[0], CLAW_EAR[1], 0), 10),
+                             ("V", "F", (-1.3, 0, 0), (CLAW_EAR[0], CLAW_EAR[1], 0), -8),
+                             ("D", "F", (0, 0, 0), p.tie_d + 1 / 32, 225, "PIVOT ", 10),
+                             ("D", "F", (CLAW_EAR[0], CLAW_EAR[1], 0), 0.906, 200, "THUMB BAR ", 14),
+                             ("R", "F", (k, 0, 0), p.catch_d / 2 + 1 / 32, 300, "NOTCH ", 12),
+                             ("H", "L", (0, 0, 0), (0, 0, p.claw_t), -10)],
+             notes=("Two identical plates, welded to the thumb bar 2.500 apart (inside faces), make one claw.",
+                    "Notch side walls are arcs centred on the pivot hole (cut from the DXF); break all edges.",
+                    "The tail behind the pivot is a counterweight: it keeps the claw shut under its own weight.")),
+        Part("cthumb", "Claw Thumb Bar", 1, '0.875" round 1018', "pink", claw_thumb, group="Yoke",
+             views=("F", "L"), front="-Y", flat=False,
+             dims=lambda p: [("D", "F", (0, 0, 0), 0.875, 45, ""),
+                             ("H", "L", (0, 0, 0), (0, 2 * p.claw_y0 + 2 * p.claw_t, 0), -10)],
+             notes=("Through both claw plates, flush with their outside faces; weld both ends.",
+                    "Push it down to flip the claw open onto the stop rod; lift it to let the claw latch.")),
+        Part("ctie", "Claw Tie", 1, f'{p.tie_d:.3f}" round 4140 prehard', "purple", claw_tie, group="Yoke",
+             views=("F", "L"), front="-Y", flat=False,
+             dims=lambda p: [("D", "F", (0, 0, 0), p.tie_d, 45, ""), ("H", "L", (0, 0, 0), (0, 2 * (p.bar_y + p.t_bar), 0), -10)],
+             notes=("Through both yoke-bar horns, flush outside; weld both ends (small welds, slow cool).",
+                    "Claw and tie spacers go on before the second end is welded.")),
+        Part("tspacer", "Tie Spacer", 2, '2.5" OD round 1018', "purple", tie_spacer, group="Yoke",
+             views=("F", "L"), front="-Y", flat=False,
+             dims=lambda p: [("D", "F", (0, 0, 0), 2.5, 45, ""), ("D", "F", (0, 0, 0), p.tie_d + 1 / 16, 225, ""),
+                             ("H", "L", (0, 0, 0), (0, p.bar_y - p.claw_y0 - p.claw_t - 0.0625, 0), -10)],
+             notes=("Loose on the tie; centres the claw between the yoke bars.",)),
+        Part("cstop", "Claw Stop Rod", 1, '0.750" round 1018', "purple", claw_stop, group="Yoke",
+             views=("F", "L"), front="-Y", flat=False,
+             dims=lambda p: [("D", "F", (0, 0, 0), 0.75, 45, ""), ("H", "L", (0, 0, 0), (0, 2 * (p.bar_y + p.t_bar), 0), -10)],
+             notes=("Through both yoke-bar horns, flush outside; weld both ends. The open claw rests on it.",)),
 
         # ---------------- handle ----------------
         Part("cheek", "Handle Cheek", 2, pl(p.t_cheek) + " A36", "brown", cheek, group="Handle",
-             dims=lambda p: [("H", "F", (-p.arm, 0, 0), (0, 0, 0), -12), ("H", "F", (lx, ly, 0), (0, 0, 0), 12),
-                             ("V", "F", (1.25, 0, 0), (lx, ly, 0), 18), ("V", "F", (1.25, 0, 0), (1.25, 7.0, 0), 10),
-                             ("H", "F", (-1.25, 7.0, 0), (1.25, 7.0, 0), 20),
-                             ("D", "F", (0, 0, 0), p.d_qpin + 1 / 32, 330, "Q ", 12),
+             dims=lambda p: [("H", "F", (-p.arm, 0, 0), (0, 0, 0), -12), ("H", "F", (0, p.bridge_b + 0.75, 0), (lx, ly, 0), 12),
+                             ("V", "F", (1.25, 0, 0), (lx, ly, 0), 18), ("V", "F", (1.25, 0, 0), (1.25, p.bridge_b + 0.75, 0), 10),
+                             ("H", "F", (-1.25, p.bridge_b + 0.75, 0), (1.25, p.bridge_b + 0.75, 0), 20),
+                             ("D", "F", (0, 0, 0), p.d_qpin + 1 / 32, 250, "Q ", 14),
                              ("D", "F", (-p.arm, 0, 0), p.d_pin + 1 / 32, 220, "ROLLER ", 10),
-                             ("D", "F", (lx, ly, 0), 0.781, 160, "LATCH ", 14),
+                             ("D", "F", (lx, ly, 0), p.catch_d + 1 / 32, 345, "CATCH ", 18),
                              ("H", "L", (0, 0, 0), (0, 0, p.t_cheek), -10)],
-             notes=("Outline is tangent arcs R1.500 about Q and roller holes, R0.875 about latch hole.",
+             notes=("Outline is tangent arcs R1.500 about Q and roller holes, R1.250 about the catch-bar hole.",
                     "Make as a mirrored pair; drill both clamped together.")),
         Part("sroll", "Saddle Roller", 1, '3" OD 4140, 40-45 HRC', "brown", saddle_roller, group="Handle",
              views=("F", "L"), front="-Y", flat=False,
@@ -779,15 +928,21 @@ def parts(p: Params) -> list[Part]:
              views=("F", "L"), front="-Y", flat=False,
              dims=lambda p: [("D", "F", (0, 0, 0), p.d_pin, 45, ""), ("H", "L", (0, 0, 0), (0, 2 * (p.cheek_y + p.t_cheek), 0), -10)],
              notes=("Weld axle ends to both cheeks after the roller is installed.",)),
+        Part("catch", "Catch Bar", 1, f'{p.catch_d:.3f}" round 4140 prehard', "purple", catch_bar, group="Handle",
+             views=("F", "L"), front="-Y", flat=False,
+             dims=lambda p: [("D", "F", (0, 0, 0), p.catch_d, 45, ""),
+                             ("H", "L", (0, 0, 0), (0, 2 * (p.cheek_y + p.t_cheek), 0), -10)],
+             notes=("Through both cheeks, flush outside; weld to each cheek (small welds, slow cool).",
+                    "The claw hooks it in the middle.")),
         Part("bridge", "Handle Bridge", 1, pl(0.75) + " A36", "brown", bridge, group="Handle",
              dims=lambda p: _plate_dims(2.5, 2 * p.cheek_y, (), 0.75),
-             notes=("Weld between the cheeks, 3.500 from Q along the handle line.",)),
+             notes=(f"Weld between the cheeks, {p.bridge_a:.3f} from Q along the handle line.",)),
         Part("bridgeb", "Handle Bridge, Bored", 1, pl(0.75) + " A36", "brown", lambda p: bridge(p, True), group="Handle",
              dims=lambda p: _plate_dims(2.5, 2 * p.cheek_y, [(1.25, p.cheek_y, p.handle_od + 1 / 16)], 0.75),
-             notes=("Weld between the cheeks, 6.250 from Q along the handle line.",)),
+             notes=(f"Weld between the cheeks, {p.bridge_b:.3f} from Q along the handle line.",)),
         Part("htube", "Handle Tube", 1, '1-1/2" sch 80 pipe', "brown", handle_tube, group="Handle",
              views=("F", "L"), flat=False,
-             dims=lambda p: [("V", "T", (p.handle_od / 2, 0, 0), (p.handle_od / 2, 0, p.handle_len - 4.25), 10),
+             dims=lambda p: [("V", "T", (p.handle_od / 2, 0, 0), (p.handle_od / 2, 0, p.handle_len - p.bridge_a - 0.75), 10),
                              ("D", "F", (0, 0, 0), p.handle_od, 45, "")],
              notes=("Butt-weld to the plain bridge, fillet-weld through the bored bridge.",)),
     ]
@@ -873,13 +1028,28 @@ def assembly(p: Params, pose: str = "locked", handle_len: float | None = None):
     add("sroll", "Saddle Roller", hf * Pos(-p.arm, -n_r / 2, 0) * saddle_roller(p))
     ax_n = 2 * (p.cheek_y + p.t_cheek)
     add("axle", "Roller Axle", hf * Pos(-p.arm, -ax_n / 2, 0) * roller_axle(p))
-    add("bridge", "Handle Bridge", hf * Pos(-1.25, -p.cheek_y, 3.5) * bridge(p))
-    add("bridgeb", "Handle Bridge, Bored", hf * Pos(-1.25, -p.cheek_y, 6.25) * bridge(p, True))
+    add("bridge", "Handle Bridge", hf * Pos(-1.25, -p.cheek_y, p.bridge_a) * bridge(p))
+    add("bridgeb", "Handle Bridge, Bored", hf * Pos(-1.25, -p.cheek_y, p.bridge_b) * bridge(p, True))
     hl = p.handle_len if handle_len is None else handle_len
-    add("htube", "Handle Tube", hf * Pos(0, 0, 4.25) * tube(p.handle_od, p.handle_od - 0.4, hl - 4.25, "Z"))
-    lp_n = 2 * (p.bar_y + p.t_bar) + 1.5
-    if ps.psi == p.psi0:  # latched: pin through cheeks and yoke bars
-        add("lpin", "Latch Pin", yk * Pos(0, -lp_n / 2, p.yoke_len + p.latch_r) * Rot(0, 0, 90) * latch_pin(p))
+    ht0 = p.bridge_a + 0.75
+    add("htube", "Handle Tube", hf * Pos(0, 0, ht0) * tube(p.handle_od, p.handle_od - 0.4, hl - ht0, "Z"))
+    # central latch: catch bar between the cheeks; one claw (two plates + thumb bar) on a tie
+    # between the yoke horns
+    cx, cy = cheek_points(p)["catch"]
+    nb = 2 * (p.cheek_y + p.t_cheek)
+    add("catch", "Catch Bar", hf * Pos(cx, -nb / 2, cy) * catch_bar(p))
+    cl = claw_geom(p)
+    gamma = ps.claw if ps.claw is not None else (0.0 if abs(ps.psi - p.psi0) < 1e-9 else cl["open"])
+    Ly = p.yoke_len
+    (tx, tz), (sx, sz) = cl["C"], cl["stop"]
+    nt = 2 * (p.bar_y + p.t_bar)
+    add("ctie", "Claw Tie", yk * Pos(tx, -nt / 2, Ly + tz) * claw_tie(p))
+    add("cstop", "Claw Stop Rod", yk * Pos(sx, -nt / 2, Ly + sz) * claw_stop(p))
+    add("tspacer", "Tie Spacer", yk * Pos(tx, p.claw_y0 + p.claw_t + 0.0625, Ly + tz) * tie_spacer(p), mirror=True)
+    cf = yk * Pos(tx, 0, Ly + tz) * Rot(0, gamma, 0) * Rot(0, -cl["arm"], 0)
+    add("claw", "Claw Plate", cf * Pos(0, p.claw_y0 + p.claw_t, 0) * UPRIGHT * claw(p), mirror=True)
+    ex, ey, _ = CLAW_EAR
+    add("cthumb", "Claw Thumb Bar", cf * Pos(ex, -(p.claw_y0 + p.claw_t), ey) * claw_thumb(p))
     return out
 
 
@@ -999,6 +1169,23 @@ def checks(p: Params):
     I = t * h ** 3 / 12 + t * h * (h / 2 - yc) ** 2 - (t * dh ** 3 / 12 + t * dh * (yh - yc) ** 2)
     rows.append(("Piston web, bending", "M = F L / 16, net at pin hole",
                  F * p.brick_l / 16 * max(yc, h - yc) / I, 0.66 * FY_A36))
+    # central claw at the ejection load: yoke moment about Q = F x (horizontal P-Q distance)
+    th = poses(p)["eject"].theta
+    cl = claw_geom(p)
+    fl = p.eject_force * p.yoke_len * math.sin(math.radians(th)) / cl["R"]        # on the claw
+    ym = p.claw_y0 + p.claw_t / 2                                                  # claw plate centre
+    e = (p.bar_y + p.t_bar / 2) - ym
+    rows.append(("Claw tie, bending (eject)", f"{fl:,.0f} lbf, {fl / 2:,.0f} per plate x {e:.2f}, dia {p.tie_d:.3f} 4140",
+                 fl / 2 * e / sec(p.tie_d), 0.6 * FY_4140))
+    e = (p.cheek_y + p.t_cheek / 2) - ym
+    rows.append(("Catch bar, bending (eject)", f"{fl / 2:,.0f} lbf per plate x {e:.2f}, dia {p.catch_d:.3f} 4140",
+                 fl / 2 * e / sec(p.catch_d), 0.6 * FY_4140))
+    rows.append(("Claw notch, bearing (eject)", f"{fl / 2:,.0f} lbf on {p.catch_d:.2f} x {p.claw_t:.2f}",
+                 fl / 2 / (p.catch_d * p.claw_t), 0.9 * FY_A36))
+    rows.append(("Claw arm, tension (eject)", f"{fl / 2:,.0f} lbf on {2 * CLAW_W:.2f} x {p.claw_t:.2f}",
+                 fl / 2 / (2 * CLAW_W * p.claw_t), 0.6 * FY_A36))
+    rows.append(("Yoke horn, net at tie hole (eject)", f"{fl / 2:,.0f} lbf on (2.60 - {p.tie_d:.2f}) x {p.t_bar:.2f}",
+                 fl / 2 / ((2.6 - p.tie_d - 1 / 32) * p.t_bar), 0.5 * FU_A36))
     # roller contact (Hertz line contact, steel on steel)
     Es = E_STEEL / (2 * (1 - 0.3 ** 2))
     q = F / 2 / p.t_rib
@@ -1136,6 +1323,30 @@ def verify(p: Params):
         return sum((l & w[2]).volume for l in lugs for w in wall)
     res.append(("Lid rests open on its stop", lug_hits(p.lid_open - 1) < 1e-4 and lug_hits(p.lid_open + 2) > 1e-4,
                 f"tail lobe meets the end wall at {p.lid_open:g} deg, just past vertical"))
+    cl = claw_geom(p)
+    Sx, Sz = cl["S"]
+    path = (-Sz / cl["R"], Sx / cl["R"])                        # catch bar path at S when the handle turns
+    arm = (math.cos(math.radians(cl["arm"])), math.sin(math.radians(cl["arm"])))
+    ang = math.degrees(math.acos(max(-1, min(1, abs(path[0] * arm[0] + path[1] * arm[1])))))
+    res.append(("Claw load runs along the claw (cannot pry it open)", ang < 0.01,
+                f"{ang:.3f} deg between catch-bar path and claw arm"))
+    tilts = max(ps0["fill"].theta, ps0["eject"].theta)
+    def g_torque(th, a):                                        # CCW (+) about the tie, CG direction a (deg)
+        return -math.cos(math.radians(th - a))
+    shut = [g_torque(tilts * i / 20, cl["cg_ang"]) for i in range(21)]
+    wt = (2 * claw(p).volume + math.pi * 0.4375 ** 2 * (2 * p.claw_y0 + 2 * p.claw_t)) * STEEL
+    res.append(("Gravity holds the claw shut at every tilt", min(shut) > 0,
+                f"centre of mass at {cl['cg_ang']:.0f} deg from the tie; shutting moment from 0 to {tilts:.0f} deg tilt; "
+                f"claw {wt:.1f} lb"))
+    res.append(("Flipped-open claw stays open on its stop", g_torque(0.0, cl["cg_ang"] - cl["open"]) < 0,
+                f"opens {cl['open']:.0f} deg clockwise; centre of mass 5 deg past vertical rests it on the stop rod"))
+    def claw_stop_overlap(g):
+        inst = assembly(p, Pose("claw", 0.0, 60.0, p.q_z(60.0) - p.yoke_len, 0.0, g))
+        cw = [x[2] for x in inst if x[0] == "claw"]
+        st_ = [x[2] for x in inst if x[0] == "cstop"]
+        return sum((a & b).volume for a in cw for b in st_)
+    res.append(("Open claw rests on the stop rod", claw_stop_overlap(cl["open"] - 0.5) < 1e-4
+                and claw_stop_overlap(cl["open"] + 2) > 1e-4, f"stop rod at {cl['stop'][0]:.3f}, {cl['stop'][1]:.3f} from Q"))
     s0, s1 = p.slot
     res.append(("Side slots never open to the soil", s1 < p.zt - p.fill,
                 f"slot top {s1 - p.zt:+.3f}, loose fill bottom {-p.fill:+.3f} from mold top"))
