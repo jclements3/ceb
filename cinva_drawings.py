@@ -17,6 +17,7 @@ Outputs (default drawings/<LxWxH>/):
 
 Usage:
     LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_drawings.py --brick 14x7x4
+    ... --model simple         # the permies-style simple press (cinva_simple.py) -> drawings/simple-14x7x4/
     ... --only side,ramp       # just some sheets
 """
 
@@ -35,6 +36,16 @@ from build123d import (
 from build123d.exporters import ColorIndex
 
 import cinva_ram_b123d as m
+
+MODELS = {"full": "cinva_ram_b123d", "simple": "cinva_simple"}
+
+
+def _dwg():
+    return getattr(m, "DWG_PREFIX", "CR")
+
+
+def _title():
+    return getattr(m, "TITLE", "CINVA-Ram Block Press")
 
 IN = 25.4
 FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
@@ -402,7 +413,8 @@ def draw_dims(sh, placed: dict[str, Placed], dims):
         pl = placed[vname]
         if kind in ("H", "V"):
             mode = dm[5] if len(dm) > 5 and isinstance(dm[5], str) else "bbox"
-            dim_linear(sh, pl, dm[2], dm[3], dm[4], kind == "H", mode)
+            label = dm[6] if len(dm) > 6 else None
+            dim_linear(sh, pl, dm[2], dm[3], dm[4], kind == "H", mode, label=label)
         elif kind in ("D", "R", "Ri"):
             dim_leader(sh, pl, dm[2], dm[3], dm[4], dm[5], radius=kind != "D",
                        length=dm[6] if len(dm) > 6 else 8.0, inward=kind == "Ri")
@@ -497,7 +509,11 @@ def part_sheet(p: m.Params, part: m.Part, sheet_no, n_sheets, path, dxf_dir=None
     proj = {v: project(shape, vs[v]) for v in names}
     boxes = {v: uv_bbox(proj[v][0] + proj[v][1]) for v in names}
     dims = part.dims(p) if part.dims else []
-    size, sc, k, org = layout(boxes, dims, names, part.notes)
+    paper = getattr(part, "paper", None)
+    if paper:
+        size, sc, k, org = _layout(boxes, dims, names, part.notes, paper)
+    else:
+        size, sc, k, org = layout(boxes, dims, names, part.notes)
     sh = Sheet(size)
     border(sh)
     placed = {}
@@ -509,9 +525,16 @@ def part_sheet(p: m.Params, part: m.Part, sheet_no, n_sheets, path, dxf_dir=None
         sh.layers["hidden"] += to_paper(hid, pl)
         center_lines(sh, shape, pl)
     draw_dims(sh, placed, dims)
-    # thickness callout for plates without an edge view
+    tbl = getattr(part, "table", None)
+    if tbl:                                   # e.g. ordinates of a profile, bottom-left corner
+        title, head, rows = tbl(p)
+        n = len(head)
+        cw = 17.0
+        y = M_OTHER + 6 + (len(rows) + 1) * 4.8
+        sh.text(title, M_LEFT + 6, y + 3, TXT_SMALL)
+        _table(sh, M_LEFT + 6, y, [i * cw for i in range(n + 1)], rows, head=head, rowh=4.8)
     general_notes(sh, part.notes)
-    title_block(sh, part.name, f"CINVA-Ram, {p.label} brick", f"CR-{p.label}-{part.item:02d}",
+    title_block(sh, part.name, f"{_title()}, {p.label} brick", f"{_dwg()}-{p.label}-{part.item:02d}",
                 sheet_no, n_sheets, scale_str(sc), part.stock, part.qty, "Detail drawing")
     sh.svg(path)
     if dxf_dir and part.flat:
@@ -557,7 +580,7 @@ def _parts_list(sh, p, plist):
     row(["Item", "Qty", "Title", "Stock", "lb ea", "Drawing no."], y, bold=True)
     y += rowh
     for pt in plist:
-        row([str(pt.item), str(pt.qty), pt.name, pt.stock, f"{pt.weight(p):.1f}", f"CR-{p.label}-{pt.item:02d}"], y)
+        row([str(pt.item), str(pt.qty), pt.name, pt.stock, f"{pt.weight(p):.1f}", f"{_dwg()}-{p.label}-{pt.item:02d}"], y)
         y += rowh
     sh.line((x0, M_OTHER + TB_H), (x0, y), "border")
     sh.line((x1, M_OTHER + TB_H), (x1, y), "border")
@@ -615,7 +638,7 @@ def assembly_sheet(p: m.Params, plist, n_sheets, path):
     _balloons(sh, pl, inst, {pt.key: pt.item for pt in plist})
     y = _parts_list(sh, p, plist)
     general_notes(sh, _design_notes(p) + [f"Steel weight about {_mass(p, plist):.0f} lb."], y0=y)
-    title_block(sh, "CINVA-Ram Block Press", f"General assembly, {p.label} brick", f"CR-{p.label}-00",
+    title_block(sh, _title(), f"General assembly, {p.label} brick", f"{_dwg()}-{p.label}-00",
                 1, n_sheets, "1:10", "See parts list", 1, "Assembly drawing")
     sh.svg(path)
 
@@ -638,19 +661,23 @@ def assembly_views_sheet(p: m.Params, n_sheets, path):
     pl = Placed(lv, k, ox, pf.oy, (u0, v0, u1, v1))
     sh.layers["visible"] += to_paper(vis, pl)
     sh.layers["hidden"] += to_paper(hid, pl)
-    L, W = p.brick_l, p.brick_w
-    ex, ez = p.eject_roller
-    q = p.q_z(90.0)
-    dim_linear(sh, pf, (rx0, 0, 0), (rx1, 0, 0), -10, True)
-    dim_linear(sh, pf, (0, 0, p.zb), (L, 0, p.zb), -20, True, label=f"{L:.3f} MOLD")
-    dim_linear(sh, pf, (p.xc, 0, 0), (ex, 0, ez), -30, True)
-    dim_linear(sh, pf, (rx0, 0, 0), (-p.t_end, 0, p.zt), -10, False)
-    dim_linear(sh, pf, (rx0, 0, 0), (p.xc, 0, q), -20, False)
-    dim_linear(sh, pf, (rx1, 0, 0), (ex, 0, ez), 10, False)
-    dim_linear(sh, pl, (0, -p.wall_y, p.zb), (0, p.wall_y, p.zb), -20, True, label=f"{W:.3f} MOLD")
-    dim_linear(sh, pl, (0, -(p.rail_y + 1), 0), (0, p.rail_y + 1, 0), -10, True)
+    if hasattr(m, "asm_view_dims"):
+        for view, a, b, off, horiz, label in m.asm_view_dims(p):
+            dim_linear(sh, pf if view == "F" else pl, a, b, off, horiz, label=label)
+    else:
+        L, W = p.brick_l, p.brick_w
+        ex, ez = p.eject_roller
+        q = p.q_z(90.0)
+        dim_linear(sh, pf, (rx0, 0, 0), (rx1, 0, 0), -10, True)
+        dim_linear(sh, pf, (0, 0, p.zb), (L, 0, p.zb), -20, True, label=f"{L:.3f} MOLD")
+        dim_linear(sh, pf, (p.xc, 0, 0), (ex, 0, ez), -30, True)
+        dim_linear(sh, pf, (rx0, 0, 0), (-p.t_end, 0, p.zt), -10, False)
+        dim_linear(sh, pf, (rx0, 0, 0), (p.xc, 0, q), -20, False)
+        dim_linear(sh, pf, (rx1, 0, 0), (ex, 0, ez), 10, False)
+        dim_linear(sh, pl, (0, -p.wall_y, p.zb), (0, p.wall_y, p.zb), -20, True, label=f"{W:.3f} MOLD")
+        dim_linear(sh, pl, (0, -(p.rail_y + 1), 0), (0, p.rail_y + 1, 0), -10, True)
     general_notes(sh, _design_notes(p))
-    title_block(sh, "CINVA-Ram Block Press", f"Assembly views, {p.label} brick", f"CR-{p.label}-00",
+    title_block(sh, _title(), f"Assembly views, {p.label} brick", f"{_dwg()}-{p.label}-00",
                 2, n_sheets, "1:5", "See parts list", 1, "Assembly drawing")
     sh.svg(path)
 
@@ -692,11 +719,12 @@ def positions_sheet(p: m.Params, n_sheets, path):
         piston = po.zp + p.pin_below_cap - p.zt
         sh.text(f"yoke {po.theta:.1f} deg, handle {po.psi:.1f} deg, piston {piston:+.3f}",
                 cx, ctop - 6, TXT_SMALL, ha="center", va="top")
-    notes = ["Positions computed from the linkage; all four and the motions between them were checked for clearance.",
-             "Yoke tilt from vertical toward the eject roller; handle angle from the yoke axis, positive away from "
-             "the eject roller; piston = piston top relative to the mold top."]
+    notes = getattr(m, "POSITION_NOTES", [
+        "Positions computed from the linkage; all four and the motions between them were checked for clearance.",
+        "Yoke tilt from vertical toward the eject roller; handle angle from the yoke axis, positive away from "
+        "the eject roller; piston = piston top relative to the mold top."])
     general_notes(sh, notes)
-    title_block(sh, "CINVA-Ram Block Press", f"Operating positions, {p.label} brick", f"CR-{p.label}-00",
+    title_block(sh, _title(), f"Operating positions, {p.label} brick", f"{_dwg()}-{p.label}-00",
                 3, n_sheets, scale_str(sc), "-", 1, "Assembly drawing")
     sh.svg(path)
 
@@ -723,7 +751,7 @@ def design_sheet(p: m.Params, plist, n_sheets, path):
     ps = m.poses(p)
     xl, yt = M_LEFT + 6, sh.H - M_OTHER - 8
     sh.text("PRESS DATA", xl, yt, TXT)
-    data = [
+    data = m.press_data(p, ps, _mass(p, plist)) if hasattr(m, "press_data") else [
         ("Brick (pressed)", f"{p.brick_l:g} x {p.brick_w:g} x {p.brick_h:g} in, {p.area:g} sq in face"),
         ("Loose fill depth", f"{p.fill:.3f} in (strike off level with mold top)"),
         ("Compression", f"{p.rise:.3f} in piston stroke, ratio {p.fill / p.brick_h:.2f}"),
@@ -739,7 +767,7 @@ def design_sheet(p: m.Params, plist, n_sheets, path):
     y = _table(sh, xl, yt - 3, [0, 48, 190], [list(r) for r in data])
     y -= 10
     sh.text("OPERATION", xl, y, TXT)
-    steps = [
+    steps = getattr(m, "OPERATION", None) or [
         "Latch claw shut on the catch bar (handle locked to the yoke), yoke tilted back onto the eject roller. Piston at bottom.",
         "Open the lid. Oil the mold walls. Fill loose soil mix to the top, press into the corners, strike off level.",
         "Close the lid. Swing handle and yoke upright together until the saddle roller sits on the lid track.",
@@ -765,11 +793,12 @@ def design_sheet(p: m.Params, plist, n_sheets, path):
     sh.text("HAND FORCE AND PISTON RISE OVER THE STROKE", (cx0 + cx1) / 2 - 4, cy1 + 8, TXT_SMALL, ha="center")
     sh.poly([(cx0, cy0), (cx1, cy0), (cx1, cy1), (cx0, cy1)], "thin")
     a0 = p.psi0
+    a1 = getattr(m, "CHART_END", 90.0)
     fmax = 50 * math.ceil(p.peak_hand(250) / 50)
-    X = lambda a: cx0 + (a - a0) / (90 - a0) * (cx1 - cx0)
+    X = lambda a: cx0 + (a - a0) / (a1 - a0) * (cx1 - cx0)
     Yf = lambda f: cy0 + f / fmax * (cy1 - cy0)
     Yr = lambda r: cy0 + r / p.rise * (cy1 - cy0)
-    for a in range(0, 91, 15):
+    for a in range(15 * math.ceil(a0 / 15), int(a1) + 1, 15):
         sh.line((X(a), cy0), (X(a), cy0 - 1.5))
         sh.text(f"{a}", X(a), cy0 - 2.5, TXT_SMALL, ha="center", va="top")
     for f in range(0, fmax + 1, 50):
@@ -800,11 +829,12 @@ def design_sheet(p: m.Params, plist, n_sheets, path):
     sh.text(f"STRENGTH CHECKS AT {p.f_design:,.0f} LBF (ksi)", xl, ty, TXT)
     _table(sh, xl, ty - 3, [0, 58, 136, 152, 168, 184], [[r[0], b, *r[1:]] for r, (_, b, _, _) in zip(rows, m.checks(p))],
            head=["Item", "Basis", "Stress", "Allow", "Ratio"], rowh=4.8)
-    notes = ["First-order hand calculations; build one press and load-test before production.",
-             "Allowables: A36 0.66 Fy bending, 0.5 Fu net tension; 4140 prehard 0.6 Fy; AR400 contact 0.3 p <= 0.5 Fy.",
-             "Soil model: pressure rises as (e^5x - 1)/(e^5 - 1) over the stroke; lateral wall pressure 0.5 x vertical."]
+    notes = getattr(m, "DESIGN_NOTES", [
+        "First-order hand calculations; build one press and load-test before production.",
+        "Allowables: A36 0.66 Fy bending, 0.5 Fu net tension; 4140 prehard 0.6 Fy; AR400 contact 0.3 p <= 0.5 Fy.",
+        "Soil model: pressure rises as (e^5x - 1)/(e^5 - 1) over the stroke; lateral wall pressure 0.5 x vertical."])
     general_notes(sh, notes)
-    title_block(sh, "CINVA-Ram Block Press", f"Operation and design data, {p.label} brick", f"CR-{p.label}-00",
+    title_block(sh, _title(), f"Operation and design data, {p.label} brick", f"{_dwg()}-{p.label}-00",
                 4, n_sheets, "-", "-", 1, "Design data")
     sh.svg(path)
 
@@ -877,18 +907,23 @@ def main():
     ap.add_argument("--out", help="output dir (default drawings/<LxWxH>)")
     ap.add_argument("--only", help="comma list of part keys (and/or 'assembly')")
     ap.add_argument("--no-pdf", action="store_true")
+    ap.add_argument("--model", choices=sorted(MODELS), default="full",
+                    help="full = heavy-duty press (cinva_ram_b123d), simple = permies-style press (cinva_simple)")
     a = ap.parse_args()
+    global m
+    import importlib
+    m = importlib.import_module(MODELS[a.model])
     p = m.Params(**m.parse_brick(a.brick))
-    out = a.out or os.path.join("drawings", p.label)
+    out = a.out or os.path.join("drawings", getattr(m, "OUT_PREFIX", "") + p.label)
     only = set(a.only.split(",")) if a.only else None
-    print(f"CINVA-Ram {p.label} -> {out}")
+    print(f"{_title()} {p.label} -> {out}")
     paths = build_all(p, out, only)
     if not only:
-        step = os.path.join(out, f"CINVA-Ram_{p.label}.step")
+        step = os.path.join(out, f"{getattr(m, 'FILE_PREFIX', 'CINVA-Ram')}_{p.label}.step")
         export_step(m.assembly_compound(p, "locked"), step, unit=Unit.IN)
         print(f"  {step}")
     if not a.no_pdf and paths:
-        pdf = os.path.join(out, f"CINVA-Ram_{p.label}.pdf")
+        pdf = os.path.join(out, f"{getattr(m, 'FILE_PREFIX', 'CINVA-Ram')}_{p.label}.pdf")
         to_pdf(paths, pdf)
         print(f"  {pdf}")
 

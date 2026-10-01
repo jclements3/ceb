@@ -100,7 +100,7 @@ ol.phases li button[aria-current="step"] span { color: var(--accent-ink); }
     <div id="view"></div>
     <div class="loading" id="loading">Loading press model…</div>
     <div class="caption">
-      <h1>CINVA-Ram 14 × 7 × 4</h1>
+      <h1 id="title">CINVA-Ram 14 × 7 × 4</h1>
       <span class="step" id="step"><b>—</b></span>
     </div>
     <div class="views" role="group" aria-label="Camera">
@@ -131,7 +131,7 @@ ol.phases li button[aria-current="step"] span { color: var(--accent-ink); }
       <dl class="read">
         <dt>Handle angle</dt><dd id="r-psi">—</dd>
         <dt>Yoke tilt</dt><dd id="r-theta">—</dd>
-        <dt>Latch claw</dt><dd id="r-claw">—</dd>
+        <dt id="r-claw-dt">Latch</dt><dd id="r-claw">—</dd>
         <dt>Piston top</dt><dd id="r-piston">—</dd>
         <dt>Soil in mold</dt><dd id="r-soil">—</dd>
         <dt>Push on handle (200 psi)</dt><dd id="r-force">—</dd>
@@ -162,15 +162,19 @@ ol.phases li button[aria-current="step"] span { color: var(--accent-ink); }
 <script>
 (async function () {
   const $ = id => document.getElementById(id);
+  const SRC = new URLSearchParams(location.search).has("full") ? "press-full.json" : "press.json";
   let data;
   try {
-    data = await (await fetch("press.json")).json();
+    data = await (await fetch(SRC)).json();
   } catch (e) {
-    $("loading").textContent = "Could not load press.json. Serve this folder over http (python3 -m http.server).";
+    $("loading").textContent = `Could not load ${SRC}. Serve this folder over http (python3 -m http.server).`;
     return;
   }
   $("loading").remove();
   const M = data.meta, F = data.frames, C = Object.fromEntries(data.columns.map((c, i) => [c, i]));
+  const PH_PRESS = M.phase_press ?? 4, PH_PRESSED = M.phase_pressed ?? 5, PH_LIFT = M.phase_lift ?? 11;
+  if (M.title) { document.title = `${M.title} Animation`; $("title").textContent = `${M.title} ${M.label.replaceAll("x", " × ")}`; }
+  if (!M.claw_pivot) $("r-claw").parentElement.querySelectorAll("#r-claw, #r-claw-dt").forEach(e => e.remove());
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 
   // ---------- scene ----------
@@ -258,17 +262,20 @@ ol.phases li button[aria-current="step"] span { color: var(--accent-ink); }
     groups.piston.matrix.copy(T(0, 0, zp - M.zp_ref));
     const yoke = mul(T(M.xc, 0, zp), Ry(th), T(-M.xc, 0, -M.zp_ref));
     groups.yoke.matrix.copy(yoke);
-    const [cpx, cpz] = M.claw_pivot;      // the claw turns (clockwise to open) about its tie on the yoke horns
-    groups.claw.matrix.copy(yoke.clone().multiply(mul(T(cpx, 0, cpz), Ry(claw), T(-cpx, 0, -cpz))));
     groups.handle.matrix.copy(H(th, psi, zp).multiply(Href));
+    if (groups.claw) {                    // the latch turns about its pivot on the yoke (full press) or on the head
+      const [cpx, cpz] = M.claw_pivot;
+      const base = M.claw_on === "handle" ? groups.handle.matrix : yoke;
+      groups.claw.matrix.copy(base.clone().multiply(mul(T(cpx, 0, cpz), Ry(claw), T(-cpx, 0, -cpz))));
+    }
     groups.lid.visible = !$("t-lid").checked;
 
     // soil / brick
     const bb = f[C.brick_bottom], bt = f[C.brick_top], h = bt - bb;
     const pressed = Math.min(1, Math.max(0, (M.fill - h) / (M.fill - M.H)));
-    const col = LOOSE.clone().lerp(PRESSED, ph >= 5 ? 1 : pressed);
+    const col = LOOSE.clone().lerp(PRESSED, ph >= PH_PRESSED ? 1 : pressed);
     const count = loops + (ph === data.phases.length - 1 ? 1 : 0);
-    if (ph === 11) {             // lift off and carry to the stack
+    if (ph === PH_LIFT) {        // lift off and carry to the stack
       const start = new THREE.Vector3(M.xc, 0, bb + M.H / 2), end = slot(loops), up = M.zt + 12;
       let p;
       if (s < 0.35) p = start.clone().setZ(start.z + (up - start.z) * (s / 0.35));
@@ -287,15 +294,17 @@ ol.phases li button[aria-current="step"] span { color: var(--accent-ink); }
 
     // readouts
     $("step").innerHTML = `<b>${ph + 1}.</b> ${data.phases[ph]}`;
-    $("r-psi").textContent = `${psi.toFixed(1)}°` + (psi > 90.05 ? " (over centre)" : "");
-    $("r-theta").textContent = `${th.toFixed(1)}°`;
-    $("r-claw").textContent = claw < 0.5 ? "shut" : claw > M.claw_open - 0.5 ? "open (on stop)" : "moving";
+    const psiS = C.psi_show !== undefined ? f[C.psi_show] : psi, thS = C.theta_show !== undefined ? f[C.theta_show] : th;
+    const over = M.claw_on === "handle" ? psiS > 0.05 : psiS > 90.05;
+    $("r-psi").textContent = `${psiS.toFixed(1)}°` + (over ? " (over centre)" : "");
+    $("r-theta").textContent = `${thS.toFixed(1)}°`;
+    if (M.claw_pivot) $("r-claw").textContent = claw < 0.5 ? "shut" : claw > M.claw_open - 0.5 ? (M.claw_on === "handle" ? "open" : "open (on stop)") : "moving";
     const pt = zp + M.pin_below_cap - M.zt;
     $("r-piston").textContent = `${pt >= 0 ? "+" : "−"}${Math.abs(pt).toFixed(3)} in`;
     $("r-soil").textContent = h > 0.01 && ph < 11 ? `${h.toFixed(3)} in` : "—";
     const force = f[C.hand_force];
-    $("r-force").textContent = ph === 4 ? `${force.toFixed(0)} lbf` : "—";
-    $("r-force-bar").style.width = ph === 4 ? `${Math.min(100, force / 2)}%` : "0";
+    $("r-force").textContent = ph === PH_PRESS ? `${force.toFixed(0)} lbf` : "—";
+    $("r-force-bar").style.width = ph === PH_PRESS ? `${Math.min(100, force / 2)}%` : "0";
     $("r-count").textContent = count;
     $("time").textContent = `${(i / M.fps).toFixed(1)} s of ${(F.length / M.fps).toFixed(1)} s`;
     document.querySelectorAll("#phases button").forEach((btn, k) => k === ph ? btn.setAttribute("aria-current", "step") : btn.removeAttribute("aria-current"));

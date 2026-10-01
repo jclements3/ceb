@@ -1,197 +1,184 @@
-# CINVA-Ram Block Press, 14 x 7 x 4 — Welding & Assembly Guide
+# Simple CINVA-Ram Press, 14 x 7 x 4 — Welding & Assembly Guide
 
-Fabrication sequence for the press in `drawings/14x7x4/` (drawing set `CR-14x7x4-00` to `-31`).
+Fabrication sequence for the press in `drawings/simple-14x7x4/` (drawing set `SCR-14x7x4-00` to `-23`).
 Part numbers below are the item numbers on the parts list (sheet 1). All dimensions in inches.
 
-**How it works (read this first).** The piston slides in the mold box. Main pin **P** runs through
-the piston webs, out through vertical slots in both side walls, and into the two **yoke bars**
-outside the box. At the top, the yoke bars carry the **handle head** on two stub pins **Q**. A
-saddle **roller** on the handle head rides a concave track on the **lid ribs**. Pulling the handle
-from upright to just past horizontal lifts Q by 2.75, the yoke pulls the piston up, and the soil
-is squeezed between the piston and the lid. The squeezing force runs through the brick, piston,
-pin P, yoke, pins Q, roller and lid, **not through the frame or the welds of the mold box**. The
-frame only guides. See sheet 3 for the four operating positions.
+This press is a scale-up of the permies.com replica (thread 33406). His part drawings are
+`cinva1-7.jpg`; the SketchUp model and his video show how the parts go together. Each of his
+parts is scaled from his 11.5 x 6 x 3-5/8 brick to our 14 x 7 x 4:
+- lengths along the mold x 1.217;
+- widths across it x 1.167;
+- heights x 1.102 (his 6-1/8 loose fill becomes 6-3/4).
 
-**Latch claw.** One claw in the middle of the press (two plates, item 20, joined by a thumb bar,
-item 21) pivots on a tie (item 22) welded between horns on the tops of the yoke bars. It hooks a
-catch bar (item 28) between the handle cheeks. Shut, it locks the handle to the yoke so handle and
-yoke tip back and eject as one piece. The load runs straight along the claw, so it cannot pry it
-open, and a counterweight tail behind the pivot keeps it shut under its own weight at every tilt. For
-pressing, push the thumb bar down to flip the claw over (about 100) onto the stop rod (item 24); it stays
-there.
+The heavy-duty version, with a claw latch and an eject roller on posts, is in `ASSEMBLY_full.md`.
+
+**How it works (read this first).**
+- **Mold, piston and yoke.** The piston slides in the mold box. Main pin **P** runs through its four
+  webs, out through vertical slots in both side plates, and into the two **yoke arms** outside the box.
+  At the top the arms are tied by two **cross bars** into a box. They carry the **head** on two stub
+  pins **Q**.
+- **The head (his "L-cam").** It is shaped like an L: pin Q at the corner, the **cam pin** at the foot,
+  2.132 from Q, and the handle along the other leg.
+- **The ramps.** The two **V ramps** on the lid each have a half-round **scoop** at the peak, right over
+  the middle of the mold.
+- **Pressing.** Stand the yoke up, and the cam pin rides up the long leg of the ramps and drops into the
+  scoops. Pulling the handle over then works like straightening a knee: the head pivots on the cam pin
+  and swings Q up and over it. The yoke lifts the piston 2.75, squeezing the soil against the lid.
+- **The lock.** At 3 deg past straight, the cheeks land on the two **handle rests** and the handle stays
+  down on its own.
+- **Where the force goes.** Through the brick, piston, pin P, yoke, pins Q, cam pin, ramps and lid. It
+  does **not** go through the mold box welds.
+- **Latch.** His **latch hooks** (item 20) hang from the head and drop over the pull-end cross bar. That
+  holds head and yoke together while you tilt them.
+- **Ejecting.** With the lid swung over, the yoke leans on the two **fixed pins** on the side plates.
+  Pushing the handle down levers the piston up and the brick out.
+
+See sheet 3 for the four positions and sheet 4 for the operating steps and loads.
+
+## What changed from his drawings, and why
+
+| Item | Part | His drawing | This press | Reason |
+|---|---|---|---|---|
+| 1 | Side plate slot | 2.000 wide for a 1 in pin | pin + 1/16 (1.813) | **His error**: the supplier later changed it to 1 in; a 2 in slot lets the pin wander |
+| 1 | Side plate slot top | ends 1 in into the chamber | ends below the loose soil | soil would push out through the slot at fill |
+| 4 | Fixed pins | 7.71 up (7 x 1.102) | 7.48 up | set so the eject stroke ends at 80 deg with the wider 3 in arms |
+| 1 | Side plate | 1/4 plate | 1/2 plate | soil pressure on a 14 in wall |
+| 2 | End plate | 1/4, 6 x 6 | 1/2, 7 x 7.5 | spans 7 in; reaches the piston at fill |
+| 6 | Lid plate | 1/4, covers the side plates | 5/8; narrow except at the pull end | would dish; the head swings down past its edges while standing up |
+| 7 | V ramp | 1/4 | 3/4 AR400 | the cam pin carries the whole press force in the scoop |
+| 10, 11 | Piston cap, webs | 1/4 | 1/2 cap, 3/8 webs | cap would dish |
+| 12 | Yoke arm | 2 x 1/4 bar | 3 x 1/2 plate, 2.3 in longer | pin loads; room for the cross-bar box over the head |
+| 14, 16, 17 | Pins P, Q, cam | 1 in mild steel | 1-3/4, 1-1/4, 1-1/4 4140 prehard | 1 in mild-steel pins bend at 20,000 lbf |
+| 15 | Head | his link plates and 3 x 2 plates | one L-shaped cheek per side | same job, fewer pieces |
+| 20 | Latch hook | notch on the side | notch at the tip | the hook drops straight onto the cross bar |
+
+Two more changes:
+- **The lid swings on his 11 in bars.** They pivot on pins near the bottom of the side plates at the
+  pull end, so the lid swings over onto the stand.
+- **The press bolts to a 12 in stand** that reaches 12 in past the pull end. This keeps the eject
+  stroke at a workable height (the grip ends 23 in above the ground), and the open lid lies on it.
+  Build the stand from timber or steel; it is not detailed.
 
 ## General welding rules
 
 - Process: SMAW with E7018 or GMAW with ER70S-6. Fillet welds 1/4 unless noted.
-- **AR400 lid ribs (item 10):** low-hydrogen only (E7018 from a rod oven, or ER70S-6),
-  preheat the joint to 300 F, let cool slowly (cover with a welding blanket). Do not quench.
-- **No weld, spatter or grinding marks inside the mold box or on the lid underside.** These
-  surfaces form the brick. Weld outside only; grind any spatter flush and smooth.
-- **Do not weld on any 4140 part** (items 18, 19, 22, 26, 27, 28) except where a note says so (claw
-  tie into the yoke horns, catch bar and roller axle into the cheeks). Keep those welds small and let
-  them cool slowly; 4140 cracks when welded hard and quenched.
-- Keep heat away from pin holes. Where a hole crosses a welded joint (piston web pin hole), drill
-  or line-bore it **after** welding.
-- Tack everything, check it, then run final welds in short alternating passes to control distortion.
+- **AR400 ramps (item 7):** low-hydrogen only, preheat the joint to 300 F, cool slowly under a blanket.
+- **No weld, spatter or grinding marks inside the mold or on the lid underside.** Weld outside only.
+- **4140 pins (items 14, 16, 17):**
+  - Weld only the Q stubs into the cheeks and the cam pin ends to the cheeks.
+  - Keep those welds small and cool them slowly.
+  - Never weld pin P.
+- Line-bore the piston web holes for pin P after welding.
+- Tack, check, then run final welds in short alternating passes.
 
 ## Purchased and turned items
 
 | Item | Part | Stock / spec | Qty | Notes |
 |---|---|---|---|---|
-| 18 | Main pin P | 1.750 round 4140 prehard, 11.500 long | 1 | Two 9/32 cross holes, 1/4 hitch pins |
-| 19 | Stub pin Q | 1.500 round 4140 prehard, 2.562 long | 2 | Two 9/32 cross holes each |
-| 21 | Claw thumb bar | 0.875 round 1018, 4.000 long | 1 | |
-| 22 | Claw tie | 1.750 round 4140 prehard, 10.250 long | 1 | |
-| 23 | Tie spacer | 2.500 OD 1018, 2.312 long, bore 1.812 | 2 | Loose on the tie |
-| 24 | Claw stop rod | 0.750 round 1018, 10.250 long | 1 | |
-| 26 | Saddle roller | 3.000 OD 4140, hardened 40-45 HRC, 7.000 long, bore 1.781 | 1 | Ream bore for a running fit |
-| 27 | Roller axle | 1.750 round 4140 prehard, 8.625 long | 1 | |
-| 28 | Catch bar | 1.500 round 4140 prehard, 8.625 long | 1 | |
-| 6 | Eject roller | 3.000 OD 1045, 5.500 long, bore 1.062 | 1 | |
-| 7 | Eject roller axle | 1.000 round 1018, 10.500 long | 1 | |
-| 12 | Lid hinge pin | 0.750 round 1018, 1.750 long | 2 | Washers + 1/8 cotter pins |
-| — | Hardware | 1/4 hitch pins (6), 1/8 cotter pins (4), 3/4 washers (4), 1/2 anchor bolts or lags (4) | | |
-| — | Grease | general-purpose lithium grease for all pins and rollers | | |
+| 4 | Fixed pin | 1.250 round 1018, 1.438 long | 2 | Welded in the side plates |
+| 5 | Lid pivot pin | 1.000 round 1018, 1.406 long | 2 | Washer and 1/8 cotter outside the strap |
+| 14 | Main pin P | 1.750 round 4140 prehard, 10.375 long | 1 | Two 9/32 cross holes, 1/4 hitch pins |
+| 16 | Pin Q (stub) | 1.250 round 4140 prehard, 1.688 long | 2 | One 9/32 cross hole each |
+| 17 | Cam pin | 1.250 round 4140 prehard, 8.000 long | 1 | |
+| 19 | Handle | 1-1/2 sch 80 pipe, 64.0 long | 1 | Grip end 72 from Q |
+| 22 | Latch pivot | 0.500 round 1018, 8.000 long | 1 | Cotter each end |
+| 23 | Lid handle | 0.500 round 1018, bent into a U (horseshoe), 4 between legs | 1 | About 11 in of bar |
+| — | Hardware | 1/2 bolts (4) for the foot clips, 1/4 hitch pins (4), 1/8 cotters (4), washers | | |
+| — | Grease | lithium grease for pins P and Q, the scoops, the cam pin and the fixed pins | | |
 
-Everything else is cut from plate, flat bar or tube. Use the DXF files in `drawings/14x7x4/dxf/`
-for the plate profiles (1:1, inches); they match the drawings.
+Cut all plates from the DXF files in `drawings/simple-14x7x4/dxf/` (1:1, inches).
+**The V ramp top edge and scoop must come from the DXF**: the scoop position sets the stroke.
 
-## Step 1 — Base frame (items 3, 4, 5, 6, 7)
+## Step 1 — Mold box (items 1, 2, 3, 4, 5)
 
-1. Lay the two **base rails** (48.000, 3 x 2 x 3/16 tube, 3 tall) parallel on a flat table,
-   7.750 apart centre to centre (outer faces 9.750 apart).
-2. Weld the two **cross ties** between the rails, one flush with each end.
-3. Check the frame is flat and square (diagonals equal within 1/16). Weld out.
-4. Call the rail end with the short overhang the **front end**. Stand the two **eject roller posts**
-   (2 x 2 x 1/4 tube) on the rails at the **back end**, centred on the rails, post centres 3.000 from
-   the back end (45.000 from the front end). The axle holes must face each other across the frame.
-5. Pass the **eject roller axle** through both posts with the **eject roller** on it, check it
-   spins freely, then weld the posts to the rails, plumb both ways. Weld the axle ends to the
-   posts (small tack welds) or retain with cotter pins.
+1. Cut both side plates from the DXF. Each has:
+   - the corrected slot, centred on the length;
+   - the fixed-pin hole, near the top at one end;
+   - the lid-pivot hole, at the other end;
+   - two 9/16 bolt holes along the bottom.
+   The two plates are identical; one is flipped to face the other.
+2. Stand the side plates on a flat table 7.000 apart (inside faces). Set the end plates between them,
+   flush with the top edges and the plate ends.
+3. Square the box: inside 14.000 x 7.000 at the top, diagonals equal within 1/32. Clamp stiff bars
+   across top and bottom and weld the end plates outside only.
+4. Slide a straight 1-3/4 bar through both slots: it must pass freely over the full length.
+5. Weld the fixed pins (item 4) through their holes, inner end flush inside, and the lid pivot pins
+   (item 5) the same way. Keep both square to the plates.
+6. Bolt the four foot clips (item 3) through the bottom holes. The two at the pull end sit 3 in in from
+   the plate end so the lid straps swing past them. Bolt or lag the clips to the stand.
 
-## Step 2 — Mold box (items 1, 2)
+## Step 2 — Piston (items 10, 11)
 
-The mold is 14.000 x 7.000 inside and 16.500 tall. Its inside must be square, smooth and
-parallel; the brick quality depends on it.
+1. Weld the four webs under the cap in two pairs. The outer webs sit flush with the cap's long edges;
+   the inner ones sit 1/2 inboard of them. All four are centred on the cap length.
+2. Line-bore the 1.781 holes for pin P through all four webs after welding, 1.102 above the web bottoms.
+3. The piston must slide the full depth of the mold with about 1/16 all round.
 
-1. Stand the two **side walls** (3/4 plate, slotted) on the table, slots facing each other and
-   aligned: pass a 1.750 bar through both slots to check. The slots are at the middle of the
-   14.000 length.
-2. Fit the two **end walls** (5/8 plate, 8.500 wide) across the ends of the side walls, overlapping
-   the side-wall ends, flush at top and bottom.
-3. Clamp. Measure the inside: 14.000 x 7.000 at the top, middle and bottom. Diagonals equal within
-   1/32. The top edges must be in one plane (the lid seals on them).
-4. Tack the four outside corners top and bottom. Re-check square.
-5. Weld the four vertical corner seams **outside only**, in short alternating runs.
-6. Check the inside again and grind any high spots smooth.
+## Step 3 — Lid (items 6, 7, 8, 9)
 
-## Step 3 — Mount the box and the hinge lugs (items 8)
+1. Cut the lid plate from the DXF. It is 6.969 wide (inside the side plates) except the last 3 in at the
+   pull end, which is full width and sits on the side plates.
+2. Weld the V ramps along both long edges of the lid top, outer faces 3.438 from the centreline.
+   - Put the long leg (lower end 0.276) at the fixed-pin end.
+   - The scoops sit right over the middle of the mold.
+   - Use low-hydrogen rod and preheat.
+3. Weld the lid straps (item 8) to the edges of the wide part, reaching down to the lid pivot pins.
+4. Weld the two handle rests (item 9) on the wide part along each edge, under where the head cheeks
+   land. Fit them in Step 7.
+5. Bend the lid handle (item 23) from 1/2 round into a U, 4 between leg centres, 3.25 overall. Weld the
+   leg ends to the lid's fixed-pin end face, centred and level with the lid, so the U sticks straight
+   out. Lift the lid by it to swing the lid over onto the stand, and to swing it back.
 
-1. Set the mold box on the base rails with the side walls centred on the rails and the inside face
-   of the front end wall 8.000 from the front end of the rails. The mold centreline is then 15.000
-   from the front end and 30.000 from the eject roller posts. The end wall nearest the posts is the
-   **eject end**; the lid hinges there.
-2. Weld the side-wall and end-wall bottom edges to the rails (outside only).
-3. Weld the two **wall hinge lugs** to the outer face of the eject-end wall: top edge flush with
-   the mold top, lug outer face 0.250 in from the side-wall outer face, hole 0.750 below the mold
-   top and 0.750 out from the wall face. Pass a 3/4 rod through both lug holes to check alignment.
+## Step 4 — Yoke (items 12, 13)
 
-## Step 4 — Piston (items 14, 15, 16)
+1. Cut both arms from the DXF and drill P and Q with the arms clamped together.
+2. Weld the two cross bars (item 13) on edge between the arm tops to make a box. The pull-end bar's outer
+   face is 0.875 from the arm centreline; the other is its mirror.
+   - The head rests on the pull-end bar's lower edge.
+   - The latch hooks drop over its top edge.
 
-1. Lay the **piston cap** (3/4 plate, 13.875 x 6.875) face down.
-2. Stand the two **piston webs** (1/2 plate, 8.750 tall) on it, flush with the long edges.
-3. Fit the two **diaphragms** between the webs at the ends, flush with the cap ends.
-4. Tack, check the webs are square to the cap, then weld the webs and diaphragms to the cap and to
-   each other. Keep welds off the pin-hole area.
-5. **Line-bore or drill the 1.781 pin hole through both webs together after welding**, centred on
-   the length, 8.000 below the cap top face. Check with the 1.750 main pin.
-6. Try the piston in the mold: it must slide freely the full height with about 1/16 clearance
-   each side. Break the cap edges lightly. Do not weld the piston to anything.
+## Step 5 — Head (items 15 to 22)
 
-## Step 5 — Lid (items 9, 10, 11, 13)
+1. Cut both cheeks from the DXF. Clamp them together and drill:
+   - Q (1.250);
+   - the cam pin (1.266), **2.132 below Q, hold +/-0.010**;
+   - the latch pivot (0.531).
+2. Weld a Q stub (item 16) into each cheek, inner end flush inside, sticking out.
+3. Weld the two bridges (item 18) between the cheeks at the far end of the handle leg, 8.0 and 9.75 from
+   Q; slide the handle (item 19) through both and weld all round.
+4. Push the cam pin (item 17) through both cheeks, flush outside; weld the ends.
+5. Weld the latch bar (item 21) across the two latch hooks (item 20). Hang them between the cheeks on the
+   latch pivot (item 22), with a cotter at each end.
 
-1. Mark the **lid plate** (1/2 plate, 15.250 x 8.500) centreline. Its underside is the top of the
-   brick: keep it flat, clean and free of weld.
-2. Stand the two **AR400 ribs** on the lid, 5.000 apart centre to centre (each 2.500 from the
-   centreline), ends flush with the lid ends, the **lowest point of the track arc on the lid
-   centre** (7.625 from each end). Both ribs must be identical: cut them together from the DXF.
-3. Preheat to 300 F. Weld both sides of each rib full length with low-hydrogen filler. Slow-cool.
-4. Check the tracks are straight, level with each other and square to the plate within 1/64.
-   Dress the track arc smooth with a flap disc. **No flats or edges on the arc.**
-5. Weld the two **lid hinge lugs** on top of the lid at the eject end: inner edge against the lid
-   end face, lug outer face 0.750 in from the lid edge. The hinge hole sits below the lid, 0.750
-   outside the lid end. The tail lobe points down toward the end wall.
-6. Weld the **handle stop** (2 x 2 x 1/4 tube with 1/4 cap, 5.133 tall + cap) on the lid centreline,
-   centred 1.625 from the lid end away from the hinge. Leave it slightly long; it is trimmed in step 8.
+## Step 6 — Final assembly
 
-## Step 6 — Yoke and latch claw (items 17, 20 to 24)
+1. Lower the piston into the mold from the top until its holes line up with the slots.
+2. Hang the yoke arms outside the side plates and push pin P through: arm, slot, four webs, slot, arm.
+   Hitch pins outside the arms.
+3. Fit the head between the arm tops with the Q stubs in the arms' Q holes; washers and hitch pins
+   outside. Grease.
+4. Put the lid straps on the lid pivot pins; washers and cotters.
 
-1. Cut the two **yoke bars** from 3/4 plate using the DXF: a 3.000 wide bar with a **horn** beside
-   the top hole (sheet 21). Clamp them together and drill all four holes through both at once so
-   they match exactly: P 1.781 at the bottom, Q 1.531 at the top (19.500 above P), the tie hole
-   1.781 in the horn (3.646 across and 0.847 above Q, toward the eject roller), and the stop-rod hole
-   0.781 at the horn tip (5.853 across, 0.436 above Q).
-2. Cut the two **claw plates** (3/4 plate) together from the DXF: pivot hole 1.781, notch for the
-   1.500 catch bar 2.500 from the pivot, counterweight tail with the 0.906 thumb-bar hole. The notch
-   side walls are arcs centred on the pivot hole; keep them as cut and dress them smooth.
-3. Push the **thumb bar** through both claw plates, inside faces 2.500 apart, ends flush with the
-   outside faces, and weld both ends. Check the two notches line up (lay the catch bar in both).
-4. Weld the **claw stop rod** through the stop-rod holes of both yoke bars, flush outside. The two
-   bars must stand parallel, 8.750 apart inside, holes aligned.
-5. Slide the **claw tie** through one yoke bar, then a **tie spacer**, the claw (pivot holes), the
-   second tie spacer and the other yoke bar. Weld the tie into both horns, flush outside (small
-   welds, slow cool). The claw must swing freely on the tie.
-6. The yoke is now one rigid frame: tie and stop rod across the top, pin P across the bottom.
+## Step 7 — Adjust and test (empty)
 
-## Step 7 — Handle head (items 25 to 31)
+1. **Fill position:** lid swung over onto the stand by its handle, latch shut, yoke leaning on the fixed pins at about
+   33 deg.
+2. Swing the lid on and lift the handle and yoke upright. The cam pin must ride up the long leg of both
+   ramps and drop into both scoops. The piston lifts about 3/4 on the way and settles back.
+3. Lift the latch bar. Pull the handle over: the piston top should rise from 6.750 to 4.000 below the mold
+   top. The cheeks land on the handle rests with the handle 3 deg below horizontal.
+   - Grind or shim the rests so the stop is exactly there.
+   - The handle must stay down by itself.
+4. Raise the handle back past upright, drop the latch, tilt back onto the fixed pins, and swing the lid
+   over. Push the handle down: the piston top must come up 1/8 above the mold top with the yoke at
+   about 80 deg.
+5. Grease the scoops, cam pin, pins P and Q and the fixed pins.
 
-1. Cut the two **cheeks** (3/4 plate) as a pair and drill them clamped together: Q hole 1.531,
-   roller hole 1.781 at 2.500 from Q, catch-bar hole 1.531 per sheet 29.
-2. Set the cheeks up parallel, inner faces 7.125 apart, holes aligned (pass a bar through each hole pair).
-3. Weld the plain **bridge** between the cheeks 5.750 from Q along the handle line, and the **bored
-   bridge** at 8.500. The plain bridge sits above the claw's swing; do not move it closer to Q.
-4. Slide the **handle tube** (1-1/2 sch 80, 65.500 long) through the bored bridge, butt it to the plain
-   bridge, and weld at both bridges. The tube is on the handle line through Q.
-5. Push the **catch bar** through both cheeks, flush outside, and weld it to each cheek.
-6. Grease the bore of the **saddle roller**, hold it between the cheeks and push the **roller axle**
-   through. Axle ends are flush with the cheek outer faces. Check the roller spins, then tack-weld the
-   axle ends to the cheeks (keep it small and let it cool slowly).
+## Step 8 — Load test before production
 
-## Step 8 — Final assembly
-
-1. Drop the piston into the mold from the top, webs toward the side walls.
-2. Hang the yoke frame outside the side walls, horns toward the eject roller, and push **main pin
-   P** through yoke bar, side-wall slot, both piston webs, the other slot and the other yoke bar.
-   Hitch pins in both cross holes.
-3. Flip the claw open onto its stop rod. Set the handle head between the tops of the yoke bars and
-   fit the two **stub pins Q** from the outside (through yoke bar and cheek). Hitch pins in both.
-4. Stand the handle upright along the yoke and lift the thumb bar: the claw swings over and hooks the
-   catch bar by itself.
-5. Set the lid on the mold top and fit the two **hinge pins** through the lid and wall lugs, washers
-   and cotter pins.
-6. Grease all pins, the roller, the claw tie and the rib tracks.
-
-## Step 9 — Adjust and test (empty)
-
-1. **Lid:** lift the free end; the lid swings up about the eject-end hinge and must come to rest on
-   its lug tails at about 100 (just past vertical). It must close flat on the mold top all round.
-2. **Claw:** with the handle upright on the yoke, the claw must drop fully onto the catch bar by
-   itself. Push the thumb bar down to flip it over: it must come to rest on the stop rod and stay there.
-3. **Latch and tilt:** with the claw shut and the lid closed, tilt handle and yoke back until the
-   handle rests on the eject roller. The claw must stay shut; nothing may touch the lid on the way.
-4. **Stroke:** swing upright, flip the claw open, pull the handle over to horizontal and on down to
-   the handle stop. The roller must roll the whole way on the track arc. Measure piston top to mold
-   top with the handle horizontal: **4.000** (brick thickness). At the start it is 6.750.
-5. **Stop height:** the handle must land on the stop about 3 past horizontal. Trim or shim the stop
-   cap until it does. This sets the over-centre lock: past horizontal the brick pressure holds the
-   handle down on the stop.
-6. **Eject:** raise the handle upright, drop the claw onto the catch bar, tilt back onto the eject roller, open the lid, push the handle down. The piston
-   top must come up 1/8 above the mold top.
-
-## Step 10 — Load test before production
-
-Make ten bricks with carefully measured fills (6.750 of loose mix, struck off level). Check:
-thickness 4.000, corners sharp, no cracking, handle stays on the stop by itself, no permanent set in
-the lid, pins or yoke bars. Measure the lid plate and pins against the drawings after the test.
-**Never overfill:** the toggle multiplies force at lock-up and an overfilled mold can overload the
-press (the parts are checked to 306 psi, about 30,000 lbf on the piston; see sheet 4).
+Press a few light fills, then work up to a full 6.750 loose fill.
+- **Handle force:** about 125 lbf at the end of the stroke with typical soil at 150 psi, and about 165
+  lbf at 200 psi.
+- **After 20 bricks:** check that pins P, Q and the cam pin are straight, the scoops are not dented,
+  the side plates have not bulged, and no weld has cracked.
+- **If the head will not reach the rests**, the fill is too heavy. Take soil out; don't force it.

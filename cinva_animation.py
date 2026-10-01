@@ -11,7 +11,7 @@ Every position comes from the same kinematics that cinva_ram_b123d.verify() chec
 so the animation shows the press exactly as drawn.
 
 Usage:
-    LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_animation.py [--brick 14x7x4]
+    LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_animation.py [--brick 14x7x4] [--model simple|full]
 """
 
 from __future__ import annotations
@@ -21,7 +21,11 @@ import json
 import math
 import os
 
+import importlib
+
 import cinva_ram_b123d as m
+
+MODELS = {"full": "cinva_ram_b123d", "simple": "cinva_simple"}
 
 FPS = 30
 GROUP_OF = {
@@ -38,14 +42,24 @@ GROUP_OF = {
 
 def meshes(p: m.Params, ref: m.Pose):
     colors = {pt.key: m.COLORS[pt.color] for pt in m.parts(p)}
+    group_of = getattr(m, "GROUP_OF", GROUP_OF)
     groups = {}
     for key, name, solid in m.assembly(p, ref):
-        g = groups.setdefault(GROUP_OF[key], {"positions": [], "indices": [], "colors": []})
+        g = groups.setdefault(group_of[key], {"positions": [], "indices": [], "colors": []})
         verts, tris = solid.tessellate(0.008, 0.12)
         base = len(g["positions"]) // 3
         for v in verts:
             g["positions"] += [round(v.X, 3), round(v.Y, 3), round(v.Z, 3)]
             g["colors"] += [round(c, 3) for c in colors[key]]
+        for t in tris:
+            g["indices"] += [base + i for i in t]
+    for grp, solid, rgb in (m.extra_meshes(p) if hasattr(m, "extra_meshes") else []):
+        g = groups.setdefault(grp, {"positions": [], "indices": [], "colors": []})
+        verts, tris = solid.tessellate(0.008, 0.12)
+        base = len(g["positions"]) // 3
+        for v in verts:
+            g["positions"] += [round(v.X, 3), round(v.Y, 3), round(v.Z, 3)]
+            g["colors"] += [round(c, 3) for c in rgb]
         for t in tris:
             g["indices"] += [base + i for i in t]
     return [dict(name=k, **v) for k, v in groups.items()]
@@ -102,6 +116,10 @@ def timeline(p: m.Params):
         ("Raise the handle: piston drops for the next fill", 1.5,
          lambda s: (lambda th: st(th, psi0, m.zp_for_theta(p, th), p.lid_open, 0.0, 0.0, 0.0))(th_e + (th_f - th_e) * ease(s))),
     ]
+    return phases, dict(phase_press=4, phase_pressed=5, phase_lift=11)
+
+
+def frames_of(phases):
     frames = []
     for i, (name, dur, fn) in enumerate(phases):
         n = max(2, round(dur * FPS))
@@ -110,28 +128,39 @@ def timeline(p: m.Params):
             d = fn(s)
             frames.append([i, round(s, 4), round(d["theta"], 3), round(d["psi"], 3), round(d["zp"], 4),
                            round(d["cover"], 2), round(d["latch"], 2), round(d["bb"], 4), round(d["bt"], 4),
-                           round(d["force"], 1)])
+                           round(d["force"], 1), round(d.get("theta_show", d["theta"]), 2),
+                           round(d.get("psi_show", d["psi"]), 2)])
     return [n for n, _, _ in phases], frames
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--brick", default="14x7x4")
-    ap.add_argument("--out", default="animation/press.json")
+    ap.add_argument("--out", help="default animation/press.json (simple) or animation/press-full.json (full)")
+    ap.add_argument("--model", choices=sorted(MODELS), default="simple")
     a = ap.parse_args()
+    global m
+    m = importlib.import_module(MODELS[a.model])
+    a.out = a.out or ("animation/press.json" if a.model == "simple" else "animation/press-full.json")
     p = m.Params(**m.parse_brick(a.brick))
-    ref = m.Pose("reference", 0.0, p.psi0, p.zp_fill, 0.0)       # latched, upright, lid closed
+    ref = m.anim_ref(p) if hasattr(m, "anim_ref") else m.Pose("reference", 0.0, p.psi0, p.zp_fill, 0.0)
     hx, hz = m.hinge_axis(p)
-    names, frames = timeline(p)
+    phases, roles = m.timeline(p) if hasattr(m, "timeline") else timeline(p)
+    names, frames = frames_of(phases)
+    meta = dict(label=p.label, fps=FPS, xc=p.xc, hinge=[hx, hz], yoke=p.yoke_len, zp_ref=ref.zp, psi_ref=ref.psi,
+                zt=p.zt, L=p.brick_l, W=p.brick_w, H=p.brick_h, clear=p.clear, fill=p.fill,
+                pin_below_cap=p.pin_below_cap, rail_y=p.rail_y, title=getattr(m, "TITLE", "CINVA-Ram"),
+                p_work=p.p_work, psi_stop=p.psi_stop, handle_len=p.handle_len, **roles)
+    if hasattr(m, "anim_meta"):
+        meta.update(m.anim_meta(p))
+    elif hasattr(m, "claw_geom"):
+        meta.update(claw_pivot=[p.xc + m.claw_geom(p)["C"][0], ref.zp + p.yoke_len + m.claw_geom(p)["C"][1]],
+                    claw_open=m.claw_geom(p)["open"])
     data = dict(
-        meta=dict(label=p.label, fps=FPS, xc=p.xc, hinge=[hx, hz], yoke=p.yoke_len, zp_ref=ref.zp, psi_ref=ref.psi,
-                  zt=p.zt, L=p.brick_l, W=p.brick_w, H=p.brick_h, clear=p.clear, fill=p.fill,
-                  pin_below_cap=p.pin_below_cap, rail_y=p.rail_y,
-                  claw_pivot=[p.xc + m.claw_geom(p)["C"][0], ref.zp + p.yoke_len + m.claw_geom(p)["C"][1]],
-                  claw_open=m.claw_geom(p)["open"],
-                  p_work=p.p_work, psi_stop=p.psi_stop, handle_len=p.handle_len),
+        meta=meta,
         phases=names,
-        columns=["phase", "s", "theta", "psi", "zp", "cover", "claw", "brick_bottom", "brick_top", "hand_force"],
+        columns=["phase", "s", "theta", "psi", "zp", "cover", "claw", "brick_bottom", "brick_top", "hand_force",
+                 "theta_show", "psi_show"],
         frames=frames,
         groups=meshes(p, ref),
     )

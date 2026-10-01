@@ -6,13 +6,47 @@ All dimensions in inches. Material: 1/4" (0.250") steel plate unless noted.
 
 Primary file: `cinva_ram.scad`
 
-**14 x 7 x 4 shop drawings.** `cinva_ram_b123d.py` is a parametric build123d redesign of the press for a 14 x 7 x 4 in brick (brick size is a parameter). It uses the original CINVA-Ram mechanism: a yoke hangs from a pin through the piston and vertical slots in the mold walls; the handle pivots on top of the yoke and a roller on the handle bears on ribs on the lid, so pulling the handle down lifts the piston against the lid. The roller rides a continuous concave track (R10) and the handle locks slightly over centre on a stop. The lid hinges at the eject-roller end so pressing loads hold it shut, and it flips open to rest on a stop just past vertical for ejection. The model solves the linkage for the fill, compress and eject positions, checks every position and motion for collisions, and runs first-order strength checks (200 psi working, 306 psi design). `cinva_drawings.py` produces the ISO 128 set: general assembly with parts list, assembly views, operating positions, operation and design data, one detail sheet per part, DXF cut files, a PDF and a STEP assembly.
+**14 x 7 x 4 shop drawings (recommended: the simple press).** `cinva_simple.py` is a faithful scale-up of the permies.com replica (thread 33406). His part drawings are `cinva1-7.jpg`; his SketchUp model and video show the assembly. Every part is scaled from his 11.5 x 6 x 3-5/8 brick (lengths x 1.217, widths x 1.167, heights x 1.102).
+
+How it works:
+- **Pressing:** the cam pin on his L-shaped head drops into the scoops at the peak of his V ramps. Pulling the handle over swings pin Q up over the cam pin like a knee, lifting the piston through the yoke. It locks 3 degrees past straight.
+- **Latch:** his hook plates latch the head to the yoke for tilting.
+- **Eject:** the yoke leans on his fixed pins, and pushing the handle down lifts the brick out.
+
+Fixes to his drawings:
+- the 2" side slot (his error; the supplier changed it to 1"), cut to pin + 1/16;
+- the slot top kept below the loose soil;
+- the fixed-pin height set for the eject stroke.
+
+Heavier stock (listed with reasons in `ASSEMBLY.md`):
+- 1/2 side plates;
+- 3/4 AR400 ramps;
+- 4140 pins (P 1-3/4", Q and cam 1-1/4");
+- 3 x 1/2 yoke arms;
+- the lid narrowed so the head clears it.
+
+Checked at CINVA pressure (200 psi working, 306 psi design):
+- peak push 163 lbf on the 72 in handle (123 lbf at 150 psi);
+- about 112 lbf to eject;
+- 22 part types, about 230 lb of steel;
+- the press bolts to a 12 in stand.
+
+`cinva_ram_b123d.py` is the earlier heavy-duty version, kept for reference. It has a concave roller track, a central claw latch, and an eject roller on posts; its guide is `ASSEMBLY_full.md` and its drawings are in `drawings/14x7x4/`. Both models:
+- solve the linkage for the fill, compress and eject positions;
+- check every position and motion for collisions;
+- run first-order strength checks.
+
+`cinva_drawings.py` produces the ISO 128 set: general assembly with parts list, assembly views, operating positions, operation and design data, one detail sheet per part, DXF cut files, a PDF and a STEP assembly.
 
 ```
-LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_ram_b123d.py --check   # summary, strength and clearance checks
-LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_drawings.py            # -> drawings/14x7x4/
-LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_animation.py           # -> animation/press.json
-cd animation && python3 -m http.server   # then open http://localhost:8000 (3D animation, #p5 jumps to phase 5)
+LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_simple.py --check            # summary, strength and clearance checks
+LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_drawings.py --model simple   # -> drawings/simple-14x7x4/
+LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_animation.py                 # -> animation/press.json (simple press)
+cd animation && python3 -m http.server   # then open http://localhost:8000 (#p5 jumps to phase 5, ?full shows the heavy press)
+
+LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_ram_b123d.py --check         # heavy-duty version
+LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_drawings.py --model full     # -> drawings/14x7x4/
+LD_LIBRARY_PATH=$HOME/miniconda3/lib python3 cinva_animation.py --model full    # -> animation/press-full.json
 ```
 
 The OpenSCAD model below (`cinva_ram.scad`) is the older interpretation of the scanned drawings; its lever geometry does not actually move the piston through a compression stroke.
