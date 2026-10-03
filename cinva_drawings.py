@@ -830,14 +830,17 @@ def design_sheet(p: m.Params, plist, n_sheets, path):
     sh.text("handle angle (deg)", (cx0 + cx1) / 2, cy0 - 8, TXT_SMALL, ha="center", va="top")
     sh.text("hand force (lbf)", cx0 - 12, (cy0 + cy1) / 2, TXT_SMALL, ha="center", va="bottom", angle=90)
     sh.text("piston rise (in)", cx1 + 10, (cy0 + cy1) / 2, TXT_SMALL, ha="center", va="top", angle=90)
-    for pr, layer in ((250, "center"), (200, "visible"), (150, "hidden")):
+    others = [pr for pr in (150, 200, 250) if pr != p.p_work][:2]
+    curves = [(p.p_work, "visible")] + list(zip(others, ("hidden", "center")))
+    for pr, layer in curves:
         pts = [(X(r[0]), Yf(r[3])) for r in p.stroke_table(pr, step=1)]
         sh.poly(pts, layer, close=False)
     pts = [(X(r[0]), Yr(r[1])) for r in p.stroke_table(p.p_work, step=1)]
     sh.poly(pts, "thin", close=False)
     ly = cy0 - 16
-    for layer, lab in (("visible", "hand force, 200 psi"), ("hidden", "hand force, 150 psi"),
-                       ("center", "hand force, 250 psi"), ("thin", "piston rise")):
+    legend = [(layer, f"hand force, {pr:g} psi" + (" (working)" if layer == "visible" else ""))
+              for pr, layer in curves] + [("thin", "piston rise")]
+    for layer, lab in legend:
         sh.line((cx0, ly), (cx0 + 10, ly), layer)
         sh.text(lab, cx0 + 12, ly, TXT_SMALL, va="center")
         ly -= 4.5
