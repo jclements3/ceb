@@ -14,7 +14,7 @@ jobs:
         with: { distribution: temurin, java-version: '21' }
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
-      - run: pip install build123d jupyter_client
+      - run: pip install "build123d==0.11.1" cairosvg jupyter_client   # cinva_drawings needs Vertex.to_tuple (removed in 0.12)
 
       - name: SysML v2 pilot kernel (pinned, hash-checked)
         run: |
