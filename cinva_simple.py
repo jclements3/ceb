@@ -597,7 +597,9 @@ def handle_rest(p: Params):
     return x0, x1, min(zs) - p.zL
 
 
-REST_Y = (3.5, 4.0)      # rest blocks sit under the cheeks, on the lid edge
+def rest_y(p: Params):
+    """Rest blocks sit under the cheeks, on the lid edge: cheek inner face to outer face."""
+    return p.cheek_y, p.wall_out
 
 
 # ==========================================================
@@ -841,7 +843,7 @@ def horseshoe(p: Params):
 
 def rest_block(p: Params):
     x0, x1, h = handle_rest(p)
-    return plate(x1 - x0, REST_Y[1] - REST_Y[0], h)
+    return plate(x1 - x0, rest_y(p)[1] - rest_y(p)[0], h)
 
 
 # ---- piston ----
@@ -1167,7 +1169,7 @@ def parts(p: Params) -> list[Part]:
              notes=("Outside the side plate on the lid pivot pin; top end welded to the lid plate edge.",
                     "The lid swings over on these and rests upside down beside the press.")),
         Part("hrest", "Handle Rest", 2, f'{handle_rest(p)[2]:.3f} x 1/2 flat bar', "red", rest_block, group="Lid",
-             dims=lambda p: _plate_dims(rx1 - rx0, REST_Y[1] - REST_Y[0], (), rh),
+             dims=lambda p: _plate_dims(rx1 - rx0, rest_y(p)[1] - rest_y(p)[0], (), rh),
              notes=("Weld on the lid top along each long edge at the pull end, under the head cheeks. The "
                     "cheeks land on them 3 deg past centre: that is the over-centre lock.",
                     "Fit on assembly: shim or grind so the handle stops 3 deg below horizontal with the lid closed.")),
@@ -1318,7 +1320,7 @@ def assembly(p: Params, pose: str = "locked", handle_len: float | None = None):
     add("strap", "Lid Strap", lf * Pos(gx - STRAP_W / 2, p.wall_out + 1 / 32 + p.t_bar, gz - STRAP_W / 2)
         * UPRIGHT * strap(p), mirror=True)
     rx0, rx1, _ = handle_rest(p)
-    add("hrest", "Handle Rest", lf * Pos(rx0, REST_Y[0], p.zL) * rest_block(p), mirror=True)
+    add("hrest", "Handle Rest", lf * Pos(rx0, rest_y(p)[0], p.zL) * rest_block(p), mirror=True)
     add("lhandle", "Lid Handle", lf * Pos(-te, 0, p.zt + p.t_lid / 2) * Rot(0, 0, 180) * horseshoe(p))
 
     # piston
