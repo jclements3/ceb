@@ -44,6 +44,15 @@ def _dwg():
     return getattr(m, "DWG_PREFIX", "CR")
 
 
+def sheet_rev(key):
+    """(rev letter, issue date) for a sheet: the model's REVISIONS / SHEET_REV hooks, else A + today."""
+    revs = getattr(m, "REVISIONS", None)
+    if not revs:
+        return "A", datetime.date.today().isoformat()
+    letter = getattr(m, "SHEET_REV", {}).get(key, getattr(m, "CURRENT_REV", next(iter(revs))))
+    return letter, revs[letter][0]
+
+
 def _title():
     return getattr(m, "TITLE", "CINVA-Ram Block Press")
 
@@ -176,7 +185,7 @@ def projection_symbol(sh: Sheet, x, y, h=6.0):
     sh.line((x - 1, y + r1), (x + 1.2 * h + 1, y + r1), "center")
 
 
-def title_block(sh: Sheet, title, subtitle, dwg_no, sheet_no, n_sheets, scale, material, qty, doc_type):
+def title_block(sh: Sheet, title, subtitle, dwg_no, sheet_no, n_sheets, scale, material, qty, doc_type, key=None):
     x1, y0 = sh.W - M_OTHER, M_OTHER
     x0, y1 = x1 - TB_W, y0 + TB_H
     L = lambda a, b: sh.line(a, b, "border")
@@ -221,16 +230,17 @@ def title_block(sh: Sheet, title, subtitle, dwg_no, sheet_no, n_sheets, scale, m
     lab("Identification number", x0 + 116, y0 + 16)
     sh.text(dwg_no, x0 + 117.5, y0 + 9.5, TXT_SMALL)
     lab("Rev", x0 + 116, y0 + 8)
-    sh.text("A", x0 + 118, y0 + 1.5, TXT_SMALL)
+    rev, issued = sheet_rev(key)
+    sh.text(rev, x0 + 118, y0 + 1.5, TXT_SMALL)
     lab("Date of issue", x0 + 124, y0 + 8)
-    sh.text(datetime.date.today().isoformat(), x0 + 125.5, y0 + 1.5, TXT_SMALL)
+    sh.text(issued, x0 + 125.5, y0 + 1.5, TXT_SMALL)
     lab("Sheet", x0 + 144, y0 + 16)
     sh.text(f"{sheet_no}/{n_sheets}", x0 + 145.5, y0 + 5, TXT)
 
 
 BASE_NOTES = ["All dimensions in inches. Tolerance ±1/32 unless noted.",
               "Break sharp edges, remove burrs.",
-              "Material A36 / 1018 steel. Fillet welds 1/4 unless noted."]
+              "Material per title block. Fillet welds 1/4 unless noted."]
 
 
 def note_lines(notes, width_mm):
@@ -535,7 +545,7 @@ def part_sheet(p: m.Params, part: m.Part, sheet_no, n_sheets, path, dxf_dir=None
         _table(sh, M_LEFT + 6, y, [i * cw for i in range(n + 1)], rows, head=head, rowh=4.8)
     general_notes(sh, part.notes)
     title_block(sh, part.name, f"{_title()}, {p.label} brick", f"{_dwg()}-{p.label}-{part.item:02d}",
-                sheet_no, n_sheets, scale_str(sc), part.stock, part.qty, "Detail drawing")
+                sheet_no, n_sheets, scale_str(sc), part.stock, part.qty, "Detail drawing", key=part.key)
     sh.svg(path)
     if dxf_dir and part.flat:
         exp = ExportDXF(unit=Unit.IN)
@@ -639,7 +649,7 @@ def assembly_sheet(p: m.Params, plist, n_sheets, path):
     y = _parts_list(sh, p, plist)
     general_notes(sh, _design_notes(p) + [f"Steel weight about {_mass(p, plist):.0f} lb."], y0=y)
     title_block(sh, _title(), f"General assembly, {p.label} brick", f"{_dwg()}-{p.label}-00",
-                1, n_sheets, "1:10", "See parts list", 1, "Assembly drawing")
+                1, n_sheets, "1:10", "See parts list", 1, "Assembly drawing", key="assembly")
     sh.svg(path)
 
 
@@ -678,7 +688,7 @@ def assembly_views_sheet(p: m.Params, n_sheets, path):
         dim_linear(sh, pl, (0, -(p.rail_y + 1), 0), (0, p.rail_y + 1, 0), -10, True)
     general_notes(sh, _design_notes(p))
     title_block(sh, _title(), f"Assembly views, {p.label} brick", f"{_dwg()}-{p.label}-00",
-                2, n_sheets, "1:5", "See parts list", 1, "Assembly drawing")
+                2, n_sheets, "1:5", "See parts list", 1, "Assembly drawing", key="assembly_views")
     sh.svg(path)
 
 
@@ -725,7 +735,7 @@ def positions_sheet(p: m.Params, n_sheets, path):
         "the eject roller; piston = piston top relative to the mold top."])
     general_notes(sh, notes)
     title_block(sh, _title(), f"Operating positions, {p.label} brick", f"{_dwg()}-{p.label}-00",
-                3, n_sheets, scale_str(sc), "-", 1, "Assembly drawing")
+                3, n_sheets, scale_str(sc), "-", 1, "Assembly drawing", key="positions")
     sh.svg(path)
 
 
@@ -835,7 +845,7 @@ def design_sheet(p: m.Params, plist, n_sheets, path):
         "Soil model: pressure rises as (e^5x - 1)/(e^5 - 1) over the stroke; lateral wall pressure 0.5 x vertical."])
     general_notes(sh, notes)
     title_block(sh, _title(), f"Operation and design data, {p.label} brick", f"{_dwg()}-{p.label}-00",
-                4, n_sheets, "-", "-", 1, "Design data")
+                4, n_sheets, "-", "-", 1, "Design data", key="design")
     sh.svg(path)
 
 
@@ -866,7 +876,7 @@ def build_all(p: m.Params, out, only=None):
         makers[key](path)
         paths.append(path)
         manifest.append(dict(key=key, item=0, name=name, sheet=i, file=fname, size="A3", scale=scale,
-                             qty=1, stock="See parts list", group="Assembly"))
+                             qty=1, stock="See parts list", group="Assembly", rev=sheet_rev(key)[0]))
         print(f"  {fname}")
     for pt in plist:
         if only and pt.key not in only:
@@ -877,7 +887,7 @@ def build_all(p: m.Params, out, only=None):
         manifest.append(dict(key=pt.key, item=pt.item, name=pt.name, sheet=pt.item + n0,
                              file=os.path.basename(path), size=size, scale=scale_str(sc), qty=pt.qty,
                              stock=pt.stock, color=pt.color, dxf=pt.flat, group=pt.group,
-                             mass=round(pt.weight(p), 1)))
+                             mass=round(pt.weight(p), 1), rev=sheet_rev(pt.key)[0]))
         print(f"  {pt.item:02d} {pt.name:28s} {size} {scale_str(sc)}")
     if not only:
         import json
