@@ -58,8 +58,12 @@ REVISIONS = {
     "C": ("2026-10-03", "Feeder added (items 24-38): funnel on a sliding feed box with a knife-gate floor, rails, "
                         "stop post. Side plates: two 9/16 holes for the rail bracket / stop post. "
                         "All sheets: sheet count 27 -> 42."),
+    "D": ("2026-10-03", "Working pressure 200 -> 150 psi and handle 72 -> 74 in, so the peak pull (119 lbf) is "
+                        "under the CCOHS 120 lbf limit for pulling down above head height. Sheets: general "
+                        "assembly, assembly views, operating positions, design data, handle."),
 }
 CURRENT_REV = "C"
+SHEET_REV = {k: "D" for k in ("assembly", "assembly_views", "positions", "design", "htube")}
 ATTACHMENT_GROUPS = ("Feeder",)   # drawings: steel weight split press / feeder       # every sheet; SHEET_REV = {key: letter} would hold any sheet left behind
 
 # his press (inches), from cinva1-7.jpg
@@ -122,7 +126,7 @@ class Params:
     d_fpin: float = 1.25          # fixed (eject) pins
     d_gpin: float = 1.00          # lid strap pivots
     d_latch: float = 0.50         # latch pivot (his 7/16)
-    handle_len: float = 72.0      # Q -> grip along the handle
+    handle_len: float = 74.0      # Q -> grip along the handle (rev D: 72 -> 74, 120 lbf at 150 psi)
     handle_od: float = 1.900      # 1-1/2" sch 80 pipe
 
     # mechanism
@@ -132,7 +136,7 @@ class Params:
     theta_eject: float = 80.0     # yoke tilt at the end of the eject stroke (sets the fixed-pin height)
 
     # loads
-    p_work: float = 200.0
+    p_work: float = 150.0         # rev D: 200 -> 150 (CCOHS 120 lbf pull-down limit with a 74 in handle)
     p_design: float = 306.0
     soil_k: float = 5.0
     eject_force: float = 1000.0
@@ -1913,8 +1917,8 @@ def checks(p: Params):
     wb = feed_capacity(p) * SOIL + sum(pt.weight(p) * pt.qty for pt in parts(p)
                                        if pt.key in ("fbpin", "fblid", "fbstrike", "fbfunnel", "gate", "ghandle", "bhandle", "lug"))
     span = (FEED_STOP + RAIL_T - RAIL_A / 2) - (FEED_Y0 + 0.0625 + RAIL_A / 2)
-    rows.append(("Feed rail, bending", f"{wb:.0f} lb full box, {wb / 2:.0f} lb mid-span of {span:.1f}, "
-                 f"{RAIL_A:g} angle", wb / 2 * span / 4 / angle_s(RAIL_A, RAIL_T), 0.66 * FY_A36))
+    rows.append(("Feed rail, bending", f"{wb / 2:.0f} lb mid-span {span:.1f}, {RAIL_A:g} angle",
+                 wb / 2 * span / 4 / angle_s(RAIL_A, RAIL_T), 0.66 * FY_A36))
     return rows
 
 

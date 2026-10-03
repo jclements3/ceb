@@ -25,8 +25,9 @@ Heavier stock (listed with reasons in `ASSEMBLY.md`):
 - 3 x 1/2 yoke arms;
 - the lid narrowed so the head clears it.
 
-Checked at CINVA pressure (200 psi working, 306 psi design):
-- peak push 163 lbf on the 72 in handle (123 lbf at 150 psi);
+Checked at 150 psi working, 306 psi design (rev D: was 200 psi working):
+- peak pull 119 lbf on the 74 in handle, under the 120 lbf CCOHS limit for pulling down above head height
+  (rev D: was 72 in; 163 lbf at 200 psi);
 - about 112 lbf to eject;
 - 23 part types, about 248 lb of steel;
 - the press bolts to a 12 in stand;

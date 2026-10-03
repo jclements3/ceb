@@ -12,7 +12,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "C"
+   "rev": "D"
   },
   {
    "key": "assembly_views",
@@ -25,7 +25,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "C"
+   "rev": "D"
   },
   {
    "key": "positions",
@@ -38,7 +38,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "C"
+   "rev": "D"
   },
   {
    "key": "design",
@@ -51,7 +51,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "C"
+   "rev": "D"
   },
   {
    "key": "side",
@@ -354,8 +354,8 @@
    "color": "orange",
    "dxf": false,
    "group": "Handle",
-   "mass": 19.4,
-   "rev": "C"
+   "mass": 20.0,
+   "rev": "D"
   },
   {
    "key": "latch",

@@ -80,7 +80,7 @@ Two more changes:
 | 14 | Main pin P | 1.750 round 4140 prehard, 10.625 long | 1 | Two 9/32 cross holes, 1/4 hitch pins |
 | 16 | Pin Q (stub) | 1.250 round 4140 prehard, 1.688 long | 2 | One 9/32 cross hole each |
 | 17 | Cam pin | 1.375 round 4140 prehard, 8.250 long | 1 | |
-| 19 | Handle | 1-1/2 sch 80 pipe, 64.0 long | 1 | Grip end 72 from Q |
+| 19 | Handle | 1-1/2 sch 80 pipe, 66.0 long | 1 | Grip end 74 from Q (rev D: was 64.0 / 72) |
 | 22 | Latch pivot | 0.500 round 1018, 8.250 long | 1 | Cotter each end |
 | 23 | Lid handle | 0.500 round 1018, bent into a U (horseshoe), 4 between legs | 1 | About 11 in of bar |
 | — | Hardware | 1/2 bolts (4) for the foot clips, 1/4 hitch pins (4), 1/8 cotters (4), washers | | |
@@ -179,10 +179,11 @@ Cut all plates from the DXF files in `drawings/simple-14x7x4/dxf/` (1:1, inches)
 Press a few light fills, then work up to a full 6.750 loose fill.
 - **Handle force:** the peak comes about 70% of the way through the pull, with the grip about 67 in
   above the ground (head height), not at the end: the over-centre geometry takes the force away in the last
-  few degrees before the lock. Peak 123 lbf at 150 psi, 164 lbf at 200 psi.
+  few degrees before the lock. Peak 119 lbf at the 150 psi working pressure with the 74 in handle.
 - **Ergonomic limit:** 120 lbf for pulling down above head height (CCOHS Table 2, from Kodak's *Ergonomic
-  Design for People at Work*). One operator stays under it only below about 147 psi. At 200 psi use two
-  operators on the handle (or a 98 in handle). For repetitive work CCOHS recommends considerably lower forces.
+  Design for People at Work*). Rev D runs at 150 psi with a 74 in handle so one operator stays under it.
+  Do not raise the working pressure without a second operator: at 200 psi the peak is 159 lbf. For
+  repetitive work CCOHS recommends considerably lower forces.
 - **After 20 bricks:** check that pins P, Q and the cam pin are straight, the scoops are not dented,
   the side plates have not bulged, and no weld has cracked.
 - **If the head will not reach the rests**, the fill is too heavy. Take soil out; don't force it.
