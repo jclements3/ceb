@@ -142,17 +142,18 @@ def model_limits(text: str) -> dict:
     get = lambda pat: float(re.search(pat, text, re.S).group(1))
     return dict(
         handle=get(r"requirement def HandleForceLimit.*?attribute limit\s*:\s*\w+\s*=\s*([\d.]+)\s*\[lbf\]"),
-        steel=get(r"requirement def SteelBudget.*?attribute budget\s*:\s*\w+\s*=\s*([\d.]+)\s*\[lb\]"),
+        part=get(r"requirement def PartHandlingLimit.*?attribute limit\s*:\s*\w+\s*=\s*([\d.]+)\s*\[lb\]"),
     )
 
 
 def req_checks(text: str, p: cs.Params) -> list:
     lim = model_limits(text)
     peak = p.peak_hand()
-    mass = press_mass(p)
+    heavy = max(cs.parts(p), key=lambda pt: pt.weight(p))
     cap, ch = cs.feed_capacity(p), cs.charge_volume(p)
     return [("HandleForceLimit", peak <= lim["handle"], f"peak pull {peak:.1f} lbf <= {lim['handle']:g}"),
-            ("SteelBudget", mass <= lim["steel"], f"press steel {mass:.1f} lb <= {lim['steel']:g}"),
+            ("PartHandlingLimit", heavy.weight(p) <= lim["part"],
+             f"heaviest part {heavy.name} {heavy.weight(p):.1f} lb <= {lim['part']:g}"),
             ("FeedCapacity", cap >= ch, f"feeder holds {cap:,.0f} >= one charge {ch:,.0f} cu in")]
 
 
@@ -202,6 +203,7 @@ def emit(p: cs.Params, stress, func, n_interf, sweep: bool) -> str:
     a(f"        :>> minMargin       = {min(al / sg - 1 for _, _, sg, al in stress):.4f};")
     a(f"        :>> steelMass       = {press_mass(p):.1f} [lb];")
     a(f"        :>> feederMass      = {press_mass(p, feeder=True):.1f} [lb];")
+    a(f"        :>> heaviestPart    = {max(pt.weight(p) for pt in cs.parts(p)):.1f} [lb];")
     a(f"        :>> feedCapacity    = {cs.feed_capacity(p):.0f} ['in'**3];")
     a(f"        :>> chargeVolume    = {cs.charge_volume(p):.1f} ['in'**3];")
     a("")
@@ -224,7 +226,7 @@ def emit(p: cs.Params, stress, func, n_interf, sweep: bool) -> str:
         a(f"    attribute {ident(name)} : CheckResult {{ :>> name = {q(name)}; :>> ok = {str(ok).lower()}; "
           f":>> detail = {q(detail)}; }}")
     a("")
-    for r in ("brickSize", "handleForce", "lock", "strength", "noCollision", "steel", "stresses", "feedCap"):
+    for r in ("brickSize", "handleForce", "lock", "strength", "noCollision", "handling", "stresses", "feedCap"):
         a(f"    satisfy CinvaRamExample::{r} by cinvaRamAnalysed;")
     a("}")
     return "\n".join(L) + "\n"

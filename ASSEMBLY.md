@@ -177,8 +177,12 @@ Cut all plates from the DXF files in `drawings/simple-14x7x4/dxf/` (1:1, inches)
 ## Step 8 — Load test before production
 
 Press a few light fills, then work up to a full 6.750 loose fill.
-- **Handle force:** about 125 lbf at the end of the stroke with typical soil at 150 psi, and about 165
-  lbf at 200 psi.
+- **Handle force:** the peak comes about 70% of the way through the pull, with the grip about 67 in
+  above the ground (head height), not at the end: the over-centre geometry takes the force away in the last
+  few degrees before the lock. Peak 123 lbf at 150 psi, 164 lbf at 200 psi.
+- **Ergonomic limit:** 120 lbf for pulling down above head height (CCOHS Table 2, from Kodak's *Ergonomic
+  Design for People at Work*). One operator stays under it only below about 147 psi. At 200 psi use two
+  operators on the handle (or a 98 in handle). For repetitive work CCOHS recommends considerably lower forces.
 - **After 20 bricks:** check that pins P, Q and the cam pin are straight, the scoops are not dented,
   the side plates have not bulged, and no weld has cracked.
 - **If the head will not reach the rests**, the fill is too heavy. Take soil out; don't force it.

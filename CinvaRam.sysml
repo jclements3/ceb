@@ -124,8 +124,8 @@ package CinvaRamExample {
     }
 
     /* Feeder (rev C): funnel on a sliding feed box with a knife-gate floor. Parks on the +Y side, slides
-       across the mold at fill only; bolted to the side plates, so it is an attachment, not part of the press
-       steel budget. */
+       across the mold at fill only; bolted to the side plates, so it is an attachment (its mass is reported
+       separately as feederMass). */
     part def Feeder {
         part endPin     : Component { :>> itemNo = 24; :>> qty = 1; :>> stock = "10 ga sheet A36, bent"; :>> material = Material::A36; :>> unitMass = 5.0 [lb]; @Dwg { sheet = 28; dxf = false; } }
         part endLid     : Component { :>> itemNo = 25; :>> qty = 1; :>> stock = "10 ga sheet A36"; :>> material = Material::A36; :>> unitMass = 4.9 [lb]; @Dwg { sheet = 29; dxf = true; } }
@@ -187,6 +187,7 @@ package CinvaRamExample {
         attribute minMargin        : Real;         // smallest allow/sigma - 1 over stressChecks
         attribute steelMass        : MassValue;    // solver BOM weight, press only (tracks variants; totalMass is the drawing BOM)
         attribute feederMass       : MassValue;    // solver BOM weight, feeder
+        attribute heaviestPart     : MassValue;    // heaviest single part, press or feeder
         attribute feedCapacity     : VolumeValue;  // soil the box and funnel hold above the gate
         attribute chargeVolume     : VolumeValue;  // one loose charge: the mold at fill
 
@@ -319,9 +320,13 @@ package CinvaRamExample {
     }
 
     requirement def HandleForceLimit {
-        doc /* One operator: peak pull at 200 psi working pressure. Placeholder limit -- set by owner. */
+        doc /* Peak pull for one operator at the 200 psi working pressure. The peak comes with the grip about
+               67 in above the ground and the handle 30 deg above horizontal, so the applicable limit is
+               CCOHS Table 2 "pull down, above head height": 540 N (120 lbf), adopted from Eastman Kodak,
+               Ergonomic Design for People at Work, vol. 2 (1986). CCOHS: repetitive tasks should be designed
+               for considerably lower forces; this is a ceiling, not a target. */
         subject press : CinvaRam;
-        attribute limit : ForceValue = 165 [lbf];
+        attribute limit : ForceValue = 120 [lbf];
         require constraint { press.peakHandleForce <= limit }
     }
 
@@ -358,11 +363,14 @@ package CinvaRamExample {
         require constraint { press.feedCapacity >= press.chargeVolume }
     }
 
-    requirement def SteelBudget {
-        doc /* Press steel, items 1-23 (totalMass excludes the feeder). Placeholder budget -- set by owner. */
+    requirement def PartHandlingLimit {
+        doc /* Every single part can be lifted by one person during fabrication and assembly: heaviest part
+               at most the NIOSH Revised Lifting Equation load constant, 23 kg (51 lb), the recommended limit
+               under ideal lifting conditions. No standard caps the total steel of a bolted-down press, so
+               totalMass is reported, not limited. */
         subject press : CinvaRam;
-        attribute budget : MassValue = 250 [lb];
-        require constraint { press.totalMass <= budget }
+        attribute limit : MassValue = 51 [lb];
+        require constraint { press.heaviestPart <= limit }
     }
 
     // =================================================================
@@ -412,7 +420,7 @@ package CinvaRamExample {
     requirement lock        : OverCentreLock;
     requirement strength    : PinAndArmStrength;
     requirement noCollision : NoCollision;
-    requirement steel       : SteelBudget;
+    requirement handling    : PartHandlingLimit;
     requirement stresses    : AllStressChecks;
     requirement feedCap     : FeedCapacity;
 
