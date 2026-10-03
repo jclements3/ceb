@@ -26,7 +26,7 @@ Heavier stock (listed with reasons in `ASSEMBLY.md`):
 - the lid narrowed so the head clears it.
 
 Checked at 150 psi working, 306 psi design (rev D: was 200 psi working):
-- peak pull 98 lbf on the 90 in, 2 in sch 80 handle (rev E), under the 120 lbf CCOHS limit for pulling
+- peak pull 98 lbf on the 90 in, 2 in sch 160 handle (rev G), under the 120 lbf CCOHS limit for pulling
   down above head height; 190 lbf if the soil needs 290 psi;
 - about 92 lbf to eject (rev E: was 112);
 - 23 part types, about 248 lb of steel;

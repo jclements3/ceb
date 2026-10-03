@@ -67,9 +67,11 @@ REVISIONS = {
     "F": ("2026-10-03", "Stand detailed (items 39-42). Side plate: feeder hole dimensions added (missing since "
                         "rev C), lid pivot leader moved. Title block: issue date fits its cell. All sheets: sheet "
                         "count 42 -> 46."),
+    "G": ("2026-10-03", "Handle 2 sch 80 -> 2 sch 160 (bending margin at the bridge +7% -> +44%; handle 33.8 -> "
+                        "50.3 lb)."),
 }
 CURRENT_REV = "F"
-SHEET_REV = {}          # {key: letter} for any sheet left at an earlier revision
+SHEET_REV = {k: "G" for k in ("assembly", "assembly_views", "design", "htube")}   # later than CURRENT_REV
 ATTACHMENT_GROUPS = ("Feeder", "Stand")   # drawings: steel weight split press / feeder       # every sheet; SHEET_REV = {key: letter} would hold any sheet left behind
 
 # his press (inches), from cinva1-7.jpg
@@ -134,8 +136,8 @@ class Params:
     d_latch: float = 0.50         # latch pivot (his 7/16)
     handle_len: float = 90.0      # Q -> grip along the handle (rev E: 74 -> 90, peak grip at head height for a 6'1" operator)
     handle_od: float = 2.375      # rev E: 2" sch 80 pipe (was 1-1/2 sch 80: yields at 290 psi)
-    handle_wall: float = 0.218
-    handle_pipe: str = '2" sch 80 pipe'
+    handle_wall: float = 0.344        # rev G: sch 160 (was sch 80, 0.218): handle margin +7% -> +44%
+    handle_pipe: str = '2" sch 160 pipe'
 
     # mechanism
     psi0: float = -110.0          # head angle at the start (deg; cam->Q direction from vertical, + toward +X)

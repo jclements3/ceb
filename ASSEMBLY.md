@@ -80,7 +80,7 @@ Two more changes:
 | 14 | Main pin P | 1.750 round 4140 prehard, 10.625 long | 1 | Two 9/32 cross holes, 1/4 hitch pins |
 | 16 | Pin Q (stub) | 1.250 round 4140 prehard, 1.688 long | 2 | One 9/32 cross hole each |
 | 17 | Cam pin | 1.375 round 4140 prehard, 8.250 long | 1 | |
-| 19 | Handle | 2 sch 80 pipe, 82.0 long | 1 | Grip end 90 from Q (rev E: was 1-1/2 sch 80, 66.0 / 74) |
+| 19 | Handle | 2 sch 160 pipe, 82.0 long | 1 | Grip end 90 from Q (rev G: was 2 sch 80; rev E: 1-1/2 sch 80, 66.0 / 74) |
 | 22 | Latch pivot | 0.500 round 1018, 8.250 long | 1 | Cotter each end |
 | 23 | Lid handle | 0.500 round 1018, bent into a U (horseshoe), 4 between legs | 1 | About 11 in of bar |
 | — | Hardware | 1/2 bolts (4) for the foot clips, 1/4 hitch pins (4), 1/8 cotters (4), washers | | |
@@ -185,8 +185,9 @@ Press a few light fills, then work up to a full 6.750 loose fill.
   Design for People at Work*). One operator stays under it up to about 180 psi. The pressure is set by
   the soil, not the operator: measure it in the load test (peak pull / 0.65 = psi on this handle). For
   repetitive work CCOHS recommends considerably lower forces.
-- **Handle pipe (rev E):** 2 sch 80. The bending moment at the head is the same for any handle length
-  (force x length); 1-1/2 sch 80 yields at about 290 psi.
+- **Handle pipe (rev G):** 2 sch 160, 50 lb: +44% margin at the bridge at the 306 psi design load. The bending
+  moment at the head is the same for any handle length (force x length); 1-1/2 sch 80 yields at about 290 psi,
+  2 sch 80 had +7%. The heavier pipe takes about 25 lbf at the grip to lift back past upright.
 - **After 20 bricks:** check that pins P, Q and the cam pin are straight, the scoops are not dented,
   the side plates have not bulged, and no weld has cracked.
 - **If the head will not reach the rests**, the fill is too heavy. Take soil out; don't force it.
