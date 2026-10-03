@@ -29,7 +29,9 @@ Checked at CINVA pressure (200 psi working, 306 psi design):
 - peak push 163 lbf on the 72 in handle (123 lbf at 150 psi);
 - about 112 lbf to eject;
 - 23 part types, about 248 lb of steel;
-- the press bolts to a 12 in stand.
+- the press bolts to a 12 in stand;
+- a feeder (rev C, items 24-38, about 53 lb): a funnel on a sliding feed box with a knife-gate floor,
+  parked beside the press and slid over the mold to fill; see Step 9 of `ASSEMBLY.md`.
 
 `cinva_ram_b123d.py` is the earlier heavy-duty version, kept for reference. It has a concave roller track, a central claw latch, and an eject roller on posts; its guide is `ASSEMBLY_full.md` and its drawings are in `drawings/14x7x4/`. Both models:
 - solve the linkage for the fill, compress and eject positions;

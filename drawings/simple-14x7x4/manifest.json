@@ -12,7 +12,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "assembly_views",
@@ -25,7 +25,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "positions",
@@ -38,7 +38,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "design",
@@ -51,7 +51,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "side",
@@ -66,8 +66,8 @@
    "color": "gray",
    "dxf": true,
    "group": "Frame",
-   "mass": 40.8,
-   "rev": "B"
+   "mass": 40.7,
+   "rev": "C"
   },
   {
    "key": "end",
@@ -83,7 +83,7 @@
    "dxf": true,
    "group": "Frame",
    "mass": 7.4,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "foot",
@@ -99,7 +99,7 @@
    "dxf": false,
    "group": "Frame",
    "mass": 0.8,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "fpin",
@@ -115,7 +115,7 @@
    "dxf": false,
    "group": "Frame",
    "mass": 0.5,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "gpin",
@@ -131,7 +131,7 @@
    "dxf": false,
    "group": "Frame",
    "mass": 0.3,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "lid",
@@ -147,7 +147,7 @@
    "dxf": true,
    "group": "Lid",
    "mass": 19.2,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "ramp",
@@ -163,7 +163,7 @@
    "dxf": true,
    "group": "Lid",
    "mass": 6.9,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "strap",
@@ -179,7 +179,7 @@
    "dxf": true,
    "group": "Lid",
    "mass": 2.7,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "hrest",
@@ -195,7 +195,7 @@
    "dxf": true,
    "group": "Lid",
    "mass": 0.1,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "cap",
@@ -211,7 +211,7 @@
    "dxf": true,
    "group": "Piston",
    "mass": 13.5,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "web",
@@ -227,7 +227,7 @@
    "dxf": true,
    "group": "Piston",
    "mass": 6.5,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "arm",
@@ -243,7 +243,7 @@
    "dxf": true,
    "group": "Yoke",
    "mass": 9.2,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "xbar",
@@ -259,7 +259,7 @@
    "dxf": true,
    "group": "Yoke",
    "mass": 2.0,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "ppin",
@@ -275,7 +275,7 @@
    "dxf": false,
    "group": "Yoke",
    "mass": 7.2,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "cheek",
@@ -291,7 +291,7 @@
    "dxf": true,
    "group": "Handle",
    "mass": 5.1,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "qpin",
@@ -307,7 +307,7 @@
    "dxf": false,
    "group": "Handle",
    "mass": 0.6,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "campin",
@@ -323,7 +323,7 @@
    "dxf": false,
    "group": "Handle",
    "mass": 3.5,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "bridge",
@@ -339,7 +339,7 @@
    "dxf": true,
    "group": "Handle",
    "mass": 1.2,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "htube",
@@ -355,7 +355,7 @@
    "dxf": false,
    "group": "Handle",
    "mass": 19.4,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "latch",
@@ -371,7 +371,7 @@
    "dxf": true,
    "group": "Handle",
    "mass": 0.4,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "lbar",
@@ -387,7 +387,7 @@
    "dxf": true,
    "group": "Handle",
    "mass": 0.4,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "lpin",
@@ -403,7 +403,7 @@
    "dxf": false,
    "group": "Handle",
    "mass": 0.5,
-   "rev": "B"
+   "rev": "C"
   },
   {
    "key": "lhandle",
@@ -419,7 +419,247 @@
    "dxf": false,
    "group": "Lid",
    "mass": 0.5,
-   "rev": "B"
+   "rev": "C"
+  },
+  {
+   "key": "fbpin",
+   "item": 24,
+   "name": "Feed Box End (pin end)",
+   "sheet": 28,
+   "file": "24_fbpin.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "10 ga sheet A36, bent",
+   "color": "yellow",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 5.0,
+   "rev": "C"
+  },
+  {
+   "key": "fblid",
+   "item": 25,
+   "name": "Feed Box End (lid end)",
+   "sheet": 29,
+   "file": "25_fblid.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "10 ga sheet A36",
+   "color": "yellow",
+   "dxf": true,
+   "group": "Feeder",
+   "mass": 4.9,
+   "rev": "C"
+  },
+  {
+   "key": "fbstrike",
+   "item": 26,
+   "name": "Strike Wall",
+   "sheet": 30,
+   "file": "26_fbstrike.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "10 ga sheet A36",
+   "color": "yellow",
+   "dxf": true,
+   "group": "Feeder",
+   "mass": 7.2,
+   "rev": "C"
+  },
+  {
+   "key": "fbfunnel",
+   "item": 27,
+   "name": "Funnel Wall",
+   "sheet": 31,
+   "file": "27_fbfunnel.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "10 ga sheet A36, bent",
+   "color": "yellow",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 7.5,
+   "rev": "C"
+  },
+  {
+   "key": "gate",
+   "item": 28,
+   "name": "Knife Gate",
+   "sheet": 32,
+   "file": "28_gate.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "3/16 plate A36",
+   "color": "orange",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 5.9,
+   "rev": "C"
+  },
+  {
+   "key": "ghandle",
+   "item": 29,
+   "name": "Gate Handle",
+   "sheet": 33,
+   "file": "29_ghandle.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "0.500\" round 1018, bent",
+   "color": "orange",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 0.7,
+   "rev": "C"
+  },
+  {
+   "key": "bhandle",
+   "item": 30,
+   "name": "Box Handle",
+   "sheet": 34,
+   "file": "30_bhandle.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 1,
+   "stock": "0.500\" round 1018, bent",
+   "color": "yellow",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 0.7,
+   "rev": "C"
+  },
+  {
+   "key": "lug",
+   "item": 31,
+   "name": "Stop Lug",
+   "sheet": 35,
+   "file": "31_lug.svg",
+   "size": "A4",
+   "scale": "2:1",
+   "qty": 1,
+   "stock": "1/2 flat bar A36",
+   "color": "yellow",
+   "dxf": true,
+   "group": "Feeder",
+   "mass": 0.2,
+   "rev": "C"
+  },
+  {
+   "key": "rail",
+   "item": 32,
+   "name": "Feed Rail",
+   "sheet": 36,
+   "file": "32_rail.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 2,
+   "stock": "1.5 x 1.5 x 3/16 angle",
+   "color": "green",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 1.8,
+   "rev": "C"
+  },
+  {
+   "key": "ntie",
+   "item": 33,
+   "name": "Near Tie",
+   "sheet": 37,
+   "file": "33_ntie.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1.5 x 1.5 x 3/16 angle",
+   "color": "green",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 2.2,
+   "rev": "C"
+  },
+  {
+   "key": "ftie",
+   "item": 34,
+   "name": "Far Tie (park stop)",
+   "sheet": 38,
+   "file": "34_ftie.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1.5 x 1.5 x 3/16 angle",
+   "color": "green",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 2.2,
+   "rev": "C"
+  },
+  {
+   "key": "leg",
+   "item": 35,
+   "name": "Feed Frame Leg",
+   "sheet": 39,
+   "file": "35_leg.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1.5 x 1.5 x 3/16 angle",
+   "color": "green",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 4.2,
+   "rev": "C"
+  },
+  {
+   "key": "ltie",
+   "item": 36,
+   "name": "Leg Tie",
+   "sheet": 40,
+   "file": "36_ltie.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1.5 x 1.5 x 3/16 angle",
+   "color": "green",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 2.2,
+   "rev": "C"
+  },
+  {
+   "key": "bracket",
+   "item": 37,
+   "name": "Rail Bracket",
+   "sheet": 41,
+   "file": "37_bracket.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 1,
+   "stock": "3 x 3 x 3/8 angle",
+   "color": "green",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 1.1,
+   "rev": "C"
+  },
+  {
+   "key": "spost",
+   "item": 38,
+   "name": "Stop Post",
+   "sheet": 42,
+   "file": "38_spost.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1/2 x 2 flat bar A36",
+   "color": "green",
+   "dxf": false,
+   "group": "Feeder",
+   "mass": 1.0,
+   "rev": "C"
   }
  ]
 }

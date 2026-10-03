@@ -41,7 +41,7 @@ def evaluate(over: dict, sweep: bool) -> dict:
     return dict(
         over=over, sweep=sweep,
         peak=p.peak_hand(), eject=cs.max_eject_hand(p),
-        mass=sum(pt.weight(p) * pt.qty for pt in cs.parts(p)),
+        mass=sum(pt.weight(p) * pt.qty for pt in cs.parts(p) if pt.group != "Feeder"),
         min_margin=worst[3] / worst[2] - 1, worst=worst[0],
         margins={r[0]: r[3] / r[2] - 1 for r in stress},
         fails=[n for n, ok, _ in func if not ok], interf=interf,

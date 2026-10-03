@@ -132,6 +132,11 @@ def update(text: str, p: cs.Params) -> str:
     return text
 
 
+def press_mass(p: cs.Params, feeder=False) -> float:
+    """Solver BOM weight of the press (items 1-23) or of the feeder attachment."""
+    return sum(pt.weight(p) * pt.qty for pt in cs.parts(p) if (pt.group == "Feeder") == feeder)
+
+
 def model_limits(text: str) -> dict:
     """Numeric requirement limits the pilot cannot evaluate (unit-bearing): read them from the model."""
     get = lambda pat: float(re.search(pat, text, re.S).group(1))
@@ -144,9 +149,11 @@ def model_limits(text: str) -> dict:
 def req_checks(text: str, p: cs.Params) -> list:
     lim = model_limits(text)
     peak = p.peak_hand()
-    mass = sum(pt.weight(p) * pt.qty for pt in cs.parts(p))
+    mass = press_mass(p)
+    cap, ch = cs.feed_capacity(p), cs.charge_volume(p)
     return [("HandleForceLimit", peak <= lim["handle"], f"peak pull {peak:.1f} lbf <= {lim['handle']:g}"),
-            ("SteelBudget", mass <= lim["steel"], f"steel {mass:.1f} lb <= {lim['steel']:g}")]
+            ("SteelBudget", mass <= lim["steel"], f"press steel {mass:.1f} lb <= {lim['steel']:g}"),
+            ("FeedCapacity", cap >= ch, f"feeder holds {cap:,.0f} >= one charge {ch:,.0f} cu in")]
 
 
 def git_rev() -> str:
@@ -193,7 +200,10 @@ def emit(p: cs.Params, stress, func, n_interf, sweep: bool) -> str:
     a(f"        :>> interferences   = {n_interf};")
     a(f"        :>> functionalFails = {fails};")
     a(f"        :>> minMargin       = {min(al / sg - 1 for _, _, sg, al in stress):.4f};")
-    a(f"        :>> steelMass       = {sum(pt.weight(p) * pt.qty for pt in cs.parts(p)):.1f} [lb];")
+    a(f"        :>> steelMass       = {press_mass(p):.1f} [lb];")
+    a(f"        :>> feederMass      = {press_mass(p, feeder=True):.1f} [lb];")
+    a(f"        :>> feedCapacity    = {cs.feed_capacity(p):.0f} ['in'**3];")
+    a(f"        :>> chargeVolume    = {cs.charge_volume(p):.1f} ['in'**3];")
     a("")
     a("        // poses solved by the knee kinematics (yoke tilt, + toward fixed pins)")
     for k, v in ps.items():
@@ -214,7 +224,7 @@ def emit(p: cs.Params, stress, func, n_interf, sweep: bool) -> str:
         a(f"    attribute {ident(name)} : CheckResult {{ :>> name = {q(name)}; :>> ok = {str(ok).lower()}; "
           f":>> detail = {q(detail)}; }}")
     a("")
-    for r in ("brickSize", "handleForce", "lock", "strength", "noCollision", "steel", "stresses"):
+    for r in ("brickSize", "handleForce", "lock", "strength", "noCollision", "steel", "stresses", "feedCap"):
         a(f"    satisfy CinvaRamExample::{r} by cinvaRamAnalysed;")
     a("}")
     return "\n".join(L) + "\n"

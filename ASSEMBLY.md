@@ -182,3 +182,47 @@ Press a few light fills, then work up to a full 6.750 loose fill.
 - **After 20 bricks:** check that pins P, Q and the cam pin are straight, the scoops are not dented,
   the side plates have not bulged, and no weld has cracked.
 - **If the head will not reach the rests**, the fill is too heavy. Take soil out; don't force it.
+
+## Step 9 — Feeder (items 24 to 38, rev C)
+
+A funnel on a sliding feed box, parked on the **+Y side** (the side you shovel from). It slides across the
+mold top at fill only.
+
+**Why it is laid out this way.**
+- Everything that moves above the mold stays within 5.31 of the centreline over the whole cycle (the Q stubs).
+  The lid swings over the pull end and the yoke leans over the fixed-pin end, so the only free side is ±Y.
+- The yoke arms, Q stubs and lid straps sweep the strip from the side plate out to y 5.875, so nothing fixed
+  can bridge it. The box therefore has a **knife-gate floor**: shut while it crosses that gap, pulled open over
+  the mold, pushed shut again. Pushing it shut shears the charge off level with the mold top, so every
+  brick gets the same loose volume.
+- At fill the head cheek tips hang 0.9 to 2.7 above the mold top over the first 1.4 at the fixed-pin end.
+  The box's pin end is a 3/4 lip and a 45 deg chute that pass under them (0.36 clearance); the chute is
+  steeper than the soil's angle of repose, so that end of the mold still fills.
+- The rail bracket and stop post bolt to the side plates at x 9.25 to 11.25: the yoke arms reach no further
+  than x 8.62 and the lid straps start at x 11.83.
+
+**Fabrication.**
+1. Cut the lid end wall (25), strike wall (26) and stop lug (31) from the DXFs. Bend the pin end (24) and the
+   funnel wall (27) to their sheets: 10 ga, lip / chute / upright, and upright / 30 deg flare.
+2. Tack the box square on a flat table: strike wall across both end walls, funnel wall between them. The
+   strike wall's bottom edge is the strike-off: keep it straight and flush. The end walls and funnel wall stand
+   7/32 up off the table (the gate runs under them); shim them while tacking. Weld outside only.
+3. Weld the stop lug to the strike wall outside, 1/4 up from its bottom edge, at x 9.5 to 11.0.
+4. Gate (28): bevel the leading edge on top, 30 deg. Weld the 3/16 square stop strip across it and the gate
+   handle (29) on its tail. Weld the box handle (30) to the flared face, 11 up.
+5. Frame: weld the two rails (32) on the near tie (33) and against the far tie's upright leg (34), upright
+   legs outside and 1/16 clear of the box walls. Weld the legs (35) and leg tie (36).
+
+**Fitting.**
+1. Drill both side plates for the two new 9/16 holes (rev C): 10.25 and 11.25 from the plate's fixed-pin end
+   (9.75 and 10.75 from the inside of the mold), 2.25 below the top edge. Both plates stay identical.
+2. Bolt the rail bracket (37) to the +Y side plate and the stop post (38) to the -Y side plate, 1/2 bolts.
+3. Set the frame on the bracket with the rail tops level with the mold top (shim the legs), bolt the near tie
+   to the bracket, and lag or stake the legs.
+4. With the press at fill, slide the empty box over: the lug must land on the post with the box square over
+   the mold, and the tails still between the rails. Pull the gate open: it stops 3/16 short of the far wall.
+5. Cycle the press through stand-up, pressing and eject with the box parked: nothing may touch it.
+
+**Use** (fill step): shovel into the funnel (it holds about 2.3 charges). Push the box over by the gate handle
+until the lug stops on the post. Hold the box handle, pull the gate open, tap the box. Push the gate shut and
+pull the box back to park by its handle. Only then swing the lid on and stand the yoke up.

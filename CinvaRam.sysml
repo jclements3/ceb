@@ -78,7 +78,7 @@ package CinvaRamExample {
     }
 
     part def Frame {
-        part side   : Component { :>> itemNo = 1; :>> qty = 2; :>> stock = "0.625 plate A36";          :>> material = Material::A36;         :>> unitMass = 40.8 [lb]; @Dwg { sheet = 5;  dxf = true;  } }
+        part side   : Component { :>> itemNo = 1; :>> qty = 2; :>> stock = "0.625 plate A36";          :>> material = Material::A36;         :>> unitMass = 40.7 [lb]; @Dwg { sheet = 5;  dxf = true;  } }
         part endPl  : Component { :>> itemNo = 2; :>> qty = 2; :>> stock = "0.500 plate A36";          :>> material = Material::A36;         :>> unitMass =  7.4 [lb]; @Dwg { sheet = 6;  dxf = true;  } }
         part foot   : Component { :>> itemNo = 3; :>> qty = 4; :>> stock = "2 x 2 x 1/4 angle";      :>> material = Material::A36;         :>> unitMass =  0.8 [lb]; @Dwg { sheet = 7;  dxf = false; } }
         part fpin   : Component { :>> itemNo = 4; :>> qty = 2; :>> stock = "1.250 round 1018";           :>> material = Material::steel1018;   :>> unitMass =  0.5 [lb]; @Dwg { sheet = 8;  dxf = false; } }
@@ -123,6 +123,30 @@ package CinvaRamExample {
                                           handle.mass, latch.mass, lbar.mass, lpin.mass));
     }
 
+    /* Feeder (rev C): funnel on a sliding feed box with a knife-gate floor. Parks on the +Y side, slides
+       across the mold at fill only; bolted to the side plates, so it is an attachment, not part of the press
+       steel budget. */
+    part def Feeder {
+        part endPin     : Component { :>> itemNo = 24; :>> qty = 1; :>> stock = "10 ga sheet A36, bent"; :>> material = Material::A36; :>> unitMass = 5.0 [lb]; @Dwg { sheet = 28; dxf = false; } }
+        part endLid     : Component { :>> itemNo = 25; :>> qty = 1; :>> stock = "10 ga sheet A36"; :>> material = Material::A36; :>> unitMass = 4.9 [lb]; @Dwg { sheet = 29; dxf = true; } }
+        part strikeWall : Component { :>> itemNo = 26; :>> qty = 1; :>> stock = "10 ga sheet A36"; :>> material = Material::A36; :>> unitMass = 7.2 [lb]; @Dwg { sheet = 30; dxf = true; } }
+        part funnelWall : Component { :>> itemNo = 27; :>> qty = 1; :>> stock = "10 ga sheet A36, bent"; :>> material = Material::A36; :>> unitMass = 7.5 [lb]; @Dwg { sheet = 31; dxf = false; } }
+        part gate       : Component { :>> itemNo = 28; :>> qty = 1; :>> stock = "3/16 plate A36"; :>> material = Material::A36; :>> unitMass = 5.9 [lb]; @Dwg { sheet = 32; dxf = false; } }
+        part gateHandle : Component { :>> itemNo = 29; :>> qty = 1; :>> stock = "0.500 round 1018, bent"; :>> material = Material::steel1018; :>> unitMass = 0.7 [lb]; @Dwg { sheet = 33; dxf = false; } }
+        part boxHandle  : Component { :>> itemNo = 30; :>> qty = 1; :>> stock = "0.500 round 1018, bent"; :>> material = Material::steel1018; :>> unitMass = 0.7 [lb]; @Dwg { sheet = 34; dxf = false; } }
+        part stopLug    : Component { :>> itemNo = 31; :>> qty = 1; :>> stock = "1/2 flat bar A36"; :>> material = Material::A36; :>> unitMass = 0.2 [lb]; @Dwg { sheet = 35; dxf = true; } }
+        part rail       : Component { :>> itemNo = 32; :>> qty = 2; :>> stock = "1.5 x 1.5 x 3/16 angle"; :>> material = Material::A36; :>> unitMass = 1.8 [lb]; @Dwg { sheet = 36; dxf = false; } }
+        part nearTie    : Component { :>> itemNo = 33; :>> qty = 1; :>> stock = "1.5 x 1.5 x 3/16 angle"; :>> material = Material::A36; :>> unitMass = 2.2 [lb]; @Dwg { sheet = 37; dxf = false; } }
+        part farTie     : Component { :>> itemNo = 34; :>> qty = 1; :>> stock = "1.5 x 1.5 x 3/16 angle"; :>> material = Material::A36; :>> unitMass = 2.2 [lb]; @Dwg { sheet = 38; dxf = false; } }
+        part leg        : Component { :>> itemNo = 35; :>> qty = 2; :>> stock = "1.5 x 1.5 x 3/16 angle"; :>> material = Material::A36; :>> unitMass = 4.2 [lb]; @Dwg { sheet = 39; dxf = false; } }
+        part legTie     : Component { :>> itemNo = 36; :>> qty = 1; :>> stock = "1.5 x 1.5 x 3/16 angle"; :>> material = Material::A36; :>> unitMass = 2.2 [lb]; @Dwg { sheet = 40; dxf = false; } }
+        part railBracket: Component { :>> itemNo = 37; :>> qty = 1; :>> stock = "3 x 3 x 3/8 angle"; :>> material = Material::A36; :>> unitMass = 1.1 [lb]; @Dwg { sheet = 41; dxf = false; } }
+        part stopPost   : Component { :>> itemNo = 38; :>> qty = 1; :>> stock = "1/2 x 2 flat bar A36"; :>> material = Material::A36; :>> unitMass = 1.0 [lb]; @Dwg { sheet = 42; dxf = false; } }
+        attribute mass : MassValue = sum((endPin.mass, endLid.mass, strikeWall.mass, funnelWall.mass, gate.mass,
+                                          gateHandle.mass, boxHandle.mass, stopLug.mass, rail.mass, nearTie.mass,
+                                          farTie.mass, leg.mass, legTie.mass, railBracket.mass, stopPost.mass));
+    }
+
     part def CinvaRam {
         // --- design parameters (cinva_simple.Params) ---
         attribute brickL    : LengthValue default 14.0 ['in'];
@@ -161,7 +185,10 @@ package CinvaRamExample {
         attribute functionalFails  : Integer;      // failed verify() checks
         attribute stressChecks     : StressCheck[*];
         attribute minMargin        : Real;         // smallest allow/sigma - 1 over stressChecks
-        attribute steelMass        : MassValue;    // solver BOM weight (tracks variants; totalMass is the drawing BOM)
+        attribute steelMass        : MassValue;    // solver BOM weight, press only (tracks variants; totalMass is the drawing BOM)
+        attribute feederMass       : MassValue;    // solver BOM weight, feeder
+        attribute feedCapacity     : VolumeValue;  // soil the box and funnel hold above the gate
+        attribute chargeVolume     : VolumeValue;  // one loose charge: the mold at fill
 
         // --- structure ---
         part moldBox : Frame;
@@ -169,6 +196,7 @@ package CinvaRamExample {
         part piston : Piston;
         part yoke   : Yoke;
         part head   : Head;
+        part feeder : Feeder;
 
         attribute totalMass : MassValue =
             sum((moldBox.mass, lid.mass, piston.mass, yoke.mass, head.mass));
@@ -324,8 +352,14 @@ package CinvaRamExample {
         require constraint { press.stressChecks->forAll { in c : StressCheck; c.sigma <= c.allow } }
     }
 
+    requirement def FeedCapacity {
+        doc /* The feeder holds at least one loose charge above its gate. */
+        subject press : CinvaRam;
+        require constraint { press.feedCapacity >= press.chargeVolume }
+    }
+
     requirement def SteelBudget {
-        doc /* Placeholder budget -- set by owner. */
+        doc /* Press steel, items 1-23 (totalMass excludes the feeder). Placeholder budget -- set by owner. */
         subject press : CinvaRam;
         attribute budget : MassValue = 250 [lb];
         require constraint { press.totalMass <= budget }
@@ -380,5 +414,6 @@ package CinvaRamExample {
     requirement noCollision : NoCollision;
     requirement steel       : SteelBudget;
     requirement stresses    : AllStressChecks;
+    requirement feedCap     : FeedCapacity;
 
 }

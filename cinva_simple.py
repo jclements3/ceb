@@ -55,8 +55,12 @@ REVISIONS = {
     "B": ("2026-10-03", "ECP: cam pin 1-1/4 -> 1-3/8, side plates 1/2 -> 5/8 (sysml_trade.py). Geometry changed: "
                         "side, fpin, gpin, lid, ramp, xbar, ppin, cheek, campin, bridge, lpin, assembly sheets. "
                         "All sheets: note 3 now 'Material per title block' (was A36 / 1018 on 4140 and AR400 parts)."),
+    "C": ("2026-10-03", "Feeder added (items 24-38): funnel on a sliding feed box with a knife-gate floor, rails, "
+                        "stop post. Side plates: two 9/16 holes for the rail bracket / stop post. "
+                        "All sheets: sheet count 27 -> 42."),
 }
-CURRENT_REV = "B"       # every sheet; SHEET_REV = {key: letter} would hold any sheet left behind
+CURRENT_REV = "C"
+ATTACHMENT_GROUPS = ("Feeder",)   # drawings: steel weight split press / feeder       # every sheet; SHEET_REV = {key: letter} would hold any sheet left behind
 
 # his press (inches), from cinva1-7.jpg
 HIS = dict(
@@ -421,6 +425,8 @@ class Pose:
     zp: float         # pin P height
     cover: float      # lid opening angle (deg)
     claw: float | None = None      # latch opening (deg); None: shut when latched, else open
+    feed: float = 0.0  # feed box: 0 parked .. 1 over the mold (fill pose only)
+    gate: float = 0.0  # knife gate: 0 shut .. 1 open
 
 
 def eject_zp(p: Params, th):
@@ -612,6 +618,379 @@ def rest_y(p: Params):
 
 
 # ==========================================================
+# Feeder: funnel on a sliding feed box with a knife-gate floor (rev C)
+# ==========================================================
+# Everything moving above the mold stays within |y| <= 5.31 (pin Q stubs) over the whole cycle, the lid
+# swings over the +X end and the yoke leans over the -X end, so the feeder parks on the +Y side and slides
+# across in Y at fill only. Nothing fixed can bridge y 4.125..5.875 (yoke arms, Q stubs, lid straps sweep
+# it), so the box has a knife-gate floor: closed while it crosses that gap, pulled open over the mold,
+# pushed back in to shear the charge off at the mold top. The head cheek tips sit 0.9 to 2.7 above the
+# mold top at x <= 1.39 at fill, so the box's -X end is a low lip and a 45 deg chute (steeper than the
+# soil's angle of repose, so the end of the mold still fills). The funnel flares toward the operator only.
+# Feeder frame: x as the press, y from the box centre, z from the mold top.
+
+FB_T = 0.1345           # 10 ga sheet: box and funnel walls
+FB_TG = 0.1875          # knife gate, 3/16 plate
+FB_RELIEF = FB_TG + 1 / 32   # bottom of the end walls, funnel wall and tails: the gate runs under them
+FB_LIP = 0.75           # -X lip height (under the head cheek tips)
+FB_X1 = 1.75            # outer face of the -X wall's upright part
+FB_H1 = 7.0             # upright box height
+FB_H = 15.0             # funnel top
+FB_FLARE = 30.0         # funnel flare toward +Y, deg from vertical
+FB_TAIL = 4.25          # tails past the funnel wall, kept between the rails at full stroke
+FB_TAIL_H = 1.5         # +X tail height (the -X tail is the lip)
+GATE_EXT = 0.5          # gate past the funnel wall (handle)
+GATE_STRIP = 0.1875     # stop strip on the gate's leading edge
+LUG_X = (9.5, 11.0)     # stop lug on the strike wall
+LUG_Z = (0.25, 0.75)
+POST_X = (9.25, 11.25)  # side plate face the arms (x <= 8.62) and lid straps (x >= 11.83) never reach
+POST_RELIEF = 0.25      # stop face this far outside the side plate: the head cheeks pass it with 1/4
+FEED_Y0 = 5.875         # rails start: 0.56 past the Q stubs
+FEED_STOP = 18.0        # park stop face (far tie)
+RAIL_A, RAIL_T = 1.5, 0.1875   # 1-1/2 x 1-1/2 x 3/16 angle: rails, ties, legs
+BRK_A, BRK_T, BRK_L = 3.0, 0.375, 2.0
+BOLT_Z = 2.25           # bracket / post bolts, below the mold top
+SOIL = 0.049            # lb / in^3, loose moist soil mix
+
+
+def _fb_k():
+    return math.tan(math.radians(FB_FLARE))
+
+
+def _fb_c():
+    """z - x along the inside of the 45 deg chute."""
+    return FB_LIP + FB_T - FB_T * math.sqrt(2)
+
+
+def fb_inner_x(z):
+    """Inside of the -X end at height z (feeder frame)."""
+    return max(0.0, min(z - _fb_c(), FB_X1 + FB_T))
+
+
+def feed_park(p: Params):
+    """Box centre y when parked against the far tie."""
+    return FEED_STOP - (p.brick_w / 2 + FB_T + FB_TAIL)
+
+
+def gate_travel(p: Params):
+    return p.brick_w - GATE_STRIP
+
+
+def feed_rail_x(p: Params):
+    """Heels of the two rails (outside the box walls with 1/16 clearance)."""
+    x0 = -FB_T - 1 / 16 - RAIL_T
+    return x0, p.brick_l - x0
+
+
+def _upright(pts_xz, y0, y1):
+    """Polygon in (x, z) extruded over y0..y1."""
+    return Pos(0, y1, 0) * UPRIGHT * poly(pts_xz, y1 - y0)
+
+
+def _edge(pts_yz, x0, x1):
+    """Polygon in (y, z) extruded over x0..x1."""
+    return Pos(x0, 0, 0) * EDGE * poly(pts_yz, x1 - x0)
+
+
+def fb_pin_end(p: Params):
+    """-X end: lip, 45 deg chute, upright; flares with the funnel above FB_H1; lip runs on as a tail."""
+    W2, k = p.brick_w / 2, _fb_k()
+    c = _fb_c()
+    zi0, zi1 = c, FB_X1 + FB_T + c
+    xz = [(-FB_T, FB_RELIEF), (-FB_T, FB_LIP), (FB_X1, FB_LIP + FB_X1 + FB_T), (FB_X1, FB_H),
+          (FB_X1 + FB_T, FB_H), (FB_X1 + FB_T, zi1), (0, zi0), (0, FB_RELIEF)]
+    s = _upright(xz, -W2, W2 + FB_T)
+    yo = FB_T / math.cos(math.radians(FB_FLARE))
+    s += _edge([(W2 + FB_T, FB_H1), (W2 + yo, FB_H1), (W2 + (FB_H - FB_H1) * k + yo, FB_H), (W2 + FB_T, FB_H)],
+               FB_X1, FB_X1 + FB_T)
+    s += Pos(-FB_T, W2 + FB_T, FB_RELIEF) * Box(FB_T, FB_TAIL, FB_LIP - FB_RELIEF, align=Align.MIN)
+    return s
+
+
+def fb_lid_end(p: Params):
+    """+X end, flat (profile y, z): runs on as a tail between the rails."""
+    W2, k = p.brick_w / 2, _fb_k()
+    yo = FB_T / math.cos(math.radians(FB_FLARE))
+    return poly([(-W2, FB_RELIEF), (W2 + FB_T + FB_TAIL, FB_RELIEF), (W2 + FB_T + FB_TAIL, FB_TAIL_H),
+                 (W2 + FB_T, FB_TAIL_H), (W2 + yo, FB_H1), (W2 + (FB_H - FB_H1) * k + yo, FB_H), (-W2, FB_H)], FB_T)
+
+
+def fb_strike(p: Params):
+    """-Y wall, flat (profile x, z): its bottom edge strikes the mold top; -X end follows the chute."""
+    L = p.brick_l
+    return poly([(-FB_T, 0), (L + FB_T, 0), (L + FB_T, FB_H), (FB_X1, FB_H), (FB_X1, FB_LIP + FB_X1 + FB_T),
+                 (-FB_T, FB_LIP)], FB_T)
+
+
+def fb_funnel(p: Params):
+    """+Y wall: upright with the gate passing under it, then flared toward the operator."""
+    L, W2, k = p.brick_l, p.brick_w / 2, _fb_k()
+    c = _fb_c()
+    s = _upright([(0, FB_RELIEF), (L, FB_RELIEF), (L, FB_H1), (FB_X1 + FB_T, FB_H1),
+                  (FB_X1 + FB_T, FB_X1 + FB_T + c), (0, c)], W2, W2 + FB_T)
+    yo = FB_T / math.cos(math.radians(FB_FLARE))
+    s += _edge([(W2, FB_H1), (W2 + (FB_H - FB_H1) * k, FB_H), (W2 + (FB_H - FB_H1) * k + yo, FB_H), (W2 + yo, FB_H1)],
+               FB_X1 + FB_T, L)
+    return s
+
+
+def knife_gate(p: Params):
+    """Gate plate with the stop strip across its leading edge (feeder frame, closed)."""
+    L, W2 = p.brick_l, p.brick_w / 2
+    g = Pos(-FB_T, -W2, 0) * Box(L + 2 * FB_T, p.brick_w + FB_T + GATE_EXT, FB_TG, align=Align.MIN)
+    g += Pos(1 / 16, -W2, FB_TG) * Box(L - 1 / 8, GATE_STRIP, GATE_STRIP, align=Align.MIN)
+    return g
+
+
+def gate_handle(p: Params):
+    """U of 1/2 round on the gate's tail; its legs bear on the funnel wall when the gate is shut."""
+    L, W2 = p.brick_l, p.brick_w / 2
+    yc = W2 + FB_T + 0.25
+    s = Pos(L / 2 - 2, yc, FB_TG + 4) * rod(0.5, 4.0, "X")
+    for x in (L / 2 - 2, L / 2 + 2):
+        s += Pos(x, yc, FB_TG) * rod(0.5, 4.0, "Z")
+    return s
+
+
+def box_handle(p: Params):
+    """U of 1/2 round standing off the funnel's flared face, 11 in above the mold top."""
+    L, W2, k = p.brick_l, p.brick_w / 2, _fb_k()
+    z = 11.0
+    y0 = W2 + (z - FB_H1) * k + FB_T / math.cos(math.radians(FB_FLARE)) - 0.25
+    s = Pos(L / 2 - 3, y0 + 3.25, z) * rod(0.5, 6.0, "X")
+    for x in (L / 2 - 3, L / 2 + 3):
+        s += Pos(x, y0, z) * rod(0.5, 3.25, "Y")
+    return s
+
+
+def post_face(p: Params):
+    return p.wall_out + POST_RELIEF
+
+
+POST_T = 0.5            # 1/2 x 2 flat bar
+
+
+def lug_len(p: Params):
+    return post_face(p) - (p.brick_w / 2 + FB_T)
+
+
+def stop_lug(p: Params):
+    return plate(LUG_X[1] - LUG_X[0], lug_len(p), LUG_Z[1] - LUG_Z[0])
+
+
+def feed_rail(p: Params):
+    return angle_iron(RAIL_A, RAIL_T, FEED_STOP - FEED_Y0)
+
+
+def tie_len(p: Params):
+    x0, x1 = feed_rail_x(p)
+    return x1 - x0
+
+
+def near_tie(p: Params):
+    return angle_iron(RAIL_A, RAIL_T, tie_len(p))
+
+
+def far_tie(p: Params):
+    return angle_iron(RAIL_A, RAIL_T, tie_len(p))
+
+
+def leg_len(p: Params):
+    return p.zt - 2 * RAIL_T
+
+
+def feed_leg(p: Params):
+    return angle_iron(RAIL_A, RAIL_T, leg_len(p))
+
+
+def leg_tie_len(p: Params):
+    x0, x1 = feed_rail_x(p)
+    return (x1 - RAIL_T) - (x0 + RAIL_T)
+
+
+def leg_tie(p: Params):
+    return angle_iron(RAIL_A, RAIL_T, leg_tie_len(p))
+
+
+def rail_bracket(p: Params):
+    """3 x 3 x 3/8 angle, 2 long; two 9/16 holes in the leg bolted to the +Y side plate."""
+    s = angle_iron(BRK_A, BRK_T, BRK_L)
+    zh = BOLT_Z - 2 * RAIL_T
+    for x in (0.5, 1.5):
+        s -= Pos(x, -0.01, zh) * Rot(-90, 0, 0) * Cylinder(0.5625 / 2, BRK_T + 0.02, align=(Align.CENTER, Align.CENTER, Align.MIN))
+    return s
+
+
+POST_ZLO = 3.375        # post bottom below the mold top
+POST_STEP = 0.5         # the stop face starts this far below the mold top
+
+
+def stop_post(p: Params):
+    """1/2 x 2 flat bar bolted to the -Y side plate, milled back POST_RELIEF above the step so the head
+    cheeks pass it; the box's lug lands on that face."""
+    w = POST_X[1] - POST_X[0]
+    h0 = POST_ZLO - POST_STEP
+    s = Box(w, POST_T, h0, align=Align.MIN) + Pos(0, 0, h0) * Box(w, POST_T - POST_RELIEF, POST_STEP + 1.0, align=Align.MIN)
+    for x in (0.5, 1.5):
+        s -= Pos(x, -0.01, POST_ZLO - BOLT_Z) * Rot(-90, 0, 0) * Cylinder(0.5625 / 2, 0.52, align=(Align.CENTER, Align.CENTER, Align.MIN))
+    return s
+
+
+def _angle_dims(n, a=RAIL_A):
+    return [("H", "F", (0, 0, 0), (n, 0, 0), -10), ("V", "F", (0, 0, 0), (0, 0, a), -8)]
+
+
+def feeder_parts(p: Params):
+    L, W2, k = p.brick_l, p.brick_w / 2, _fb_k()
+    yo = FB_T / math.cos(math.radians(FB_FLARE))
+    ytop = W2 + (FB_H - FB_H1) * k + yo
+    ang = f'{RAIL_A:g} x {RAIL_A:g} x 3/16 angle'
+    gyc = W2 + FB_T + 0.25
+    bz = 11.0
+    by0 = W2 + (bz - FB_H1) * k + yo - 0.25
+    tl = feed_rail(p).bounding_box().size.X
+    return [
+        Part("fbpin", "Feed Box End (pin end)", 1, "10 ga sheet A36, bent", "yellow", fb_pin_end, group="Feeder",
+             views=("F", "T", "L"), front="-Y", flat=False,
+             dims=lambda p: [("H", "F", (-FB_T, 0, FB_RELIEF), (FB_X1 + FB_T, 0, FB_RELIEF), -10),
+                             ("V", "F", (-FB_T, 0, FB_RELIEF), (-FB_T, 0, FB_LIP), -10),
+                             ("V", "F", (FB_X1 + FB_T, 0, FB_RELIEF), (FB_X1 + FB_T, 0, FB_H), 10)],
+             notes=(f"Lip top {FB_LIP:g} above the gate's underside ({FB_LIP - FB_RELIEF:.3f} above this part's "
+                    f"bottom edge), then 45 deg to the upright at {FB_X1:g} (outside). The head cheek tips pass over "
+                    "this end at fill: do not raise the lip or flatten the chute.",
+                    f"The lip runs on {FB_TAIL:g} past the funnel wall as a tail between the rails.",
+                    "The upright part widens with the funnel flare above the box height.")),
+        Part("fblid", "Feed Box End (lid end)", 1, "10 ga sheet A36", "yellow", fb_lid_end, group="Feeder",
+             front="Z",
+             dims=lambda p: [("H", "F", (-W2, FB_RELIEF, 0), (W2 + FB_T + FB_TAIL, FB_RELIEF, 0), -10),
+                             ("V", "F", (-W2, FB_RELIEF, 0), (-W2, FB_H, 0), -10),
+                             ("V", "F", (W2 + FB_T + FB_TAIL, FB_RELIEF, 0), (W2 + FB_T + FB_TAIL, FB_TAIL_H, 0), 10),
+                             ("H", "F", (-W2, FB_H, 0), (ytop, FB_H, 0), 8)],
+             notes=(f"Bottom edge sits {FB_RELIEF:.3f} above the gate's underside: the gate runs under it.",
+                    f"The tail ({FB_TAIL:g} x {FB_TAIL_H:g}) stays between the rails at full stroke.")),
+        Part("fbstrike", "Strike Wall", 1, "10 ga sheet A36", "yellow", fb_strike, group="Feeder", front="Z",
+             dims=lambda p: [("H", "F", (-FB_T, 0, 0), (L + FB_T, 0, 0), -10),
+                             ("V", "F", (L + FB_T, 0, 0), (L + FB_T, FB_H, 0), 10),
+                             ("V", "F", (-FB_T, 0, 0), (-FB_T, FB_LIP, 0), -10),
+                             ("H", "F", (-FB_T, FB_H, 0), (FB_X1, FB_H, 0), 8)],
+             notes=("Bottom edge straight and square: it strikes the mold top when the box is pulled back.",
+                    "Covers the ends of both end walls; weld outside only.")),
+        Part("fbfunnel", "Funnel Wall", 1, "10 ga sheet A36, bent", "yellow", fb_funnel, group="Feeder",
+             views=("F", "L"), front="-Y", flat=False,
+             dims=lambda p: [("H", "F", (0, 0, FB_RELIEF), (L, 0, FB_RELIEF), -10),
+                             ("V", "F", (L, 0, FB_RELIEF), (L, 0, FB_H1), 10),
+                             ("V", "F", (L, 0, FB_H1), (L, 0, FB_H), 18)],
+             notes=(f"Upright to {FB_H1:g}, then bent {FB_FLARE:g} deg out toward the operator to {FB_H:g}.",
+                    f"Bottom edge {FB_RELIEF:.3f} up: the gate passes under it.")),
+        Part("gate", "Knife Gate", 1, "3/16 plate A36", "orange", knife_gate, group="Feeder",
+             front="Z", flat=False,
+             dims=lambda p: [("H", "F", (-FB_T, -W2, 0), (L + FB_T, -W2, 0), -10),
+                             ("V", "F", (L + FB_T, -W2, 0), (L + FB_T, W2 + FB_T + GATE_EXT, 0), 10)],
+             notes=("Bevel the leading edge on top, 30 deg, so the soil rides up over it when it is pushed shut.",
+                    f"Stop strip across the leading edge, {GATE_STRIP:g} square: it stops the gate open at "
+                    f"{gate_travel(p):.3f} travel.")),
+        Part("ghandle", "Gate Handle", 1, '0.500" round 1018, bent', "orange", gate_handle, group="Feeder",
+             front="-Y", flat=False,
+             dims=lambda p: [("H", "F", (L / 2 - 2, gyc, FB_TG), (L / 2 + 2, gyc, FB_TG), -10),
+                             ("V", "F", (L / 2 + 2, gyc, FB_TG), (L / 2 + 2, gyc, FB_TG + 4), 10)],
+             notes=("Weld to the gate's tail. The legs bear on the funnel wall with the gate shut.",
+                    "Push the box over the mold by this handle (the gate pushes the strike wall).")),
+        Part("bhandle", "Box Handle", 1, '0.500" round 1018, bent', "yellow", box_handle, group="Feeder",
+             front="Z", flat=False,
+             dims=lambda p: [("H", "F", (L / 2 - 3, by0, bz), (L / 2 + 3, by0, bz), -10),
+                             ("V", "F", (L / 2 + 3, by0, bz), (L / 2 + 3, by0 + 3.25, bz), 10)],
+             notes=(f"Weld to the funnel's flared face, {bz:g} above the box bottom. Pull the box back by it, and hold "
+                    "the box with it while you pull the gate open.",)),
+        Part("lug", "Stop Lug", 1, "1/2 flat bar A36", "yellow", stop_lug, group="Feeder", front="Z",
+             dims=lambda p: _plate_dims(LUG_X[1] - LUG_X[0], lug_len(p), (), LUG_Z[1] - LUG_Z[0]),
+             notes=("Weld to the strike wall outside, its lower edge 1/4 above the wall's bottom edge.",
+                    "Lands on the stop post: the box is then square over the mold.")),
+        Part("rail", "Feed Rail", 2, ang, "green", feed_rail, group="Feeder", front="-Y", flat=False,
+             views=("F", "L"), dims=lambda p: _angle_dims(tl),
+             notes=("Top of the flat leg level with the mold top; upright leg outside, guiding the box tails.",
+                    "Weld to the near tie and against the far tie's upright leg.")),
+        Part("ntie", "Near Tie", 1, ang, "green", near_tie, group="Feeder", front="-Y", flat=False,
+             views=("F", "L"), dims=lambda p: _angle_dims(tie_len(p)),
+             notes=("Under both rails at their near end; bolt to the rail bracket.",)),
+        Part("ftie", "Far Tie (park stop)", 1, ang, "green", far_tie, group="Feeder", front="-Y", flat=False,
+             views=("F", "L"), dims=lambda p: _angle_dims(tie_len(p)),
+             notes=("Upright leg up: the box tails stop against it in the park position.",)),
+        Part("leg", "Feed Frame Leg", 2, ang, "green", feed_leg, group="Feeder", front="-Y", flat=False,
+             views=("F", "L"), dims=lambda p: _angle_dims(leg_len(p)),
+             notes=("To the ground beside the stand; lag or stake the foot. Cut to suit an uneven floor.",)),
+        Part("ltie", "Leg Tie", 1, ang, "green", leg_tie, group="Feeder", front="-Y", flat=False,
+             views=("F", "L"), dims=lambda p: _angle_dims(leg_tie_len(p)),
+             notes=("Between the legs, 8 above the ground.",)),
+        Part("bracket", "Rail Bracket", 1, f'{BRK_A:g} x {BRK_A:g} x 3/8 angle', "green", rail_bracket, group="Feeder",
+             front="-Y", flat=False, views=("F", "L"),
+             dims=lambda p: [("H", "F", (0, 0, 0), (BRK_L, 0, 0), -10), ("V", "F", (0, 0, 0), (0, 0, BRK_A), -10),
+                             ("H", "F", (0, 0, BOLT_Z - 2 * RAIL_T), (0.5, 0, BOLT_Z - 2 * RAIL_T), 8),
+                             ("D", "F", (0.5, 0, BOLT_Z - 2 * RAIL_T), 0.5625, 45, "2x ")],
+             notes=("Bolt to the +Y side plate (two 1/2 bolts); the near tie bolts on its flat leg.",
+                    "This 2 in of the side plate is the only part the yoke arms and lid straps never sweep.")),
+        Part("spost", "Stop Post", 1, "1/2 x 2 flat bar A36", "green", stop_post, group="Feeder", front="-Y",
+             flat=False, views=("F", "L"),
+             dims=lambda p: [("H", "F", (0, 0, 0), (POST_X[1] - POST_X[0], 0, 0), -10),
+                             ("V", "F", (POST_X[1] - POST_X[0], 0, 0), (POST_X[1] - POST_X[0], 0, POST_ZLO + 1.0), 10),
+                             ("V", "F", (0, 0, POST_ZLO - POST_STEP), (0, 0, POST_ZLO + 1.0), -10),
+                             ("D", "F", (0.5, 0, POST_ZLO - BOLT_Z), 0.5625, 45, "2x ")],
+             notes=(f"Bolt to the -Y side plate through the same two holes as the bracket on the other plate.",
+                    f"Mill the top {POST_STEP + 1.0:g} back {POST_RELIEF:g}: the head cheeks pass it there.")),
+    ]
+
+
+def feed_capacity(p: Params, n=400):
+    """Soil the box and funnel hold above the gate (in^3)."""
+    L, W, k = p.brick_l, p.brick_w, _fb_k()
+    v, dz = 0.0, (FB_H1 - FB_TG) / n
+    for i in range(n):
+        z = FB_TG + (i + 0.5) * dz
+        v += (L - fb_inner_x(z)) * W * dz
+    dz = (FB_H - FB_H1) / n
+    for i in range(n):
+        z = FB_H1 + (i + 0.5) * dz
+        v += (L - FB_X1 - FB_T) * (W + (z - FB_H1) * k) * dz
+    return v
+
+
+def charge_volume(p: Params):
+    """One loose charge: the mold at fill."""
+    return p.brick_l * p.brick_w * p.fill
+
+
+def add_feeder(p: Params, ps, add):
+    """Place the feeder: fixed frame plus the box at ps.feed (0 parked .. 1 over the mold), gate at ps.gate."""
+    zt, L, W2 = p.zt, p.brick_l, p.brick_w / 2
+    f = getattr(ps, "feed", 0.0)
+    g = getattr(ps, "gate", 0.0)
+    yc = feed_park(p) * (1 - f)
+    fr = Pos(0, yc, zt)
+    add("fbpin", "Feed Box End (pin end)", fr * fb_pin_end(p))
+    add("fblid", "Feed Box End (lid end)", fr * Pos(L, 0, 0) * EDGE * fb_lid_end(p))
+    add("fbstrike", "Strike Wall", fr * Pos(0, -W2, 0) * UPRIGHT * fb_strike(p))
+    add("fbfunnel", "Funnel Wall", fr * fb_funnel(p))
+    add("lug", "Stop Lug", fr * Pos(LUG_X[0], -post_face(p), LUG_Z[0]) * stop_lug(p))
+    add("bhandle", "Box Handle", fr * box_handle(p))
+    gt = fr * Pos(0, g * gate_travel(p), 0)
+    add("gate", "Knife Gate", gt * knife_gate(p))
+    add("ghandle", "Gate Handle", gt * gate_handle(p))
+    # fixed frame
+    x0, x1 = feed_rail_x(p)
+    ztop = zt - RAIL_T
+    add("rail", "Feed Rail", Pos(x0, FEED_STOP, ztop) * Rot(0, 0, -90) * feed_rail(p))
+    add("rail", "Feed Rail", Pos(x1, FEED_Y0, ztop) * Rot(0, 0, 90) * feed_rail(p))
+    add("ntie", "Near Tie", Pos(x0, FEED_Y0 + 0.0625 + RAIL_A, ztop) * Rot(180, 0, 0) * near_tie(p))
+    add("ftie", "Far Tie (park stop)", Pos(x1, FEED_STOP + RAIL_T, ztop - RAIL_T) * Rot(0, 0, 180) * far_tie(p))
+    ly = FEED_STOP + RAIL_T - RAIL_A
+    leg = Pos(x0, ly, ztop - RAIL_T) * Rot(0, 90, 0) * feed_leg(p)
+    add("leg", "Feed Frame Leg", leg)
+    add("leg", "Feed Frame Leg", leg.mirror(Plane.YZ.offset(L / 2)))
+    add("ltie", "Leg Tie", Pos(x0 + RAIL_T, ly + RAIL_T, 8.0) * leg_tie(p))
+    add("bracket", "Rail Bracket", Pos(POST_X[1], p.wall_out, ztop - RAIL_T) * Rot(0, 180, 0) * rail_bracket(p))
+    add("spost", "Stop Post", Pos(POST_X[0], -p.wall_out - POST_T, zt - POST_ZLO) * stop_post(p))
+
+
+# ==========================================================
 # Ramp contact while standing the yoke up (lid closed)
 # ==========================================================
 
@@ -764,9 +1143,14 @@ def side_plate(p: Params):
     s -= hole(fx + te, fz - zb, p.d_fpin, p.t_side)
     gx, gz = p.gpin
     s -= hole(gx + te, gz - zb, p.d_gpin + 1 / 32, p.t_side)
-    for x, z in bolt_holes(p):
+    for x, z in bolt_holes(p) + feeder_holes(p):
         s -= hole(x, z, 0.5625, p.t_side)
     return s
+
+
+def feeder_holes(p: Params):
+    """Two 9/16 holes for the feeder's rail bracket (+Y plate) and stop post (-Y plate), local plate coords."""
+    return [(x + p.t_end, p.zt - BOLT_Z - p.zb) for x in (POST_X[0] + 0.5, POST_X[0] + 1.5)]
 
 
 def end_plate(p: Params):
@@ -1272,7 +1656,7 @@ def parts(p: Params) -> list[Part]:
              notes=(f"Bend 1/2 round into a U, {2 * HS_R:g} between leg centres; weld the leg ends to the lid's "
                     "fixed-pin end face, centred, level with the lid.",
                     "Lift here to swing the lid over onto the stand, and to swing it back.")),
-    ]
+    ] + feeder_parts(p)
     for i, part in enumerate(ps, 1):
         part.item = i
     return ps
@@ -1363,6 +1747,7 @@ def assembly(p: Params, pose: str = "locked", handle_len: float | None = None):
     add("latch", "Latch Hook", lt * Pos(0, LATCH_Y, 0) * UPRIGHT * latch_plate(p), mirror=True)
     add("lbar", "Latch Bar", lt * Pos(0.45 * k - 0.55, -LATCH_Y, -LATCH_W / 2 - 0.375) * Box(1.1, 2 * LATCH_Y, 0.375, align=Align.MIN))
     add("lpin", "Latch Pivot", hf * Pos(lx, p.wall_out, lz) * ALONG_Y * latch_pin(p))
+    add_feeder(p, ps, add)
     return out
 
 
@@ -1383,6 +1768,8 @@ TOUCH = {frozenset(x) for x in [
     ("cap", "web"), ("web", "ppin"), ("arm", "ppin"), ("side", "ppin"), ("arm", "xbar"),
     ("arm", "qpin"), ("cheek", "qpin"), ("cheek", "campin"), ("cheek", "bridge"), ("bridge", "htube"),
     ("latch", "lbar"), ("latch", "lpin"), ("cheek", "lpin"), ("lid", "lhandle"),
+    # feeder weldments and seats
+    ("fbfunnel", "bhandle"), ("gate", "ghandle"), ("fbstrike", "lug"),
 ]}
 
 
@@ -1522,7 +1909,22 @@ def checks(p: Params):
     fl = fe * p.handle_len / 3.0
     rows.append(("Latch hooks, bearing (tilting)", f"{fl:,.0f} lbf on 2 x {p.t_latch:.3f} x {p.t_bar:.3f}",
                  fl / 2 / (p.t_latch * p.t_bar), 0.9 * FY_A36))
+    # feeder: full box parked, as a point load mid-span on each rail between the ties
+    wb = feed_capacity(p) * SOIL + sum(pt.weight(p) * pt.qty for pt in parts(p)
+                                       if pt.key in ("fbpin", "fblid", "fbstrike", "fbfunnel", "gate", "ghandle", "bhandle", "lug"))
+    span = (FEED_STOP + RAIL_T - RAIL_A / 2) - (FEED_Y0 + 0.0625 + RAIL_A / 2)
+    rows.append(("Feed rail, bending", f"{wb:.0f} lb full box, {wb / 2:.0f} lb mid-span of {span:.1f}, "
+                 f"{RAIL_A:g} angle", wb / 2 * span / 4 / angle_s(RAIL_A, RAIL_T), 0.66 * FY_A36))
     return rows
+
+
+def angle_s(a, t):
+    """Elastic section modulus of an equal-leg angle about the axis parallel to a leg (smaller fibre)."""
+    A1, y1 = a * t, t / 2
+    A2, y2 = (a - t) * t, t + (a - t) / 2
+    yb = (A1 * y1 + A2 * y2) / (A1 + A2)
+    I = a * t ** 3 / 12 + A1 * (yb - y1) ** 2 + t * (a - t) ** 3 / 12 + A2 * (y2 - yb) ** 2
+    return I / max(yb, a - yb)
 
 
 # ==========================================================
@@ -1604,6 +2006,58 @@ def verify(p: Params, sweep=True):
     res.append(("Brick fully above the mold at eject", pe >= p.zt - 1e-6, f"brick bottom {pe - p.zt:+.3f} from mold top"))
     h = _hits(assembly(p, "eject"), brick_solid(p, pe + 0.01, p.brick_h + 18.0))
     res.append(("Brick lifts straight off (18 in)", not h, "; ".join(f"{a} {v}" for a, v in h) or "clear"))
+    res += verify_feeder(p, ps)
+    return res
+
+
+FEED_MOVING = ("fbpin", "fblid", "fbstrike", "fbfunnel", "gate", "ghandle", "bhandle", "lug")
+FEED_CLEAR = 0.25       # minimum running clearance, feeder to the head and yoke
+
+
+def feed_slide_poses(p: Params, ps=None, n=8):
+    import dataclasses
+    f0 = (ps or poses(p))["fill"]
+    out = [dataclasses.replace(f0, name=f"feed {i / n:.2f}", feed=i / n) for i in range(n + 1)]
+    out += [dataclasses.replace(f0, name=f"gate {i / 4:.2f}", feed=1.0, gate=i / 4) for i in range(1, 5)]
+    return out
+
+
+def verify_feeder(p: Params, ps):
+    """Feeder checks: capacity, stop, slide and gate travel clear of the head at fill, running clearances."""
+    res = []
+    cap, ch = feed_capacity(p), charge_volume(p)
+    res.append(("Feed box holds a full charge", cap >= ch,
+                f"{cap:,.0f} cu in above the gate = {cap / ch:.2f} loose charges of {ch:,.0f}"))
+    lug_face = -(p.brick_w / 2 + FB_T + lug_len(p))
+    eng = p.brick_w / 2 + FB_T + FB_TAIL - FEED_Y0
+    res.append(("Feed box stops square over the mold", abs(lug_face + post_face(p)) < 1e-9 and eng >= 1.5,
+                f"lug lands on the post at y {lug_face:.3f}; box inside {0:g}..{p.brick_l:g} = the mold; "
+                f"tails {eng:.2f} in between the rails at full stroke"))
+    open_edge = p.brick_w / 2 - GATE_STRIP
+    res.append(("Knife gate opens the mold", p.brick_w / 2 - open_edge <= 0.25,
+                f"open, the gate edge is {p.brick_w / 2 - open_edge:.3f} in short of the mold's far wall"))
+    bad, dmin = [], {}
+    press = {"cheek", "arm", "qpin", "campin", "xbar", "latch", "lbar", "lpin", "bridge", "htube"}
+    for pose in feed_slide_poses(p, ps):
+        bad += [f"{pose.name}: {a} x {b} ({v})" for a, b, v in interference(p, pose)]
+        inst = assembly(p, pose)
+        mv = [(k, s) for k, n, s in inst if k in FEED_MOVING]
+        pr = [(k, s) for k, n, s in inst if k in press]
+        for ka, sa in mv:
+            bb = sa.bounding_box()
+            for kb, sb in pr:
+                b2 = sb.bounding_box()
+                if (bb.max.X + 2 < b2.min.X or b2.max.X + 2 < bb.min.X or bb.max.Y + 2 < b2.min.Y
+                        or b2.max.Y + 2 < bb.min.Y or bb.max.Z + 2 < b2.min.Z or b2.max.Z + 2 < bb.min.Z):
+                    continue
+                d = sa.distance_to(sb)
+                if kb not in dmin or d < dmin[kb][0]:
+                    dmin[kb] = (d, ka, pose.name)
+    res.append(("Feed box slides and opens clear (fill)", not bad, "; ".join(bad[:6]) or "clear at every step"))
+    worst = min(dmin.items(), key=lambda kv: kv[1][0]) if dmin else None
+    res.append(("Feed box running clearance to the head and yoke", worst is None or worst[1][0] >= FEED_CLEAR,
+                f"min {worst[1][0]:.3f} in, {worst[1][1]} to {worst[0]} at {worst[1][2]} (need {FEED_CLEAR:g})"
+                if worst else "nothing within reach"))
     return res
 
 
@@ -1667,8 +2121,10 @@ POSITION_NOTES = [
 
 OPERATION = [
     "Start: latch shut, yoke leaning on the fixed pins, piston at the bottom, lid swung over onto the stand.",
-    "Oil the mold. Fill loose soil to the top, press it into the corners, strike off level. Swing the lid back on "
-    "by its horseshoe handle.",
+    "Oil the mold. Shovel soil mix into the funnel (it holds about two charges). Push the feed box over the mold "
+    "by the gate handle until its lug lands on the stop post. Hold the box handle and pull the gate open; tap the "
+    "box. Push the gate shut (it shears the charge off level with the mold top) and pull the box back to park by "
+    "its handle. Swing the lid back on by its horseshoe handle.",
     "Lift the handle and yoke upright together: the cam pin rides up the long leg of the ramps and drops into "
     "the scoops.",
     "Lift the latch bar to free the head. Pull the handle over toward the lid pivots until the head cheeks land "
@@ -1702,7 +2158,10 @@ def press_data(p: Params, ps, mass):
                                 f"at 150 / 200 / 250 psi ({p.handle_len:g} in handle)"),
         ("Ejection", f"piston rises {p.fill + p.eject_over:.3f} in; yoke tilts {ps['fill'].theta:.0f} to "
                      f"{ps['eject'].theta:.0f} deg; about {max_eject_hand(p):.0f} lbf on the handle"),
-        ("Steel weight", f"about {mass:.0f} lb"),
+        ("Steel weight", "press about {:.0f} lb, feeder about {:.0f} lb".format(
+            *(sum(pt.weight(p) * pt.qty for pt in parts(p) if (pt.group == "Feeder") == f) for f in (False, True)))),
+        ("Feeder", f"{feed_capacity(p):,.0f} cu in = {feed_capacity(p) / charge_volume(p):.1f} loose charges; "
+                   f"stroke {feed_park(p):.2f} in; gate travel {gate_travel(p):.3f} in"),
     ]
 
 
@@ -1735,6 +2194,8 @@ GROUP_OF = {
     "arm": "yoke", "xbar": "yoke",
     "cheek": "handle", "qpin": "handle", "campin": "handle", "bridge": "handle", "htube": "handle",
     "lpin": "handle", "latch": "claw", "lbar": "claw",
+    **{k: "frame" for k in ("fbpin", "fblid", "fbstrike", "fbfunnel", "gate", "ghandle", "bhandle", "lug",
+                            "rail", "ntie", "ftie", "leg", "ltie", "bracket", "spost")},
 }
 
 
