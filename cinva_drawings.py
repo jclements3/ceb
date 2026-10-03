@@ -573,12 +573,11 @@ def _view_label(sh, pl, text, below=6):
     sh.text(text, (x0 + x1) / 2, y0 - below, TXT, ha="center", va="top")
 
 
-def _parts_list(sh, p, plist):
+def _parts_list(sh, p, plist, rowh=5.5):
     """ISO 7573 item list above the title block, reading upward."""
     x1 = sh.W - M_OTHER
     x0 = x1 - TB_W
     y = M_OTHER + TB_H
-    rowh = 5.5
     cols = [0, 9, 17, 68, 128, 144, 180]
 
     def row(vals, y, bold=False):
@@ -586,7 +585,7 @@ def _parts_list(sh, p, plist):
         for c in cols[1:-1]:
             sh.line((x0 + c, y), (x0 + c, y + rowh), "thin")
         for c, v in zip(cols, vals):
-            sh.text(v, x0 + c + 1.2, y + 1.4, TXT_SMALL)
+            sh.text(v, x0 + c + 1.2, y + max(0.8, (rowh - TXT_SMALL) / 2), TXT_SMALL)
     row(["Item", "Qty", "Title", "Stock", "lb ea", "Drawing no."], y, bold=True)
     y += rowh
     for pt in plist:
@@ -634,6 +633,15 @@ def _mass(p, plist):
     return sum(pt.weight(p) * pt.qty for pt in plist)
 
 
+def _mass_text(p, plist):
+    """'about N lb', split into press and attachments when the model groups any part as one."""
+    att = set(getattr(m, "ATTACHMENT_GROUPS", ()))
+    if not att or not any(pt.group in att for pt in plist):
+        return f"about {_mass(p, plist):.0f} lb"
+    a = _mass(p, [pt for pt in plist if pt.group in att])
+    return f"about {_mass(p, plist) - a:.0f} lb press + {a:.0f} lb {'/'.join(sorted(att)).lower()}"
+
+
 def assembly_sheet(p: m.Params, plist, n_sheets, path):
     """Sheet 1: isometric view with balloons + parts list."""
     sh = Sheet("A3")
@@ -646,8 +654,10 @@ def assembly_sheet(p: m.Params, plist, n_sheets, path):
     pl = _asm_view(sh, comp, iv, IN / 10, (area_x0 + area_x1) / 2, sh.H - M_OTHER - 30, hidden=False)
     _view_label(sh, pl, "ISOMETRIC VIEW", below=22)
     _balloons(sh, pl, inst, {pt.key: pt.item for pt in plist})
-    y = _parts_list(sh, p, plist)
-    general_notes(sh, _design_notes(p) + [f"Steel weight about {_mass(p, plist):.0f} lb."], y0=y)
+    notes = _design_notes(p) + [f"Steel weight {_mass_text(p, plist)}."]
+    room = sh.H - M_OTHER - (4.0 * len(note_lines(notes, TB_W - 4)) + 6) - (M_OTHER + TB_H)
+    y = _parts_list(sh, p, plist, rowh=min(5.5, room / (len(plist) + 1)))
+    general_notes(sh, notes, y0=y)
     title_block(sh, _title(), f"General assembly, {p.label} brick", f"{_dwg()}-{p.label}-00",
                 1, n_sheets, "1:10", "See parts list", 1, "Assembly drawing", key="assembly")
     sh.svg(path)
@@ -772,7 +782,7 @@ def design_sheet(p: m.Params, plist, n_sheets, path):
                                 f"at 150 / 200 / 250 psi"),
         ("Ejection", f"piston rises {p.brick_h + p.eject_over:.3f} in; yoke tilts "
                      f"{m.solve_theta(p, p.zp_comp)[1]:.0f} to {ps['eject'].theta:.0f} deg"),
-        ("Steel weight", f"about {_mass(p, plist):.0f} lb"),
+        ("Steel weight", _mass_text(p, plist)),
     ]
     y = _table(sh, xl, yt - 3, [0, 48, 190], [list(r) for r in data])
     y -= 10
