@@ -11,7 +11,8 @@
    "scale": "1:10",
    "qty": 1,
    "stock": "See parts list",
-   "group": "Assembly"
+   "group": "Assembly",
+   "rev": "B"
   },
   {
    "key": "assembly_views",
@@ -23,7 +24,8 @@
    "scale": "1:5",
    "qty": 1,
    "stock": "See parts list",
-   "group": "Assembly"
+   "group": "Assembly",
+   "rev": "B"
   },
   {
    "key": "positions",
@@ -35,7 +37,8 @@
    "scale": "1:20",
    "qty": 1,
    "stock": "See parts list",
-   "group": "Assembly"
+   "group": "Assembly",
+   "rev": "B"
   },
   {
    "key": "design",
@@ -47,7 +50,8 @@
    "scale": "-",
    "qty": 1,
    "stock": "See parts list",
-   "group": "Assembly"
+   "group": "Assembly",
+   "rev": "B"
   },
   {
    "key": "side",
@@ -58,11 +62,12 @@
    "size": "A3",
    "scale": "1:5",
    "qty": 2,
-   "stock": "0.500\" plate A36",
+   "stock": "0.625\" plate A36",
    "color": "gray",
    "dxf": true,
    "group": "Frame",
-   "mass": 32.6
+   "mass": 40.8,
+   "rev": "B"
   },
   {
    "key": "end",
@@ -77,7 +82,8 @@
    "color": "gray",
    "dxf": true,
    "group": "Frame",
-   "mass": 7.4
+   "mass": 7.4,
+   "rev": "B"
   },
   {
    "key": "foot",
@@ -92,7 +98,8 @@
    "color": "green",
    "dxf": false,
    "group": "Frame",
-   "mass": 0.8
+   "mass": 0.8,
+   "rev": "B"
   },
   {
    "key": "fpin",
@@ -107,7 +114,8 @@
    "color": "purple",
    "dxf": false,
    "group": "Frame",
-   "mass": 0.5
+   "mass": 0.5,
+   "rev": "B"
   },
   {
    "key": "gpin",
@@ -122,7 +130,8 @@
    "color": "white",
    "dxf": false,
    "group": "Frame",
-   "mass": 0.3
+   "mass": 0.3,
+   "rev": "B"
   },
   {
    "key": "lid",
@@ -137,7 +146,8 @@
    "color": "red",
    "dxf": true,
    "group": "Lid",
-   "mass": 19.1
+   "mass": 19.2,
+   "rev": "B"
   },
   {
    "key": "ramp",
@@ -152,7 +162,8 @@
    "color": "red",
    "dxf": true,
    "group": "Lid",
-   "mass": 6.9
+   "mass": 6.9,
+   "rev": "B"
   },
   {
    "key": "strap",
@@ -167,7 +178,8 @@
    "color": "red",
    "dxf": true,
    "group": "Lid",
-   "mass": 2.7
+   "mass": 2.7,
+   "rev": "B"
   },
   {
    "key": "hrest",
@@ -182,7 +194,8 @@
    "color": "red",
    "dxf": true,
    "group": "Lid",
-   "mass": 0.1
+   "mass": 0.1,
+   "rev": "B"
   },
   {
    "key": "cap",
@@ -197,7 +210,8 @@
    "color": "teal",
    "dxf": true,
    "group": "Piston",
-   "mass": 13.5
+   "mass": 13.5,
+   "rev": "B"
   },
   {
    "key": "web",
@@ -212,7 +226,8 @@
    "color": "teal",
    "dxf": true,
    "group": "Piston",
-   "mass": 6.5
+   "mass": 6.5,
+   "rev": "B"
   },
   {
    "key": "arm",
@@ -227,7 +242,8 @@
    "color": "blue",
    "dxf": true,
    "group": "Yoke",
-   "mass": 9.2
+   "mass": 9.2,
+   "rev": "B"
   },
   {
    "key": "xbar",
@@ -242,7 +258,8 @@
    "color": "blue",
    "dxf": true,
    "group": "Yoke",
-   "mass": 1.9
+   "mass": 2.0,
+   "rev": "B"
   },
   {
    "key": "ppin",
@@ -257,7 +274,8 @@
    "color": "purple",
    "dxf": false,
    "group": "Yoke",
-   "mass": 7.1
+   "mass": 7.2,
+   "rev": "B"
   },
   {
    "key": "cheek",
@@ -272,7 +290,8 @@
    "color": "orange",
    "dxf": true,
    "group": "Handle",
-   "mass": 5.2
+   "mass": 5.1,
+   "rev": "B"
   },
   {
    "key": "qpin",
@@ -287,7 +306,8 @@
    "color": "purple",
    "dxf": false,
    "group": "Handle",
-   "mass": 0.6
+   "mass": 0.6,
+   "rev": "B"
   },
   {
    "key": "campin",
@@ -298,11 +318,12 @@
    "size": "A4",
    "scale": "1:5",
    "qty": 1,
-   "stock": "1.250\" round 4140 prehard",
+   "stock": "1.375\" round 4140 prehard",
    "color": "purple",
    "dxf": false,
    "group": "Handle",
-   "mass": 2.8
+   "mass": 3.5,
+   "rev": "B"
   },
   {
    "key": "bridge",
@@ -317,7 +338,8 @@
    "color": "orange",
    "dxf": true,
    "group": "Handle",
-   "mass": 1.2
+   "mass": 1.2,
+   "rev": "B"
   },
   {
    "key": "htube",
@@ -332,7 +354,8 @@
    "color": "orange",
    "dxf": false,
    "group": "Handle",
-   "mass": 19.4
+   "mass": 19.4,
+   "rev": "B"
   },
   {
    "key": "latch",
@@ -347,7 +370,8 @@
    "color": "pink",
    "dxf": true,
    "group": "Handle",
-   "mass": 0.4
+   "mass": 0.4,
+   "rev": "B"
   },
   {
    "key": "lbar",
@@ -362,7 +386,8 @@
    "color": "pink",
    "dxf": true,
    "group": "Handle",
-   "mass": 0.4
+   "mass": 0.4,
+   "rev": "B"
   },
   {
    "key": "lpin",
@@ -371,13 +396,14 @@
    "sheet": 26,
    "file": "22_lpin.svg",
    "size": "A4",
-   "scale": "1:2",
+   "scale": "1:5",
    "qty": 1,
    "stock": "0.500\" round 1018",
    "color": "purple",
    "dxf": false,
    "group": "Handle",
-   "mass": 0.4
+   "mass": 0.5,
+   "rev": "B"
   },
   {
    "key": "lhandle",
@@ -392,7 +418,8 @@
    "color": "red",
    "dxf": false,
    "group": "Lid",
-   "mass": 0.5
+   "mass": 0.5,
+   "rev": "B"
   }
  ]
 }

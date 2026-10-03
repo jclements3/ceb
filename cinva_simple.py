@@ -49,6 +49,15 @@ from build123d import (
 
 STEEL = 0.2836  # lb / in^3
 
+# Drawing revisions (cinva_drawings.py hooks). Letters in issue order: letter -> (date, change).
+REVISIONS = {
+    "A": ("2026-10-01", "Initial issue"),
+    "B": ("2026-10-03", "ECP: cam pin 1-1/4 -> 1-3/8, side plates 1/2 -> 5/8 (sysml_trade.py). Geometry changed: "
+                        "side, fpin, gpin, lid, ramp, xbar, ppin, cheek, campin, bridge, lpin, assembly sheets. "
+                        "All sheets: note 3 now 'Material per title block' (was A36 / 1018 on 4140 and AR400 parts)."),
+}
+CURRENT_REV = "B"       # every sheet; SHEET_REV = {key: letter} would hold any sheet left behind
+
 # his press (inches), from cinva1-7.jpg
 HIS = dict(
     brick_l=11.5, brick_w=6.0, fill=6.125,
@@ -91,7 +100,7 @@ class Params:
     base_h: float = 12.0          # the feet bolt to a stand this tall
 
     # stock (his 1/4 plate and 1" pins, heavier where flagged)
-    t_side: float = 0.50
+    t_side: float = 0.625         # ECP: side plate margin +7% -> +67%
     t_end: float = 0.50
     t_lid: float = 0.625
     t_ramp: float = 0.75          # AR400
@@ -105,7 +114,7 @@ class Params:
     clear: float = 0.125
     d_pin: float = 1.75           # main pin P
     d_q: float = 1.25             # pin Q (two stubs)
-    d_cam: float = 1.25           # cam pin (sits in the scoop)
+    d_cam: float = 1.375          # cam pin (sits in the scoop); ECP: +6% -> +41%
     d_fpin: float = 1.25          # fixed (eject) pins
     d_gpin: float = 1.00          # lid strap pivots
     d_latch: float = 0.50         # latch pivot (his 7/16)

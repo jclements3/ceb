@@ -42,13 +42,13 @@ See sheet 3 for the four positions and sheet 4 for the operating steps and loads
 | 1 | Side plate slot | 2.000 wide for a 1 in pin | pin + 1/16 (1.813) | **His error**: the supplier later changed it to 1 in; a 2 in slot lets the pin wander |
 | 1 | Side plate slot top | ends 1 in into the chamber | ends below the loose soil | soil would push out through the slot at fill |
 | 4 | Fixed pins | 7.71 up (7 x 1.102) | 7.48 up | set so the eject stroke ends at 80 deg with the wider 3 in arms |
-| 1 | Side plate | 1/4 plate | 1/2 plate | soil pressure on a 14 in wall |
+| 1 | Side plate | 1/4 plate | 5/8 plate | soil pressure on a 14 in wall (1/2 left a 7% stress margin; trade study in `sysml_trade.py`) |
 | 2 | End plate | 1/4, 6 x 6 | 1/2, 7 x 7.5 | spans 7 in; reaches the piston at fill |
 | 6 | Lid plate | 1/4, covers the side plates | 5/8; narrow except at the pull end | would dish; the head swings down past its edges while standing up |
 | 7 | V ramp | 1/4 | 3/4 AR400 | the cam pin carries the whole press force in the scoop |
 | 10, 11 | Piston cap, webs | 1/4 | 1/2 cap, 3/8 webs | cap would dish |
 | 12 | Yoke arm | 2 x 1/4 bar | 3 x 1/2 plate, 2.3 in longer | pin loads; room for the cross-bar box over the head |
-| 14, 16, 17 | Pins P, Q, cam | 1 in mild steel | 1-3/4, 1-1/4, 1-1/4 4140 prehard | 1 in mild-steel pins bend at 20,000 lbf |
+| 14, 16, 17 | Pins P, Q, cam | 1 in mild steel | 1-3/4, 1-1/4, 1-3/8 4140 prehard | 1 in mild-steel pins bend at 20,000 lbf; 1-1/4 cam pin left a 6% margin |
 | 15 | Head | his link plates and 3 x 2 plates | one L-shaped cheek per side | same job, fewer pieces |
 | 20 | Latch hook | notch on the side | notch at the tip | the hook drops straight onto the cross bar |
 
@@ -75,13 +75,13 @@ Two more changes:
 
 | Item | Part | Stock / spec | Qty | Notes |
 |---|---|---|---|---|
-| 4 | Fixed pin | 1.250 round 1018, 1.438 long | 2 | Welded in the side plates |
-| 5 | Lid pivot pin | 1.000 round 1018, 1.406 long | 2 | Washer and 1/8 cotter outside the strap |
-| 14 | Main pin P | 1.750 round 4140 prehard, 10.375 long | 1 | Two 9/32 cross holes, 1/4 hitch pins |
+| 4 | Fixed pin | 1.250 round 1018, 1.563 long | 2 | Welded in the side plates |
+| 5 | Lid pivot pin | 1.000 round 1018, 1.531 long | 2 | Washer and 1/8 cotter outside the strap |
+| 14 | Main pin P | 1.750 round 4140 prehard, 10.625 long | 1 | Two 9/32 cross holes, 1/4 hitch pins |
 | 16 | Pin Q (stub) | 1.250 round 4140 prehard, 1.688 long | 2 | One 9/32 cross hole each |
-| 17 | Cam pin | 1.250 round 4140 prehard, 8.000 long | 1 | |
+| 17 | Cam pin | 1.375 round 4140 prehard, 8.250 long | 1 | |
 | 19 | Handle | 1-1/2 sch 80 pipe, 64.0 long | 1 | Grip end 72 from Q |
-| 22 | Latch pivot | 0.500 round 1018, 8.000 long | 1 | Cotter each end |
+| 22 | Latch pivot | 0.500 round 1018, 8.250 long | 1 | Cotter each end |
 | 23 | Lid handle | 0.500 round 1018, bent into a U (horseshoe), 4 between legs | 1 | About 11 in of bar |
 | — | Hardware | 1/2 bolts (4) for the foot clips, 1/4 hitch pins (4), 1/8 cotters (4), washers | | |
 | — | Grease | lithium grease for pins P and Q, the scoops, the cam pin and the fixed pins | | |
@@ -118,7 +118,7 @@ Cut all plates from the DXF files in `drawings/simple-14x7x4/dxf/` (1:1, inches)
 
 1. Cut the lid plate from the DXF. It is 6.969 wide (inside the side plates) except the last 3 in at the
    pull end, which is full width and sits on the side plates.
-2. Weld the V ramps along both long edges of the lid top, outer faces 3.438 from the centreline.
+2. Weld the V ramps along both long edges of the lid top, outer faces 3.563 from the centreline.
    - Put the long leg (lower end 0.276) at the fixed-pin end.
    - The scoops sit right over the middle of the mold.
    - Use low-hydrogen rod and preheat.
@@ -141,7 +141,7 @@ Cut all plates from the DXF files in `drawings/simple-14x7x4/dxf/` (1:1, inches)
 
 1. Cut both cheeks from the DXF. Clamp them together and drill:
    - Q (1.250);
-   - the cam pin (1.266), **2.132 below Q, hold +/-0.010**;
+   - the cam pin (1.391), **2.132 below Q, hold +/-0.010**;
    - the latch pivot (0.531).
 2. Weld a Q stub (item 16) into each cheek, inner end flush inside, sticking out.
 3. Weld the two bridges (item 18) between the cheeks at the far end of the handle leg, 8.0 and 9.75 from

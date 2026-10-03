@@ -19,16 +19,16 @@ Fixes to his drawings:
 - the fixed-pin height set for the eject stroke.
 
 Heavier stock (listed with reasons in `ASSEMBLY.md`):
-- 1/2 side plates;
+- 5/8 side plates;
 - 3/4 AR400 ramps;
-- 4140 pins (P 1-3/4", Q and cam 1-1/4");
+- 4140 pins (P 1-3/4", Q 1-1/4", cam 1-3/8");
 - 3 x 1/2 yoke arms;
 - the lid narrowed so the head clears it.
 
 Checked at CINVA pressure (200 psi working, 306 psi design):
 - peak push 163 lbf on the 72 in handle (123 lbf at 150 psi);
 - about 112 lbf to eject;
-- 22 part types, about 230 lb of steel;
+- 23 part types, about 248 lb of steel;
 - the press bolts to a 12 in stand.
 
 `cinva_ram_b123d.py` is the earlier heavy-duty version, kept for reference. It has a concave roller track, a central claw latch, and an eject roller on posts; its guide is `ASSEMBLY_full.md` and its drawings are in `drawings/14x7x4/`. Both models:
