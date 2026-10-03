@@ -132,6 +132,23 @@ def update(text: str, p: cs.Params) -> str:
     return text
 
 
+def model_limits(text: str) -> dict:
+    """Numeric requirement limits the pilot cannot evaluate (unit-bearing): read them from the model."""
+    get = lambda pat: float(re.search(pat, text, re.S).group(1))
+    return dict(
+        handle=get(r"requirement def HandleForceLimit.*?attribute limit\s*:\s*\w+\s*=\s*([\d.]+)\s*\[lbf\]"),
+        steel=get(r"requirement def SteelBudget.*?attribute budget\s*:\s*\w+\s*=\s*([\d.]+)\s*\[lb\]"),
+    )
+
+
+def req_checks(text: str, p: cs.Params) -> list:
+    lim = model_limits(text)
+    peak = p.peak_hand()
+    mass = sum(pt.weight(p) * pt.qty for pt in cs.parts(p))
+    return [("HandleForceLimit", peak <= lim["handle"], f"peak pull {peak:.1f} lbf <= {lim['handle']:g}"),
+            ("SteelBudget", mass <= lim["steel"], f"steel {mass:.1f} lb <= {lim['steel']:g}")]
+
+
 def git_rev() -> str:
     try:
         return subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True,
@@ -240,13 +257,18 @@ def main() -> int:
     for name, ok, detail in func:
         print(f"{'PASS' if ok else 'FAIL'}   {name}")
 
+    reqs = req_checks(text, p)
+    for name, ok, detail in reqs:
+        print(f"{'PASS' if ok else 'FAIL'}   requirement {name}: {detail}")
+
     out = Path(a.out) if a.out else mpath.with_name("CinvaRamResults.sysml")
     out.write_text(emit(p, stress, func, n_interf, not a.no_sweep))
     print(f"wrote {out}")
 
     if errs:
         return 1
-    if any(s > al for _, _, s, al in stress) or not all(ok for _, ok, _ in func):
+    if (any(s > al for _, _, s, al in stress) or not all(ok for _, ok, _ in func)
+            or not all(ok for _, ok, _ in reqs)):
         return 2
     return 0
 

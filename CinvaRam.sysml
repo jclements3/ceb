@@ -148,10 +148,10 @@ package CinvaRamExample {
         attribute pDesign   : PressureValue default 306 [lbf/'in'**2];
 
         // --- derived ---
-        attribute fill    : LengthValue = brickH + rise;                   // 6.75
-        attribute area    : AreaValue   = brickL * brickW;                 // 98 in^2
-        attribute fWork   : ForceValue  = PressForce(pWork, area);         // 19,600 lbf
-        attribute fDesign : ForceValue  = PressForce(pDesign, area);       // 29,988 lbf
+        attribute fill    : LengthValue = brickH + rise;
+        attribute area    : AreaValue   = brickL * brickW;
+        attribute fWork   : ForceValue  = PressForce(pWork, area);
+        attribute fDesign : ForceValue  = PressForce(pDesign, area);
 
         // --- results: declared here, valued in CinvaRamResults.sysml (generated) ---
         attribute peakHandleForce  : ForceValue;   // 163 lbf @ 200 psi
@@ -171,7 +171,7 @@ package CinvaRamExample {
         part head   : Head;
 
         attribute totalMass : MassValue =
-            sum((moldBox.mass, lid.mass, piston.mass, yoke.mass, head.mass));   // 230.4 lb
+            sum((moldBox.mass, lid.mass, piston.mass, yoke.mass, head.mass));
 
         // --- strength (section 6) ---
         attribute sPinQBend  : PressureValue =
@@ -291,7 +291,7 @@ package CinvaRamExample {
     }
 
     requirement def HandleForceLimit {
-        doc /* One operator: peak pull <= 165 lbf at 200 psi working pressure. */
+        doc /* One operator: peak pull at 200 psi working pressure. Placeholder limit -- set by owner. */
         subject press : CinvaRam;
         attribute limit : ForceValue = 165 [lbf];
         require constraint { press.peakHandleForce <= limit }
@@ -325,8 +325,10 @@ package CinvaRamExample {
     }
 
     requirement def SteelBudget {
+        doc /* Placeholder budget -- set by owner. */
         subject press : CinvaRam;
-        require constraint { press.totalMass <= 240 [lb] }
+        attribute budget : MassValue = 240 [lb];
+        require constraint { press.totalMass <= budget }
     }
 
     // =================================================================
