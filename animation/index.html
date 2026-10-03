@@ -269,6 +269,11 @@ ol.phases li button[aria-current="step"] span { color: var(--accent-ink); }
       groups.claw.matrix.copy(base.clone().multiply(mul(T(cpx, 0, cpz), Ry(claw), T(-cpx, 0, -cpz))));
     }
     groups.lid.visible = !$("t-lid").checked;
+    if (groups.feeder && C.feed !== undefined) {   // feed box slides in -Y from park; the gate slides back in +Y
+      const fy = -f[C.feed] * M.feed_park;
+      groups.feeder.matrix.copy(T(0, fy, 0));
+      if (groups.gate) groups.gate.matrix.copy(T(0, fy + f[C.gate] * M.gate_travel, 0));
+    }
 
     // soil / brick
     const bb = f[C.brick_bottom], bt = f[C.brick_top], h = bt - bb;

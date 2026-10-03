@@ -233,7 +233,7 @@ def title_block(sh: Sheet, title, subtitle, dwg_no, sheet_no, n_sheets, scale, m
     rev, issued = sheet_rev(key)
     sh.text(rev, x0 + 118, y0 + 1.5, TXT_SMALL)
     lab("Date of issue", x0 + 124, y0 + 8)
-    sh.text(issued, x0 + 125.5, y0 + 1.5, TXT_SMALL)
+    sh.text(issued, x0 + 124.8, y0 + 1.5, TXT_SMALL * 0.85)     # fits the 20 mm cell
     lab("Sheet", x0 + 144, y0 + 16)
     sh.text(f"{sheet_no}/{n_sheets}", x0 + 145.5, y0 + 5, TXT)
 

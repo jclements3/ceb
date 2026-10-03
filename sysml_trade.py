@@ -41,7 +41,7 @@ def evaluate(over: dict, sweep: bool) -> dict:
     return dict(
         over=over, sweep=sweep,
         peak=p.peak_hand(), eject=cs.max_eject_hand(p),
-        mass=sum(pt.weight(p) * pt.qty for pt in cs.parts(p) if pt.group != "Feeder"),
+        mass=sum(pt.weight(p) * pt.qty for pt in cs.parts(p) if pt.group not in getattr(cs, "ATTACHMENT_GROUPS", ())),
         min_margin=worst[3] / worst[2] - 1, worst=worst[0],
         margins={r[0]: r[3] / r[2] - 1 for r in stress},
         fails=[n for n, ok, _ in func if not ok], interf=interf,
@@ -88,9 +88,13 @@ def emit(rows: list[dict], limit: float) -> str:
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--no-sweep", action="store_true")
-    ap.add_argument("--limit", type=float, default=165.0, help="handle force limit, lbf")
+    ap.add_argument("--limit", type=float, default=None,
+                    help="handle force limit, lbf (default: HandleForceLimit in CinvaRam.sysml)")
     a = ap.parse_args()
     sweep = not a.no_sweep
+    if a.limit is None:
+        import sysml_sync
+        a.limit = sysml_sync.model_limits(Path("CinvaRam.sysml").read_text())["handle"]
 
     cache = json.loads(CACHE.read_text()) if CACHE.exists() else {}
     keys = list(FACTORS)

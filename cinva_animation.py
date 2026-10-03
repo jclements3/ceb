@@ -129,7 +129,8 @@ def frames_of(phases):
             frames.append([i, round(s, 4), round(d["theta"], 3), round(d["psi"], 3), round(d["zp"], 4),
                            round(d["cover"], 2), round(d["latch"], 2), round(d["bb"], 4), round(d["bt"], 4),
                            round(d["force"], 1), round(d.get("theta_show", d["theta"]), 2),
-                           round(d.get("psi_show", d["psi"]), 2)])
+                           round(d.get("psi_show", d["psi"]), 2), round(d.get("feed", 0.0), 3),
+                           round(d.get("gate", 0.0), 3)])
     return [n for n, _, _ in phases], frames
 
 
@@ -160,7 +161,7 @@ def main():
         meta=meta,
         phases=names,
         columns=["phase", "s", "theta", "psi", "zp", "cover", "claw", "brick_bottom", "brick_top", "hand_force",
-                 "theta_show", "psi_show"],
+                 "theta_show", "psi_show", "feed", "gate"],
         frames=frames,
         groups=meshes(p, ref),
     )

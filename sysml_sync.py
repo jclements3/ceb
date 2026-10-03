@@ -133,8 +133,13 @@ def update(text: str, p: cs.Params) -> str:
 
 
 def press_mass(p: cs.Params, feeder=False) -> float:
-    """Solver BOM weight of the press (items 1-23) or of the feeder attachment."""
-    return sum(pt.weight(p) * pt.qty for pt in cs.parts(p) if (pt.group == "Feeder") == feeder)
+    """Solver BOM weight of the press (items 1-23), or of one attachment group ('Feeder', 'Stand')."""
+    att = set(getattr(cs, "ATTACHMENT_GROUPS", ("Feeder",)))
+    if feeder is True:
+        feeder = "Feeder"
+    if feeder:
+        return sum(pt.weight(p) * pt.qty for pt in cs.parts(p) if pt.group == feeder)
+    return sum(pt.weight(p) * pt.qty for pt in cs.parts(p) if pt.group not in att)
 
 
 def model_limits(text: str) -> dict:
@@ -202,7 +207,8 @@ def emit(p: cs.Params, stress, func, n_interf, sweep: bool) -> str:
     a(f"        :>> functionalFails = {fails};")
     a(f"        :>> minMargin       = {min(al / sg - 1 for _, _, sg, al in stress):.4f};")
     a(f"        :>> steelMass       = {press_mass(p):.1f} [lb];")
-    a(f"        :>> feederMass      = {press_mass(p, feeder=True):.1f} [lb];")
+    a(f"        :>> feederMass      = {press_mass(p, feeder='Feeder'):.1f} [lb];")
+    a(f"        :>> standMass       = {press_mass(p, feeder='Stand'):.1f} [lb];")
     a(f"        :>> heaviestPart    = {max(pt.weight(p) for pt in cs.parts(p)):.1f} [lb];")
     a(f"        :>> feedCapacity    = {cs.feed_capacity(p):.0f} ['in'**3];")
     a(f"        :>> chargeVolume    = {cs.charge_volume(p):.1f} ['in'**3];")
