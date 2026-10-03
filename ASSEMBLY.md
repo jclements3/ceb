@@ -80,7 +80,7 @@ Two more changes:
 | 14 | Main pin P | 1.750 round 4140 prehard, 10.625 long | 1 | Two 9/32 cross holes, 1/4 hitch pins |
 | 16 | Pin Q (stub) | 1.250 round 4140 prehard, 1.688 long | 2 | One 9/32 cross hole each |
 | 17 | Cam pin | 1.375 round 4140 prehard, 8.250 long | 1 | |
-| 19 | Handle | 1-1/2 sch 80 pipe, 66.0 long | 1 | Grip end 74 from Q (rev D: was 64.0 / 72) |
+| 19 | Handle | 2 sch 80 pipe, 82.0 long | 1 | Grip end 90 from Q (rev E: was 1-1/2 sch 80, 66.0 / 74) |
 | 22 | Latch pivot | 0.500 round 1018, 8.250 long | 1 | Cotter each end |
 | 23 | Lid handle | 0.500 round 1018, bent into a U (horseshoe), 4 between legs | 1 | About 11 in of bar |
 | — | Hardware | 1/2 bolts (4) for the foot clips, 1/4 hitch pins (4), 1/8 cotters (4), washers | | |
@@ -144,8 +144,8 @@ Cut all plates from the DXF files in `drawings/simple-14x7x4/dxf/` (1:1, inches)
    - the cam pin (1.391), **2.132 below Q, hold +/-0.010**;
    - the latch pivot (0.531).
 2. Weld a Q stub (item 16) into each cheek, inner end flush inside, sticking out.
-3. Weld the two bridges (item 18) between the cheeks at the far end of the handle leg, 8.0 and 9.75 from
-   Q; slide the handle (item 19) through both and weld all round.
+3. Weld the two bridges (item 18) between the cheeks at the far end of the handle leg, 9.25 and 11.5 from
+   Q (rev E: moved out so the open latch bar clears them); slide the handle (item 19) through both and weld all round.
 4. Push the cam pin (item 17) through both cheeks, flush outside; weld the ends.
 5. Weld the latch bar (item 21) across the two latch hooks (item 20). Hang them between the cheeks on the
    latch pivot (item 22), with a cotter at each end.
@@ -179,11 +179,14 @@ Cut all plates from the DXF files in `drawings/simple-14x7x4/dxf/` (1:1, inches)
 Press a few light fills, then work up to a full 6.750 loose fill.
 - **Handle force:** the peak comes about 70% of the way through the pull, with the grip about 67 in
   above the ground (head height), not at the end: the over-centre geometry takes the force away in the last
-  few degrees before the lock. Peak 119 lbf at the 150 psi working pressure with the 74 in handle.
+  few degrees before the lock. Peak 98 lbf at 150 psi, 131 at 200, 190 at 290 psi on the 90 in handle
+  (rev E), with the grip about 76 in up at the peak.
 - **Ergonomic limit:** 120 lbf for pulling down above head height (CCOHS Table 2, from Kodak's *Ergonomic
-  Design for People at Work*). Rev D runs at 150 psi with a 74 in handle so one operator stays under it.
-  Do not raise the working pressure without a second operator: at 200 psi the peak is 159 lbf. For
+  Design for People at Work*). One operator stays under it up to about 180 psi. The pressure is set by
+  the soil, not the operator: measure it in the load test (peak pull / 0.65 = psi on this handle). For
   repetitive work CCOHS recommends considerably lower forces.
+- **Handle pipe (rev E):** 2 sch 80. The bending moment at the head is the same for any handle length
+  (force x length); 1-1/2 sch 80 yields at about 290 psi.
 - **After 20 bricks:** check that pins P, Q and the cam pin are straight, the scoops are not dented,
   the side plates have not bulged, and no weld has cracked.
 - **If the head will not reach the rests**, the fill is too heavy. Take soil out; don't force it.

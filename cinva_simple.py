@@ -61,9 +61,12 @@ REVISIONS = {
     "D": ("2026-10-03", "Working pressure 200 -> 150 psi and handle 72 -> 74 in, so the peak pull (119 lbf) is "
                         "under the CCOHS 120 lbf limit for pulling down above head height. Sheets: general "
                         "assembly, assembly views, operating positions, design data, handle."),
+    "E": ("2026-10-03", "Handle 74 -> 90 in (peak grip at head height for a 6'1\" operator) and 1-1/2 -> 2 sch 80 "
+                        "(the old pipe yields at about 290 psi). Bridges wider, moved to 9.25 / 11.5 from Q to clear "
+                        "the open latch bar; cheek handle leg 10.5 -> 12."),
 }
 CURRENT_REV = "C"
-SHEET_REV = {k: "D" for k in ("assembly", "assembly_views", "positions", "design", "htube")}
+SHEET_REV = {k: "E" for k in ("assembly", "assembly_views", "positions", "design", "htube", "cheek", "bridge")}
 ATTACHMENT_GROUPS = ("Feeder",)   # drawings: steel weight split press / feeder       # every sheet; SHEET_REV = {key: letter} would hold any sheet left behind
 
 # his press (inches), from cinva1-7.jpg
@@ -126,8 +129,10 @@ class Params:
     d_fpin: float = 1.25          # fixed (eject) pins
     d_gpin: float = 1.00          # lid strap pivots
     d_latch: float = 0.50         # latch pivot (his 7/16)
-    handle_len: float = 74.0      # Q -> grip along the handle (rev D: 72 -> 74, 120 lbf at 150 psi)
-    handle_od: float = 1.900      # 1-1/2" sch 80 pipe
+    handle_len: float = 90.0      # Q -> grip along the handle (rev E: 74 -> 90, peak grip at head height for a 6'1" operator)
+    handle_od: float = 2.375      # rev E: 2" sch 80 pipe (was 1-1/2 sch 80: yields at 290 psi)
+    handle_wall: float = 0.218
+    handle_pipe: str = '2" sch 80 pipe'
 
     # mechanism
     psi0: float = -110.0          # head angle at the start (deg; cam->Q direction from vertical, + toward +X)
@@ -521,9 +526,11 @@ def lid_frame(p: Params, ang):
 Q_BOSS = 1.25
 CAM_BOSS = 1.25
 LEG_HALF = 1.25          # half width of the handle leg of the L
-LEG_LEN = 10.5           # handle leg length from Q along the handle (past the lid end at the lock)
-BRIDGE_X = (8.0, 9.75)   # bridges (handle socket) along the handle from Q, clear of the ramps
-BRIDGE_W = 2.0
+LEG_LEN = 12.0           # handle leg length from Q along the handle (past the lid end at the lock; rev E: was 10.5 for the moved bridges)
+BRIDGE_X = (9.25, 11.5)  # bridges (handle socket) along the handle from Q, clear of the ramps and of the open latch bar (rev E: was 8.0, 9.75)
+def bridge_w(p):
+    """Bridge plate width: the handle bore plus 1/2 each side."""
+    return max(2.0, p.handle_od + 1.0)
 
 
 def cheek_outline(p: Params):
@@ -1324,8 +1331,9 @@ def cam_pin(p: Params):
 
 
 def bridge(p: Params):
-    s = plate(BRIDGE_W, 2 * p.cheek_y, 0.375)
-    return s - hole(BRIDGE_W / 2, p.cheek_y, p.handle_od + 1 / 16, 0.375)
+    w = bridge_w(p)
+    s = plate(w, 2 * p.cheek_y, 0.375)
+    return s - hole(w / 2, p.cheek_y, p.handle_od + 1 / 16, 0.375)
 
 
 def tube_len(p: Params):
@@ -1333,7 +1341,7 @@ def tube_len(p: Params):
 
 
 def handle_tube(p: Params, length=None):
-    return tube(p.handle_od, p.handle_od - 0.4, length or tube_len(p), "X")
+    return tube(p.handle_od, p.handle_od - 2 * p.handle_wall, length or tube_len(p), "X")
 
 
 # ---- latch (his notched hook plates, notch moved to the tip) ----
@@ -1629,9 +1637,9 @@ def parts(p: Params) -> list[Part]:
              dims=lambda p: _rod_dims(p.d_cam, 2 * p.wall_out),
              notes=("Through both cheeks, flush outside; weld the ends. It seats in the ramp scoops.",)),
         Part("bridge", "Handle Bridge", 2, pl(0.375) + " A36", "orange", bridge, group="Handle",
-             dims=lambda p: _plate_dims(BRIDGE_W, 2 * p.cheek_y, [(BRIDGE_W / 2, p.cheek_y, p.handle_od + 1 / 16)], 0.375),
+             dims=lambda p: _plate_dims(bridge_w(p), 2 * p.cheek_y, [(bridge_w(p) / 2, p.cheek_y, p.handle_od + 1 / 16)], 0.375),
              notes=(f"Between the cheeks on the handle leg, square to it, {BRIDGE_X[0]:g} and {BRIDGE_X[1]:g} from Q.",)),
-        Part("htube", "Handle", 1, '1-1/2" sch 80 pipe', "orange", handle_tube, group="Handle",
+        Part("htube", "Handle", 1, p.handle_pipe, "orange", handle_tube, group="Handle",
              views=("F", "L"), flat=False,
              dims=lambda p: [("H", "F", (0, 0, 0), (tube_len(p), 0, 0), -10), ("D", "L", (0, 0, 0), p.handle_od, 45, "")],
              notes=("Through both bridges, end flush with the inner bridge; weld all round.",)),
@@ -1741,7 +1749,7 @@ def assembly(p: Params, pose: str = "locked", handle_len: float | None = None):
     add("qpin", "Pin Q", hf * Pos(0, p.cheek_y + q_len(p), 0) * ALONG_Y * q_pin(p), mirror=True)
     add("campin", "Cam Pin", hf * Pos(0, p.wall_out, -p.e) * ALONG_Y * cam_pin(p))
     for xb in BRIDGE_X:
-        add("bridge", "Handle Bridge", hf * Pos(xb + 0.375, -p.cheek_y, -a - BRIDGE_W / 2) * Rot(0, -90, 0) * bridge(p))
+        add("bridge", "Handle Bridge", hf * Pos(xb + 0.375, -p.cheek_y, -a - bridge_w(p) / 2) * Rot(0, -90, 0) * bridge(p))
     hl = p.handle_len if handle_len is None else handle_len
     add("htube", "Handle", hf * Pos(BRIDGE_X[0], 0, -a) * handle_tube(p, hl - BRIDGE_X[0]))
     # latch
@@ -1821,6 +1829,7 @@ def sweep_poses(p: Params, n=8):
 # ==========================================================
 
 FY_A36, FU_A36, FY_4140, FY_1018, FY_AR400 = 36000.0, 58000.0, 95000.0, 50000.0, 145000.0
+FY_A53 = 35000.0           # A53 Gr B pipe
 E_STEEL = 30e6
 
 
@@ -1913,6 +1922,11 @@ def checks(p: Params):
     fl = fe * p.handle_len / 3.0
     rows.append(("Latch hooks, bearing (tilting)", f"{fl:,.0f} lbf on 2 x {p.t_latch:.3f} x {p.t_bar:.3f}",
                  fl / 2 / (p.t_latch * p.t_bar), 0.9 * FY_A36))
+    # handle: the torque at the head is the same whatever the length (force x length), so check it
+    sp = math.pi * (p.handle_od ** 4 - (p.handle_od - 2 * p.handle_wall) ** 4) / (32 * p.handle_od)
+    fh = p.peak_hand(p.p_design)
+    rows.append(("Handle, bending at the bridge", f"{fh:.0f} lbf x {p.handle_len - BRIDGE_X[1]:.1f}, {p.handle_pipe}",
+                 fh * (p.handle_len - BRIDGE_X[1]) / sp, 0.66 * FY_A53))
     # feeder: full box parked, as a point load mid-span on each rail between the ties
     wb = feed_capacity(p) * SOIL + sum(pt.weight(p) * pt.qty for pt in parts(p)
                                        if pt.key in ("fbpin", "fblid", "fbstrike", "fbfunnel", "gate", "ghandle", "bhandle", "lug"))

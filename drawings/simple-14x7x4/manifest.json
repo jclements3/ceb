@@ -12,7 +12,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "D"
+   "rev": "E"
   },
   {
    "key": "assembly_views",
@@ -25,7 +25,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "D"
+   "rev": "E"
   },
   {
    "key": "positions",
@@ -38,7 +38,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "D"
+   "rev": "E"
   },
   {
    "key": "design",
@@ -51,7 +51,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "D"
+   "rev": "E"
   },
   {
    "key": "side",
@@ -290,8 +290,8 @@
    "color": "orange",
    "dxf": true,
    "group": "Handle",
-   "mass": 5.1,
-   "rev": "C"
+   "mass": 5.7,
+   "rev": "E"
   },
   {
    "key": "qpin",
@@ -338,8 +338,8 @@
    "color": "orange",
    "dxf": true,
    "group": "Handle",
-   "mass": 1.2,
-   "rev": "C"
+   "mass": 2.1,
+   "rev": "E"
   },
   {
    "key": "htube",
@@ -347,15 +347,15 @@
    "name": "Handle",
    "sheet": 23,
    "file": "19_htube.svg",
-   "size": "A4",
+   "size": "A3",
    "scale": "1:10",
    "qty": 1,
-   "stock": "1-1/2\" sch 80 pipe",
+   "stock": "2\" sch 80 pipe",
    "color": "orange",
    "dxf": false,
    "group": "Handle",
-   "mass": 20.0,
-   "rev": "D"
+   "mass": 33.8,
+   "rev": "E"
   },
   {
    "key": "latch",

@@ -110,11 +110,11 @@ package CinvaRamExample {
 
     /* "L-cam" head: Q at the corner, cam pin at the foot, handle on the other leg */
     part def Head {
-        part cheek  : Component { :>> itemNo = 15; :>> qty = 2; :>> stock = "0.500 plate A36";         :>> material = Material::A36;         :>> unitMass = 5.1 [lb]; @Dwg { sheet = 19; dxf = true;  } }
+        part cheek  : Component { :>> itemNo = 15; :>> qty = 2; :>> stock = "0.500 plate A36";         :>> material = Material::A36;         :>> unitMass = 5.7 [lb]; @Dwg { sheet = 19; dxf = true;  } }
         part pinQ   : Component { :>> itemNo = 16; :>> qty = 2; :>> stock = "1.250 round 4140 prehard";     :>> material = Material::steel4140PH; :>> unitMass =  0.6 [lb]; @Dwg { sheet = 20; dxf = false; } }
         part camPin : Component { :>> itemNo = 17; :>> qty = 1; :>> stock = "1.375 round 4140 prehard";  :>> material = Material::steel4140PH; :>> unitMass = 3.5 [lb]; @Dwg { sheet = 21; dxf = false; } }
-        part bridge : Component { :>> itemNo = 18; :>> qty = 2; :>> stock = "0.375 plate A36";         :>> material = Material::A36;         :>> unitMass =  1.2 [lb]; @Dwg { sheet = 22; dxf = false; } }
-        part handle : Component { :>> itemNo = 19; :>> qty = 1; :>> stock = "1-1/2 sch 80 pipe";  :>> material = Material::sch80Pipe;   :>> unitMass = 20.0 [lb]; @Dwg { sheet = 23; dxf = false; } }
+        part bridge : Component { :>> itemNo = 18; :>> qty = 2; :>> stock = "0.375 plate A36";         :>> material = Material::A36;         :>> unitMass = 2.1 [lb]; @Dwg { sheet = 22; dxf = false; } }
+        part handle : Component { :>> itemNo = 19; :>> qty = 1; :>> stock = "2 sch 80 pipe";  :>> material = Material::sch80Pipe;   :>> unitMass = 33.8 [lb]; @Dwg { sheet = 23; dxf = false; } }
         part latch  : Component { :>> itemNo = 20; :>> qty = 2; :>> stock = "0.375 plate A36";         :>> material = Material::A36;         :>> unitMass =  0.4 [lb]; @Dwg { sheet = 24; dxf = true;  } }
         part lbar   : Component { :>> itemNo = 21; :>> qty = 1; :>> stock = "3/8 x 1-1/8 flat bar";  :>> material = Material::A36;         :>> unitMass =  0.4 [lb]; @Dwg { sheet = 25; dxf = false; } }
         part lpin   : Component { :>> itemNo = 22; :>> qty = 1; :>> stock = "0.500 round 1018";  :>> material = Material::steel1018;   :>> unitMass = 0.5 [lb]; @Dwg { sheet = 26; dxf = false; } }
@@ -154,7 +154,7 @@ package CinvaRamExample {
         attribute brickH    : LengthValue default  4.0 ['in'];
         attribute rise      : LengthValue default  2.75 ['in'];
         attribute ejectOver : LengthValue default  0.125 ['in'];
-        attribute handleLen : LengthValue default 74.0 ['in'];   // Q -> grip
+        attribute handleLen : LengthValue default 90.0 ['in'];   // Q -> grip
         attribute dPinP     : LengthValue default  1.75 ['in'];
         attribute dPinQ     : LengthValue default  1.25 ['in'];
         attribute dCam      : LengthValue default  1.375 ['in'];

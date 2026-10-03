@@ -26,9 +26,9 @@ Heavier stock (listed with reasons in `ASSEMBLY.md`):
 - the lid narrowed so the head clears it.
 
 Checked at 150 psi working, 306 psi design (rev D: was 200 psi working):
-- peak pull 119 lbf on the 74 in handle, under the 120 lbf CCOHS limit for pulling down above head height
-  (rev D: was 72 in; 163 lbf at 200 psi);
-- about 112 lbf to eject;
+- peak pull 98 lbf on the 90 in, 2 in sch 80 handle (rev E), under the 120 lbf CCOHS limit for pulling
+  down above head height; 190 lbf if the soil needs 290 psi;
+- about 92 lbf to eject (rev E: was 112);
 - 23 part types, about 248 lb of steel;
 - the press bolts to a 12 in stand;
 - a feeder (rev C, items 24-38, about 53 lb): a funnel on a sliding feed box with a knife-gate floor,
