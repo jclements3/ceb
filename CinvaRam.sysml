@@ -147,6 +147,15 @@ package CinvaRamExample {
                                           farTie.mass, leg.mass, legTie.mass, railBracket.mass, stopPost.mass));
     }
 
+    /* Stand (rev F): welded steel frame, top at the plane the press bolts to. */
+    part def Stand {
+        part rail      : Component { :>> itemNo = 39; :>> qty = 2; :>> stock = "3 x 2 x 3/16 rect tube"; :>> material = Material::A36; :>> unitMass = 14.2 [lb]; @Dwg { sheet = 43; dxf = false; } }
+        part crossTube : Component { :>> itemNo = 40; :>> qty = 3; :>> stock = "2 x 2 x 3/16 sq tube"; :>> material = Material::A36; :>> unitMass = 2.7 [lb]; @Dwg { sheet = 44; dxf = false; } }
+        part leg       : Component { :>> itemNo = 41; :>> qty = 4; :>> stock = "2 x 2 x 3/16 sq tube"; :>> material = Material::A36; :>> unitMass = 3.8 [lb]; @Dwg { sheet = 45; dxf = false; } }
+        part footPlate : Component { :>> itemNo = 42; :>> qty = 4; :>> stock = "1/4 plate A36"; :>> material = Material::A36; :>> unitMass = 1.1 [lb]; @Dwg { sheet = 46; dxf = true; } }
+        attribute mass : MassValue = sum((rail.mass, crossTube.mass, leg.mass, footPlate.mass));
+    }
+
     part def CinvaRam {
         // --- design parameters (cinva_simple.Params) ---
         attribute brickL    : LengthValue default 14.0 ['in'];
@@ -187,6 +196,7 @@ package CinvaRamExample {
         attribute minMargin        : Real;         // smallest allow/sigma - 1 over stressChecks
         attribute steelMass        : MassValue;    // solver BOM weight, press only (tracks variants; totalMass is the drawing BOM)
         attribute feederMass       : MassValue;    // solver BOM weight, feeder
+        attribute standMass        : MassValue;    // solver BOM weight, stand
         attribute heaviestPart     : MassValue;    // heaviest single part, press or feeder
         attribute feedCapacity     : VolumeValue;  // soil the box and funnel hold above the gate
         attribute chargeVolume     : VolumeValue;  // one loose charge: the mold at fill
@@ -198,6 +208,7 @@ package CinvaRamExample {
         part yoke   : Yoke;
         part head   : Head;
         part feeder : Feeder;
+        part stand  : Stand;
 
         attribute totalMass : MassValue =
             sum((moldBox.mass, lid.mass, piston.mass, yoke.mass, head.mass));
@@ -237,6 +248,10 @@ package CinvaRamExample {
     // =================================================================
     // 5  Behavior
     // =================================================================
+    attribute def PushBox;
+    attribute def PullGate;
+    attribute def PushGate;
+    attribute def PullBox;
     attribute def CloseLid;
     attribute def StandUp;
     attribute def PullHandle;
@@ -250,7 +265,20 @@ package CinvaRamExample {
 
         entry; then fill;
 
-        state fill    { doc /* lid on stand, latch shut, yoke on fixed pins ~33 deg */ }
+        state fill {
+            doc /* lid on stand, latch shut, yoke on fixed pins ~33 deg; the feeder delivers one charge */
+            entry; then parked;
+            state parked   { doc /* feed box against the far tie, gate shut, funnel loaded */ }
+            state boxOver  { doc /* pushed by the gate handle until the lug lands on the stop post */ }
+            state gateOpen { doc /* gate pulled open: the charge drops into the mold */ }
+            state gateShut { doc /* gate pushed shut: the charge is sheared off at the mold top */ }
+            state returned { doc /* box pulled back to park: the lid may swing over */ }
+            transition first parked   accept PushBox  then boxOver;
+            transition first boxOver  accept PullGate then gateOpen;
+            transition first gateOpen accept PushGate then gateShut;
+            transition first gateShut accept PullBox  then returned;
+        }
+        transition first fill.returned accept CloseLid then closed;
         state closed  { doc /* lid swung over the mold */ }
         state seated  { doc /* cam pin up the long leg, dropped into both scoops */ }
         state pressing{ doc /* knee straightens about cam pin; piston rises 2.75 */ }
@@ -258,7 +286,6 @@ package CinvaRamExample {
         state tilted  { doc /* handle back past upright, latch dropped, yoke on fixed pins */ }
         state ejecting{ doc /* lid open, handle pushed down, piston top +0.125 at 80 deg */ }
 
-        transition first fill     accept CloseLid    then closed;
         transition first closed   accept StandUp     then seated;
         transition first seated   accept PullHandle  then pressing;
         transition first pressing if psi >= 3.0 ['°'] then locked;

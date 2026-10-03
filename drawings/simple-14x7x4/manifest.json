@@ -12,7 +12,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "E"
+   "rev": "F"
   },
   {
    "key": "assembly_views",
@@ -25,7 +25,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "E"
+   "rev": "F"
   },
   {
    "key": "positions",
@@ -38,7 +38,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "E"
+   "rev": "F"
   },
   {
    "key": "design",
@@ -51,7 +51,7 @@
    "qty": 1,
    "stock": "See parts list",
    "group": "Assembly",
-   "rev": "E"
+   "rev": "F"
   },
   {
    "key": "side",
@@ -67,7 +67,7 @@
    "dxf": true,
    "group": "Frame",
    "mass": 40.7,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "end",
@@ -83,7 +83,7 @@
    "dxf": true,
    "group": "Frame",
    "mass": 7.4,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "foot",
@@ -99,7 +99,7 @@
    "dxf": false,
    "group": "Frame",
    "mass": 0.8,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "fpin",
@@ -115,7 +115,7 @@
    "dxf": false,
    "group": "Frame",
    "mass": 0.5,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "gpin",
@@ -131,7 +131,7 @@
    "dxf": false,
    "group": "Frame",
    "mass": 0.3,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "lid",
@@ -147,7 +147,7 @@
    "dxf": true,
    "group": "Lid",
    "mass": 19.2,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "ramp",
@@ -163,7 +163,7 @@
    "dxf": true,
    "group": "Lid",
    "mass": 6.9,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "strap",
@@ -179,7 +179,7 @@
    "dxf": true,
    "group": "Lid",
    "mass": 2.7,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "hrest",
@@ -195,7 +195,7 @@
    "dxf": true,
    "group": "Lid",
    "mass": 0.1,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "cap",
@@ -211,7 +211,7 @@
    "dxf": true,
    "group": "Piston",
    "mass": 13.5,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "web",
@@ -227,7 +227,7 @@
    "dxf": true,
    "group": "Piston",
    "mass": 6.5,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "arm",
@@ -243,7 +243,7 @@
    "dxf": true,
    "group": "Yoke",
    "mass": 9.2,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "xbar",
@@ -259,7 +259,7 @@
    "dxf": true,
    "group": "Yoke",
    "mass": 2.0,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "ppin",
@@ -275,7 +275,7 @@
    "dxf": false,
    "group": "Yoke",
    "mass": 7.2,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "cheek",
@@ -291,7 +291,7 @@
    "dxf": true,
    "group": "Handle",
    "mass": 5.7,
-   "rev": "E"
+   "rev": "F"
   },
   {
    "key": "qpin",
@@ -307,7 +307,7 @@
    "dxf": false,
    "group": "Handle",
    "mass": 0.6,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "campin",
@@ -323,7 +323,7 @@
    "dxf": false,
    "group": "Handle",
    "mass": 3.5,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "bridge",
@@ -339,7 +339,7 @@
    "dxf": true,
    "group": "Handle",
    "mass": 2.1,
-   "rev": "E"
+   "rev": "F"
   },
   {
    "key": "htube",
@@ -355,7 +355,7 @@
    "dxf": false,
    "group": "Handle",
    "mass": 33.8,
-   "rev": "E"
+   "rev": "F"
   },
   {
    "key": "latch",
@@ -371,7 +371,7 @@
    "dxf": true,
    "group": "Handle",
    "mass": 0.4,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "lbar",
@@ -387,7 +387,7 @@
    "dxf": true,
    "group": "Handle",
    "mass": 0.4,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "lpin",
@@ -403,7 +403,7 @@
    "dxf": false,
    "group": "Handle",
    "mass": 0.5,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "lhandle",
@@ -419,7 +419,7 @@
    "dxf": false,
    "group": "Lid",
    "mass": 0.5,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "fbpin",
@@ -435,7 +435,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 5.0,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "fblid",
@@ -451,7 +451,7 @@
    "dxf": true,
    "group": "Feeder",
    "mass": 4.9,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "fbstrike",
@@ -467,7 +467,7 @@
    "dxf": true,
    "group": "Feeder",
    "mass": 7.2,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "fbfunnel",
@@ -483,7 +483,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 7.5,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "gate",
@@ -499,7 +499,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 5.9,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "ghandle",
@@ -515,7 +515,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 0.7,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "bhandle",
@@ -531,7 +531,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 0.7,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "lug",
@@ -547,7 +547,7 @@
    "dxf": true,
    "group": "Feeder",
    "mass": 0.2,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "rail",
@@ -563,7 +563,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 1.8,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "ntie",
@@ -579,7 +579,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 2.2,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "ftie",
@@ -595,7 +595,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 2.2,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "leg",
@@ -611,7 +611,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 4.2,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "ltie",
@@ -627,7 +627,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 2.2,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "bracket",
@@ -643,7 +643,7 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 1.1,
-   "rev": "C"
+   "rev": "F"
   },
   {
    "key": "spost",
@@ -659,7 +659,71 @@
    "dxf": false,
    "group": "Feeder",
    "mass": 1.0,
-   "rev": "C"
+   "rev": "F"
+  },
+  {
+   "key": "srail",
+   "item": 39,
+   "name": "Stand Rail",
+   "sheet": 43,
+   "file": "39_srail.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "3 x 2 x 3/16 rect tube",
+   "color": "brown",
+   "dxf": false,
+   "group": "Stand",
+   "mass": 14.2,
+   "rev": "F"
+  },
+  {
+   "key": "scross",
+   "item": 40,
+   "name": "Stand Cross Tube",
+   "sheet": 44,
+   "file": "40_scross.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 3,
+   "stock": "2 x 2 x 3/16 sq tube",
+   "color": "brown",
+   "dxf": false,
+   "group": "Stand",
+   "mass": 2.7,
+   "rev": "F"
+  },
+  {
+   "key": "sleg",
+   "item": 41,
+   "name": "Stand Leg",
+   "sheet": 45,
+   "file": "41_sleg.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 4,
+   "stock": "2 x 2 x 3/16 sq tube",
+   "color": "brown",
+   "dxf": false,
+   "group": "Stand",
+   "mass": 3.8,
+   "rev": "F"
+  },
+  {
+   "key": "sfoot",
+   "item": 42,
+   "name": "Stand Foot Plate",
+   "sheet": 46,
+   "file": "42_sfoot.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 4,
+   "stock": "1/4 plate A36",
+   "color": "brown",
+   "dxf": true,
+   "group": "Stand",
+   "mass": 1.1,
+   "rev": "F"
   }
  ]
 }

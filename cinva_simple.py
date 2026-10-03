@@ -64,10 +64,13 @@ REVISIONS = {
     "E": ("2026-10-03", "Handle 74 -> 90 in (peak grip at head height for a 6'1\" operator) and 1-1/2 -> 2 sch 80 "
                         "(the old pipe yields at about 290 psi). Bridges wider, moved to 9.25 / 11.5 from Q to clear "
                         "the open latch bar; cheek handle leg 10.5 -> 12."),
+    "F": ("2026-10-03", "Stand detailed (items 39-42). Side plate: feeder hole dimensions added (missing since "
+                        "rev C), lid pivot leader moved. Title block: issue date fits its cell. All sheets: sheet "
+                        "count 42 -> 46."),
 }
-CURRENT_REV = "C"
-SHEET_REV = {k: "E" for k in ("assembly", "assembly_views", "positions", "design", "htube", "cheek", "bridge")}
-ATTACHMENT_GROUPS = ("Feeder",)   # drawings: steel weight split press / feeder       # every sheet; SHEET_REV = {key: letter} would hold any sheet left behind
+CURRENT_REV = "F"
+SHEET_REV = {}          # {key: letter} for any sheet left at an earlier revision
+ATTACHMENT_GROUPS = ("Feeder", "Stand")   # drawings: steel weight split press / feeder       # every sheet; SHEET_REV = {key: letter} would hold any sheet left behind
 
 # his press (inches), from cinva1-7.jpg
 HIS = dict(
@@ -950,6 +953,107 @@ def feeder_parts(p: Params):
     ]
 
 
+# ==========================================================
+# Stand (rev F): welded steel frame; its top is the plane the press bolts to (z = zb)
+# ==========================================================
+# Rails carry the side plates' bottom edges and the foot clips (y 3.5..6.5). Cross tubes at the
+# fixed-pin end, under the lid end of the mold, and under the open lid's touchdown (its ramps land at
+# x ~23.8). Lowest moving parts over the cycle: yoke arms 0.16 above the top (eject, y 4.19..4.69),
+# piston webs 0.55, so nothing may stand proud of the top.
+
+ST_X0 = -0.5 - 2.0           # stand ends (x)
+ST_RAIL = (3.0, 2.0, 0.1875) # 3 x 2 x 3/16 rect tube: width (y), height (z), wall
+ST_SQ = (2.0, 0.1875)        # 2 x 2 x 3/16 square tube: cross tubes, legs
+ST_CROSS_X = (ST_X0, 12.5, 22.5)   # cross tube starts (x), 2 wide each
+ST_FOOT = (4.0, 0.25)        # foot plate, square, thick
+
+
+def stand_x1(p: Params):
+    return p.brick_l + p.t_end + STAND_OUT
+
+
+def stand_rail_len(p: Params):
+    return stand_x1(p) - ST_X0
+
+
+def rect_tube(w, h, t, n):
+    """Rectangular tube along X: w across (Y), h tall (Z), wall t, from the origin corner."""
+    return Box(n, w, h, align=Align.MIN) - Pos(-0.01, t, t) * Box(n + 0.02, w - 2 * t, h - 2 * t, align=Align.MIN)
+
+
+def stand_rail(p: Params):
+    """Rail, local: x along the rail from the -X end, y outward from the inner face, z up from the bottom."""
+    w, h, t = ST_RAIL
+    s = rect_tube(w, h, t, stand_rail_len(p))
+    for xf in foot_x(p):
+        s -= Pos(xf + FOOT[2] / 2 - ST_X0, (p.wall_out + FOOT[0] / 2 + FOOT[1] / 2) - (p.brick_w / 2), h - t - 0.01) \
+            * Cylinder(0.28125, t + 0.02, align=(Align.CENTER, Align.CENTER, Align.MIN))
+    return s
+
+
+def stand_cross(p: Params):
+    a, t = ST_SQ
+    return rect_tube(a, a, t, p.brick_w)
+
+
+def stand_leg_len(p: Params):
+    return p.zb - ST_RAIL[1] - ST_FOOT[1]
+
+
+def stand_leg(p: Params):
+    a, t = ST_SQ
+    return rect_tube(a, a, t, stand_leg_len(p))
+
+
+def stand_foot(p: Params):
+    a, t = ST_FOOT
+    return plate(a, a, t) - hole(a / 2, a / 2, 0.5625, t)
+
+
+def add_stand(p: Params, add):
+    zb, W2 = p.zb, p.brick_w / 2
+    w, h, t = ST_RAIL
+    a = ST_SQ[0]
+    x1 = stand_x1(p)
+    rail = Pos(ST_X0, W2, zb - h) * stand_rail(p)
+    add("srail", "Stand Rail", rail, mirror=True)
+    for x in ST_CROSS_X:   # cross tube along Y: rotate the X-built tube
+        add("scross", "Stand Cross Tube", Pos(x + a, -W2, zb - a) * Rot(0, 0, 90) * stand_cross(p))
+    for x in (ST_X0, x1 - a):
+        leg = Pos(x, W2 + w - a, ST_FOOT[1]) * Rot(0, -90, 0) * Pos(0, 0, -a) * stand_leg(p)
+        add("sleg", "Stand Leg", leg, mirror=True)
+        add("sfoot", "Stand Foot Plate", Pos(x + a / 2 - ST_FOOT[0] / 2, W2 + w - a / 2 - ST_FOOT[0] / 2, 0)
+            * stand_foot(p), mirror=True)
+
+
+def stand_parts(p: Params):
+    w, h, t = ST_RAIL
+    a = ST_SQ[0]
+    xs = [xf + FOOT[2] / 2 - ST_X0 for xf in foot_x(p)]
+    yh = (p.wall_out + FOOT[0] / 2 + FOOT[1] / 2) - p.brick_w / 2
+    return [
+        Part("srail", "Stand Rail", 2, "3 x 2 x 3/16 rect tube", "brown", stand_rail, group="Stand",
+             front="Z", flat=False, views=("F", "L"),
+             dims=lambda p: [("H", "F", (0, 0, h), (stand_rail_len(p), 0, h), -10),
+                             ("H", "F", (0, yh, h), (xs[0], yh, h), 8), ("H", "F", (0, yh, h), (xs[1], yh, h), 16),
+                             ("V", "F", (0, 0, h), (0, yh, h), -10),
+                             ("D", "F", (xs[1], yh, h), 0.5625, 45, "2x ")],
+             notes=("Top face is the plane the press bolts to: flat within 1/32 over its length, both rails level.",
+                    "The yoke arms pass 0.16 above it at eject: nothing may stand proud of the top.",
+                    "Holes through the top wall only, for the foot clip bolts.")),
+        Part("scross", "Stand Cross Tube", 3, "2 x 2 x 3/16 sq tube", "brown", stand_cross, group="Stand",
+             front="-Y", flat=False, views=("F", "L"), dims=lambda p: _angle_dims(p.brick_w, a),
+             notes=("Between the rails, tops flush: at the fixed-pin end, under the lid end of the mold, and "
+                    "under the open lid's ramps.",)),
+        Part("sleg", "Stand Leg", 4, "2 x 2 x 3/16 sq tube", "brown", stand_leg, group="Stand",
+             front="-Y", flat=False, views=("F", "L"), dims=lambda p: _angle_dims(stand_leg_len(p), a),
+             notes=("Under the rail's outer half at each corner; weld all round.",)),
+        Part("sfoot", "Stand Foot Plate", 4, "1/4 plate A36", "brown", stand_foot, group="Stand", front="Z",
+             dims=lambda p: _plate_dims(ST_FOOT[0], ST_FOOT[0], [(ST_FOOT[0] / 2, ST_FOOT[0] / 2, 0.5625)], ST_FOOT[1]),
+             notes=("Lag or anchor-bolt to the floor; shim to level the rails.",)),
+    ]
+
+
 def feed_capacity(p: Params, n=400):
     """Soil the box and funnel hold above the gate (in^3)."""
     L, W, k = p.brick_l, p.brick_w, _fb_k()
@@ -1505,13 +1609,17 @@ def parts(p: Params) -> list[Part]:
                  ("H", "F", (0, 0, 0), (p.xc + te + (p.d_pin + 0.0625) / 2, s0 - zb, 0), -26),
                  ("V", "F", (sw, 0, 0), (p.xc + te, s0 - zb, 0), 18),
                  ("V", "F", (sw, 0, 0), (p.xc + te, s1 - zb, 0), 26),
-                 ("R", "F", (p.xc + te, s1 - zb - (p.d_pin + 0.0625) / 2, 0), (p.d_pin + 0.0625) / 2, 60, "SLOT 2x ", 14),
+                 ("R", "F", (p.xc + te, s1 - zb - (p.d_pin + 0.0625) / 2, 0), (p.d_pin + 0.0625) / 2, 150, "SLOT 2x ", 35),
                  ("H", "F", (0, p.side_h, 0), (fx + te, fz - zb, 0), 8),
                  ("V", "F", (0, 0, 0), (fx + te, fz - zb, 0), -10),
                  ("D", "F", (fx + te, fz - zb, 0), p.d_fpin, 120, "FIXED PIN ", 12),
                  ("H", "F", (0, p.side_h, 0), (gx + te, gz - zb, 0), 16),
                  ("V", "F", (sw, 0, 0), (gx + te, gz - zb, 0), 34),
-                 ("D", "F", (gx + te, gz - zb, 0), p.d_gpin + 1 / 32, 300, "LID PIVOT ", 16),
+                 ("D", "F", (gx + te, gz - zb, 0), p.d_gpin + 1 / 32, 95, "LID PIVOT ", 27),
+                 ("H", "F", (0, p.side_h, 0), (feeder_holes(p)[0][0], feeder_holes(p)[0][1], 0), 24),
+                 ("H", "F", (0, p.side_h, 0), (feeder_holes(p)[1][0], feeder_holes(p)[1][1], 0), 32),
+                 ("V", "F", (sw, 0, 0), (feeder_holes(p)[1][0], feeder_holes(p)[1][1], 0), 42),
+                 ("D", "F", (feeder_holes(p)[1][0], feeder_holes(p)[1][1], 0), 0.5625, 60, "2x FEEDER ", 10),
                  ("H", "F", (0, 0, 0), (bh[0][0], bh[0][1], 0), -34), ("V", "F", (0, 0, 0), (bh[0][0], bh[0][1], 0), -18),
                  ("D", "F", (bh[0][0], bh[0][1], 0), 0.5625, 225, "2x ", 10),
                  ("H", "L", (0, 0, 0), (0, 0, p.t_side), -10)],
@@ -1668,7 +1776,7 @@ def parts(p: Params) -> list[Part]:
              notes=(f"Bend 1/2 round into a U, {2 * HS_R:g} between leg centres; weld the leg ends to the lid's "
                     "fixed-pin end face, centred, level with the lid.",
                     "Lift here to swing the lid over onto the stand, and to swing it back.")),
-    ] + feeder_parts(p)
+    ] + feeder_parts(p) + stand_parts(p)
     for i, part in enumerate(ps, 1):
         part.item = i
     return ps
@@ -1760,6 +1868,7 @@ def assembly(p: Params, pose: str = "locked", handle_len: float | None = None):
     add("lbar", "Latch Bar", lt * Pos(0.45 * k - 0.55, -LATCH_Y, -LATCH_W / 2 - 0.375) * Box(1.1, 2 * LATCH_Y, 0.375, align=Align.MIN))
     add("lpin", "Latch Pivot", hf * Pos(lx, p.wall_out, lz) * ALONG_Y * latch_pin(p))
     add_feeder(p, ps, add)
+    add_stand(p, add)
     return out
 
 
@@ -2212,17 +2321,16 @@ GROUP_OF = {
     "arm": "yoke", "xbar": "yoke",
     "cheek": "handle", "qpin": "handle", "campin": "handle", "bridge": "handle", "htube": "handle",
     "lpin": "handle", "latch": "claw", "lbar": "claw",
-    **{k: "frame" for k in ("fbpin", "fblid", "fbstrike", "fbfunnel", "gate", "ghandle", "bhandle", "lug",
-                            "rail", "ntie", "ftie", "leg", "ltie", "bracket", "spost")},
+    **{k: "feeder" for k in ("fbpin", "fblid", "fbstrike", "fbfunnel", "bhandle", "lug")},
+    **{k: "gate" for k in ("gate", "ghandle")},
+    **{k: "frame" for k in ("rail", "ntie", "ftie", "leg", "ltie", "bracket", "spost",
+                            "srail", "scross", "sleg", "sfoot")},
 }
 
 
 def extra_meshes(p: Params):
-    """(group, solid, rgb) not in the parts list: the stand the press bolts to."""
-    x0 = -p.t_end - 2.0
-    x1 = p.brick_l + p.t_end + STAND_OUT
-    w = p.wall_out + 4.0
-    return [("frame", Pos(x0, -w, 0) * Box(x1 - x0, 2 * w, p.zb, align=Align.MIN), (0.55, 0.42, 0.28))]
+    """(group, solid, rgb) not in the parts list. The stand is a detailed part group since rev F."""
+    return []
 
 
 def anim_ref(p: Params):
@@ -2234,7 +2342,8 @@ def anim_meta(p: Params):
     (lx, lz), _, _ = latch_geom(p)
     cx, cz = head_point(p, ref.theta, ref.psi, ref.zp, (lx, lz))
     return dict(hinge=list(p.gpin), psi_ref=-(ref.psi + ref.theta), zp_ref=ref.zp,
-                claw_pivot=[cx, cz], claw_open=LATCH_OPEN, claw_on="handle", title=TITLE)
+                claw_pivot=[cx, cz], claw_open=LATCH_OPEN, claw_on="handle", title=TITLE,
+                feed_park=feed_park(p), gate_travel=gate_travel(p))
 
 
 def ease(s):
@@ -2264,8 +2373,15 @@ def timeline(p: Params):
         return st(th, psi, zp, 0.0, LATCH_OPEN, b, p.zt, p._stroke_point(psi, F)[2] if force else 0.0)
 
     phases = [
-        ("Fill the mold with loose soil mix", 2.5,
-         lambda s: lat(th_f, p.zp_fill, lo, 0, ptop(p.zp_fill), ptop(p.zp_fill) + p.fill * ease(s))),
+        ("Push the feed box over the mold (gate shut)", 1.5,
+         lambda s: dict(lat(th_f, p.zp_fill, lo, 0, ptop(p.zp_fill), ptop(p.zp_fill)), feed=ease(s), gate=0.0)),
+        ("Pull the gate open: the charge drops into the mold", 1.8,
+         lambda s: dict(lat(th_f, p.zp_fill, lo, 0, ptop(p.zp_fill), ptop(p.zp_fill) + p.fill * ease(s)),
+                        feed=1.0, gate=ease(s))),
+        ("Push the gate shut: the charge is sheared off level", 1.0,
+         lambda s: dict(lat(th_f, p.zp_fill, lo, 0, ptop(p.zp_fill), p.zt), feed=1.0, gate=1.0 - ease(s))),
+        ("Pull the feed box back to park", 1.5,
+         lambda s: dict(lat(th_f, p.zp_fill, lo, 0, ptop(p.zp_fill), p.zt), feed=1.0 - ease(s), gate=0.0)),
         ("Swing the lid back on by its handle", 1.5,
          lambda s: lat(th_f, p.zp_fill, lo * (1 - ease(s)), 0, ptop(p.zp_fill), p.zt)),
         ("Stand the yoke up: cam pin drops into the scoops", 1.8,
@@ -2292,7 +2408,7 @@ def timeline(p: Params):
         ("Let the handle rise: piston drops for the next fill", 1.5,
          lambda s: (lambda th: lat(th, eject_zp(p, th), lo, 0, 0.0, 0.0))(th_e + (th_f - th_e) * ease(s))),
     ]
-    return phases, dict(phase_press=4, phase_pressed=5, phase_lift=11)
+    return phases, dict(phase_press=7, phase_pressed=8, phase_lift=14)
 
 
 def hinge_axis(p: Params):

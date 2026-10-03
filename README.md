@@ -30,7 +30,7 @@ Checked at 150 psi working, 306 psi design (rev D: was 200 psi working):
   down above head height; 190 lbf if the soil needs 290 psi;
 - about 92 lbf to eject (rev E: was 112);
 - 23 part types, about 248 lb of steel;
-- the press bolts to a 12 in stand;
+- the press bolts to a 12 in welded steel stand (rev F, items 39-42, about 56 lb; Step 10 of `ASSEMBLY.md`);
 - a feeder (rev C, items 24-38, about 53 lb): a funnel on a sliding feed box with a knife-gate floor,
   parked beside the press and slid over the mold to fill; see Step 9 of `ASSEMBLY.md`.
 

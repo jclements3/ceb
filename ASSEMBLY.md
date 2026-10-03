@@ -57,7 +57,7 @@ Two more changes:
   pull end, so the lid swings over onto the stand.
 - **The press bolts to a 12 in stand** that reaches 12 in past the pull end. This keeps the eject
   stroke at a workable height (the grip ends 23 in above the ground), and the open lid lies on it.
-  Build the stand from timber or steel; it is not detailed.
+  The stand is detailed since rev F (items 39 to 42, Step 10).
 
 ## General welding rules
 
@@ -234,3 +234,25 @@ mold top at fill only.
 **Use** (fill step): shovel into the funnel (it holds about 2.3 charges). Push the box over by the gate handle
 until the lug stops on the post. Hold the box handle, pull the gate open, tap the box. Push the gate shut and
 pull the box back to park by its handle. Only then swing the lid on and stand the yoke up.
+
+## Step 10 — Stand (items 39 to 42, rev F)
+
+A welded steel frame, 12 high, reaching 12 past the pull end so the open lid lies on it.
+
+**Why it is laid out this way.**
+- The rails (3 x 2 x 3/16 rect tube, 3 side up) carry both the side plates' bottom edges and the foot
+  clips, y 3.5 to 6.5 each side of the centreline.
+- At eject the yoke arms pass only 0.16 above the stand top over the rails, and the piston webs 0.55 above
+  it inside: **the stand top must be one flat plane at the side plates' bottom edge, with nothing proud of it**
+  (no weld beads, bolt heads or shims on top).
+- Cross tubes at the fixed-pin end, under the lid end of the mold, and under the point where the open lid's
+  ramps land (about 23.8 from the mold's fixed-pin end).
+
+**Fabrication.**
+1. Drill the two 9/16 foot clip holes in each rail's top wall: 3.5 and 12.5 from the rail's fixed-pin end,
+   1.75 in from its inner face. The two rails are mirror images.
+2. Weld the three cross tubes between the rails, tops flush, on a flat table. Grind the top welds flush.
+3. Weld the legs under the outer half of the rails at the four corners and the foot plates under the legs.
+4. Set the stand on the floor and shim the foot plates until both rails are level and in one plane;
+   lag or anchor-bolt through the foot plates.
+5. Bolt the press's foot clips down with the bolt heads under the rail top wall (nuts inside the tube).

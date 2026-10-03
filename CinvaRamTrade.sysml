@@ -10,9 +10,9 @@ package CinvaRamTrade {
     part v_dcam1250_tside500 :> cinvaRam {
         :>> dCam = 1.25 ['in'];
         :>> tSide = 0.5 ['in'];
-        :>> peakHandleForce = 163.5 [lbf];
-        :>> peakEjectForce  = 111.8 [lbf];
-        :>> steelMass       = 230.5 [lb];
+        :>> peakHandleForce = 98.1 [lbf];
+        :>> peakEjectForce  = 92.0 [lbf];
+        :>> steelMass       = 247.6 [lb];
         :>> minMargin       = 0.0603;   // Cam pin, bending
         :>> interferences   = 0;
         :>> functionalFails = 0;
@@ -20,9 +20,9 @@ package CinvaRamTrade {
     part v_dcam1250_tside625 :> cinvaRam {
         :>> dCam = 1.25 ['in'];
         :>> tSide = 0.625 ['in'];
-        :>> peakHandleForce = 163.5 [lbf];
-        :>> peakEjectForce  = 111.8 [lbf];
-        :>> steelMass       = 247.6 [lb];
+        :>> peakHandleForce = 98.1 [lbf];
+        :>> peakEjectForce  = 92.0 [lbf];
+        :>> steelMass       = 264.7 [lb];
         :>> minMargin       = 0.0603;   // Cam pin, bending
         :>> interferences   = 0;
         :>> functionalFails = 0;
@@ -30,9 +30,9 @@ package CinvaRamTrade {
     part v_dcam1375_tside500 :> cinvaRam {
         :>> dCam = 1.375 ['in'];
         :>> tSide = 0.5 ['in'];
-        :>> peakHandleForce = 163.5 [lbf];
-        :>> peakEjectForce  = 111.8 [lbf];
-        :>> steelMass       = 231.0 [lb];
+        :>> peakHandleForce = 98.1 [lbf];
+        :>> peakEjectForce  = 92.0 [lbf];
+        :>> steelMass       = 248.1 [lb];
         :>> minMargin       = 0.0675;   // Side plate, bending
         :>> interferences   = 0;
         :>> functionalFails = 0;
@@ -40,19 +40,19 @@ package CinvaRamTrade {
     part v_dcam1375_tside625 :> cinvaRam {
         :>> dCam = 1.375 ['in'];
         :>> tSide = 0.625 ['in'];
-        :>> peakHandleForce = 163.5 [lbf];
-        :>> peakEjectForce  = 111.8 [lbf];
-        :>> steelMass       = 248.1 [lb];
-        :>> minMargin       = 0.1471;   // Piston cap, bending
+        :>> peakHandleForce = 98.1 [lbf];
+        :>> peakEjectForce  = 92.0 [lbf];
+        :>> steelMass       = 265.2 [lb];
+        :>> minMargin       = 0.0750;   // Handle, bending at the bridge
         :>> interferences   = 0;
         :>> functionalFails = 0;
     }
     part v_dcam1500_tside500 :> cinvaRam {
         :>> dCam = 1.5 ['in'];
         :>> tSide = 0.5 ['in'];
-        :>> peakHandleForce = 163.5 [lbf];
-        :>> peakEjectForce  = 111.8 [lbf];
-        :>> steelMass       = 231.6 [lb];
+        :>> peakHandleForce = 98.1 [lbf];
+        :>> peakEjectForce  = 92.0 [lbf];
+        :>> steelMass       = 248.6 [lb];
         :>> minMargin       = 0.0675;   // Side plate, bending
         :>> interferences   = 0;
         :>> functionalFails = 0;
@@ -60,10 +60,10 @@ package CinvaRamTrade {
     part v_dcam1500_tside625 :> cinvaRam {
         :>> dCam = 1.5 ['in'];
         :>> tSide = 0.625 ['in'];
-        :>> peakHandleForce = 163.5 [lbf];
-        :>> peakEjectForce  = 111.8 [lbf];
-        :>> steelMass       = 248.7 [lb];
-        :>> minMargin       = 0.1471;   // Piston cap, bending
+        :>> peakHandleForce = 98.1 [lbf];
+        :>> peakEjectForce  = 92.0 [lbf];
+        :>> steelMass       = 265.8 [lb];
+        :>> minMargin       = 0.0750;   // Handle, bending at the bridge
         :>> interferences   = 0;
         :>> functionalFails = 0;
     }
@@ -75,7 +75,7 @@ package CinvaRamTrade {
             in ref :>> alternative : CinvaRam;
             return attribute :>> result : Real =
                 if alternative.interferences == 0 and alternative.functionalFails == 0 and
-                   alternative.peakHandleForce <= 165 [lbf]
+                   alternative.peakHandleForce <= 120 [lbf]
                 ? alternative.minMargin else -1.0;
         }
         objective :>> tradeStudyObjective : MaximizeObjective;
