@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<title>File:CEB 17.08 CAD Assembly.fcstd - Open Source Ecology</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"File","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":6,"wgPageName":"File:CEB_17.08_CAD_Assembly.fcstd","wgTitle":"CEB 17.08 CAD Assembly.fcstd","wgCurRevisionId":157189,"wgRevisionId":157189,"wgArticleId":29856,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"File:CEB_17.08_CAD_Assembly.fcstd","wgRelevantArticleId":29856,"wgRequestId":"YEf@O5RopjrqoLZxZI6LQAAAAAo","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgRestrictionUpload":[],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","filepage":"ready","mediawiki.action.view.filepage":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1tnuuwf",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.action.view.filepage%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=site.styles&amp;only=styles&amp;skin=vector"/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Open Source Ecology (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.opensourceecology.org/api.php?action=rsd"/>
+<link rel="license" href="/wiki/Copyright"/>
+<link rel="alternate" type="application/atom+xml" title="Open Source Ecology Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-6 ns-subject page-File_CEB_17_08_CAD_Assembly_fcstd rootpage-File_CEB_17_08_CAD_Assembly_fcstd skin-vector action-view">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+						<div class="mw-indicators mw-body-content">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en">File:CEB 17.08 CAD Assembly.fcstd</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub" class="noprint">From Open Source Ecology</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text"><ul id="filetoc"><li><a href="#file">File</a></li>
+<li><a href="#filehistory">File history</a></li>
+<li><a href="#filelinks">File usage</a></li></ul><div class="fullMedia"><span class="dangerousLink"><a href="/images/0/03/CEB_17.08_CAD_Assembly.fcstd" class="internal" title="CEB 17.08 CAD Assembly.fcstd">CEB_17.08_CAD_Assembly.fcstd</a></span> &#8206;<span class="fileInfo">(file size: 1.54 MB, MIME type: <span class="mime-type">application/zip</span>)</span></div>
+<div class="mediaWarning"><strong>Warning:</strong> This file type may contain malicious code.
+By executing it, your system may be compromised.</div>
+<div id="mw-imagepage-content" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>File dated Jul 29th is a complete design and could possibly replace the old CEB CAD after a review. Bolts only are missing
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20210309215400
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.001 seconds
+Real time usage: 0.001 seconds
+Preprocessor visited node count: 1/1000000
+Preprocessor generated node count: 4/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 1/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key osewiki_db-wiki_:pcache:idhash:29856-0!canonical and timestamp 20210309215400 and revision id 157189
+ -->
+</div><h2 id="filehistory">File history</h2>
+<div id="mw-imagepage-section-filehistory">
+<p>Click on a date/time to view the file as it appeared at that time.
+</p>(newest | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;dir=prev#filehistory" class="mw-lastlink" title="File:CEB 17.08 CAD Assembly.fcstd">oldest</a>) View (newer 10  |  <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=20170727054803#filehistory" class="mw-nextlink" title="File:CEB 17.08 CAD Assembly.fcstd" rel="next">older 10</a>) (<a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=10#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">10</a> | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=20#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">20</a> | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=50#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">50</a> | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=100#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">100</a> | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=250#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">250</a> | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=500#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">500</a>)
+<table class="wikitable filehistory">
+<tr><th></th><th>Date/Time</th><th>Dimensions</th><th>User</th><th>Comment</th></tr>
+<tr><td>current</td><td class='filehistory-selected' style='white-space: nowrap;'><a href="/images/0/03/CEB_17.08_CAD_Assembly.fcstd">05:00, 6 August 2017</a></td><td> <span style="white-space: nowrap;">(1.54 MB)</span></td><td><a href="/wiki/User:Polemidis" class="mw-userlink" title="User:Polemidis"><bdi>Polemidis</bdi></a><span style="white-space: nowrap;"> <span class="mw-usertoollinks">(<a href="/wiki/User_talk:Polemidis" class="mw-usertoollinks-talk" title="User talk:Polemidis">talk</a> | <a href="/wiki/Special:Contributions/Polemidis" class="mw-usertoollinks-contribs" title="Special:Contributions/Polemidis">contribs</a>)</span></span></td><td dir="ltr"></td></tr>
+<tr><td></td><td  style='white-space: nowrap;'><a href="/images/archive/0/03/20170806050012%21CEB_17.08_CAD_Assembly.fcstd">13:41, 4 August 2017</a></td><td> <span style="white-space: nowrap;">(1.63 MB)</span></td><td><a href="/wiki/User:Polemidis" class="mw-userlink" title="User:Polemidis"><bdi>Polemidis</bdi></a><span style="white-space: nowrap;"> <span class="mw-usertoollinks">(<a href="/wiki/User_talk:Polemidis" class="mw-usertoollinks-talk" title="User talk:Polemidis">talk</a> | <a href="/wiki/Special:Contributions/Polemidis" class="mw-usertoollinks-contribs" title="Special:Contributions/Polemidis">contribs</a>)</span></span></td><td dir="ltr">minor changes to file structure</td></tr>
+<tr><td></td><td  style='white-space: nowrap;'><a href="/images/archive/0/03/20170804134117%21CEB_17.08_CAD_Assembly.fcstd">13:32, 2 August 2017</a></td><td> <span style="white-space: nowrap;">(1.63 MB)</span></td><td><a href="/wiki/User:Polemidis" class="mw-userlink" title="User:Polemidis"><bdi>Polemidis</bdi></a><span style="white-space: nowrap;"> <span class="mw-usertoollinks">(<a href="/wiki/User_talk:Polemidis" class="mw-usertoollinks-talk" title="User talk:Polemidis">talk</a> | <a href="/wiki/Special:Contributions/Polemidis" class="mw-usertoollinks-contribs" title="Special:Contributions/Polemidis">contribs</a>)</span></span></td><td dir="ltr">Removed the Rod SubAssembly and incorporated its components to the Drawer SubAssembly, changed the notch on the drawer top plate, simplified the rod holder sketches,changed the rod holder module, new parametric chamber spacers</td></tr>
+<tr><td></td><td  style='white-space: nowrap;'><a href="/images/archive/0/03/20170802133235%21CEB_17.08_CAD_Assembly.fcstd">11:44, 1 August 2017</a></td><td> <span style="white-space: nowrap;">(1.48 MB)</span></td><td><a href="/wiki/User:Polemidis" class="mw-userlink" title="User:Polemidis"><bdi>Polemidis</bdi></a><span style="white-space: nowrap;"> <span class="mw-usertoollinks">(<a href="/wiki/User_talk:Polemidis" class="mw-usertoollinks-talk" title="User talk:Polemidis">talk</a> | <a href="/wiki/Special:Contributions/Polemidis" class="mw-usertoollinks-contribs" title="Special:Contributions/Polemidis">contribs</a>)</span></span></td><td dir="ltr">fixed rod holder metal plate height, one rod holder&#039;s orientation, added bottom plate on drawer, notched the top plate on drawer, added compression plates on drawer, removed the middle notches</td></tr>
+<tr><td></td><td  style='white-space: nowrap;'><a href="/images/archive/0/03/20170801114439%21CEB_17.08_CAD_Assembly.fcstd">01:26, 1 August 2017</a></td><td> <span style="white-space: nowrap;">(1.46 MB)</span></td><td><a href="/wiki/User:Polemidis" class="mw-userlink" title="User:Polemidis"><bdi>Polemidis</bdi></a><span style="white-space: nowrap;"> <span class="mw-usertoollinks">(<a href="/wiki/User_talk:Polemidis" class="mw-usertoollinks-talk" title="User talk:Polemidis">talk</a> | <a href="/wiki/Special:Contributions/Polemidis" class="mw-usertoollinks-contribs" title="Special:Contributions/Polemidis">contribs</a>)</span></span></td><td dir="ltr"></td></tr>
+<tr><td></td><td  style='white-space: nowrap;'><a href="/images/archive/0/03/20170801012617%21CEB_17.08_CAD_Assembly.fcstd">01:12, 1 August 2017</a></td><td> <span style="white-space: nowrap;">(1.46 MB)</span></td><td><a href="/wiki/User:Polemidis" class="mw-userlink" title="User:Polemidis"><bdi>Polemidis</bdi></a><span style="white-space: nowrap;"> <span class="mw-usertoollinks">(<a href="/wiki/User_talk:Polemidis" class="mw-usertoollinks-talk" title="User talk:Polemidis">talk</a> | <a href="/wiki/Special:Contributions/Polemidis" class="mw-usertoollinks-contribs" title="Special:Contributions/Polemidis">contribs</a>)</span></span></td><td dir="ltr"></td></tr>
+<tr><td></td><td  style='white-space: nowrap;'><a href="/images/archive/0/03/20170801011246%21CEB_17.08_CAD_Assembly.fcstd">08:39, 30 July 2017</a></td><td> <span style="white-space: nowrap;">(1.46 MB)</span></td><td><a href="/wiki/User:Polemidis" class="mw-userlink" title="User:Polemidis"><bdi>Polemidis</bdi></a><span style="white-space: nowrap;"> <span class="mw-usertoollinks">(<a href="/wiki/User_talk:Polemidis" class="mw-usertoollinks-talk" title="User talk:Polemidis">talk</a> | <a href="/wiki/Special:Contributions/Polemidis" class="mw-usertoollinks-contribs" title="Special:Contributions/Polemidis">contribs</a>)</span></span></td><td dir="ltr">New drawer</td></tr>
+<tr><td></td><td  style='white-space: nowrap;'><a href="/images/archive/0/03/20170730083900%21CEB_17.08_CAD_Assembly.fcstd">14:04, 29 July 2017</a></td><td> <span style="white-space: nowrap;">(1.46 MB)</span></td><td><a href="/wiki/User:Polemidis" class="mw-userlink" title="User:Polemidis"><bdi>Polemidis</bdi></a><span style="white-space: nowrap;"> <span class="mw-usertoollinks">(<a href="/wiki/User_talk:Polemidis" class="mw-usertoollinks-talk" title="User talk:Polemidis">talk</a> | <a href="/wiki/Special:Contributions/Polemidis" class="mw-usertoollinks-contribs" title="Special:Contributions/Polemidis">contribs</a>)</span></span></td><td dir="ltr"></td></tr>
+<tr><td></td><td  style='white-space: nowrap;'><a href="/images/archive/0/03/20170729140410%21CEB_17.08_CAD_Assembly.fcstd">12:43, 28 July 2017</a></td><td> <span style="white-space: nowrap;">(1.23 MB)</span></td><td><a href="/wiki/User:Polemidis" class="mw-userlink" title="User:Polemidis"><bdi>Polemidis</bdi></a><span style="white-space: nowrap;"> <span class="mw-usertoollinks">(<a href="/wiki/User_talk:Polemidis" class="mw-usertoollinks-talk" title="User talk:Polemidis">talk</a> | <a href="/wiki/Special:Contributions/Polemidis" class="mw-usertoollinks-contribs" title="Special:Contributions/Polemidis">contribs</a>)</span></span></td><td dir="ltr">added a part of the hopper</td></tr>
+<tr><td></td><td  style='white-space: nowrap;'><a href="/images/archive/0/03/20170728124318%21CEB_17.08_CAD_Assembly.fcstd">05:48, 27 July 2017</a></td><td> <span style="white-space: nowrap;">(1.07 MB)</span></td><td><a href="/wiki/User:Polemidis" class="mw-userlink" title="User:Polemidis"><bdi>Polemidis</bdi></a><span style="white-space: nowrap;"> <span class="mw-usertoollinks">(<a href="/wiki/User_talk:Polemidis" class="mw-usertoollinks-talk" title="User talk:Polemidis">talk</a> | <a href="/wiki/Special:Contributions/Polemidis" class="mw-usertoollinks-contribs" title="Special:Contributions/Polemidis">contribs</a>)</span></span></td><td dir="ltr">Changed hierarchy of modules/subassemblies. Added the new rod holder design</td></tr>
+</table>
+(newest | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;dir=prev#filehistory" class="mw-lastlink" title="File:CEB 17.08 CAD Assembly.fcstd">oldest</a>) View (newer 10  |  <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=20170727054803#filehistory" class="mw-nextlink" title="File:CEB 17.08 CAD Assembly.fcstd" rel="next">older 10</a>) (<a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=10#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">10</a> | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=20#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">20</a> | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=50#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">50</a> | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=100#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">100</a> | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=250#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">250</a> | <a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;offset=&amp;limit=500#filehistory" class="mw-numlink" title="File:CEB 17.08 CAD Assembly.fcstd">500</a>)
+</div>
+<ul>
+<li id="mw-imagepage-upload-disallowed">You cannot overwrite this file.</li>
+</ul>
+<h2 id="filelinks">File usage</h2>
+<div id='mw-imagepage-section-linkstoimage'>
+<p>The following 4 pages link to this file:
+</p><ul class="mw-imagepage-linkstoimage">
+<li class="mw-imagepage-linkstoimage-ns0"><a href="/wiki/CEB_CAD_Assembly_Constrained" title="CEB CAD Assembly Constrained">CEB CAD Assembly Constrained</a></li>
+<li class="mw-imagepage-linkstoimage-ns0"><a href="/wiki/CEB_Press_Part_Library" title="CEB Press Part Library">CEB Press Part Library</a></li>
+<li class="mw-imagepage-linkstoimage-ns0"><a href="/wiki/CEB_Press_v17.08" title="CEB Press v17.08">CEB Press v17.08</a></li>
+<li class="mw-imagepage-linkstoimage-ns0"><a href="/wiki/Polemidis_Log" title="Polemidis Log">Polemidis Log</a></li>
+</ul>
+</div>
+</div>					<div class="printfooter">
+						Retrieved from "<a dir="ltr" href="https://wiki.opensourceecology.org/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;oldid=157189">https://wiki.opensourceecology.org/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;oldid=157189</a>"					</div>
+				<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="https://wiki.opensourceecology.org/index.php?title=Special:UserLogin&amp;returnto=File%3ACEB+17.08+CAD+Assembly.fcstd" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li><li id="pt-createaccount"><a href="/wiki/Special:RequestAccount" title="You are encouraged to create an account and log in; however, it is not mandatory">Request account</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-image" class="selected"><span><a href="/wiki/File:CEB_17.08_CAD_Assembly.fcstd" title="View the file page [c]" accesskey="c">File</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=File_talk:CEB_17.08_CAD_Assembly.fcstd&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/wiki/File:CEB_17.08_CAD_Assembly.fcstd">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Open Source Ecology" title="Search Open Source Ecology [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="/wiki/Main_Page"  title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+			<h3 id='p-navigation-label'>Navigation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-mainpage-description"><a href="/wiki/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li><li id="n-Website"><a href="http://Opensourceecology.org/">Website</a></li><li id="n-Site-Map"><a href="/wiki/Wiki_map">Site Map</a></li><li id="n-Wiki-Instructions"><a href="/wiki/Wiki_instructions#Wiki_User_Account">Wiki Instructions</a></li><li id="n-Recent-Wiki-Changes"><a href="/wiki/Special:RecentChanges">Recent Wiki Changes</a></li><li id="n-Blog"><a href="http://opensourceecology.org/blog-2/">Blog</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-Open_Source_Ecology' aria-labelledby='p-Open_Source_Ecology-label'>
+			<h3 id='p-Open_Source_Ecology-label'>Open Source Ecology</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-About-OSE"><a href="/wiki/Open_Source_Ecology">About OSE</a></li><li id="n-Support-OSE"><a href="/wiki/Support_Open_Source_Ecology">Support OSE</a></li><li id="n-Contact-Us"><a href="/wiki/Contact_us">Contact Us</a></li><li id="n-Mailing-List"><a href="/wiki/Ose-announce">Mailing List</a></li><li id="n-In-The-News"><a href="/wiki/Open_Source_Ecology_News_Center">In The News</a></li><li id="n-Events"><a href="/wiki/Open_Source_Ecology:Current_events">Events</a></li><li id="n-Discussion-Forums"><a href="http://forum.opensourceecology.org/">Discussion Forums</a></li><li id="n-FAQ"><a href="/wiki/FAQ">FAQ</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+			<h3 id='p-tb-label'>Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/File:CEB_17.08_CAD_Assembly.fcstd" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/File:CEB_17.08_CAD_Assembly.fcstd" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li id="t-print"><a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li id="t-permalink"><a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;oldid=157189" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="/index.php?title=File:CEB_17.08_CAD_Assembly.fcstd&amp;action=info" title="More information about this page">Page information</a></li>					</ul>
+							</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last edited on 6 August 2017, at 05:00.</li>
+											<li id="footer-info-copyright">Content is available under <a href="/wiki/Copyright" class="mw-redirect" title="Copyright">CreativeCommons by-sa4.0</a> unless otherwise noted.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="/wiki/Open_Source_Ecology:Privacy_policy" title="Open Source Ecology:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="/wiki/Open_Source_Ecology:About" class="mw-redirect" title="Open Source Ecology:About">About Open Source Ecology</a></li>
+											<li id="footer-places-disclaimer"><a href="/wiki/Open_Source_Ecology:General_disclaimer" title="Open Source Ecology:General disclaimer">Disclaimers</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+							<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-sa.png" alt="CreativeCommons by-sa4.0" width="88" height="31"/></a>						</li>
+											<li id="footer-poweredbyico">
+							<a href="//www.mediawiki.org/"><img src="/resources/assets/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/resources/assets/poweredby_mediawiki_132x47.png 1.5x, /resources/assets/poweredby_mediawiki_176x62.png 2x" width="88" height="31"/></a>						</li>
+									</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.001","walltime":"0.001","ppvisitednodes":{"value":1,"limit":1000000},"ppgeneratednodes":{"value":4,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":1,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20210309215401","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":305});});</script>
+	</body>
+</html>

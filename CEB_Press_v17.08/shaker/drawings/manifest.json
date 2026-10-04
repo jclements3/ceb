@@ -1,0 +1,118 @@
+{
+ "model": "OSE CEB Soil Shaker",
+ "sheets": [
+  {
+   "key": "assembly",
+   "sheet": 1,
+   "file": "00_assembly.svg"
+  },
+  {
+   "key": "a21",
+   "item": 1,
+   "name": "Mount Angle 21",
+   "sheet": 2,
+   "file": "01_a21.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "L4 x 4 x 1/2 x 21",
+   "mass": 21.95
+  },
+  {
+   "key": "a8",
+   "item": 2,
+   "name": "Motor Angle 8",
+   "sheet": 3,
+   "file": "02_a8.svg",
+   "size": "A3",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "L4 x 4 x 1/2 x 8",
+   "mass": 7.13
+  },
+  {
+   "key": "brace",
+   "item": 3,
+   "name": "Brace Rod",
+   "sheet": 4,
+   "file": "03_brace.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 2,
+   "stock": "1\" round (or #8 rebar) x 7",
+   "mass": 1.56
+  },
+  {
+   "key": "guard",
+   "item": 4,
+   "name": "Guard",
+   "sheet": 5,
+   "file": "04_guard.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/8\" sheet, 10 x 16",
+   "mass": 5.21
+  },
+  {
+   "key": "gside",
+   "item": 5,
+   "name": "Guard Side Angle",
+   "sheet": 6,
+   "file": "05_gside.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 2,
+   "stock": "L2 x 2 x 1/4 x 10",
+   "mass": 2.66
+  },
+  {
+   "key": "gtop",
+   "item": 6,
+   "name": "Guard Top / Bottom Angle",
+   "sheet": 7,
+   "file": "06_gtop.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "L2 x 2 x 1/4 x 16",
+   "mass": 4.25
+  },
+  {
+   "key": "harm",
+   "item": 7,
+   "name": "Hammer Arm",
+   "sheet": 8,
+   "file": "07_harm.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 1,
+   "stock": "1 x 2 flat x 5",
+   "mass": 2.61
+  },
+  {
+   "key": "hhead",
+   "item": 8,
+   "name": "Hammer Head",
+   "sheet": 9,
+   "file": "08_hhead.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 1,
+   "stock": "1 x 2 flat x 6",
+   "mass": 3.4
+  },
+  {
+   "key": "shaft",
+   "item": 9,
+   "name": "Shaft",
+   "sheet": 10,
+   "file": "09_shaft.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1\" CRS x 7-1/4",
+   "mass": 1.6
+  }
+ ]
+}

@@ -311,6 +311,8 @@ def cylinders(shape):
     for f in shape.faces().filter_by(GeomType.CYLINDER):
         ax = f.axis_of_rotation
         r = f.radius
+        if r is None or ax is None:
+            continue
         pts = [v.to_tuple() for v in f.vertices()] or [f.center().to_tuple()]
         ts = [(Vector(*q) - ax.position).dot(ax.direction) for q in pts]
         h = max(ts) - min(ts) if len(ts) > 1 else 0

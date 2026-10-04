@@ -1,0 +1,1487 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+ FreeCAD Document, see http://www.freecadweb.org for more information...
+-->
+<Document SchemaVersion="4" ProgramVersion="0.16R6712 (Git)" FileVersion="1">
+    <Properties Count="13">
+        <Property name="Comment" type="App::PropertyString">
+            <String value=""/>
+        </Property>
+        <Property name="Company" type="App::PropertyString">
+            <String value=""/>
+        </Property>
+        <Property name="CreatedBy" type="App::PropertyString">
+            <String value="Emmanouil &lt;polemidis@gmail.com&gt;"/>
+        </Property>
+        <Property name="CreationDate" type="App::PropertyString">
+            <String value="2017-07-23T08:19:37-04:00"/>
+        </Property>
+        <Property name="Id" type="App::PropertyString">
+            <String value=""/>
+        </Property>
+        <Property name="Label" type="App::PropertyString">
+            <String value="CEB CAD Assembly"/>
+        </Property>
+        <Property name="LastModifiedBy" type="App::PropertyString">
+            <String value=""/>
+        </Property>
+        <Property name="LastModifiedDate" type="App::PropertyString">
+            <String value="2017-08-06T00:57:12-04:00"/>
+        </Property>
+        <Property name="License" type="App::PropertyString">
+            <String value="CreativeCommons Attribution"/>
+        </Property>
+        <Property name="LicenseURL" type="App::PropertyString">
+            <String value="http://creativecommons.org/licenses/by/4.0/"/>
+        </Property>
+        <Property name="Material" type="App::PropertyMap">
+            <Map count="0">
+            </Map>
+        </Property>
+        <Property name="Meta" type="App::PropertyMap">
+            <Map count="0">
+            </Map>
+        </Property>
+        <Property name="Uid" type="App::PropertyUUID">
+            <Uuid value="1dafc4f6-5bfc-4efa-9002-7f058332877f"/>
+        </Property>
+    </Properties>
+    <Objects Count="35">
+        <Object type="Part::FeaturePython" name="Frame_SubAssembly_01" />
+        <Object type="Part::FeaturePython" name="Hopper_Seat_Subassembly_01" />
+        <Object type="Part::FeaturePython" name="Cylinder_SubAssembly_01" />
+        <Object type="Part::FeaturePython" name="Drawer_SubAssembly_01" />
+        <Object type="App::FeaturePython" name="planeConstraint01_mirror" />
+        <Object type="App::FeaturePython" name="circularEdgeConstraint03" />
+        <Object type="App::FeaturePython" name="circularEdgeConstraint03_mirror" />
+        <Object type="App::FeaturePython" name="circularEdgeConstraint07" />
+        <Object type="App::FeaturePython" name="circularEdgeConstraint07_mirror" />
+        <Object type="Part::FeaturePython" name="Arms_Subassembly_01" />
+        <Object type="App::FeaturePython" name="planeConstraint03" />
+        <Object type="App::FeaturePython" name="planeConstraint03_mirror" />
+        <Object type="App::FeaturePython" name="planeConstraint01" />
+        <Object type="App::FeaturePython" name="planeConstraint01_mirror001" />
+        <Object type="Part::FeaturePython" name="Hopper_Subassembly_01" />
+        <Object type="App::FeaturePython" name="planeConstraint02" />
+        <Object type="App::FeaturePython" name="planeConstraint02_mirror" />
+        <Object type="App::FeaturePython" name="circularEdgeConstraint06" />
+        <Object type="App::FeaturePython" name="circularEdgeConstraint06_mirror" />
+        <Object type="Drawing::FeaturePage" name="Page" />
+        <Object type="App::FeaturePython" name="planeConstraint05_mirror" />
+        <Object type="App::FeaturePython" name="planeConstraint09_mirror" />
+        <Object type="Part::FeaturePython" name="Crate_Subassembly_01" />
+        <Object type="App::FeaturePython" name="planeConstraint04" />
+        <Object type="App::FeaturePython" name="planeConstraint04_mirror" />
+        <Object type="App::FeaturePython" name="planeConstraint05" />
+        <Object type="App::FeaturePython" name="planeConstraint05_mirror001" />
+        <Object type="App::FeaturePython" name="planeConstraint09" />
+        <Object type="App::FeaturePython" name="planeConstraint09_mirror001" />
+        <Object type="Part::FeaturePython" name="Cylinder_secondary_Subassembly_01" />
+        <Object type="App::FeaturePython" name="circularEdgeConstraint01" />
+        <Object type="App::FeaturePython" name="circularEdgeConstraint01_mirror" />
+        <Object type="Drawing::FeatureViewPython" name="partsList02" />
+        <Object type="App::FeaturePython" name="circularEdgeConstraint02" />
+        <Object type="App::FeaturePython" name="circularEdgeConstraint02_mirror" />
+    </Objects>
+    <ObjectData Count="35">
+        <Object name="Frame_SubAssembly_01">
+            <Properties Count="9">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="0.000000000000" Py="0.000000000000" Pz="0.000000000000" Q0="0.000000000000" Q1="0.000000000000" Q2="0.000000000000" Q3="1.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="e30=" encoded="yes" module="importPart" class="Proxy_importPart"/>
+                </Property>
+                <Property name="Shape" type="Part::PropertyPartShape">
+                    <Part file="PartShape.brp"/>
+                </Property>
+                <Property name="fixedPosition" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="sourceFile" type="App::PropertyFile" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <String value="/home/pomo/freecad/CEB/Frame_SubAssembly.fcstd"/>
+                </Property>
+                <Property name="timeLastImport" type="App::PropertyFloat" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Float value="1501994724.794090032578"/>
+                </Property>
+                <Property name="updateColors" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Hopper_Seat_Subassembly_01">
+            <Properties Count="9">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Hopper_Seat_Subassembly_01"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="512.204566978530" Py="-242.113519159299" Pz="20.593008873345" Q0="0.000000000000" Q1="0.000000000000" Q2="1.000000000000" Q3="0.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="e30=" encoded="yes" module="importPart" class="Proxy_importPart"/>
+                </Property>
+                <Property name="Shape" type="Part::PropertyPartShape">
+                    <Part file="PartShape1.brp"/>
+                </Property>
+                <Property name="fixedPosition" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="sourceFile" type="App::PropertyFile" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <String value="/home/pomo/freecad/CEB/Hopper_Seat_Subassembly.fcstd"/>
+                </Property>
+                <Property name="timeLastImport" type="App::PropertyFloat" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Float value="1501680038.380362033844"/>
+                </Property>
+                <Property name="updateColors" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Cylinder_SubAssembly_01">
+            <Properties Count="9">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Cylinder_SubAssembly_01"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="512.287836351554" Py="-253.224897747024" Pz="14.938672673259" Q0="-0.000002811339" Q1="0.707107642538" Q2="-0.707105919829" Q3="0.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="e30=" encoded="yes" module="importPart" class="Proxy_importPart"/>
+                </Property>
+                <Property name="Shape" type="Part::PropertyPartShape">
+                    <Part file="PartShape2.brp"/>
+                </Property>
+                <Property name="fixedPosition" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="sourceFile" type="App::PropertyFile" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <String value="/home/pomo/freecad/CEB/Cylinder_SubAssembly.fcstd"/>
+                </Property>
+                <Property name="timeLastImport" type="App::PropertyFloat" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Float value="1501680110.290052175522"/>
+                </Property>
+                <Property name="updateColors" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Drawer_SubAssembly_01">
+            <Properties Count="9">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Drawer_SubAssembly_01"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="514.177964125334" Py="-286.478461593019" Pz="24.743233672463" Q0="-0.000000000000" Q1="0.000000908849" Q2="-1.000000000000" Q3="0.000000007451"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="e30=" encoded="yes" module="importPart" class="Proxy_importPart"/>
+                </Property>
+                <Property name="Shape" type="Part::PropertyPartShape">
+                    <Part file="PartShape3.brp"/>
+                </Property>
+                <Property name="fixedPosition" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="sourceFile" type="App::PropertyFile" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <String value="/home/pomo/freecad/CEB/Drawer_SubAssembly.fcstd"/>
+                </Property>
+                <Property name="timeLastImport" type="App::PropertyFloat" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Float value="1501680005.891594886780"/>
+                </Property>
+                <Property name="updateColors" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint01_mirror">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint01__Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogInBsYW5lQ29uc3RyYWludDAxIn0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face748"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face625"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="circularEdgeConstraint03">
+            <Properties Count="11">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="circularEdgeConstraint03__Hopper_Seat_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Seat_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJjaXJjdWxhckVkZ2VDb25zdHJhaW50MDNfbWlycm9yIn0=" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge1606"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge24"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="circularEdge"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="lockRotation" type="App::PropertyBool" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="circularEdgeConstraint03_mirror">
+            <Properties Count="11">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="circularEdgeConstraint03__Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Seat_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogImNpcmN1bGFyRWRnZUNvbnN0cmFpbnQwMyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge1606"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge24"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="circularEdge"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="lockRotation" type="App::PropertyBool" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="circularEdgeConstraint07">
+            <Properties Count="11">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="circularEdgeConstraint07__Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Cylinder_SubAssembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJjaXJjdWxhckVkZ2VDb25zdHJhaW50MDdfbWlycm9yIn0=" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge121"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge1931"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="circularEdge"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="lockRotation" type="App::PropertyBool" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="-12.700000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="circularEdgeConstraint07_mirror">
+            <Properties Count="11">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="circularEdgeConstraint07__Cylinder_SubAssembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Cylinder_SubAssembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogImNpcmN1bGFyRWRnZUNvbnN0cmFpbnQwNyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge121"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge1931"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="circularEdge"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="lockRotation" type="App::PropertyBool" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="-12.700000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Arms_Subassembly_01">
+            <Properties Count="9">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="521.321714707369" Py="-223.286393068452" Pz="21.504876000033" Q0="0.000000000000" Q1="0.000000000000" Q2="1.000000000000" Q3="-0.000000012905"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="e30=" encoded="yes" module="importPart" class="Proxy_importPart"/>
+                </Property>
+                <Property name="Shape" type="Part::PropertyPartShape">
+                    <Part file="PartShape4.brp"/>
+                </Property>
+                <Property name="fixedPosition" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="sourceFile" type="App::PropertyFile" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <String value="/home/pomo/freecad/CEB/Arms_Subassembly.fcstd"/>
+                </Property>
+                <Property name="timeLastImport" type="App::PropertyFloat" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Float value="1501679483.167890548706"/>
+                </Property>
+                <Property name="updateColors" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint03">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint03__Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJwbGFuZUNvbnN0cmFpbnQwM19taXJyb3IifQ==" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face493"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face429"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="-736.600000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint03_mirror">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint03__Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogInBsYW5lQ29uc3RyYWludDAzIn0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face493"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face429"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="-736.600000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint01">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint01__Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJwbGFuZUNvbnN0cmFpbnQwMV9taXJyb3IwMDEifQ==" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face622"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face514"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="5.080000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint01_mirror001">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint01__Arms_Subassembly_002"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogInBsYW5lQ29uc3RyYWludDAxIn0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face622"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face514"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="5.080000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Hopper_Subassembly_01">
+            <Properties Count="9">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="211.441717329659" Py="-356.636401066441" Pz="947.742161262239" Q0="0.000000000000" Q1="-0.000000000000" Q2="0.000000000000" Q3="1.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="e30=" encoded="yes" module="importPart" class="Proxy_importPart"/>
+                </Property>
+                <Property name="Shape" type="Part::PropertyPartShape">
+                    <Part file="PartShape5.brp"/>
+                </Property>
+                <Property name="fixedPosition" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="sourceFile" type="App::PropertyFile" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <String value="/home/pomo/freecad/CEB/Hopper_Subassembly.fcstd"/>
+                </Property>
+                <Property name="timeLastImport" type="App::PropertyFloat" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Float value="1501679404.834173917770"/>
+                </Property>
+                <Property name="updateColors" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint02">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint02__Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJwbGFuZUNvbnN0cmFpbnQwMl9taXJyb3IifQ==" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face528"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face829"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="3">
+                        <Enum value="none"/>
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint02_mirror">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint02__Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Frame_SubAssembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogInBsYW5lQ29uc3RyYWludDAyIn0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face528"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face829"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="3">
+                        <Enum value="none"/>
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="circularEdgeConstraint06">
+            <Properties Count="11">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="circularEdgeConstraint06__Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJjaXJjdWxhckVkZ2VDb25zdHJhaW50MDZfbWlycm9yIn0=" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge53"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge1978"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="circularEdge"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="lockRotation" type="App::PropertyBool" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="circularEdgeConstraint06_mirror">
+            <Properties Count="11">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="circularEdgeConstraint06__Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogImNpcmN1bGFyRWRnZUNvbnN0cmFpbnQwNiJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge53"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge1978"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="circularEdge"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="lockRotation" type="App::PropertyBool" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Page">
+            <Properties Count="5">
+                <Property name="EditableTexts" type="App::PropertyStringList">
+                    <StringList count="10">
+                        <String value="AUTHOR NAME"/>
+                        <String value="CREATION DATE"/>
+                        <String value="SUPERVISOR NAME"/>
+                        <String value="CHECK DATE"/>
+                        <String value="SCALE"/>
+                        <String value="WEIGHT"/>
+                        <String value="NUMBER"/>
+                        <String value="SHEET"/>
+                        <String value="TITLE"/>
+                        <String value="SUBTITLE"/>
+                    </StringList>
+                </Property>
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Group" type="App::PropertyLinkList">
+                    <LinkList count="1">
+                        <Link value="partsList02"/>
+                    </LinkList>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Page"/>
+                </Property>
+                <Property name="PageResult" type="App::PropertyFileIncluded">
+                    <FileIncluded file="A3_Landscape.svg"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint05_mirror">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint05__Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogInBsYW5lQ29uc3RyYWludDA1In0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face410"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face282"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="3">
+                        <Enum value="none"/>
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint09_mirror">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint09__Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogInBsYW5lQ29uc3RyYWludDA5In0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face398"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face300"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="3">
+                        <Enum value="none"/>
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Crate_Subassembly_01">
+            <Properties Count="9">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="519.581786290775" Py="343.812531577452" Pz="1796.379222375294" Q0="-0.000000000000" Q1="-0.000000000000" Q2="1.000000000000" Q3="-0.000000014901"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="e30=" encoded="yes" module="importPart" class="Proxy_importPart"/>
+                </Property>
+                <Property name="Shape" type="Part::PropertyPartShape">
+                    <Part file="PartShape6.brp"/>
+                </Property>
+                <Property name="fixedPosition" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="sourceFile" type="App::PropertyFile" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <String value="/home/pomo/freecad/CEB/Crate_Subassembly.fcstd"/>
+                </Property>
+                <Property name="timeLastImport" type="App::PropertyFloat" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Float value="1501679446.131078481674"/>
+                </Property>
+                <Property name="updateColors" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint04">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint04__Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJwbGFuZUNvbnN0cmFpbnQwNF9taXJyb3IifQ==" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face295"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face406"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint04_mirror">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint04__Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogInBsYW5lQ29uc3RyYWludDA0In0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face295"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face406"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint05">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint05__Crate_Subassembly_002"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJwbGFuZUNvbnN0cmFpbnQwNV9taXJyb3IwMDEifQ==" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face292"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face412"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint05_mirror001">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint05__Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogInBsYW5lQ29uc3RyYWludDA1In0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face292"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face412"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint09">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint09__Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJwbGFuZUNvbnN0cmFpbnQwOV9taXJyb3IwMDEifQ==" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face398"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face300"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="3">
+                        <Enum value="none"/>
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="planeConstraint09_mirror001">
+            <Properties Count="10">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="planeConstraint09__Crate_Subassembly_002"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Crate_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Hopper_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogInBsYW5lQ29uc3RyYWludDA5In0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face398"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face300"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="plane"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="3">
+                        <Enum value="none"/>
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="Cylinder_secondary_Subassembly_01">
+            <Properties Count="9">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="Cylinder_secondary_Subassembly_01"/>
+                </Property>
+                <Property name="Placement" type="App::PropertyPlacement">
+                    <PropertyPlacement Px="429.800389241780" Py="-166.354451833409" Pz="11.457920973678" Q0="-0.008726535498" Q1="0.000000000000" Q2="0.000000000000" Q3="0.999961923064"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="e30=" encoded="yes" module="importPart" class="Proxy_importPart"/>
+                </Property>
+                <Property name="Shape" type="Part::PropertyPartShape">
+                    <Part file="PartShape7.brp"/>
+                </Property>
+                <Property name="fixedPosition" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="sourceFile" type="App::PropertyFile" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <String value="/home/pomo/freecad/CEB/Cylinder_secondary_Subassembly.fcstd"/>
+                </Property>
+                <Property name="timeLastImport" type="App::PropertyFloat" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Float value="1501680081.613379478455"/>
+                </Property>
+                <Property name="updateColors" type="App::PropertyBool" group="importPart" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="circularEdgeConstraint01">
+            <Properties Count="11">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="circularEdgeConstraint01__Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Cylinder_secondary_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJjaXJjdWxhckVkZ2VDb25zdHJhaW50MDFfbWlycm9yIn0=" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face3"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge713"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="circularEdge"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="lockRotation" type="App::PropertyBool" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="-6.350000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="circularEdgeConstraint01_mirror">
+            <Properties Count="11">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="circularEdgeConstraint01__Cylinder_secondary_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Cylinder_secondary_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Arms_Subassembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogImNpcmN1bGFyRWRnZUNvbnN0cmFpbnQwMSJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Face3"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge713"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="circularEdge"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="0" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="lockRotation" type="App::PropertyBool" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="-6.350000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="partsList02">
+            <Properties Count="22">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="partsList02"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJzZWxlY3Rpb25zX2R1bXBzIjogIihscDBcbihpcHJveGllc19kZFxuUGxhY2VtZW50Q2xpY2tcbnAxXG4oZHAyXG5TJ3knXG5wM1xuRjQ4LjQ3NjY0MDUwMDE3NzZcbnNTJ3gnXG5wNFxuRjQ2Ljk4NTA1MTU2MTcxMDYwNVxuc1MneV9uYW1lJ1xucDVcblMnY2xpY2sxX3knXG5wNlxuc1MneF9uYW1lJ1xucDdcblMnY2xpY2sxX3gnXG5wOFxuc1MnY29uZGVuc2VkX2FyZ3MnXG5wOVxuSTAwXG5zYmEuIiwgInN2Z0Z1bl9kdW1wcyI6ICJjdGFibGVfZGRcbnRhYmxlU1ZHXG5wMFxuLiJ9" encoded="yes" module="table_dd" class="Proxy_table"/>
+                </Property>
+                <Property name="Rotation" type="App::PropertyFloat">
+                    <Float value="0.000000000000"/>
+                </Property>
+                <Property name="Scale" type="App::PropertyFloat">
+                    <Float value="1.000000000000"/>
+                </Property>
+                <Property name="ViewResult" type="App::PropertyString">
+                    <String value="&lt;g transform=&quot;translate(46.985052,48.476641)&quot; &gt; &lt;line x1=&quot;0.000000&quot; y1=&quot;0.000000&quot; x2=&quot;140.000000&quot; y2=&quot;0.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;0.000000&quot; y1=&quot;7.000000&quot; x2=&quot;140.000000&quot; y2=&quot;7.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;0.000000&quot; y1=&quot;14.000000&quot; x2=&quot;140.000000&quot; y2=&quot;14.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;0.000000&quot; y1=&quot;21.000000&quot; x2=&quot;140.000000&quot; y2=&quot;21.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;0.000000&quot; y1=&quot;28.000000&quot; x2=&quot;140.000000&quot; y2=&quot;28.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;0.000000&quot; y1=&quot;35.000000&quot; x2=&quot;140.000000&quot; y2=&quot;35.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;0.000000&quot; y1=&quot;42.000000&quot; x2=&quot;140.000000&quot; y2=&quot;42.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;0.000000&quot; y1=&quot;49.000000&quot; x2=&quot;140.000000&quot; y2=&quot;49.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;0.000000&quot; y1=&quot;56.000000&quot; x2=&quot;140.000000&quot; y2=&quot;56.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;0.000000&quot; y1=&quot;63.000000&quot; x2=&quot;140.000000&quot; y2=&quot;63.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;0.000000&quot; y1=&quot;0.000000&quot; x2=&quot;0.000000&quot; y2=&quot;63.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;20.000000&quot; y1=&quot;0.000000&quot; x2=&quot;20.000000&quot; y2=&quot;63.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;100.000000&quot; y1=&quot;0.000000&quot; x2=&quot;100.000000&quot; y2=&quot;63.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;line x1=&quot;140.000000&quot; y1=&quot;0.000000&quot; x2=&quot;140.000000&quot; y2=&quot;63.000000&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:0.40&quot; /&gt;&#xA;&lt;text x=&quot;1.500000&quot; y=&quot;5.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;part #&lt;/text&gt;&#xA;&lt;text x=&quot;21.500000&quot; y=&quot;5.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;source file&lt;/text&gt;&#xA;&lt;text x=&quot;101.500000&quot; y=&quot;5.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;quantity&lt;/text&gt;&#xA;&lt;text x=&quot;1.500000&quot; y=&quot;12.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;1&lt;/text&gt;&#xA;&lt;text x=&quot;21.500000&quot; y=&quot;12.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;Frame_SubAssembly&lt;/text&gt;&#xA;&lt;text x=&quot;101.500000&quot; y=&quot;12.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;1&lt;/text&gt;&#xA;&lt;text x=&quot;1.500000&quot; y=&quot;19.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;2&lt;/text&gt;&#xA;&lt;text x=&quot;21.500000&quot; y=&quot;19.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;Hopper_Seat_Subassembly&lt;/text&gt;&#xA;&lt;text x=&quot;101.500000&quot; y=&quot;19.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;1&lt;/text&gt;&#xA;&lt;text x=&quot;1.500000&quot; y=&quot;26.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;3&lt;/text&gt;&#xA;&lt;text x=&quot;21.500000&quot; y=&quot;26.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;Cylinder_SubAssembly&lt;/text&gt;&#xA;&lt;text x=&quot;101.500000&quot; y=&quot;26.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;1&lt;/text&gt;&#xA;&lt;text x=&quot;1.500000&quot; y=&quot;33.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;4&lt;/text&gt;&#xA;&lt;text x=&quot;21.500000&quot; y=&quot;33.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;Drawer_SubAssembly&lt;/text&gt;&#xA;&lt;text x=&quot;101.500000&quot; y=&quot;33.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;1&lt;/text&gt;&#xA;&lt;text x=&quot;1.500000&quot; y=&quot;40.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;5&lt;/text&gt;&#xA;&lt;text x=&quot;21.500000&quot; y=&quot;40.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;Arms_Subassembly&lt;/text&gt;&#xA;&lt;text x=&quot;101.500000&quot; y=&quot;40.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;1&lt;/text&gt;&#xA;&lt;text x=&quot;1.500000&quot; y=&quot;47.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;6&lt;/text&gt;&#xA;&lt;text x=&quot;21.500000&quot; y=&quot;47.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;Hopper_Subassembly&lt;/text&gt;&#xA;&lt;text x=&quot;101.500000&quot; y=&quot;47.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;1&lt;/text&gt;&#xA;&lt;text x=&quot;1.500000&quot; y=&quot;54.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;7&lt;/text&gt;&#xA;&lt;text x=&quot;21.500000&quot; y=&quot;54.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;Crate_Subassembly&lt;/text&gt;&#xA;&lt;text x=&quot;101.500000&quot; y=&quot;54.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;1&lt;/text&gt;&#xA;&lt;text x=&quot;1.500000&quot; y=&quot;61.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;8&lt;/text&gt;&#xA;&lt;text x=&quot;21.500000&quot; y=&quot;61.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;Cylinder_secondary_Subassembly&lt;/text&gt;&#xA;&lt;text x=&quot;101.500000&quot; y=&quot;61.500000&quot; font-family=&quot;inherit&quot; font-size=&quot;4.00 pt&quot; fill=&quot;rgb(0,0,0)&quot; text-anchor=&quot;inherit&quot;  &gt;1&lt;/text&gt; &lt;/g&gt;"/>
+                </Property>
+                <Property name="Visible" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="X" type="App::PropertyFloat">
+                    <Float value="0.000000000000"/>
+                </Property>
+                <Property name="Y" type="App::PropertyFloat">
+                    <Float value="0.000000000000"/>
+                </Property>
+                <Property name="border_color" type="App::PropertyString" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <String value="rgb(0,0,0)"/>
+                </Property>
+                <Property name="border_width" type="App::PropertyFloat" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.400000000000"/>
+                </Property>
+                <Property name="click1_x" type="App::PropertyFloat" group="Placement Clicks" doc="" attr="0" ro="0" hide="0">
+                    <Float value="46.985051561711"/>
+                </Property>
+                <Property name="click1_y" type="App::PropertyFloat" group="Placement Clicks" doc="" attr="0" ro="0" hide="0">
+                    <Float value="48.476640500178"/>
+                </Property>
+                <Property name="column_widths" type="App::PropertyFloatList" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <FloatList file="column_widths"/>
+                </Property>
+                <Property name="contents" type="App::PropertyStringList" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <StringList count="27">
+                        <String value="part #"/>
+                        <String value="source file"/>
+                        <String value="quantity"/>
+                        <String value="1"/>
+                        <String value="Frame_SubAssembly"/>
+                        <String value="1"/>
+                        <String value="2"/>
+                        <String value="Hopper_Seat_Subassembly"/>
+                        <String value="1"/>
+                        <String value="3"/>
+                        <String value="Cylinder_SubAssembly"/>
+                        <String value="1"/>
+                        <String value="4"/>
+                        <String value="Drawer_SubAssembly"/>
+                        <String value="1"/>
+                        <String value="5"/>
+                        <String value="Arms_Subassembly"/>
+                        <String value="1"/>
+                        <String value="6"/>
+                        <String value="Hopper_Subassembly"/>
+                        <String value="1"/>
+                        <String value="7"/>
+                        <String value="Crate_Subassembly"/>
+                        <String value="1"/>
+                        <String value="8"/>
+                        <String value="Cylinder_secondary_Subassembly"/>
+                        <String value="1"/>
+                    </StringList>
+                </Property>
+                <Property name="extra_rows" type="App::PropertyFloat" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+                <Property name="padding_x" type="App::PropertyFloat" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <Float value="1.500000000000"/>
+                </Property>
+                <Property name="padding_y" type="App::PropertyFloat" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <Float value="1.500000000000"/>
+                </Property>
+                <Property name="row_heights" type="App::PropertyFloatList" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <FloatList file="row_heights"/>
+                </Property>
+                <Property name="textRenderer_table_color" type="App::PropertyString" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <String value="rgb(0,0,0)"/>
+                </Property>
+                <Property name="textRenderer_table_family" type="App::PropertyString" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <String value="inherit"/>
+                </Property>
+                <Property name="textRenderer_table_size" type="App::PropertyString" group="Parameters" doc="" attr="0" ro="0" hide="0">
+                    <String value="4.00 pt"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="circularEdgeConstraint02">
+            <Properties Count="11">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="circularEdgeConstraint02__Drawer_SubAssembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Cylinder_secondary_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Drawer_SubAssembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJtaXJyb3JfbmFtZSI6ICJjaXJjdWxhckVkZ2VDb25zdHJhaW50MDJfbWlycm9yIn0=" encoded="yes" module="assembly2lib" class="ConstraintObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge358"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge1652"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="circularEdge"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="lockRotation" type="App::PropertyBool" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintInfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+        <Object name="circularEdgeConstraint02_mirror">
+            <Properties Count="11">
+                <Property name="ExpressionEngine" type="App::PropertyExpressionEngine">
+                    <ExpressionEngine count="0">
+                    </ExpressionEngine>
+                </Property>
+                <Property name="Label" type="App::PropertyString">
+                    <String value="circularEdgeConstraint02__Cylinder_secondary_Subassembly_01"/>
+                </Property>
+                <Property name="Object1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Cylinder_secondary_Subassembly_01"/>
+                </Property>
+                <Property name="Object2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Drawer_SubAssembly_01"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJkaXNhYmxlX29uQ2hhbmdlZCI6IGZhbHNlLCAiY29uc3RyYWludE9ial9uYW1lIjogImNpcmN1bGFyRWRnZUNvbnN0cmFpbnQwMiJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorObjectProxy"/>
+                </Property>
+                <Property name="SubElement1" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge358"/>
+                </Property>
+                <Property name="SubElement2" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="Edge1652"/>
+                </Property>
+                <Property name="Type" type="App::PropertyString" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <String value="circularEdge"/>
+                </Property>
+                <Property name="directionConstraint" type="App::PropertyEnumeration" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="1" CustomEnum="true"/>
+                    <CustomEnumList count="2">
+                        <Enum value="aligned"/>
+                        <Enum value="opposed"/>
+                    </CustomEnumList>
+                </Property>
+                <Property name="lockRotation" type="App::PropertyBool" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="offset" type="App::PropertyDistance" group="ConstraintNfo" doc="" attr="0" ro="0" hide="0">
+                    <Float value="0.000000000000"/>
+                </Property>
+            </Properties>
+        </Object>
+    </ObjectData>
+</Document>

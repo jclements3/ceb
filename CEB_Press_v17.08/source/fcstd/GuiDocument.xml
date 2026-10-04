@@ -1,0 +1,890 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+ FreeCAD Document, see http://www.freecadweb.org for more information...
+-->
+<Document SchemaVersion="1">
+    <ViewProviderData Count="35">
+        <ViewProvider name="circularEdgeConstraint01_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAiY2lyY3VsYXJFZGdlQ29uc3RyYWludDAxIiwgImljb25QYXRoIjogIjovYXNzZW1ibHkyL2ljb25zL2NpcmN1bGFyRWRnZUNvbnN0cmFpbnQuc3ZnIn0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="circularEdgeConstraint06" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAiY2lyY3VsYXJFZGdlQ29uc3RyYWludDA2IiwgIm1pcnJvcl9uYW1lIjogImNpcmN1bGFyRWRnZUNvbnN0cmFpbnQwNl9taXJyb3IiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvY2lyY3VsYXJFZGdlQ29uc3RyYWludC5zdmcifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Hopper_Subassembly_01" expanded="0">
+            <Properties Count="19">
+                <Property name="AngularDeflection" type="App::PropertyAngle">
+                    <Float value="28.500000000000"/>
+                </Property>
+                <Property name="BoundingBox" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="Deviation" type="App::PropertyFloatConstraint">
+                    <Float value="0.500000000000"/>
+                </Property>
+                <Property name="DiffuseColor" type="App::PropertyColorList">
+                    <ColorList file="DiffuseColor"/>
+                </Property>
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="DrawStyle" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Lighting" type="App::PropertyEnumeration">
+                    <Integer value="1"/>
+                </Property>
+                <Property name="LineColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="LineMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="LineWidth" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="PointColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="PointMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="PointSize" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="bnVsbA==" encoded="yes" module="viewProviderProxies" class="ImportedPartViewProviderProxy"/>
+                </Property>
+                <Property name="Selectable" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="ShapeColor" type="App::PropertyColor">
+                    <PropertyColor value="3435973632"/>
+                </Property>
+                <Property name="ShapeMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="3435973632" specularColor="0" emissiveColor="0" shininess="0.200000002980" transparency="0.000000000000"/>
+                </Property>
+                <Property name="Transparency" type="App::PropertyPercent">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint01_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDEiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvcGxhbmVDb25zdHJhaW50LnN2ZyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="circularEdgeConstraint03_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAiY2lyY3VsYXJFZGdlQ29uc3RyYWludDAzIiwgImljb25QYXRoIjogIjovYXNzZW1ibHkyL2ljb25zL2NpcmN1bGFyRWRnZUNvbnN0cmFpbnQuc3ZnIn0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint01_mirror001" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDEiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvcGxhbmVDb25zdHJhaW50LnN2ZyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Hopper_Seat_Subassembly_01" expanded="0">
+            <Properties Count="22">
+                <Property name="AngularDeflection" type="App::PropertyAngle">
+                    <Float value="28.500000000000"/>
+                </Property>
+                <Property name="BoundingBox" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="Deviation" type="App::PropertyFloatConstraint">
+                    <Float value="0.500000000000"/>
+                </Property>
+                <Property name="DiffuseColor" type="App::PropertyColorList">
+                    <ColorList file="DiffuseColor1"/>
+                </Property>
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="DrawStyle" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Lighting" type="App::PropertyEnumeration">
+                    <Integer value="1"/>
+                </Property>
+                <Property name="LineColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="LineColorArray" type="App::PropertyColorList" group="" doc="" attr="0" ro="0" hide="0">
+                    <ColorList file="LineColorArray"/>
+                </Property>
+                <Property name="LineMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="LineWidth" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="PointColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="PointColorArray" type="App::PropertyColorList" group="" doc="" attr="0" ro="0" hide="0">
+                    <ColorList file="PointColorArray"/>
+                </Property>
+                <Property name="PointMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="PointSize" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="bnVsbA==" encoded="yes" module="viewProviderProxies" class="ImportedPartViewProviderProxy"/>
+                </Property>
+                <Property name="Selectable" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="SelectionStyle" type="App::PropertyEnumeration" group="" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="-1"/>
+                </Property>
+                <Property name="ShapeColor" type="App::PropertyColor">
+                    <PropertyColor value="3435973632"/>
+                </Property>
+                <Property name="ShapeMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="3435973632" specularColor="0" emissiveColor="0" shininess="0.200000002980" transparency="0.000000000000"/>
+                </Property>
+                <Property name="Transparency" type="App::PropertyPercent">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint04" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDQiLCAibWlycm9yX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDRfbWlycm9yIiwgImljb25QYXRoIjogIjovYXNzZW1ibHkyL2ljb25zL3BsYW5lQ29uc3RyYWludC5zdmcifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Frame_SubAssembly_01" expanded="0">
+            <Properties Count="22">
+                <Property name="AngularDeflection" type="App::PropertyAngle">
+                    <Float value="28.500000000000"/>
+                </Property>
+                <Property name="BoundingBox" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="Deviation" type="App::PropertyFloatConstraint">
+                    <Float value="0.500000000000"/>
+                </Property>
+                <Property name="DiffuseColor" type="App::PropertyColorList">
+                    <ColorList file="DiffuseColor2"/>
+                </Property>
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="DrawStyle" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Lighting" type="App::PropertyEnumeration">
+                    <Integer value="1"/>
+                </Property>
+                <Property name="LineColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="LineColorArray" type="App::PropertyColorList" group="" doc="" attr="0" ro="0" hide="0">
+                    <ColorList file="LineColorArray1"/>
+                </Property>
+                <Property name="LineMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="LineWidth" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="PointColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="PointColorArray" type="App::PropertyColorList" group="" doc="" attr="0" ro="0" hide="0">
+                    <ColorList file="PointColorArray1"/>
+                </Property>
+                <Property name="PointMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="PointSize" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="bnVsbA==" encoded="yes" module="viewProviderProxies" class="ImportedPartViewProviderProxy"/>
+                </Property>
+                <Property name="Selectable" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="SelectionStyle" type="App::PropertyEnumeration" group="" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="-1"/>
+                </Property>
+                <Property name="ShapeColor" type="App::PropertyColor">
+                    <PropertyColor value="3435973632"/>
+                </Property>
+                <Property name="ShapeMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="3435973632" specularColor="0" emissiveColor="0" shininess="0.200000002980" transparency="0.000000000000"/>
+                </Property>
+                <Property name="Transparency" type="App::PropertyPercent">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Page" expanded="0">
+            <Properties Count="5">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="HintOffsetX" type="App::PropertyFloat">
+                    <Float value="10.000000000000"/>
+                </Property>
+                <Property name="HintOffsetY" type="App::PropertyFloat">
+                    <Float value="10.000000000000"/>
+                </Property>
+                <Property name="HintScale" type="App::PropertyFloat">
+                    <Float value="10.000000000000"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Cylinder_secondary_Subassembly_01" expanded="0">
+            <Properties Count="19">
+                <Property name="AngularDeflection" type="App::PropertyAngle">
+                    <Float value="28.500000000000"/>
+                </Property>
+                <Property name="BoundingBox" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="Deviation" type="App::PropertyFloatConstraint">
+                    <Float value="0.500000000000"/>
+                </Property>
+                <Property name="DiffuseColor" type="App::PropertyColorList">
+                    <ColorList file="DiffuseColor3"/>
+                </Property>
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="DrawStyle" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Lighting" type="App::PropertyEnumeration">
+                    <Integer value="1"/>
+                </Property>
+                <Property name="LineColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="LineMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="LineWidth" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="PointColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="PointMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="PointSize" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="bnVsbA==" encoded="yes" module="viewProviderProxies" class="ImportedPartViewProviderProxy"/>
+                </Property>
+                <Property name="Selectable" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="ShapeColor" type="App::PropertyColor">
+                    <PropertyColor value="3435973632"/>
+                </Property>
+                <Property name="ShapeMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="3435973632" specularColor="0" emissiveColor="0" shininess="0.200000002980" transparency="0.000000000000"/>
+                </Property>
+                <Property name="Transparency" type="App::PropertyPercent">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint02" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDIiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvcGxhbmVDb25zdHJhaW50LnN2ZyIsICJtaXJyb3JfbmFtZSI6ICJwbGFuZUNvbnN0cmFpbnQwMl9taXJyb3IifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Drawer_SubAssembly_01" expanded="0">
+            <Properties Count="22">
+                <Property name="AngularDeflection" type="App::PropertyAngle">
+                    <Float value="28.500000000000"/>
+                </Property>
+                <Property name="BoundingBox" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="Deviation" type="App::PropertyFloatConstraint">
+                    <Float value="0.500000000000"/>
+                </Property>
+                <Property name="DiffuseColor" type="App::PropertyColorList">
+                    <ColorList file="DiffuseColor4"/>
+                </Property>
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="DrawStyle" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Lighting" type="App::PropertyEnumeration">
+                    <Integer value="1"/>
+                </Property>
+                <Property name="LineColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="LineColorArray" type="App::PropertyColorList" group="" doc="" attr="0" ro="0" hide="0">
+                    <ColorList file="LineColorArray2"/>
+                </Property>
+                <Property name="LineMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="LineWidth" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="PointColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="PointColorArray" type="App::PropertyColorList" group="" doc="" attr="0" ro="0" hide="0">
+                    <ColorList file="PointColorArray2"/>
+                </Property>
+                <Property name="PointMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="PointSize" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="bnVsbA==" encoded="yes" module="viewProviderProxies" class="ImportedPartViewProviderProxy"/>
+                </Property>
+                <Property name="Selectable" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="SelectionStyle" type="App::PropertyEnumeration" group="" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="-1"/>
+                </Property>
+                <Property name="ShapeColor" type="App::PropertyColor">
+                    <PropertyColor value="3435973632"/>
+                </Property>
+                <Property name="ShapeMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="3435973632" specularColor="0" emissiveColor="0" shininess="0.200000002980" transparency="0.000000000000"/>
+                </Property>
+                <Property name="Transparency" type="App::PropertyPercent">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Arms_Subassembly_01" expanded="0">
+            <Properties Count="19">
+                <Property name="AngularDeflection" type="App::PropertyAngle">
+                    <Float value="28.500000000000"/>
+                </Property>
+                <Property name="BoundingBox" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="Deviation" type="App::PropertyFloatConstraint">
+                    <Float value="0.500000000000"/>
+                </Property>
+                <Property name="DiffuseColor" type="App::PropertyColorList">
+                    <ColorList file="DiffuseColor5"/>
+                </Property>
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="DrawStyle" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Lighting" type="App::PropertyEnumeration">
+                    <Integer value="1"/>
+                </Property>
+                <Property name="LineColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="LineMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="LineWidth" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="PointColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="PointMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="PointSize" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="bnVsbA==" encoded="yes" module="viewProviderProxies" class="ImportedPartViewProviderProxy"/>
+                </Property>
+                <Property name="Selectable" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="ShapeColor" type="App::PropertyColor">
+                    <PropertyColor value="3435973632"/>
+                </Property>
+                <Property name="ShapeMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="3435973632" specularColor="0" emissiveColor="0" shininess="0.200000002980" transparency="0.000000000000"/>
+                </Property>
+                <Property name="Transparency" type="App::PropertyPercent">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint09_mirror001" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDkiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvcGxhbmVDb25zdHJhaW50LnN2ZyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Crate_Subassembly_01" expanded="0">
+            <Properties Count="19">
+                <Property name="AngularDeflection" type="App::PropertyAngle">
+                    <Float value="28.500000000000"/>
+                </Property>
+                <Property name="BoundingBox" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="Deviation" type="App::PropertyFloatConstraint">
+                    <Float value="0.500000000000"/>
+                </Property>
+                <Property name="DiffuseColor" type="App::PropertyColorList">
+                    <ColorList file="DiffuseColor6"/>
+                </Property>
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="DrawStyle" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Lighting" type="App::PropertyEnumeration">
+                    <Integer value="1"/>
+                </Property>
+                <Property name="LineColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="LineMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="LineWidth" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="PointColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="PointMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="PointSize" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="bnVsbA==" encoded="yes" module="viewProviderProxies" class="ImportedPartViewProviderProxy"/>
+                </Property>
+                <Property name="Selectable" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="ShapeColor" type="App::PropertyColor">
+                    <PropertyColor value="3435973632"/>
+                </Property>
+                <Property name="ShapeMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="3435973632" specularColor="0" emissiveColor="0" shininess="0.200000002980" transparency="0.000000000000"/>
+                </Property>
+                <Property name="Transparency" type="App::PropertyPercent">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint05" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDUiLCAibWlycm9yX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDVfbWlycm9yMDAxIiwgImljb25QYXRoIjogIjovYXNzZW1ibHkyL2ljb25zL3BsYW5lQ29uc3RyYWludC5zdmcifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint02_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDIiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvcGxhbmVDb25zdHJhaW50LnN2ZyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint03" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDMiLCAibWlycm9yX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDNfbWlycm9yIiwgImljb25QYXRoIjogIjovYXNzZW1ibHkyL2ljb25zL3BsYW5lQ29uc3RyYWludC5zdmcifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="circularEdgeConstraint01" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAiY2lyY3VsYXJFZGdlQ29uc3RyYWludDAxIiwgIm1pcnJvcl9uYW1lIjogImNpcmN1bGFyRWRnZUNvbnN0cmFpbnQwMV9taXJyb3IiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvY2lyY3VsYXJFZGdlQ29uc3RyYWludC5zdmcifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint05_mirror001" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDUiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvcGxhbmVDb25zdHJhaW50LnN2ZyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="Cylinder_SubAssembly_01" expanded="0">
+            <Properties Count="22">
+                <Property name="AngularDeflection" type="App::PropertyAngle">
+                    <Float value="28.500000000000"/>
+                </Property>
+                <Property name="BoundingBox" type="App::PropertyBool">
+                    <Bool value="false"/>
+                </Property>
+                <Property name="Deviation" type="App::PropertyFloatConstraint">
+                    <Float value="0.500000000000"/>
+                </Property>
+                <Property name="DiffuseColor" type="App::PropertyColorList">
+                    <ColorList file="DiffuseColor7"/>
+                </Property>
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="DrawStyle" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Lighting" type="App::PropertyEnumeration">
+                    <Integer value="1"/>
+                </Property>
+                <Property name="LineColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="LineColorArray" type="App::PropertyColorList" group="" doc="" attr="0" ro="0" hide="0">
+                    <ColorList file="LineColorArray3"/>
+                </Property>
+                <Property name="LineMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="LineWidth" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="PointColor" type="App::PropertyColor">
+                    <PropertyColor value="421075200"/>
+                </Property>
+                <Property name="PointColorArray" type="App::PropertyColorList" group="" doc="" attr="0" ro="0" hide="0">
+                    <ColorList file="PointColorArray3"/>
+                </Property>
+                <Property name="PointMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="421075200" specularColor="0" emissiveColor="0" shininess="1.000000000000" transparency="0.000000000000"/>
+                </Property>
+                <Property name="PointSize" type="App::PropertyFloatConstraint">
+                    <Float value="2.000000000000"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="bnVsbA==" encoded="yes" module="viewProviderProxies" class="ImportedPartViewProviderProxy"/>
+                </Property>
+                <Property name="Selectable" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+                <Property name="SelectionStyle" type="App::PropertyEnumeration" group="" doc="" attr="0" ro="0" hide="0">
+                    <Integer value="-1"/>
+                </Property>
+                <Property name="ShapeColor" type="App::PropertyColor">
+                    <PropertyColor value="3435973632"/>
+                </Property>
+                <Property name="ShapeMaterial" type="App::PropertyMaterial">
+                    <PropertyMaterial ambientColor="858993408" diffuseColor="3435973632" specularColor="0" emissiveColor="0" shininess="0.200000002980" transparency="0.000000000000"/>
+                </Property>
+                <Property name="Transparency" type="App::PropertyPercent">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="circularEdgeConstraint07_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAiY2lyY3VsYXJFZGdlQ29uc3RyYWludDA3IiwgImljb25QYXRoIjogIjovYXNzZW1ibHkyL2ljb25zL2NpcmN1bGFyRWRnZUNvbnN0cmFpbnQuc3ZnIn0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint09" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDkiLCAibWlycm9yX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDlfbWlycm9yMDAxIiwgImljb25QYXRoIjogIjovYXNzZW1ibHkyL2ljb25zL3BsYW5lQ29uc3RyYWludC5zdmcifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint03_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDMiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvcGxhbmVDb25zdHJhaW50LnN2ZyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="circularEdgeConstraint07" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAiY2lyY3VsYXJFZGdlQ29uc3RyYWludDA3IiwgIm1pcnJvcl9uYW1lIjogImNpcmN1bGFyRWRnZUNvbnN0cmFpbnQwN19taXJyb3IiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvY2lyY3VsYXJFZGdlQ29uc3RyYWludC5zdmcifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="circularEdgeConstraint06_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAiY2lyY3VsYXJFZGdlQ29uc3RyYWludDA2IiwgImljb25QYXRoIjogIjovYXNzZW1ibHkyL2ljb25zL2NpcmN1bGFyRWRnZUNvbnN0cmFpbnQuc3ZnIn0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint05_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDUiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvcGxhbmVDb25zdHJhaW50LnN2ZyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint04_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDQiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvcGxhbmVDb25zdHJhaW50LnN2ZyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint09_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDkiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvcGxhbmVDb25zdHJhaW50LnN2ZyJ9" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="partsList02" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJpY29uUGF0aCI6ICI6L2Fzc2VtYmx5Mi9pY29ucy9wYXJ0c0xpc3Quc3ZnIn0=" encoded="yes" module="proxies_dd" class="Proxy_DimensionViewObject_prototype"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="planeConstraint01" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDEiLCAibWlycm9yX25hbWUiOiAicGxhbmVDb25zdHJhaW50MDFfbWlycm9yMDAxIiwgImljb25QYXRoIjogIjovYXNzZW1ibHkyL2ljb25zL3BsYW5lQ29uc3RyYWludC5zdmcifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="circularEdgeConstraint03" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAiY2lyY3VsYXJFZGdlQ29uc3RyYWludDAzIiwgIm1pcnJvcl9uYW1lIjogImNpcmN1bGFyRWRnZUNvbnN0cmFpbnQwM19taXJyb3IiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvY2lyY3VsYXJFZGdlQ29uc3RyYWludC5zdmcifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="circularEdgeConstraint02_mirror" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAiY2lyY3VsYXJFZGdlQ29uc3RyYWludDAyIiwgImljb25QYXRoIjogIjovYXNzZW1ibHkyL2ljb25zL2NpcmN1bGFyRWRnZUNvbnN0cmFpbnQuc3ZnIn0=" encoded="yes" module="viewProviderProxies" class="ConstraintMirrorViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+        <ViewProvider name="circularEdgeConstraint02" expanded="0">
+            <Properties Count="3">
+                <Property name="DisplayMode" type="App::PropertyEnumeration">
+                    <Integer value="0"/>
+                </Property>
+                <Property name="Proxy" type="App::PropertyPythonObject">
+                    <Python value="eyJjb25zdHJhaW50T2JqX25hbWUiOiAiY2lyY3VsYXJFZGdlQ29uc3RyYWludDAyIiwgIm1pcnJvcl9uYW1lIjogImNpcmN1bGFyRWRnZUNvbnN0cmFpbnQwMl9taXJyb3IiLCAiaWNvblBhdGgiOiAiOi9hc3NlbWJseTIvaWNvbnMvY2lyY3VsYXJFZGdlQ29uc3RyYWludC5zdmcifQ==" encoded="yes" module="viewProviderProxies" class="ConstraintViewProviderProxy"/>
+                </Property>
+                <Property name="Visibility" type="App::PropertyBool">
+                    <Bool value="true"/>
+                </Property>
+            </Properties>
+        </ViewProvider>
+    </ViewProviderData>
+    <Camera settings="  OrthographicCamera {   viewportMapping ADJUST_CAMERA   position 477.85681 553.04071 708.10693   orientation 0.74290609 0.30772209 0.59447283  1.2171158   nearDistance -2344.343   farDistance 1266.7542   aspectRatio 1   focalDistance 5   height 1671.0551  } "/>
+</Document>

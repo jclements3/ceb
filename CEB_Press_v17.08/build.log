@@ -1,0 +1,88 @@
+/home/clementsj/projects/ceb/CEB_Press_v17.08/v1708_drawings.py:242: UserWarning: Skipping ellipse that is too small to export safely (length < 1e-6).
+  sh.svg(path)
+  00_assembly.svg
+  01_frame.svg
+  02_hopper_seat.svg
+  03_main_cylinder.svg
+  04_drawer.svg
+  05_arms.svg
+  06_hopper.svg
+  07_grate.svg
+  08_secondary_cylinder.svg
+  001 Frame 01               x2   1/2" plate, 11 x 31.052                  A3 1:5
+  002 Frame 02               x2   1/2" plate, 6 x 43.524                   A3 1:5
+  003 Frame 03               x4   1/2" plate, 4.532 x 43-1/2               A3 1:5
+  004 Frame 04               x2   1/2" plate, 8 x 22-3/16                  A4 1:5
+  005 Frame 05               x2   1/2" plate, 6 x 24.088                   A4 1:5
+  006 Frame 06               x2   1/2" plate, 3-1/2 x 31.400               A4 1:5
+  007 Frame 07               x2   1/2" plate, 3-1/2 x 23-3/4               A4 1:5
+  008 Frame 08               x4   1/2" plate, 3-1/2 x 19-1/2               A4 1:5
+  009 Frame 09               x2   1/2" plate, 6 x 9                        A4 1:2
+  010 Frame 10               x2   1/2" plate, 3-1/2 x 14-1/4               A4 1:2
+  011 Frame 11               x6   1/2" plate, 1-1/4 x 6                    A4 1:1
+  012 Hopper Seat 01         x1   1/2" plate, 11.863 x 18.558              A4 1:5
+  013 Hopper Seat 02         x1   1/4" plate, 4-3/4 x 18.558               A4 1:5
+  014 Hopper Seat 03         x1   1/4" plate, 3-7/8 x 18.558               A4 1:5
+  015 Hopper Seat 04         x2   1/4" plate, 3-7/8 x 11.863               A4 1:2
+  016 Main Cylinder 01       x1   round / tube, 6 dia x 25-1/4             A4 1:5
+  017 Main Cylinder 02       x1   1" plate, 6 x 12                         A4 1:2
+  018 Main Cylinder 03       x1   1" plate, 5 x 10                         A4 1:2
+  019 Main Cylinder 04       x1   round / tube, 2 dia x 5-7/8              A4 1:2
+  020 Main Cylinder 05       x1   round / tube, 1 dia x 11                 A4 1:2
+  021 Main Cylinder 06       x1   4-3/4 x 4-3/4 x 1/2 (see model)          A4 1:2
+  022 Main Cylinder 07       x1   4-1/2 x 4-1/2 x 1/2 (see model)          A4 1:2
+  023 Main Cylinder 08       x1   4-1/4 x 4-1/4 x 1/2 (see model)          A4 1:2
+  024 Main Cylinder 09       x2   round / tube, 2 dia x 2                  A4 1:2
+  025 Drawer 01              x1   1/2" plate, 13 x 21-1/2                  A4 1:5
+  026 Drawer 02              x2   1/2" plate, 6 x 18-1/2                   A4 1:5
+  027 Drawer 03              x1   1/2" plate, 6 x 13                       A4 1:2
+  028 Drawer 04              x1   1/2" plate, 6 x 13                       A4 1:2
+  029 Drawer 05              x2   1/2" plate, 5-1/2 x 13                   A4 1:2
+  030 Drawer 06              x1   1/2" plate, 5 x 13                       A4 1:2
+  031 Drawer 07              x2   round / tube, 1 dia x 34                 A4 1:5
+  032 Drawer 08              x1   1/2" plate, 3-1/2 x 13                   A4 1:5
+  033 Drawer 09              x3   1/2" plate, 5-1/2 x 7                    A4 1:2
+  034 Drawer 10              x8   3-3/4 x 3 x 1 (see model)                A4 1:2
+  035 Drawer 11              x2   1/2" plate, 3-1/2 x 3-1/2                A4 1:2
+  036 Drawer 12              x4   1/4" plate, 3 x 3-3/4                    A4 1:1
+  037 Drawer 13              x16  round / tube, 1.227 dia x 4.390          A4 1:1
+  038 Drawer 14              x4   round / tube, 1-1/4 dia x 1-1/4          A4 1:1
+  039 Drawer 15              x16  1.227 x 1-1/16 x 5/8 (see model)         A4 1:1
+  040 Arms 01                x1   1/2" plate, 6 x 72                       A4 1:10
+  041 Arms 02                x1   1/2" plate, 6-1/8 x 72                   A4 1:10
+  042 Arms 03                x2   1/2" plate, 5.966 x 72                   A4 1:10
+  043 Arms 04                x2   1/2" plate, 4 x 72                       A4 1:10
+  044 Arms 05                x2   1/2" plate, 4 x 72                       A3 1:10
+  045 Arms 06                x1   1/8" plate, 14 x 30                      A4 1:5
+  046 Arms 07                x1   1/8" plate, 13-1/2 x 30                  A4 1:5
+  047 Arms 08                x4   36 x 2 x 2 (see model)                   A4 1:5
+  048 Arms 09                x12  6 x 2-1/2 x 2-1/2 (see model)            A4 1:2
+  049 Arms 10                x4   1/4" plate, 6 x 6                        A4 1:2
+  050 Arms 11                x2   1/2" plate, 3 x 3                        A4 1:1
+  051 Arms 12                x6   1/2" plate, 1.179 x 7.175                A4 1:1
+  052 Hopper 01              x1   1/8" plate, 30 x 60                      A3 1:10
+  053 Hopper 02              x1   1/8" plate, 31 x 53.741                  A3 1:10
+  054 Hopper 03              x2   1/8" plate, 23-5/16 x 38.263             A3 1:5
+  055 Hopper 04              x2   39 x 2 x 2 (see model)                   A4 1:5
+  056 Hopper 05              x2   30 x 2 x 2 (see model)                   A4 1:5
+  057 Hopper 06              x4   26-1/2 x 3.300 x 1/2 (see model)         A4 1:5
+  058 Hopper 07              x4   1/8" plate, 3 x 26-1/2                   A4 1:5
+  059 Hopper 08              x4   6 x 2-1/2 x 2-1/2 (see model)            A4 1:2
+  060 Hopper 09              x4   1/4" plate, 2-1/2 x 4                    A4 1:1
+  061 Hopper 10              x8   1/4" plate, 1.789 x 4.472                A4 1:1
+  062 Hopper 11              x4   1.299 x 1-1/8 x 0.665 (see model)        A4 1:1
+  063 Grate 01               x1   56 x 12.480 x 2.146 (see model)          A3 1:5
+  064 Grate 02               x2   1/2" plate, 2-1/4 x 56                   A3 1:5
+  065 Grate 03               x1   1/4" plate, 6 x 29.276                   A4 1:5
+  066 Grate 04               x2   24 x 13.521 x 1.558 (see model)          A3 1:5
+  067 Grate 05               x1   1/4" plate, 2 x 56                       A3 1:5
+  068 Grate 06               x2   1/2" plate, 2 x 23                       A4 1:5
+  069 Grate 07               x1   1/4" plate, 2-1/2 x 24.276               A4 1:5
+  070 Grate 08               x31  1/4" plate, 2 x 23                       A4 1:5
+  071 Grate 09               x4   6 x 2-1/2 x 2-1/2 (see model)            A4 1:2
+  072 Grate 10               x8   1/2" plate, 2-1/2 x 5                    A4 1:1
+  073 Grate 11               x4   1/2" plate, 2 x 3                        A4 1:1
+  074 Grate 12               x4   1.299 x 1-1/8 x 0.665 (see model)        A4 1:1
+  075 Secondary Cylinder 01  x1   round / tube, 3 dia x 39-3/4             A3 1:5
+  076 Secondary Cylinder 02  x1   round / tube, 1-3/16 dia x 4.350         A4 1:1
+  /home/clementsj/projects/ceb/CEB_Press_v17.08/drawings/CEB_Press_v17.08.pdf
