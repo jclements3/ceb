@@ -2345,7 +2345,12 @@ def anim_meta(p: Params):
     cx, cz = head_point(p, ref.theta, ref.psi, ref.zp, (lx, lz))
     return dict(hinge=list(p.gpin), psi_ref=-(ref.psi + ref.theta), zp_ref=ref.zp,
                 claw_pivot=[cx, cz], claw_open=LATCH_OPEN, claw_on="handle", title=TITLE,
-                feed_park=feed_park(p), gate_travel=gate_travel(p))
+                feed_park=feed_park(p), gate_travel=gate_travel(p),
+                view_target=VIEW_TARGET, views=dict(iso=VIEW_ISO))
+
+
+VIEW_TARGET = [8.0, 6.0, 30.0]       # default viewer camera: front corner, a little above, like the
+VIEW_ISO = [-27.0, -104.0, 75.0]      # makers' catalogue photos (long side facing you, handle rising on the left)
 
 
 def ease(s):

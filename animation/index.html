@@ -348,8 +348,10 @@ ol.phases li button[aria-current="step"] span { color: var(--accent-ink); }
     if (e.key === "ArrowLeft") { playing = false; frame = Math.max(0, frame - 1); sync(); }
   });
 
-  const target = new THREE.Vector3(18, 0, 20);
-  const VIEWS = { iso: [-38, -95, 70], front: [18, -140, 24], side: [-120, 0, 28], top: [18, -1, 160] };
+  // default view like a maker's catalogue photo: front corner, a little above, handle rising on the
+  // left, feed hopper on the right (the press may override via meta.view_target / meta.views)
+  const target = new THREE.Vector3(...(M.view_target || [18, 0, 20]));
+  const VIEWS = Object.assign({ iso: [-38, -95, 70], front: [18, -140, 24], side: [-120, 0, 28], top: [18, -1, 160] }, M.views || {});
   function setView(k) { const v = VIEWS[k]; camera.position.set(v[0], v[1], v[2]); controls.target.copy(target); controls.update(); }
   document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
   setView("iso");
