@@ -4,3 +4,10 @@ trade.log
 __pycache__/
 sysml-kernel/
 pilot.zip
+
+# Generated STEP exports: rebuilt by the drawing scripts (cinva_drawings.py, CEB_Press_v17.08/*/...)
+drawings/**/*.step
+CEB_Press_v17.08/drawings/*.step
+CEB_Press_v17.08/*/drawings/*.step
+# OSE source files the Press 6 script fetches when OSE/ is absent
+CEB_Press_v17.08/press6/source/ose/

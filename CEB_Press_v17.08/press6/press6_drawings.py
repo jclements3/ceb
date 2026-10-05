@@ -36,9 +36,57 @@ from build123d import Color, Compound, Shape, Solid, Unit, Vector, export_brep, 
 import cinva_drawings as D  # noqa: E402
 import v1708_drawings as V  # noqa: E402
 
-REF = os.path.join(ROOT, "OSE", "ceb_press_cnc_package", "reference")
-DXF_LIB = os.path.join(ROOT, "OSE", "ceb_press_cnc_package", "dxf")
+# Inputs. OSE's files come from the untracked OSE/ download (OSE/get_ceb_plans.sh) when it is there; otherwise
+# ensure_sources() fetches them from the OSE wiki into source/ose/ (gitignored). The drawing cross-reference index
+# and the DXF cluster extractor are kept in this folder.
+_OSE = os.path.join(ROOT, "OSE", "ceb_press_cnc_package")
+_CACHE = os.path.join(HERE, "source", "ose")
+_HAVE_OSE = os.path.exists(os.path.join(_OSE, "reference", "full_assembly.stp"))
+REF = os.path.join(_OSE, "reference") if _HAVE_OSE else _CACHE
+DXF_LIB = os.path.join(_OSE, "dxf") if _HAVE_OSE else os.path.join(_CACHE, "dxf")
 STEP_IN = os.path.join(REF, "full_assembly.stp")
+INDEX = os.path.join(HERE, "source", "drawing_index.md")
+WIKI = "https://wiki.opensourceecology.org"
+DXF_URLS = {"half_inch_steel_library.dxf": "/images/8/88/.5IN_STEEL_LIBRARY.dxf",
+            "quarter_inch_steel_library.dxf": "/images/d/d2/.25_STEEL_LIBRARY.dxf",
+            "eighth_inch_steel_library.dxf": "/images/a/a7/.125_STEEL_LIBRARY.dxf"}
+
+
+def _fetch(url, dest):
+    import urllib.request
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (CEB-fab-download)"})
+    with urllib.request.urlopen(req, timeout=300) as r, open(dest + ".part", "wb") as f:
+        f.write(r.read())
+    os.replace(dest + ".part", dest)
+    print(f"  fetched {os.path.relpath(dest, ROOT)}")
+
+
+def _wiki_file(title, dest):
+    """Download an OSE wiki File: by scraping its description page for the /images/ link."""
+    import urllib.request
+    req = urllib.request.Request(f"{WIKI}/wiki/File:{title}", headers={"User-Agent": "Mozilla/5.0"})
+    page = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
+    m = [u for u in re.findall(r'href="(/images/[^"]+)"', page) if "/archive/" not in u]
+    if not m:
+        raise SystemExit(f"could not resolve {WIKI}/wiki/File:{title}; download it to {dest} by hand")
+    _fetch(WIKI + m[0], dest)
+
+
+def ensure_sources():
+    """Fetch OSE's STEP, 2D drawing set and CNC DXF libraries if they are not on disk."""
+    if not os.path.exists(STEP_IN):
+        _wiki_file("01-001-00-6.stp", STEP_IN)
+    d2 = os.path.join(REF, "2d_drawings")
+    if not os.path.isdir(d2):
+        import zipfile
+        z = os.path.join(REF, "2d_drawings.zip")
+        if not os.path.exists(z):
+            _wiki_file("CEBVI_2D_DRAWING_PDF.zip", z)
+        zipfile.ZipFile(z).extractall(d2)
+    for name, path in DXF_URLS.items():
+        if not os.path.exists(os.path.join(DXF_LIB, name)):
+            _fetch(WIKI + path, os.path.join(DXF_LIB, name))
 OUT = os.path.join(HERE, "drawings")
 MM = 1 / 25.4
 STEEL = 0.2836
@@ -99,7 +147,7 @@ def label_of(name):
 
 def read_index():
     out = {}
-    for line in open(os.path.join(REF, "drawing_index.md")):
+    for line in open(INDEX):
         c = [x.strip() for x in line.strip().strip("|").split("|")]
         if len(c) >= 5 and re.match(r"01-\d{3}$", c[0]):
             out[c[0]] = dict(bom=c[1], wdwg=c[2], wdesc=c[3].rstrip(", "), wmat=c[4], lib=c[5] if len(c) > 5 else "")
@@ -117,7 +165,7 @@ def read_titles():
 
 def dxf_outlines():
     """{L-label: (w, h, thickness)} from the original OSE CNC libraries (largest cluster per label)."""
-    sys.path.insert(0, os.path.join(ROOT, "OSE", "freecad"))
+    sys.path.insert(0, HERE)                      # extract_parts.py: copy of OSE/freecad/extract_parts.py
     import ezdxf
     import extract_parts as E
     out = {}
@@ -485,6 +533,7 @@ def main():
     ap.add_argument("--no-pdf", action="store_true")
     ap.add_argument("-j", type=int, default=2, help="worker processes for part sheets")
     a = ap.parse_args()
+    ensure_sources()
     D.m = sys.modules[__name__]
     p = P()
     parts, inst, purchased, idx = build(None)

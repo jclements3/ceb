@@ -69,3 +69,12 @@ See `naming` and `dxf_checks` in `drawings/manifest.json` and the summary at the
   01-272); they are drawn once, quantity 2.
 * L-labels in the DXF libraries but not in the STEP: L-D9 is in the STEP as 01-028-00-2; L-H7 and L-Q10 are
   printed-plastic parts; L-H14, L-O10, L-Q16 have no STEP part. L-O9 is in the STEP as 01-143, typed "L-09".
+
+## Rebuilding from a fresh clone
+
+`press6_drawings.py` uses OSE's files from `OSE/ceb_press_cnc_package/` (from `OSE/get_ceb_plans.sh`) when that
+folder exists. Otherwise it fetches OSE's main-assembly STEP (`01-001-00-6.stp`), the 2D drawing set
+(`CEBVI_2D_DRAWING_PDF.zip`) and the three CNC DXF libraries from the OSE wiki into `source/ose/`, which is
+gitignored. The drawing cross-reference index (`source/drawing_index.md`) and the DXF cluster extractor
+(`extract_parts.py`, from `OSE/freecad/`) are kept here. The STEP export in `drawings/` is not tracked: run the
+script to make it.

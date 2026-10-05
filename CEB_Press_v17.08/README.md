@@ -48,3 +48,8 @@ The shaker is modelled from two OSE sources:
 
 Where the two disagree, the weldment drawing is used. The guard outline comes from the manual. The
 assembly sheet's arrangement is indicative: it follows the section on weldment 001-0048, sheet 2.
+
+## Generated files
+
+STEP exports (`*/drawings/*.step`) are gitignored: each drawing script writes its STEP when run. The PDFs, SVG
+sheets and DXFs are kept in the repo for the web page and for shops without a build123d setup.
