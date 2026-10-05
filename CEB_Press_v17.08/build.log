@@ -1,4 +1,4 @@
-/home/clementsj/projects/ceb/CEB_Press_v17.08/v1708_drawings.py:242: UserWarning: Skipping ellipse that is too small to export safely (length < 1e-6).
+/home/clementsj/projects/ceb/CEB_Press_v17.08/v1708_drawings.py:243: UserWarning: Skipping ellipse that is too small to export safely (length < 1e-6).
   sh.svg(path)
   00_assembly.svg
   01_frame.svg

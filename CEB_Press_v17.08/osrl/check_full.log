@@ -1,0 +1,40 @@
+OSRL CEB press 12x6x4: fill 7.625 -> block 4.088 (yoke hole 4), mold top 21.00 above the ground
+  toggle e 2.875, P->axle 18.951, lever -16.7 -> 90 deg, piston +3.500
+  piston force 12,628 lbf at 200 psi -> peak hand force 199 lbf (48 in lever); design 18,942 lbf at 300 psi
+  poses: fill tau=-38.3, start tau=-16.7, locked tau=-8.3, eject tau=-88.5
+  42 part types, weight about 185 lb (their 205 lb)
+  Piston pin, bending                     108.5 ksi /  33.0  OVER  (F/2 x 1.125, 1 CRS)
+  Piston pin, shear                        12.1 ksi /  20.0  ok  (F/2 per side)
+  Yoke arm, net tension at P               17.6 ksi /  29.0  ok  (F/2 on 0.539 sq in)
+  Yoke arm, pin bearing                    25.3 ksi /  32.4  ok  (F/2 on 1.0 x 3/8)
+  Head bolts, shear                        24.1 ksi /  36.8  ok  (F/2 on two 1/2 bolts per side)
+  Yoke arm, bolt bearing                   25.3 ksi /  32.4  ok  (F/2 on two 1/2 x 3/8)
+  Toggle axle, bending                     36.2 ksi /  33.0  OVER  (F/2 x 0.375, 1 CRS)
+  Pivot mount, axle bearing                25.3 ksi /  32.4  ok  (F/2 on 1.0 x 3/8)
+  Follower axle, bending                   30.1 ksi /  33.0  ok  (F/2 x 0.312 (rail under the follower's inner edge))
+  Rail scoop, bearing                      18.9 ksi /  32.4  ok  (F/2 on 2.0 x 1/4 (follower seated))
+  Lid and rails, bending                   55.2 ksi /  23.8  OVER  (M = F L / 8 at the scoop, I = 0.76 in^4)
+  Lid plate between rails                  78.4 ksi /  23.8  OVER  (strip span 3.50, 3/16)
+  Lid plate outside rails                  40.0 ksi /  23.8  OVER  (cantilever 1.250, 3/16)
+  Side plate, bending                     172.8 ksi /  23.8  OVER  (K0 0.5, span 12 between the channel flanges, 1/4, ends fixed)
+  Channel web (mold end)                   14.1 ksi /  23.8  ok  (K0 0.5, span 6 between flanges, 0.437)
+  Lever, bending at the toggle body        52.6 ksi /  23.1  OVER  (299 lbf x 41.2, 1-1/4 sch 40)
+  Toggle body, bending at the axle         19.5 ksi /  30.4  ok  (299 lbf x 49.0, 2 x 3/16 sq)
+  Eject axle, bending                       8.7 ksi /  33.0  ok  (343 lbf per roller x 1.05, 3/4 CRS)
+  Yoke arm, bending on the eject roller     5.6 ksi /  23.8  ok  (600 lbf at P, 7.3 in lever, 2 arms)
+  PASS  Block thickness at hole 4: 4.088 in (nominal 4); holes 1..5 give 7.06, 6.07, 5.08, 4.09, 3.10
+  PASS  Compression ratio: loose fill 7.625 -> 4.088 = 1.87
+  PASS  Followers drop into the scoops as the yoke stands up: seated at yoke tilt -16.7 deg with the piston 0.037 in off the bottom; riding over the rail lifts it at most 1.079 in
+  PASS  Piston rises steadily as the lever goes over: lever -16.7 -> 90 deg, piston +3.500 in
+  PASS  Dead centre at lever horizontal: toggle axle straight over the followers and the pin; yoke tilt -8.3 deg. No positive stop past centre in their drawings: the operator holds the lever down, then raises it
+  PASS  Yoke rests on the eject rollers to fill and eject: fill -38.3 deg, eject -88.5 deg (roller in hole 7)
+  PASS  Eject: lever end stays above the ground: lever end 59 in -> 17 in
+  PASS  Eject hand force: 85 lbf at 600 lbf to break the block loose
+  PASS  Lid counterweight balance: lid 45 lb in, counterweights -57 lb in about the hinge (1.26); opens to 74 deg, resting on the front channel
+  PASS  Lever force (their 80 lbf): peak 199 lbf at 200 psi; 80 lbf presses to 80 psi
+  FAIL  Mold cavity clear (start): Pivot Mount 0.0081; Pivot Mount (mirror) 0.0081
+  PASS  Mold cavity clear (locked): nothing inside the mold
+  FAIL  All positions and motions clear: Start of pressing (followers in the scoops): Front Channel x Pivot Mount (0.0148); Start of pressing (followers in the scoops): Front Channel x Pivot Mount (mirror) (0.0148); Start of pressing (followers in the scoops): Lid x Pivot Mount (0.0713); Start of pressing (followers in the scoops): Lid x Pivot Mount (mirror) (0.0713); Start of pressing (followers in the scoops): Counterweight Arm x Head Body (0.026); Start of pressing (followers in the scoops): Counterweight Arm (mirror) x Head Body (0.026); Start of pressing (followers in the scoops): Hinge Pin x Head Side (0.0238); Start of pressing (followers in the scoops): Hinge Pin (mirror) x Head Side (mirror) (0.0238); stand up -38: Counterweight x Head Body (0.1343); stand up -38: Counterweight (mirror) x Head Body (0.1343); stand up -35: Counterweight Arm x Head Body (0.0611); stand up -35: Counterweight Arm (mirror) x Head Body (0.0611)
+  FAIL  Block rises out of the mold unobstructed: eject -63: Lid 0.1221; eject -72: Lid 1.4116; eject -72: Lid Rail 0.0517; eject -72: Lid Rail (mirror) 0.0517; eject -80: Lid 2.6387; eject -80: Lid Rail 0.2509; eject -80: Lid Rail (mirror) 0.2509; eject -89: Lid 3.8607; eject -89: Lid Rail 0.5606; eject -89: Lid Rail (mirror) 0.5606
+  PASS  Block fully above the mold at eject: block bottom +0.062 from mold top
+  FAIL  Block lifts straight off (18 in): Lid 11.5751; Lid Rail 4.7064; Lid Rail (mirror) 4.7064; Upper Insert 1.8891; Upper Insert 1.0667

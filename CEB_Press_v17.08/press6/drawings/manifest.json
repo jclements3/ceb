@@ -1,0 +1,2622 @@
+{
+ "model": "OSE CEB Press 6",
+ "title": "OSE CEB Press 6",
+ "pdf": "CEB_Press_6.pdf",
+ "step": "CEB_Press_6.step",
+ "source": "OSE full_assembly.stp (01-001-00-6); OSE CEB a-z Build 1.0 manual",
+ "naming": {
+  "parts": 84,
+  "described": 47,
+  "by_assembly": 35,
+  "dxf_labels": 67,
+  "dxf_match": 57,
+  "dxf_bent": 4
+ },
+ "purchased": [
+  {
+   "module": "Press Cylinder and Foot",
+   "name": "01-166-01-0",
+   "qty": 2
+  },
+  {
+   "module": "Press Cylinder and Foot",
+   "name": "01-187-00-0 PMC-21012",
+   "qty": 1
+  },
+  {
+   "module": "Arms",
+   "name": "211 - hex nut_ai_HNUT 0.7500-10-D-C",
+   "qty": 8
+  },
+  {
+   "module": "Feet and Legs",
+   "name": "211 - hex nut_ai_HNUT 0.7500-10-D-C",
+   "qty": 8
+  },
+  {
+   "module": "Feet and Legs",
+   "name": "hex bolt_ai_2_HBOLT 0.7500-10x3",
+   "qty": 4
+  },
+  {
+   "module": "Drawer",
+   "name": ".5 HN",
+   "qty": 8
+  },
+  {
+   "module": "Drawer",
+   "name": "01-102-01-0",
+   "qty": 2
+  },
+  {
+   "module": "Drawer",
+   "name": "01-185-00-0 - 25TL14-112",
+   "qty": 1
+  },
+  {
+   "module": "Drawer",
+   "name": "01-230-00-0 L-Q10",
+   "qty": 4
+  },
+  {
+   "module": "Drawer",
+   "name": "01-231-00-0 L-H7",
+   "qty": 12
+  },
+  {
+   "module": "Drawer",
+   "name": "01-233-00-0",
+   "qty": 4
+  },
+  {
+   "module": "Drawer",
+   "name": "5700K14",
+   "qty": 4
+  },
+  {
+   "module": "Drawer",
+   "name": "5700K14_2",
+   "qty": 4
+  },
+  {
+   "module": "Hopper",
+   "name": "01-066-00-0_2",
+   "qty": 4
+  },
+  {
+   "module": "Hopper",
+   "name": "01-066-00-0_3",
+   "qty": 8
+  },
+  {
+   "module": "Hopper",
+   "name": "211 - hex nut_ai_HNUT 0.7500-10-D-C",
+   "qty": 6
+  },
+  {
+   "module": "Grate",
+   "name": "211 - hex nut_ai_HNUT 0.7500-10-D-C",
+   "qty": 4
+  },
+  {
+   "module": "Soil Shaker",
+   "name": "01-078-00-0",
+   "qty": 2
+  },
+  {
+   "module": "Soil Shaker",
+   "name": "01-085-00-0",
+   "qty": 1
+  },
+  {
+   "module": "Soil Shaker",
+   "name": "01-191-00-0",
+   "qty": 1
+  },
+  {
+   "module": "Soil Shaker",
+   "name": "204 - SS-4-SAE-7_4_2",
+   "qty": 1
+  },
+  {
+   "module": "Soil Shaker",
+   "name": "205 - SS-8-T_3",
+   "qty": 1
+  },
+  {
+   "module": "Soil Shaker",
+   "name": "206 - Male Hex Nipple, NPT_SS-8-HN_1_2",
+   "qty": 2
+  },
+  {
+   "module": "Soil Shaker",
+   "name": "207 - SS-4-SAE-7_4_3",
+   "qty": 1
+  },
+  {
+   "module": "Soil Shaker",
+   "name": "208 - SS-8-RB-4",
+   "qty": 1
+  },
+  {
+   "module": "Soil Shaker",
+   "name": "209 - Control Valve - 0.5NPTF",
+   "qty": 1
+  },
+  {
+   "module": "Controls",
+   "name": "211 - hex nut_ai_HNUT 0.7500-10-D-C",
+   "qty": 2
+  },
+  {
+   "module": "Controls",
+   "name": "212 - .313-18 X",
+   "qty": 4
+  },
+  {
+   "module": "Controls",
+   "name": "213 - HYVAIR-D05S-2C-12D-35 SOLENOID",
+   "qty": 2
+  },
+  {
+   "module": "Controls",
+   "name": "214 - DAMANAD05S033S MOUNTING BRACKET",
+   "qty": 2
+  },
+  {
+   "module": "Controls",
+   "name": "215 - DAMAN-AD05S033S VALVE BLOCK",
+   "qty": 1
+  },
+  {
+   "module": "Controls",
+   "name": "216 - HYVAIR-D05S-2H-12D-35 SOLENOID",
+   "qty": 1
+  },
+  {
+   "module": "Hardware",
+   "name": ".313 X 1 HHCS",
+   "qty": 4
+  },
+  {
+   "module": "Hardware",
+   "name": ".5 X 2 SHCS",
+   "qty": 16
+  },
+  {
+   "module": "Hardware",
+   "name": "hex bolt_ai_2_HBOLT 0.7500-10 x 5",
+   "qty": 6
+  },
+  {
+   "module": "Hardware",
+   "name": "hex bolt_ai_2_HBOLT 0.7500-10x1.5x1.5-N",
+   "qty": 28
+  },
+  {
+   "module": "Hardware",
+   "name": "hex bolt_ai_2_HBOLT 0.7500-10x2.5x2.5-C",
+   "qty": 40
+  },
+  {
+   "module": "Hardware",
+   "name": "hex bolt_ai_2_HBOLT 0.7500-10x2x2-C",
+   "qty": 34
+  },
+  {
+   "module": "Hardware",
+   "name": "hex bolt_ai_2_HBOLT 0.7500-10x3",
+   "qty": 13
+  }
+ ],
+ "dxf_checks": [
+  {
+   "label": "L-F1",
+   "match": true,
+   "model": [
+    26.20009246084303,
+    6.00000000000012,
+    0.5000001999999999
+   ],
+   "dxf": [
+    26.20009246084311,
+    5.999999999999972,
+    0.5
+   ]
+  },
+  {
+   "label": "L-F12",
+   "match": true,
+   "model": [
+    9.0,
+    5.999999999999926,
+    0.5000000000000054
+   ],
+   "dxf": [
+    9.000000000000043,
+    5.99999999999992,
+    0.5
+   ]
+  },
+  {
+   "label": "L-F2",
+   "match": true,
+   "model": [
+    26.2,
+    8.000000000000018,
+    0.5000001999999999
+   ],
+   "dxf": [
+    26.200000000000102,
+    8.000000000000007,
+    0.5
+   ]
+  },
+  {
+   "label": "L-F7",
+   "match": true,
+   "model": [
+    5.900000000000002,
+    2.000000000000009,
+    0.5
+   ],
+   "dxf": [
+    5.900000000000006,
+    2.000000000000014,
+    0.5
+   ]
+  },
+  {
+   "label": "L-F4",
+   "match": true,
+   "model": [
+    43.5,
+    6.000000000000009,
+    0.5000000000000321
+   ],
+   "dxf": [
+    43.500000000000014,
+    6.0,
+    0.5
+   ]
+  },
+  {
+   "label": "L-F3",
+   "match": true,
+   "model": [
+    43.499999999999964,
+    4.5000000000000275,
+    0.5000001999999999
+   ],
+   "dxf": [
+    43.4999999999999,
+    4.500000000000021,
+    0.5
+   ]
+  },
+  {
+   "label": "L-F9",
+   "match": true,
+   "model": [
+    31.04608294930874,
+    12.000000000000036,
+    0.5000001999999999
+   ],
+   "dxf": [
+    31.04608294930877,
+    12.000000000000007,
+    0.5
+   ]
+  },
+  {
+   "label": "L-F10",
+   "match": true,
+   "model": [
+    31.399999999998613,
+    3.500000000000057,
+    0.5000000000000568
+   ],
+   "dxf": [
+    31.39999999999843,
+    3.499999999999993,
+    0.5
+   ]
+  },
+  {
+   "label": "L-F6",
+   "match": true,
+   "model": [
+    19.500000000000004,
+    3.500000000000007,
+    0.5000000000000036
+   ],
+   "dxf": [
+    19.5000000000002,
+    3.499999999999996,
+    0.5
+   ]
+  },
+  {
+   "label": "L-F5",
+   "match": true,
+   "model": [
+    23.750000000000004,
+    3.50000000000001,
+    0.5000002000001137
+   ],
+   "dxf": [
+    23.7499999999999,
+    3.4999999999999893,
+    0.5
+   ]
+  },
+  {
+   "label": "L-Q2",
+   "match": null,
+   "model": null,
+   "dxf": null
+  },
+  {
+   "label": "L-Q1",
+   "match": true,
+   "model": [
+    9.000050138890865,
+    2.599999999924303,
+    0.2500000000000462
+   ],
+   "dxf": [
+    9.000066334959879,
+    2.5999999994899383,
+    0.25
+   ]
+  },
+  {
+   "label": "L-F13",
+   "match": true,
+   "model": [
+    6.0,
+    1.2500000000000004,
+    0.5000000000000018
+   ],
+   "dxf": [
+    6.000000000000005,
+    1.25,
+    0.5
+   ]
+  },
+  {
+   "label": "L-O11",
+   "match": true,
+   "model": [
+    4.5000002,
+    4.5000002,
+    0.5000001999999999
+   ],
+   "dxf": [
+    4.5,
+    4.5,
+    0.5
+   ]
+  },
+  {
+   "label": "L-O12",
+   "match": true,
+   "model": [
+    4.750000199999993,
+    4.750000199999993,
+    0.5000001999999999
+   ],
+   "dxf": [
+    4.75,
+    4.749999999999993,
+    0.5
+   ]
+  },
+  {
+   "label": "L-O13",
+   "match": true,
+   "model": [
+    4.2500002,
+    4.2500002,
+    0.5000001999999999
+   ],
+   "dxf": [
+    4.25,
+    4.25,
+    0.5
+   ]
+  },
+  {
+   "label": "L-A3",
+   "match": true,
+   "model": [
+    72.0,
+    4.000000000000014,
+    0.500000000000071
+   ],
+   "dxf": [
+    72.00000000000001,
+    4.000000000000039,
+    0.5
+   ]
+  },
+  {
+   "label": "L-A2",
+   "match": true,
+   "model": [
+    72.00000000000003,
+    5.966034852844162,
+    0.5000000000000284
+   ],
+   "dxf": [
+    72.00000000000001,
+    5.96603485284388,
+    0.5
+   ]
+  },
+  {
+   "label": "L-A1",
+   "match": true,
+   "model": [
+    72.00000000000003,
+    4.00000000000014,
+    0.5000001999999999
+   ],
+   "dxf": [
+    72.00000000000003,
+    4.0,
+    0.5
+   ]
+  },
+  {
+   "label": "L-D7",
+   "match": true,
+   "model": [
+    3.0,
+    3.0,
+    0.5000001999999999
+   ],
+   "dxf": [
+    3.000000000000064,
+    3.0000000000000107,
+    0.5
+   ]
+  },
+  {
+   "label": "L-A5",
+   "match": true,
+   "model": [
+    72.00000000000021,
+    6.000000000001698,
+    0.5000000000000853
+   ],
+   "dxf": [
+    71.99999999999999,
+    6.00000000000357,
+    0.5
+   ]
+  },
+  {
+   "label": "L-A4",
+   "match": true,
+   "model": [
+    72.00000000000001,
+    6.125000000000006,
+    0.5000000000000501
+   ],
+   "dxf": [
+    72.00000000000001,
+    6.124999999999998,
+    0.5
+   ]
+  },
+  {
+   "label": "L-A6",
+   "match": false,
+   "model": [
+    7.174868921469596,
+    1.1791119929318215,
+    0.4999999999999973
+   ],
+   "dxf": [
+    20.946321852857295,
+    7.454030187813608,
+    0.5
+   ]
+  },
+  {
+   "label": "L-Q17",
+   "match": true,
+   "model": [
+    6.000000000000073,
+    6.000000000000073,
+    0.25
+   ],
+   "dxf": [
+    6.000000000000114,
+    5.999999999999957,
+    0.25
+   ]
+  },
+  {
+   "label": "L-Q9",
+   "match": true,
+   "model": [
+    3.999999999998585,
+    2.5,
+    0.2500002
+   ],
+   "dxf": [
+    3.9999999999986002,
+    2.5,
+    0.25
+   ]
+  },
+  {
+   "label": "L-Q15",
+   "match": true,
+   "model": [
+    4.0000017864142885,
+    1.9999999999992044,
+    0.25000000000000533
+   ],
+   "dxf": [
+    3.9999999999986926,
+    2.000000000000057,
+    0.25
+   ]
+  },
+  {
+   "label": "L-D5",
+   "match": true,
+   "model": [
+    13.000000000000004,
+    6.000000000000046,
+    0.5000000000000693
+   ],
+   "dxf": [
+    12.999999999999979,
+    6.000000000000007,
+    0.5
+   ]
+  },
+  {
+   "label": "L-D9",
+   "match": true,
+   "model": [
+    3.5000000000000084,
+    3.5000000000000067,
+    0.5000001999999999
+   ],
+   "dxf": [
+    3.5,
+    3.5,
+    0.5
+   ]
+  },
+  {
+   "label": "L-D3",
+   "match": true,
+   "model": [
+    13.000000000000039,
+    5.500000000000134,
+    0.5000000000000133
+   ],
+   "dxf": [
+    13.000000000000014,
+    5.500000000000021,
+    0.5
+   ]
+  },
+  {
+   "label": "L-D2",
+   "match": true,
+   "model": [
+    18.499999999996078,
+    6.000000000000126,
+    0.5000001999999999
+   ],
+   "dxf": [
+    18.499999999996056,
+    6.0,
+    0.5
+   ]
+  },
+  {
+   "label": "L-D1",
+   "match": true,
+   "model": [
+    15.000000000000057,
+    13.00000000000004,
+    0.5000000000000426
+   ],
+   "dxf": [
+    14.999999999999986,
+    13.000000000000014,
+    0.5
+   ]
+  },
+  {
+   "label": "L-F8",
+   "match": true,
+   "model": [
+    18.558221123583213,
+    11.863121929420842,
+    0.5000001999999999
+   ],
+   "dxf": [
+    18.558221123583195,
+    11.863121929420828,
+    0.5
+   ]
+  },
+  {
+   "label": "L-Q5",
+   "match": true,
+   "model": [
+    18.5582211235848,
+    4.75,
+    0.25
+   ],
+   "dxf": [
+    18.558221123584758,
+    4.750000000000021,
+    0.25
+   ]
+  },
+  {
+   "label": "L-Q3",
+   "match": true,
+   "model": [
+    18.558221123583245,
+    3.8750000000001137,
+    0.25
+   ],
+   "dxf": [
+    18.558221123583195,
+    3.875,
+    0.25
+   ]
+  },
+  {
+   "label": "L-Q4",
+   "match": true,
+   "model": [
+    11.863121929424775,
+    3.8750000000000386,
+    0.25
+   ],
+   "dxf": [
+    11.86312192942502,
+    3.8750000000000853,
+    0.25
+   ]
+  },
+  {
+   "label": "L-D4",
+   "match": true,
+   "model": [
+    7.000000000000027,
+    5.500000000000114,
+    0.5000000000000133
+   ],
+   "dxf": [
+    7.0,
+    5.500000000000007,
+    0.5
+   ]
+  },
+  {
+   "label": "L-D8",
+   "match": true,
+   "model": [
+    13.000000000015763,
+    4.9999999999961044,
+    0.500000000000024
+   ],
+   "dxf": [
+    13.000000000015746,
+    4.999999999996055,
+    0.5
+   ]
+  },
+  {
+   "label": "L-D6",
+   "match": true,
+   "model": [
+    13.000000000000023,
+    6.000000000000061,
+    0.5000000000000115
+   ],
+   "dxf": [
+    12.999999999999979,
+    6.0,
+    0.5
+   ]
+  },
+  {
+   "label": "L-Q11",
+   "match": true,
+   "model": [
+    4.749984575026177,
+    4.000028528639016,
+    0.2500002
+   ],
+   "dxf": [
+    4.74998457502619,
+    4.000028528639206,
+    0.25
+   ]
+  },
+  {
+   "label": "L-Q12",
+   "match": false,
+   "model": [
+    5.700877125495844,
+    2.7627327608171792,
+    0.2500000000000142
+   ],
+   "dxf": [
+    4.75,
+    3.75,
+    0.25
+   ]
+  },
+  {
+   "label": "L-H19",
+   "match": null,
+   "model": null,
+   "dxf": null
+  },
+  {
+   "label": "L-H2",
+   "match": true,
+   "model": [
+    60.00000000000002,
+    29.99999999999993,
+    0.1250002
+   ],
+   "dxf": [
+    59.999999999999844,
+    29.999999999999915,
+    0.125
+   ]
+  },
+  {
+   "label": "L-H3",
+   "match": true,
+   "model": [
+    53.74122645132582,
+    31.00000000000266,
+    0.1250002
+   ],
+   "dxf": [
+    53.74122645132579,
+    31.000000000002657,
+    0.125
+   ]
+  },
+  {
+   "label": "L-H1",
+   "match": true,
+   "model": [
+    38.263069662546734,
+    23.309196357927096,
+    0.125
+   ],
+   "dxf": [
+    38.26306966254669,
+    23.30919635792708,
+    0.125
+   ]
+  },
+  {
+   "label": "L-H9",
+   "match": true,
+   "model": [
+    30.0,
+    14.000000000000012,
+    0.125
+   ],
+   "dxf": [
+    29.999999999999986,
+    14.0,
+    0.125
+   ]
+  },
+  {
+   "label": "L-H8",
+   "match": true,
+   "model": [
+    30.00000000000003,
+    13.500000000000057,
+    0.125
+   ],
+   "dxf": [
+    30.000000000000014,
+    13.500000000000057,
+    0.125
+   ]
+  },
+  {
+   "label": "L-H5",
+   "match": "bent",
+   "model": [
+    24.000000000000036,
+    13.520907736197424,
+    1.5575193885490959
+   ],
+   "dxf": [
+    23.00000000000003,
+    14.055596711804142,
+    0.125
+   ]
+  },
+  {
+   "label": "L-H12",
+   "match": "bent",
+   "model": [
+    35.63132175881251,
+    25.275000200000292,
+    3.1250000000000515
+   ],
+   "dxf": [
+    35.63132175881232,
+    31.100940237810505,
+    0.125
+   ]
+  },
+  {
+   "label": "L-H4",
+   "match": "bent",
+   "model": [
+    56.000000000000036,
+    12.479504082075163,
+    2.1462624949204865
+   ],
+   "dxf": [
+    56.00000000000142,
+    14.092418600971378,
+    0.125
+   ]
+  },
+  {
+   "label": "L-H10",
+   "match": "bent",
+   "model": [
+    25.27500020000088,
+    6.000000000000323,
+    3.1250000000000377
+   ],
+   "dxf": [
+    31.10094023781079,
+    6.0,
+    0.125
+   ]
+  },
+  {
+   "label": "L-G2",
+   "match": false,
+   "model": [
+    56.000000000000014,
+    2.2500000000000018,
+    0.5000002
+   ],
+   "dxf": [
+    56.0,
+    2.3120000000050993,
+    0.5
+   ]
+  },
+  {
+   "label": "L-G1",
+   "match": false,
+   "model": [
+    23.00000000000002,
+    2.0000000000001106,
+    0.5000001999999999
+   ],
+   "dxf": [
+    23.63057238964511,
+    2.0,
+    0.5
+   ]
+  },
+  {
+   "label": "L-O7",
+   "match": true,
+   "model": [
+    5.000000000000018,
+    2.500000000000006,
+    0.5000001999999999
+   ],
+   "dxf": [
+    5.0000000000000995,
+    2.5,
+    0.5
+   ]
+  },
+  {
+   "label": "L-Q13",
+   "match": true,
+   "model": [
+    29.275999999999847,
+    6.000000000000021,
+    0.25000000000000433
+   ],
+   "dxf": [
+    29.27599999999981,
+    6.000000000000021,
+    0.25
+   ]
+  },
+  {
+   "label": "L-Q14",
+   "match": true,
+   "model": [
+    24.276000000000003,
+    2.5000000000000133,
+    0.2500000000002274
+   ],
+   "dxf": [
+    24.275999999999982,
+    2.5,
+    0.25
+   ]
+  },
+  {
+   "label": "L-G3",
+   "match": true,
+   "model": [
+    3.0000000000001137,
+    2.0000000000001243,
+    0.5000001999999999
+   ],
+   "dxf": [
+    3.000000000000039,
+    2.0,
+    0.5
+   ]
+  },
+  {
+   "label": "L-O2",
+   "match": true,
+   "model": [
+    29.75000000000003,
+    4.000000000000382,
+    0.5000000000000002
+   ],
+   "dxf": [
+    29.749999999999986,
+    4.0,
+    0.5
+   ]
+  },
+  {
+   "label": "L-H6",
+   "match": true,
+   "model": [
+    29.0,
+    18.00000000000025,
+    0.12500000000004619
+   ],
+   "dxf": [
+    29.000000000000057,
+    18.000000000000036,
+    0.125
+   ]
+  },
+  {
+   "label": "L-O3",
+   "match": true,
+   "model": [
+    29.750000000000004,
+    8.000000000000018,
+    0.5000001999999999
+   ],
+   "dxf": [
+    29.749999999999957,
+    7.999999999999972,
+    0.5
+   ]
+  },
+  {
+   "label": "L-O4",
+   "match": true,
+   "model": [
+    8.00000000000003,
+    3.5000000000002176,
+    0.5000001999999999
+   ],
+   "dxf": [
+    7.999999999999986,
+    3.5,
+    0.5
+   ]
+  },
+  {
+   "label": "L-O5",
+   "match": true,
+   "model": [
+    7.000003572831224,
+    3.999999999998593,
+    0.5
+   ],
+   "dxf": [
+    7.0,
+    3.999999999999801,
+    0.5
+   ]
+  },
+  {
+   "label": "L-O1",
+   "match": true,
+   "model": [
+    12.000000000000002,
+    6.000000000000009,
+    0.5000001999999999
+   ],
+   "dxf": [
+    12.0000000000001,
+    6.0,
+    0.5
+   ]
+  },
+  {
+   "label": "L-Q6",
+   "match": true,
+   "model": [
+    15.000000000000021,
+    6.000000000000052,
+    0.25000000000000033
+   ],
+   "dxf": [
+    15.0,
+    5.999999999999744,
+    0.25
+   ]
+  },
+  {
+   "label": "L-Q8",
+   "match": true,
+   "model": [
+    12.000000000000004,
+    2.0000000000000306,
+    0.25000000000000006
+   ],
+   "dxf": [
+    12.000000000000028,
+    2.0,
+    0.25
+   ]
+  },
+  {
+   "label": "L-Q7",
+   "match": true,
+   "model": [
+    6.0000000000000036,
+    3.000000000000003,
+    0.25000000000001005
+   ],
+   "dxf": [
+    5.9999999999998295,
+    2.999999999999801,
+    0.25
+   ]
+  },
+  {
+   "label": "L-O9",
+   "match": true,
+   "model": [
+    2.5,
+    2.0000000000000053,
+    0.5000000000000018
+   ],
+   "dxf": [
+    2.5,
+    2.0,
+    0.5
+   ]
+  },
+  {
+   "label": "L-O8",
+   "match": true,
+   "model": [
+    3.966199008289616,
+    2.500000000000007,
+    0.5000001999999999
+   ],
+   "dxf": [
+    3.966199008289891,
+    2.4999999999999964,
+    0.5
+   ]
+  }
+ ],
+ "sheets": [
+  {
+   "key": "assembly",
+   "item": 0,
+   "name": "General assembly",
+   "sheet": 1,
+   "file": "00_assembly.svg",
+   "size": "A3",
+   "scale": "-",
+   "qty": 1,
+   "stock": "See parts list",
+   "sub": "",
+   "mass": 1790.5,
+   "dxf": false
+  },
+  {
+   "key": "sub1",
+   "item": 0,
+   "name": "Main Frame",
+   "sheet": 2,
+   "file": "01_main_frame.svg",
+   "size": "A3",
+   "scale": "-",
+   "qty": 1,
+   "stock": "Module",
+   "sub": "Main Frame",
+   "mass": 477.7,
+   "dxf": false
+  },
+  {
+   "key": "sub2",
+   "item": 0,
+   "name": "Press Cylinder and Foot",
+   "sheet": 3,
+   "file": "02_press_cylinder_and_foot.svg",
+   "size": "A3",
+   "scale": "-",
+   "qty": 1,
+   "stock": "Module",
+   "sub": "Press Cylinder and Foot",
+   "mass": 46.6,
+   "dxf": false
+  },
+  {
+   "key": "sub3",
+   "item": 0,
+   "name": "Arms",
+   "sheet": 4,
+   "file": "03_arms.svg",
+   "size": "A3",
+   "scale": "-",
+   "qty": 1,
+   "stock": "Module",
+   "sub": "Arms",
+   "mass": 406.1,
+   "dxf": false
+  },
+  {
+   "key": "sub4",
+   "item": 0,
+   "name": "Feet and Legs",
+   "sheet": 5,
+   "file": "04_feet_and_legs.svg",
+   "size": "A3",
+   "scale": "-",
+   "qty": 1,
+   "stock": "Module",
+   "sub": "Feet and Legs",
+   "mass": 97.2,
+   "dxf": false
+  },
+  {
+   "key": "sub5",
+   "item": 0,
+   "name": "Drawer",
+   "sheet": 6,
+   "file": "05_drawer.svg",
+   "size": "A3",
+   "scale": "-",
+   "qty": 1,
+   "stock": "Module",
+   "sub": "Drawer",
+   "mass": 182.0,
+   "dxf": false
+  },
+  {
+   "key": "sub6",
+   "item": 0,
+   "name": "Hopper",
+   "sheet": 7,
+   "file": "06_hopper.svg",
+   "size": "A3",
+   "scale": "-",
+   "qty": 1,
+   "stock": "Module",
+   "sub": "Hopper",
+   "mass": 292.2,
+   "dxf": false
+  },
+  {
+   "key": "sub7",
+   "item": 0,
+   "name": "Grate",
+   "sheet": 8,
+   "file": "07_grate.svg",
+   "size": "A3",
+   "scale": "-",
+   "qty": 1,
+   "stock": "Module",
+   "sub": "Grate",
+   "mass": 197.5,
+   "dxf": false
+  },
+  {
+   "key": "sub8",
+   "item": 0,
+   "name": "Soil Shaker",
+   "sheet": 9,
+   "file": "08_soil_shaker.svg",
+   "size": "A3",
+   "scale": "-",
+   "qty": 1,
+   "stock": "Module",
+   "sub": "Soil Shaker",
+   "mass": 67.6,
+   "dxf": false
+  },
+  {
+   "key": "sub9",
+   "item": 0,
+   "name": "Controls",
+   "sheet": 10,
+   "file": "09_controls.svg",
+   "size": "A3",
+   "scale": "-",
+   "qty": 1,
+   "stock": "Module",
+   "sub": "Controls",
+   "mass": 23.4,
+   "dxf": false
+  },
+  {
+   "key": "01_014_00_0_lf1",
+   "item": 1,
+   "name": "Frame Channel L-F1",
+   "sheet": 11,
+   "file": "001_01_014_00_0_lf1.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/2\" plate, 6 x 26.200",
+   "sub": "Main Frame",
+   "mass": 21.2,
+   "dxf": true,
+   "part_no": "01-014-00-0",
+   "label": "L-F1"
+  },
+  {
+   "key": "01_034_00_0_lf12",
+   "item": 2,
+   "name": "Short Side Channel L-F12",
+   "sheet": 12,
+   "file": "002_01_034_00_0_lf12.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 2,
+   "stock": "1/2\" plate, 6 x 9",
+   "sub": "Main Frame",
+   "mass": 7.5,
+   "dxf": true,
+   "part_no": "01-034-00-0",
+   "label": "L-F12"
+  },
+  {
+   "key": "01_041_00_0_lf2",
+   "item": 3,
+   "name": "Main Frame Channel L-F2",
+   "sheet": 13,
+   "file": "003_01_041_00_0_lf2.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/2\" plate, 8 x 26.200",
+   "sub": "Main Frame",
+   "mass": 28.8,
+   "dxf": true,
+   "part_no": "01-041-00-0",
+   "label": "L-F2"
+  },
+  {
+   "key": "01_107_00_0_lf7",
+   "item": 4,
+   "name": "Main Frame - Dirt Blockers L-F7",
+   "sheet": 14,
+   "file": "004_01_107_00_0_lf7.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 2,
+   "stock": "1/2\" plate, 2 x 5.900",
+   "sub": "Main Frame",
+   "mass": 1.7,
+   "dxf": true,
+   "part_no": "01-107-00-0",
+   "label": "L-F7"
+  },
+  {
+   "key": "01_115_00_0_lf4",
+   "item": 5,
+   "name": "Frame Channel Plate L-F4",
+   "sheet": 15,
+   "file": "005_01_115_00_0_lf4.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/2\" plate, 6 x 43-1/2",
+   "sub": "Main Frame",
+   "mass": 32.9,
+   "dxf": true,
+   "part_no": "01-115-00-0",
+   "label": "L-F4"
+  },
+  {
+   "key": "01_120_00_0_lf3",
+   "item": 6,
+   "name": "Frame Round Bar L-F3",
+   "sheet": 16,
+   "file": "006_01_120_00_0_lf3.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 4,
+   "stock": "1/2\" plate, 4-1/2 x 43-1/2",
+   "sub": "Main Frame",
+   "mass": 23.9,
+   "dxf": true,
+   "part_no": "01-120-00-0",
+   "label": "L-F3"
+  },
+  {
+   "key": "01_122_00_0_lf9",
+   "item": 7,
+   "name": "Chamber Wall Plate L-F9",
+   "sheet": 17,
+   "file": "007_01_122_00_0_lf9.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/2\" plate, 12 x 31.046",
+   "sub": "Main Frame",
+   "mass": 43.5,
+   "dxf": true,
+   "part_no": "01-122-00-0",
+   "label": "L-F9"
+  },
+  {
+   "key": "01_123_00_0_lf10",
+   "item": 8,
+   "name": "Chamber Wall Plate L-F10",
+   "sheet": 18,
+   "file": "008_01_123_00_0_lf10.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/2\" plate, 3-1/2 x 31.400",
+   "sub": "Main Frame",
+   "mass": 13.3,
+   "dxf": true,
+   "part_no": "01-123-00-0",
+   "label": "L-F10"
+  },
+  {
+   "key": "01_124_00_0_lf6",
+   "item": 9,
+   "name": "Frame Base Plate L-F6",
+   "sheet": 19,
+   "file": "009_01_124_00_0_lf6.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 6,
+   "stock": "1/2\" plate, 3-1/2 x 19-1/2",
+   "sub": "Main Frame",
+   "mass": 8.4,
+   "dxf": true,
+   "part_no": "01-124-00-0",
+   "label": "L-F6"
+  },
+  {
+   "key": "01_131_00_0_lf5",
+   "item": 10,
+   "name": "Frame Channel Plate L-F5",
+   "sheet": 20,
+   "file": "010_01_131_00_0_lf5.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/2\" plate, 3-1/2 x 23-3/4",
+   "sub": "Main Frame",
+   "mass": 9.9,
+   "dxf": true,
+   "part_no": "01-131-00-0",
+   "label": "L-F5"
+  },
+  {
+   "key": "01_171_00_0_lq2",
+   "item": 11,
+   "name": "Compression Short Side Plate L-Q2",
+   "sheet": 21,
+   "file": "011_01_171_00_0_lq2.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 4,
+   "stock": "1/4\" plate, 2 x 6",
+   "sub": "Main Frame",
+   "mass": 0.8,
+   "dxf": true,
+   "part_no": "01-171-00-0",
+   "label": "L-Q2"
+  },
+  {
+   "key": "01_172_00_0_lq1",
+   "item": 12,
+   "name": "Compression Short Side Plate L-Q1",
+   "sheet": 22,
+   "file": "012_01_172_00_0_lq1.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 4,
+   "stock": "1/4\" plate, 2.600 x 9",
+   "sub": "Main Frame",
+   "mass": 1.3,
+   "dxf": true,
+   "part_no": "01-172-00-0",
+   "label": "L-Q1"
+  },
+  {
+   "key": "01_271_00_0_lf13",
+   "item": 13,
+   "name": "Frame Channel Plate L-F13",
+   "sheet": 23,
+   "file": "013_01_271_00_0_lf13.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 6,
+   "stock": "1/2\" plate, 1-1/4 x 6",
+   "sub": "Main Frame",
+   "mass": 1.0,
+   "dxf": true,
+   "part_no": "01-271-00-0",
+   "label": "L-F13"
+  },
+  {
+   "key": "01_035_00_0",
+   "item": 14,
+   "name": "Main Cylinder - Lower Press Foot",
+   "sheet": 24,
+   "file": "014_01_035_00_0.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "FLAT BAR, FB1X4",
+   "sub": "Press Cylinder and Foot",
+   "mass": 13.9,
+   "dxf": true,
+   "part_no": "01-035-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_103_00_0",
+   "item": 15,
+   "name": "Main Frame - Cylinder Pin",
+   "sheet": 25,
+   "file": "015_01_103_00_0.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1-1/2 ROUND BAR X 11",
+   "sub": "Press Cylinder and Foot",
+   "mass": 2.4,
+   "dxf": false,
+   "part_no": "01-103-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_109_00_0",
+   "item": 16,
+   "name": "Main Frame - Horizontal Members, cylinde",
+   "sheet": 26,
+   "file": "016_01_109_00_0.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 2,
+   "stock": "TUBE, DOM 2\" OD X 1.5\" ID",
+   "sub": "Press Cylinder and Foot",
+   "mass": 1.0,
+   "dxf": false,
+   "part_no": "01-109-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_162_00_0",
+   "item": 17,
+   "name": "Upper Press Foot (AR300)",
+   "sheet": 27,
+   "file": "017_01_162_00_0.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1 X 6 X 12 PLATE",
+   "sub": "Press Cylinder and Foot",
+   "mass": 20.2,
+   "dxf": true,
+   "part_no": "01-162-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_189_00_0",
+   "item": 18,
+   "name": "1/4 X 2-1/2 Round Tube X 5-7/8",
+   "sheet": 28,
+   "file": "018_01_189_00_0.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1/4 X 2-1/2 ROUND TUBE X 5-7/8",
+   "sub": "Press Cylinder and Foot",
+   "mass": 3.9,
+   "dxf": false,
+   "part_no": "01-189-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_281_00_0_lo11",
+   "item": 19,
+   "name": "Cylinder Foot Plate L-O11",
+   "sheet": 29,
+   "file": "019_01_281_00_0_lo11.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "4-1/2 x 4-1/2 x 1/2 (see model)",
+   "sub": "Press Cylinder and Foot",
+   "mass": 1.4,
+   "dxf": false,
+   "part_no": "01-281-00-0",
+   "label": "L-O11"
+  },
+  {
+   "key": "01_282_00_0_lo12",
+   "item": 20,
+   "name": "Cylinder Foot Plate L-O12",
+   "sheet": 30,
+   "file": "020_01_282_00_0_lo12.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "4-3/4 x 4-3/4 x 1/2 (see model)",
+   "sub": "Press Cylinder and Foot",
+   "mass": 1.7,
+   "dxf": false,
+   "part_no": "01-282-00-0",
+   "label": "L-O12"
+  },
+  {
+   "key": "01_283_00_0_lo13",
+   "item": 21,
+   "name": "Cylinder Foot Plate L-O13",
+   "sheet": 31,
+   "file": "021_01_283_00_0_lo13.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "4-1/4 x 4-1/4 x 1/2 (see model)",
+   "sub": "Press Cylinder and Foot",
+   "mass": 1.2,
+   "dxf": false,
+   "part_no": "01-283-00-0",
+   "label": "L-O13"
+  },
+  {
+   "key": "01_004_00_0_la3",
+   "item": 22,
+   "name": "Secondary Arm L-A3",
+   "sheet": 32,
+   "file": "022_01_004_00_0_la3.svg",
+   "size": "A4",
+   "scale": "1:10",
+   "qty": 2,
+   "stock": "1/2\" plate, 4 x 72",
+   "sub": "Arms",
+   "mass": 37.8,
+   "dxf": true,
+   "part_no": "01-004-00-0",
+   "label": "L-A3"
+  },
+  {
+   "key": "01_009_00_1_la2",
+   "item": 23,
+   "name": "Primary Arm L-A2",
+   "sheet": 33,
+   "file": "023_01_009_00_1_la2.svg",
+   "size": "A4",
+   "scale": "1:10",
+   "qty": 2,
+   "stock": "1/2\" plate, 5.966 x 72",
+   "sub": "Arms",
+   "mass": 56.3,
+   "dxf": true,
+   "part_no": "01-009-00-1",
+   "label": "L-A2"
+  },
+  {
+   "key": "01_010_00_0_la1",
+   "item": 24,
+   "name": "Primary Arm L-A1",
+   "sheet": 34,
+   "file": "024_01_010_00_0_la1.svg",
+   "size": "A3",
+   "scale": "1:10",
+   "qty": 2,
+   "stock": "1/2\" plate, 4 x 72",
+   "sub": "Arms",
+   "mass": 36.5,
+   "dxf": true,
+   "part_no": "01-010-00-0",
+   "label": "L-A1"
+  },
+  {
+   "key": "01_028_00_0_ld7",
+   "item": 25,
+   "name": "Secondary Arms - Eye for 2nd Cylinder L-",
+   "sheet": 35,
+   "file": "025_01_028_00_0_ld7.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 2,
+   "stock": "1/2\" plate, 3 x 3",
+   "sub": "Arms",
+   "mass": 1.2,
+   "dxf": true,
+   "part_no": "01-028-00-0",
+   "label": "L-D7"
+  },
+  {
+   "key": "01_138_00_0_la5",
+   "item": 26,
+   "name": "Rear Secondary Arm Plate L-A5",
+   "sheet": 36,
+   "file": "026_01_138_00_0_la5.svg",
+   "size": "A4",
+   "scale": "1:10",
+   "qty": 1,
+   "stock": "1/2\" plate, 6 x 72",
+   "sub": "Arms",
+   "mass": 57.7,
+   "dxf": true,
+   "part_no": "01-138-00-0",
+   "label": "L-A5"
+  },
+  {
+   "key": "01_139_00_0_la4",
+   "item": 27,
+   "name": "Rear Secondary Arm Plate L-A4",
+   "sheet": 37,
+   "file": "027_01_139_00_0_la4.svg",
+   "size": "A4",
+   "scale": "1:10",
+   "qty": 1,
+   "stock": "1/2\" plate, 6-1/8 x 72",
+   "sub": "Arms",
+   "mass": 57.4,
+   "dxf": true,
+   "part_no": "01-139-00-0",
+   "label": "L-A4"
+  },
+  {
+   "key": "01_182_00_0",
+   "item": 28,
+   "name": "Leg Holder Tube",
+   "sheet": 38,
+   "file": "028_01_182_00_0.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 20,
+   "stock": "3/16 X 2-1/2 SQUARE TUBE X 6",
+   "sub": "Arms",
+   "mass": 2.8,
+   "dxf": false,
+   "part_no": "01-182-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_272_00_0_la6",
+   "item": 29,
+   "name": "Primary Arm Plate L-A6",
+   "sheet": 39,
+   "file": "029_01_272_00_0_la6.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 6,
+   "stock": "1/2\" plate, 1.179 x 7.175",
+   "sub": "Arms",
+   "mass": 0.9,
+   "dxf": true,
+   "part_no": "01-272-00-0",
+   "label": "L-A6"
+  },
+  {
+   "key": "01_006_00_0_lq17",
+   "item": 30,
+   "name": "Foot Plate L-Q17",
+   "sheet": 40,
+   "file": "030_01_006_00_0_lq17.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 4,
+   "stock": "1/4\" plate, 6 x 6",
+   "sub": "Feet and Legs",
+   "mass": 2.6,
+   "dxf": true,
+   "part_no": "01-006-00-0",
+   "label": "L-Q17"
+  },
+  {
+   "key": "01_155_00_0",
+   "item": 31,
+   "name": "Leg",
+   "sheet": 41,
+   "file": "031_01_155_00_0.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 4,
+   "stock": "3/16 X 2 SQUARE TUBE X 36",
+   "sub": "Feet and Legs",
+   "mass": 13.0,
+   "dxf": false,
+   "part_no": "01-155-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_247_00_0",
+   "item": 32,
+   "name": "Support Holder Part 01-247",
+   "sheet": 42,
+   "file": "032_01_247_00_0.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 8,
+   "stock": "1/4\" plate, 2-9/16 x 4",
+   "sub": "Feet and Legs",
+   "mass": 0.7,
+   "dxf": true,
+   "part_no": "01-247-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_268_00_0_lq9",
+   "item": 33,
+   "name": "Support Holder Plate L-Q9",
+   "sheet": 43,
+   "file": "033_01_268_00_0_lq9.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 8,
+   "stock": "1/4\" plate, 2-1/2 x 4",
+   "sub": "Feet and Legs",
+   "mass": 0.7,
+   "dxf": true,
+   "part_no": "01-268-00-0",
+   "label": "L-Q9"
+  },
+  {
+   "key": "01_269_00_0_lq15",
+   "item": 34,
+   "name": "Support Holder Plate L-Q15",
+   "sheet": 44,
+   "file": "034_01_269_00_0_lq15.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 8,
+   "stock": "1/4\" plate, 2 x 4",
+   "sub": "Feet and Legs",
+   "mass": 0.3,
+   "dxf": true,
+   "part_no": "01-269-00-0",
+   "label": "L-Q15"
+  },
+  {
+   "key": "01_025_00_2_ld5",
+   "item": 35,
+   "name": "Soil Loading Drawer - Press Plate L-D5",
+   "sheet": 45,
+   "file": "035_01_025_00_2_ld5.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1/2\" plate, 6 x 13",
+   "sub": "Drawer",
+   "mass": 9.6,
+   "dxf": true,
+   "part_no": "01-025-00-2",
+   "label": "L-D5"
+  },
+  {
+   "key": "01_028_00_2_ld9",
+   "item": 36,
+   "name": "Soil Loading Drawer - Tongue L-D9",
+   "sheet": 46,
+   "file": "036_01_028_00_2_ld9.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 2,
+   "stock": "1/2\" plate, 3-1/2 x 3-1/2",
+   "sub": "Drawer",
+   "mass": 1.2,
+   "dxf": true,
+   "part_no": "01-028-00-2",
+   "label": "L-D9"
+  },
+  {
+   "key": "01_029_00_2_ld3",
+   "item": 37,
+   "name": "Soil Loading Drawer - Vertical Supports ",
+   "sheet": 47,
+   "file": "037_01_029_00_2_ld3.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 2,
+   "stock": "1/2\" plate, 5-1/2 x 13",
+   "sub": "Drawer",
+   "mass": 8.7,
+   "dxf": true,
+   "part_no": "01-029-00-2",
+   "label": "L-D3"
+  },
+  {
+   "key": "01_030_00_2_ld2",
+   "item": 38,
+   "name": "Drawer Side L-D2",
+   "sheet": 48,
+   "file": "038_01_030_00_2_ld2.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/2\" plate, 6 x 18-1/2",
+   "sub": "Drawer",
+   "mass": 14.6,
+   "dxf": true,
+   "part_no": "01-030-00-2",
+   "label": "L-D2"
+  },
+  {
+   "key": "01_032_00_2_ld1",
+   "item": 39,
+   "name": "Soil Loading Drawer - Roof L-D1",
+   "sheet": 49,
+   "file": "039_01_032_00_2_ld1.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/2\" plate, 13 x 15",
+   "sub": "Drawer",
+   "mass": 23.0,
+   "dxf": true,
+   "part_no": "01-032-00-2",
+   "label": "L-D1"
+  },
+  {
+   "key": "01_126_00_0_lf8",
+   "item": 40,
+   "name": "Saddle Plate L-F8",
+   "sheet": 50,
+   "file": "040_01_126_00_0_lf8.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/2\" plate, 11.863 x 18.558",
+   "sub": "Drawer",
+   "mass": 19.3,
+   "dxf": true,
+   "part_no": "01-126-00-0",
+   "label": "L-F8"
+  },
+  {
+   "key": "01_128_00_0_lq5",
+   "item": 41,
+   "name": "Saddle Plate L-Q5",
+   "sheet": 51,
+   "file": "041_01_128_00_0_lq5.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/4\" plate, 4-3/4 x 18.558",
+   "sub": "Drawer",
+   "mass": 6.2,
+   "dxf": true,
+   "part_no": "01-128-00-0",
+   "label": "L-Q5"
+  },
+  {
+   "key": "01_129_00_0_lq3",
+   "item": 42,
+   "name": "Saddle Plate L-Q3",
+   "sheet": 52,
+   "file": "042_01_129_00_0_lq3.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/4\" plate, 3-7/8 x 18.558",
+   "sub": "Drawer",
+   "mass": 5.1,
+   "dxf": true,
+   "part_no": "01-129-00-0",
+   "label": "L-Q3"
+  },
+  {
+   "key": "01_130_00_0_lq4",
+   "item": 43,
+   "name": "Saddle Plate L-Q4",
+   "sheet": 53,
+   "file": "043_01_130_00_0_lq4.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 2,
+   "stock": "1/4\" plate, 3-7/8 x 11.863",
+   "sub": "Drawer",
+   "mass": 2.9,
+   "dxf": true,
+   "part_no": "01-130-00-0",
+   "label": "L-Q4"
+  },
+  {
+   "key": "01_132_00_2_ld4",
+   "item": 44,
+   "name": "Drawer Plate L-D4",
+   "sheet": 54,
+   "file": "044_01_132_00_2_ld4.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 3,
+   "stock": "1/2\" plate, 5-1/2 x 7",
+   "sub": "Drawer",
+   "mass": 4.6,
+   "dxf": true,
+   "part_no": "01-132-00-2",
+   "label": "L-D4"
+  },
+  {
+   "key": "01_133_00_2_ld8",
+   "item": 45,
+   "name": "Drawer Plate L-D8",
+   "sheet": 55,
+   "file": "045_01_133_00_2_ld8.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1/2\" plate, 5 x 13",
+   "sub": "Drawer",
+   "mass": 8.3,
+   "dxf": true,
+   "part_no": "01-133-00-2",
+   "label": "L-D8"
+  },
+  {
+   "key": "01_134_00_2_ld6",
+   "item": 46,
+   "name": "Drawer Plate L-D6",
+   "sheet": 56,
+   "file": "046_01_134_00_2_ld6.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1/2\" plate, 6 x 13",
+   "sub": "Drawer",
+   "mass": 10.1,
+   "dxf": true,
+   "part_no": "01-134-00-2",
+   "label": "L-D6"
+  },
+  {
+   "key": "01_221_00_0",
+   "item": 47,
+   "name": "Drawer Guide Rod",
+   "sheet": 57,
+   "file": "047_01_221_00_0.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1IN ROUND BAR X 48IN",
+   "sub": "Drawer",
+   "mass": 9.8,
+   "dxf": false,
+   "part_no": "01-221-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_239_00_0_lq11",
+   "item": 48,
+   "name": "Shaft Support Plate L-Q11",
+   "sheet": 58,
+   "file": "048_01_239_00_0_lq11.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 4,
+   "stock": "1/4\" plate, 4 x 4-3/4",
+   "sub": "Drawer",
+   "mass": 1.2,
+   "dxf": true,
+   "part_no": "01-239-00-0",
+   "label": "L-Q11"
+  },
+  {
+   "key": "01_241_00_0_lq12",
+   "item": 49,
+   "name": "Shaft Support Plate L-Q12",
+   "sheet": 59,
+   "file": "049_01_241_00_0_lq12.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 8,
+   "stock": "1/4\" plate, 2.763 x 5.701",
+   "sub": "Drawer",
+   "mass": 0.5,
+   "dxf": true,
+   "part_no": "01-241-00-0",
+   "label": "L-Q12"
+  },
+  {
+   "key": "01_277_01_0_lh19",
+   "item": 50,
+   "name": "Plate L-H19",
+   "sheet": 60,
+   "file": "050_01_277_01_0_lh19.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 4,
+   "stock": "1/8\" plate, 3-3/4 x 4-3/4",
+   "sub": "Drawer",
+   "mass": 0.5,
+   "dxf": true,
+   "part_no": "01-277-01-0",
+   "label": "L-H19"
+  },
+  {
+   "key": "01_286_00_0",
+   "item": 51,
+   "name": "Part 01-286",
+   "sheet": 61,
+   "file": "051_01_286_00_0.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 4,
+   "stock": "round / tube, 1-1/2 dia x 2",
+   "sub": "Drawer",
+   "mass": 0.3,
+   "dxf": false,
+   "part_no": "01-286-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_049_00_0",
+   "item": 52,
+   "name": "Hopper Support",
+   "sheet": 62,
+   "file": "052_01_049_00_0.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "SQUARE TUBE, HSS2X2X1/4.",
+   "sub": "Hopper",
+   "mass": 17.4,
+   "dxf": false,
+   "part_no": "01-049-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_060_00_0_lh2",
+   "item": 53,
+   "name": "Hopper Sheet L-H2",
+   "sheet": 63,
+   "file": "053_01_060_00_0_lh2.svg",
+   "size": "A3",
+   "scale": "1:10",
+   "qty": 1,
+   "stock": "1/8\" plate, 30 x 60",
+   "sub": "Hopper",
+   "mass": 38.2,
+   "dxf": true,
+   "part_no": "01-060-00-0",
+   "label": "L-H2"
+  },
+  {
+   "key": "01_061_00_0_lh3",
+   "item": 54,
+   "name": "Hopper Sheet L-H3",
+   "sheet": 64,
+   "file": "054_01_061_00_0_lh3.svg",
+   "size": "A3",
+   "scale": "1:10",
+   "qty": 1,
+   "stock": "1/8\" plate, 31 x 53.741",
+   "sub": "Hopper",
+   "mass": 36.2,
+   "dxf": true,
+   "part_no": "01-061-00-0",
+   "label": "L-H3"
+  },
+  {
+   "key": "01_062_00_0_lh1",
+   "item": 55,
+   "name": "Hopper Side Sheet L-H1",
+   "sheet": 65,
+   "file": "055_01_062_00_0_lh1.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/8\" plate, 23-5/16 x 38.263",
+   "sub": "Hopper",
+   "mass": 19.6,
+   "dxf": true,
+   "part_no": "01-062-00-0",
+   "label": "L-H1"
+  },
+  {
+   "key": "01_079_00_0_lh9",
+   "item": 56,
+   "name": "Brick Holder Plate L-H9",
+   "sheet": 66,
+   "file": "056_01_079_00_0_lh9.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/8\" plate, 14 x 30",
+   "sub": "Hopper",
+   "mass": 14.6,
+   "dxf": true,
+   "part_no": "01-079-00-0",
+   "label": "L-H9"
+  },
+  {
+   "key": "01_080_00_0_lh8",
+   "item": 57,
+   "name": "Dirt Keeper Plate L-H8",
+   "sheet": 67,
+   "file": "057_01_080_00_0_lh8.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/8\" plate, 13-1/2 x 30",
+   "sub": "Hopper",
+   "mass": 14.1,
+   "dxf": true,
+   "part_no": "01-080-00-0",
+   "label": "L-H8"
+  },
+  {
+   "key": "01_152_00_0_lh5",
+   "item": 58,
+   "name": "Side Soil Deflector L-H5",
+   "sheet": 68,
+   "file": "058_01_152_00_0_lh5.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/8\" sheet, bent, 23.0 x 14.1",
+   "sub": "Hopper",
+   "mass": 11.9,
+   "dxf": false,
+   "part_no": "01-152-00-0",
+   "label": "L-H5"
+  },
+  {
+   "key": "01_186_00_0",
+   "item": 59,
+   "name": "Grate Support Tube",
+   "sheet": 69,
+   "file": "059_01_186_00_0.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "3/16 X 2 SQUARE TUBE X 38",
+   "sub": "Hopper",
+   "mass": 13.5,
+   "dxf": false,
+   "part_no": "01-186-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_244_00_1_lh12",
+   "item": 60,
+   "name": "Guard L-H12",
+   "sheet": 70,
+   "file": "060_01_244_00_1_lh12.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/8\" sheet, bent, 35.6 x 31.1",
+   "sub": "Hopper",
+   "mass": 32.2,
+   "dxf": false,
+   "part_no": "01-244-00-1",
+   "label": "L-H12"
+  },
+  {
+   "key": "01_257_00_0_lh4",
+   "item": 61,
+   "name": "Front Soil Deflector L-H4",
+   "sheet": 71,
+   "file": "061_01_257_00_0_lh4.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/8\" sheet, bent, 56.0 x 14.1",
+   "sub": "Hopper",
+   "mass": 25.6,
+   "dxf": false,
+   "part_no": "01-257-00-0",
+   "label": "L-H4"
+  },
+  {
+   "key": "01_275_00_0_lh10",
+   "item": 62,
+   "name": "Guard L-H10",
+   "sheet": 72,
+   "file": "062_01_275_00_0_lh10.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/8\" sheet, bent, 31.1 x 6.0",
+   "sub": "Hopper",
+   "mass": 6.4,
+   "dxf": false,
+   "part_no": "01-275-00-0",
+   "label": "L-H10"
+  },
+  {
+   "key": "01_068_00_0_lg2",
+   "item": 63,
+   "name": "Grate Side L-G2",
+   "sheet": 73,
+   "file": "063_01_068_00_0_lg2.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/2\" plate, 2-1/4 x 56",
+   "sub": "Grate",
+   "mass": 15.6,
+   "dxf": true,
+   "part_no": "01-068-00-0",
+   "label": "L-G2"
+  },
+  {
+   "key": "01_069_00_0_lg1",
+   "item": 64,
+   "name": "Grate Angle L-G1",
+   "sheet": 74,
+   "file": "064_01_069_00_0_lg1.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 2,
+   "stock": "1/2\" plate, 2 x 23",
+   "sub": "Grate",
+   "mass": 6.4,
+   "dxf": true,
+   "part_no": "01-069-00-0",
+   "label": "L-G1"
+  },
+  {
+   "key": "01_071_00_0",
+   "item": 65,
+   "name": "Grate Rod",
+   "sheet": 75,
+   "file": "065_01_071_00_0.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 31,
+   "stock": "ROUND BAR, RB1/2",
+   "sub": "Grate",
+   "mass": 3.3,
+   "dxf": true,
+   "part_no": "01-071-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_118_00_0",
+   "item": 66,
+   "name": "Soil Grate - Cross piece",
+   "sheet": 76,
+   "file": "066_01_118_00_0.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "FLAT BAR, FB1/4X2",
+   "sub": "Grate",
+   "mass": 7.9,
+   "dxf": true,
+   "part_no": "01-118-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_252_00_0_lo7",
+   "item": 67,
+   "name": "Grate Bracket Plate L-O7",
+   "sheet": 77,
+   "file": "067_01_252_00_0_lo7.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 8,
+   "stock": "1/2\" plate, 2-1/2 x 5",
+   "sub": "Grate",
+   "mass": 1.7,
+   "dxf": true,
+   "part_no": "01-252-00-0",
+   "label": "L-O7"
+  },
+  {
+   "key": "01_254_00_0_lq13",
+   "item": 68,
+   "name": "Rear Grate Hinge Plate L-Q13",
+   "sheet": 78,
+   "file": "068_01_254_00_0_lq13.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/4\" plate, 6 x 29.276",
+   "sub": "Grate",
+   "mass": 12.5,
+   "dxf": true,
+   "part_no": "01-254-00-0",
+   "label": "L-Q13"
+  },
+  {
+   "key": "01_255_00_0_lq14",
+   "item": 69,
+   "name": "Rear Grate Hinge Plate L-Q14",
+   "sheet": 79,
+   "file": "069_01_255_00_0_lq14.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/4\" plate, 2-1/2 x 24.276",
+   "sub": "Grate",
+   "mass": 4.3,
+   "dxf": true,
+   "part_no": "01-255-00-0",
+   "label": "L-Q14"
+  },
+  {
+   "key": "01_261_00_0_lg3",
+   "item": 70,
+   "name": "Grate Plate L-G3",
+   "sheet": 80,
+   "file": "070_01_261_00_0_lg3.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 4,
+   "stock": "1/2\" plate, 2 x 3",
+   "sub": "Grate",
+   "mass": 0.8,
+   "dxf": true,
+   "part_no": "01-261-00-0",
+   "label": "L-G3"
+  },
+  {
+   "key": "01_042_00_0_lo2",
+   "item": 71,
+   "name": "Shaker Mount Plate L-O2",
+   "sheet": 81,
+   "file": "071_01_042_00_0_lo2.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/2\" plate, 4 x 29-3/4",
+   "sub": "Soil Shaker",
+   "mass": 16.5,
+   "dxf": true,
+   "part_no": "01-042-00-0",
+   "label": "L-O2"
+  },
+  {
+   "key": "01_044_00_0",
+   "item": 72,
+   "name": "Soil Shaker - Hammer",
+   "sheet": 82,
+   "file": "072_01_044_00_0.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 1,
+   "stock": "1 X 2 FLAT X 5",
+   "sub": "Soil Shaker",
+   "mass": 2.6,
+   "dxf": true,
+   "part_no": "01-044-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_045_00_0",
+   "item": 73,
+   "name": "Soil Shaker - Hammer",
+   "sheet": 83,
+   "file": "073_01_045_00_0.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 1,
+   "stock": "FLAT BAR, FB1X2",
+   "sub": "Soil Shaker",
+   "mass": 3.4,
+   "dxf": true,
+   "part_no": "01-045-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_046_00_0",
+   "item": 74,
+   "name": "Shaker Shaft",
+   "sheet": 84,
+   "file": "074_01_046_00_0.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 1,
+   "stock": "ROUND BAR, RB1",
+   "sub": "Soil Shaker",
+   "mass": 1.6,
+   "dxf": false,
+   "part_no": "01-046-00-0",
+   "label": ""
+  },
+  {
+   "key": "01_074_00_0_lh6",
+   "item": 75,
+   "name": "Shaker Motor Guard L-H6",
+   "sheet": 85,
+   "file": "075_01_074_00_0_lh6.svg",
+   "size": "A3",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/8\" plate, 18 x 29",
+   "sub": "Soil Shaker",
+   "mass": 17.8,
+   "dxf": true,
+   "part_no": "01-074-00-0",
+   "label": "L-H6"
+  },
+  {
+   "key": "01_144_00_0_lo3",
+   "item": 76,
+   "name": "Shaker Frame Plate L-O3",
+   "sheet": 86,
+   "file": "076_01_144_00_0_lo3.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/2\" plate, 8 x 29-3/4",
+   "sub": "Soil Shaker",
+   "mass": 20.9,
+   "dxf": true,
+   "part_no": "01-144-00-0",
+   "label": "L-O3"
+  },
+  {
+   "key": "01_145_00_0_lo4",
+   "item": 77,
+   "name": "Shaker Frame Plate L-O4",
+   "sheet": 87,
+   "file": "077_01_145_00_0_lo4.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1/2\" plate, 3-1/2 x 8",
+   "sub": "Soil Shaker",
+   "mass": 2.6,
+   "dxf": true,
+   "part_no": "01-145-00-0",
+   "label": "L-O4"
+  },
+  {
+   "key": "01_146_00_0_lo5",
+   "item": 78,
+   "name": "Shaker Frame Plate L-O5",
+   "sheet": 88,
+   "file": "078_01_146_00_0_lo5.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1/2\" plate, 4 x 7",
+   "sub": "Soil Shaker",
+   "mass": 2.2,
+   "dxf": true,
+   "part_no": "01-146-00-0",
+   "label": "L-O5"
+  },
+  {
+   "key": "01_051_00_0_lo1",
+   "item": 79,
+   "name": "Valve Plate L-O1",
+   "sheet": 89,
+   "file": "079_01_051_00_0_lo1.svg",
+   "size": "A4",
+   "scale": "1:5",
+   "qty": 1,
+   "stock": "1/2\" plate, 6 x 12",
+   "sub": "Controls",
+   "mass": 10.1,
+   "dxf": true,
+   "part_no": "01-051-00-0",
+   "label": "L-O1"
+  },
+  {
+   "key": "01_081_00_0_lq6",
+   "item": 80,
+   "name": "Controller Plate L-Q6",
+   "sheet": 90,
+   "file": "080_01_081_00_0_lq6.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1/4\" plate, 6 x 15",
+   "sub": "Controls",
+   "mass": 6.4,
+   "dxf": true,
+   "part_no": "01-081-00-0",
+   "label": "L-Q6"
+  },
+  {
+   "key": "01_082_00_0_lq8",
+   "item": 81,
+   "name": "Controller Mount Back L-Q8",
+   "sheet": 91,
+   "file": "081_01_082_00_0_lq8.svg",
+   "size": "A4",
+   "scale": "1:2",
+   "qty": 1,
+   "stock": "1/4\" plate, 2 x 12",
+   "sub": "Controls",
+   "mass": 1.7,
+   "dxf": true,
+   "part_no": "01-082-00-0",
+   "label": "L-Q8"
+  },
+  {
+   "key": "01_083_00_0_lq7",
+   "item": 82,
+   "name": "Controller Mount - Bottom piece L-Q7",
+   "sheet": 92,
+   "file": "082_01_083_00_0_lq7.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 1,
+   "stock": "1/4\" plate, 3 x 6",
+   "sub": "Controls",
+   "mass": 1.2,
+   "dxf": true,
+   "part_no": "01-083-00-0",
+   "label": "L-Q7"
+  },
+  {
+   "key": "01_143_00_0_lo9",
+   "item": 83,
+   "name": "Valve Bracket Plate L-O9",
+   "sheet": 93,
+   "file": "083_01_143_00_0_lo9.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 2,
+   "stock": "1/2\" plate, 2 x 2-1/2",
+   "sub": "Controls",
+   "mass": 0.7,
+   "dxf": true,
+   "part_no": "01-143-00-0",
+   "label": "L-O9"
+  },
+  {
+   "key": "01_246_00_0_lo8",
+   "item": 84,
+   "name": "Valve Bracket Plate L-O8",
+   "sheet": 94,
+   "file": "084_01_246_00_0_lo8.svg",
+   "size": "A4",
+   "scale": "1:1",
+   "qty": 2,
+   "stock": "1/2\" plate, 2-1/2 x 3.966",
+   "sub": "Controls",
+   "mass": 1.3,
+   "dxf": true,
+   "part_no": "01-246-00-0",
+   "label": "L-O8"
+  }
+ ]
+}

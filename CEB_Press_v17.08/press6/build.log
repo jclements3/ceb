@@ -1,0 +1,96 @@
+  00_assembly.svg
+  01_main_frame.svg
+  02_press_cylinder_and_foot.svg
+  03_arms.svg
+  04_feet_and_legs.svg
+  05_drawer.svg
+  06_hopper.svg
+  07_grate.svg
+  08_soil_shaker.svg
+  09_controls.svg
+  001 Frame Channel L-F1                   x2   1/2" plate, 6 x 26.200             A4 1:5
+  002 Short Side Channel L-F12             x2   1/2" plate, 6 x 9                  A4 1:2
+  003 Main Frame Channel L-F2              x2   1/2" plate, 8 x 26.200             A4 1:5
+  004 Main Frame - Dirt Blockers L-F7      x2   1/2" plate, 2 x 5.900              A4 1:1
+  005 Frame Channel Plate L-F4             x2   1/2" plate, 6 x 43-1/2             A3 1:5
+  006 Frame Round Bar L-F3                 x4   1/2" plate, 4-1/2 x 43-1/2         A3 1:5
+  007 Chamber Wall Plate L-F9              x2   1/2" plate, 12 x 31.046            A3 1:5
+  008 Chamber Wall Plate L-F10             x2   1/2" plate, 3-1/2 x 31.400         A4 1:5
+  009 Frame Base Plate L-F6                x6   1/2" plate, 3-1/2 x 19-1/2         A4 1:5
+  010 Frame Channel Plate L-F5             x2   1/2" plate, 3-1/2 x 23-3/4         A4 1:5
+  011 Compression Short Side Plate L-Q2    x4   1/4" plate, 2 x 6                  A4 1:1
+  012 Compression Short Side Plate L-Q1    x4   1/4" plate, 2.600 x 9              A4 1:2
+  013 Frame Channel Plate L-F13            x6   1/2" plate, 1-1/4 x 6              A4 1:1
+  014 Main Cylinder - Lower Press Foot     x1   FLAT BAR, FB1X4                    A4 1:2
+  015 Main Frame - Cylinder Pin            x1   1-1/2 ROUND BAR X 11               A4 1:2
+  016 Main Frame - Horizontal Members, cylinde x2   TUBE, DOM 2" OD X 1.5" ID          A4 1:2
+  017 Upper Press Foot (AR300)             x1   1 X 6 X 12 PLATE                   A4 1:5
+  018 1/4 X 2-1/2 Round Tube X 5-7/8       x1   1/4 X 2-1/2 ROUND TUBE X 5-7/8     A4 1:2
+  019 Cylinder Foot Plate L-O11            x1   4-1/2 x 4-1/2 x 1/2 (see model)    A4 1:2
+  020 Cylinder Foot Plate L-O12            x1   4-3/4 x 4-3/4 x 1/2 (see model)    A4 1:2
+  021 Cylinder Foot Plate L-O13            x1   4-1/4 x 4-1/4 x 1/2 (see model)    A4 1:2
+  022 Secondary Arm L-A3                   x2   1/2" plate, 4 x 72                 A4 1:10
+  023 Primary Arm L-A2                     x2   1/2" plate, 5.966 x 72             A4 1:10
+  024 Primary Arm L-A1                     x2   1/2" plate, 4 x 72                 A3 1:10
+  025 Secondary Arms - Eye for 2nd Cylinder L- x2   1/2" plate, 3 x 3                  A4 1:1
+  026 Rear Secondary Arm Plate L-A5        x1   1/2" plate, 6 x 72                 A4 1:10
+  027 Rear Secondary Arm Plate L-A4        x1   1/2" plate, 6-1/8 x 72             A4 1:10
+  028 Leg Holder Tube                      x20  3/16 X 2-1/2 SQUARE TUBE X 6       A4 1:2
+  029 Primary Arm Plate L-A6               x6   1/2" plate, 1.179 x 7.175          A4 1:1
+  030 Foot Plate L-Q17                     x4   1/4" plate, 6 x 6                  A4 1:2
+  031 Leg                                  x4   3/16 X 2 SQUARE TUBE X 36          A4 1:5
+  032 Support Holder Part 01-247           x8   1/4" plate, 2-9/16 x 4             A4 1:1
+  033 Support Holder Plate L-Q9            x8   1/4" plate, 2-1/2 x 4              A4 1:1
+  034 Support Holder Plate L-Q15           x8   1/4" plate, 2 x 4                  A4 1:1
+  035 Soil Loading Drawer - Press Plate L-D5 x1   1/2" plate, 6 x 13                 A4 1:2
+  036 Soil Loading Drawer - Tongue L-D9    x2   1/2" plate, 3-1/2 x 3-1/2          A4 1:2
+  037 Soil Loading Drawer - Vertical Supports  x2   1/2" plate, 5-1/2 x 13             A4 1:2
+  038 Drawer Side L-D2                     x2   1/2" plate, 6 x 18-1/2             A4 1:5
+  039 Soil Loading Drawer - Roof L-D1      x1   1/2" plate, 13 x 15                A4 1:5
+  040 Saddle Plate L-F8                    x1   1/2" plate, 11.863 x 18.558        A4 1:5
+  041 Saddle Plate L-Q5                    x1   1/4" plate, 4-3/4 x 18.558         A4 1:5
+  042 Saddle Plate L-Q3                    x1   1/4" plate, 3-7/8 x 18.558         A4 1:5
+  043 Saddle Plate L-Q4                    x2   1/4" plate, 3-7/8 x 11.863         A4 1:2
+  044 Drawer Plate L-D4                    x3   1/2" plate, 5-1/2 x 7              A4 1:2
+  045 Drawer Plate L-D8                    x1   1/2" plate, 5 x 13                 A4 1:2
+  046 Drawer Plate L-D6                    x1   1/2" plate, 6 x 13                 A4 1:2
+  047 Drawer Guide Rod                     x2   1IN ROUND BAR X 48IN               A3 1:5
+  048 Shaft Support Plate L-Q11            x4   1/4" plate, 4 x 4-3/4              A4 1:2
+  049 Shaft Support Plate L-Q12            x8   1/4" plate, 2.763 x 5.701          A4 1:1
+  050 Plate L-H19                          x4   1/8" plate, 3-3/4 x 4-3/4          A4 1:2
+  051 Part 01-286                          x4   round / tube, 1-1/2 dia x 2        A4 1:2
+  052 Hopper Support                       x2   SQUARE TUBE, HSS2X2X1/4.           A4 1:5
+  053 Hopper Sheet L-H2                    x1   1/8" plate, 30 x 60                A3 1:10
+  054 Hopper Sheet L-H3                    x1   1/8" plate, 31 x 53.741            A3 1:10
+  055 Hopper Side Sheet L-H1               x2   1/8" plate, 23-5/16 x 38.263       A3 1:5
+  056 Brick Holder Plate L-H9              x1   1/8" plate, 14 x 30                A4 1:5
+  057 Dirt Keeper Plate L-H8               x1   1/8" plate, 13-1/2 x 30            A4 1:5
+  058 Side Soil Deflector L-H5             x2   1/8" sheet, bent, 23.0 x 14.1      A3 1:5
+  059 Grate Support Tube                   x2   3/16 X 2 SQUARE TUBE X 38          A4 1:5
+  060 Guard L-H12                          x1   1/8" sheet, bent, 35.6 x 31.1      A3 1:5
+  061 Front Soil Deflector L-H4            x1   1/8" sheet, bent, 56.0 x 14.1      A3 1:5
+  062 Guard L-H10                          x1   1/8" sheet, bent, 31.1 x 6.0       A4 1:5
+  063 Grate Side L-G2                      x2   1/2" plate, 2-1/4 x 56             A3 1:5
+  064 Grate Angle L-G1                     x2   1/2" plate, 2 x 23                 A4 1:5
+  065 Grate Rod                            x31  ROUND BAR, RB1/2                   A4 1:5
+  066 Soil Grate - Cross piece             x1   FLAT BAR, FB1/4X2                  A3 1:5
+  067 Grate Bracket Plate L-O7             x8   1/2" plate, 2-1/2 x 5              A4 1:1
+  068 Rear Grate Hinge Plate L-Q13         x1   1/4" plate, 6 x 29.276             A4 1:5
+  069 Rear Grate Hinge Plate L-Q14         x1   1/4" plate, 2-1/2 x 24.276         A4 1:5
+  070 Grate Plate L-G3                     x4   1/2" plate, 2 x 3                  A4 1:1
+  071 Shaker Mount Plate L-O2              x1   1/2" plate, 4 x 29-3/4             A4 1:5
+  072 Soil Shaker - Hammer                 x1   1 X 2 FLAT X 5                     A4 1:1
+  073 Soil Shaker - Hammer                 x1   FLAT BAR, FB1X2                    A4 1:1
+  074 Shaker Shaft                         x1   ROUND BAR, RB1                     A4 1:1
+  075 Shaker Motor Guard L-H6              x1   1/8" plate, 18 x 29                A3 1:5
+  076 Shaker Frame Plate L-O3              x1   1/2" plate, 8 x 29-3/4             A4 1:5
+  077 Shaker Frame Plate L-O4              x1   1/2" plate, 3-1/2 x 8              A4 1:2
+  078 Shaker Frame Plate L-O5              x1   1/2" plate, 4 x 7                  A4 1:2
+  079 Valve Plate L-O1                     x1   1/2" plate, 6 x 12                 A4 1:5
+  080 Controller Plate L-Q6                x1   1/4" plate, 6 x 15                 A4 1:2
+  081 Controller Mount Back L-Q8           x1   1/4" plate, 2 x 12                 A4 1:2
+  082 Controller Mount - Bottom piece L-Q7 x1   1/4" plate, 3 x 6                  A4 1:1
+  083 Valve Bracket Plate L-O9             x2   1/2" plate, 2 x 2-1/2              A4 1:1
+  084 Valve Bracket Plate L-O8             x2   1/2" plate, 2-1/2 x 3.966          A4 1:1
+  named 47/84 part numbers; DXF outlines 57/67 match
+  /home/clementsj/projects/ceb/CEB_Press_v17.08/press6/drawings/CEB_Press_6.pdf

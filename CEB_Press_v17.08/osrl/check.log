@@ -1,0 +1,16 @@
+  PASS  Block thickness at hole 4: 4.088 in (nominal 4); holes 1..5 give 7.06, 6.07, 5.08, 4.09, 3.10
+  PASS  Compression ratio: loose fill 7.625 -> 4.088 = 1.87
+  PASS  Followers drop into the scoops as the yoke stands up: seated at yoke tilt -16.7 deg with the piston 0.037 in off the bottom; riding over the rail lifts it at most 1.079 in
+  PASS  Piston rises steadily as the lever goes over: lever -16.7 -> 90 deg, piston +3.500 in
+  PASS  Dead centre at lever horizontal: toggle axle straight over the followers and the pin; yoke tilt -8.3 deg. No positive stop past centre in their drawings: the operator holds the lever down, then raises it
+  PASS  Yoke rests on the eject rollers to fill and eject: fill -38.3 deg, eject -88.5 deg (roller in hole 7)
+  PASS  Eject: lever end stays above the ground: lever end 59 in -> 17 in
+  PASS  Eject hand force: 85 lbf at 600 lbf to break the block loose
+  PASS  Lid counterweight balance: lid 45 lb in, counterweights -57 lb in about the hinge (1.26); opens to 74 deg, resting on the front channel
+  PASS  Lever force (their 80 lbf): peak 199 lbf at 200 psi; 80 lbf presses to 80 psi
+  FAIL  Mold cavity clear (start): Pivot Mount 0.0081; Pivot Mount (mirror) 0.0081
+  PASS  Mold cavity clear (locked): nothing inside the mold
+  FAIL  All positions and motions clear: Start of pressing (followers in the scoops): Front Channel x Pivot Mount (0.0148); Start of pressing (followers in the scoops): Front Channel x Pivot Mount (mirror) (0.0148); Start of pressing (followers in the scoops): Lid x Pivot Mount (0.0713); Start of pressing (followers in the scoops): Lid x Pivot Mount (mirror) (0.0713); Start of pressing (followers in the scoops): Counterweight Arm x Head Body (0.026); Start of pressing (followers in the scoops): Counterweight Arm (mirror) x Head Body (0.026); Start of pressing (followers in the scoops): Hinge Pin x Head Side (0.0238); Start of pressing (followers in the scoops): Hinge Pin (mirror) x Head Side (mirror) (0.0238); stand up -38: Counterweight x Head Body (0.1343); stand up -38: Counterweight (mirror) x Head Body (0.1343); stand up -35: Counterweight Arm x Head Body (0.0611); stand up -35: Counterweight Arm (mirror) x Head Body (0.0611)
+  FAIL  Block rises out of the mold unobstructed: eject -63: Lid 0.1221; eject -72: Lid 1.4116; eject -72: Lid Rail 0.0517; eject -72: Lid Rail (mirror) 0.0517; eject -80: Lid 2.6387; eject -80: Lid Rail 0.2509; eject -80: Lid Rail (mirror) 0.2509; eject -89: Lid 3.8607; eject -89: Lid Rail 0.5606; eject -89: Lid Rail (mirror) 0.5606
+  PASS  Block fully above the mold at eject: block bottom +0.062 from mold top
+  FAIL  Block lifts straight off (18 in): Lid 11.5751; Lid Rail 4.7064; Lid Rail (mirror) 4.7064; Upper Insert 1.8891; Upper Insert 1.0667

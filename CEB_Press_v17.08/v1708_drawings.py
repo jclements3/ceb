@@ -53,6 +53,7 @@ TITLE = "OSE CEB Press v17.08"
 DWG_PREFIX = "OSE1708"
 REVISIONS = {"A": ("2026-10-03", "Drawn from OSE CEB_17.08_CAD_Assembly.fcstd (Prototype 9, 2017)")}
 CURRENT_REV = "A"
+PART_SUBTITLE = "OSE CEB Press v17.08"
 ATTACHMENT_GROUPS = ()
 
 

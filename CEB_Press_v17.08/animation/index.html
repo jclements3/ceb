@@ -1,0 +1,349 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CEB Press v17.08</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 3D shop-floor viewport on the left, control rail on the right (stacks below on phones). */
+:root {
+  --bg: #e7e9e4; --panel: #f4f5f1; --ink: #1d2226; --muted: #5b646a; --rule: #c5cac3;
+  --accent: #1f5f7a; --accent-ink: #ffffff; --stage: #d9ddd6; --stage-grid: #b9bfb6;
+  --f-ui: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --f-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161a1c; --panel: #1f2427; --ink: #e3e6e2; --muted: #9aa3a8; --rule: #353c40;
+    --accent: #6fb4cf; --accent-ink: #0d1417; --stage: #22282b; --stage-grid: #3a4246; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161a1c; --panel: #1f2427; --ink: #e3e6e2; --muted: #9aa3a8; --rule: #353c40;
+  --accent: #6fb4cf; --accent-ink: #0d1417; --stage: #22282b; --stage-grid: #3a4246; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-ui); font-size: 15px; line-height: 1.4; }
+.app { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 340px; }
+.stage { position: relative; min-height: 0; background: var(--stage); }
+#view { position: absolute; inset: 0; }
+#view canvas { display: block; width: 100%; height: 100%; }
+.caption { position: absolute; left: 16px; top: 14px; right: 16px; pointer-events: none; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.caption h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -.005em; }
+.caption .step { font-size: 15px; color: var(--muted); }
+.caption .step b { color: var(--ink); font-weight: 600; }
+.views { position: absolute; left: 16px; bottom: 14px; display: flex; gap: 4px; flex-wrap: wrap; }
+.loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-family: var(--f-data); font-size: 13px; }
+aside { background: var(--panel); border-left: 1px solid var(--rule); overflow-y: auto; padding: 16px 16px 24px; display: grid; gap: 16px; align-content: start; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-weight: 600; margin: 0 0 6px; }
+.transport { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.btn { font: 500 14px/1 var(--f-ui); color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 3px; padding: 8px 11px; cursor: pointer; }
+.btn:hover { border-color: var(--ink); }
+.btn:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); min-width: 74px; }
+.views .btn { background: color-mix(in srgb, var(--panel) 85%, transparent); }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+.speed { display: inline-flex; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; margin-left: auto; }
+.speed button { font: 500 12.5px/1 var(--f-data); border: 0; background: transparent; color: var(--ink); padding: 8px 8px; cursor: pointer; }
+.speed button + button { border-left: 1px solid var(--rule); }
+.speed button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.time { font: 500 12.5px/1 var(--f-data); color: var(--muted); font-variant-numeric: tabular-nums; }
+dl.read { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; margin: 0; }
+dl.read dt { color: var(--muted); font-size: 13.5px; }
+dl.read dd { margin: 0; text-align: right; font: 500 14px/1.3 var(--f-data); font-variant-numeric: tabular-nums; }
+ol.phases { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+ol.phases li button { width: 100%; text-align: left; display: grid; grid-template-columns: 22px 1fr; gap: 6px; align-items: baseline;
+  font: 400 13.5px/1.3 var(--f-ui); color: var(--ink); background: transparent; border: 0; border-radius: 3px; padding: 5px 6px; cursor: pointer; }
+ol.phases li button span { font: 500 11.5px/1 var(--f-data); color: var(--muted); }
+ol.phases li button:hover { background: var(--bg); }
+ol.phases li button[aria-current="step"] { background: var(--accent); color: var(--accent-ink); }
+ol.phases li button[aria-current="step"] span { color: var(--accent-ink); }
+.toggles { display: grid; gap: 6px; }
+.toggles label { display: flex; gap: 8px; align-items: center; font-size: 14px; cursor: pointer; }
+.toggles input { accent-color: var(--accent); width: 16px; height: 16px; }
+.hint, .notes { color: var(--muted); font-size: 12.5px; margin: 0; }
+.notes { padding-left: 16px; display: grid; gap: 4px; }
+.hint kbd { font: 500 11px/1 var(--f-data); border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 3px; padding: 1px 4px; background: var(--bg); color: var(--ink); }
+a { color: var(--accent); }
+@media (max-width: 820px) {
+  .app { grid-template-columns: minmax(0, 1fr); grid-template-rows: 62vh auto; height: auto; min-height: 100%; }
+  aside { border-left: 0; border-top: 1px solid var(--rule); }
+}
+</style>
+
+<div class="app">
+  <section class="stage" aria-label="3D view of the press">
+    <div id="view"></div>
+    <div class="loading" id="loading">Loading press model…</div>
+    <div class="caption">
+      <h1 id="title">OSE CEB Press v17.08</h1>
+      <span class="step" id="step"><b>—</b></span>
+    </div>
+    <div class="views" role="group" aria-label="Camera">
+      <button class="btn" data-view="iso" type="button">Iso</button>
+      <button class="btn" data-view="front" type="button">Front</button>
+      <button class="btn" data-view="side" type="button">End</button>
+      <button class="btn" data-view="top" type="button">Top</button>
+      <button class="btn" data-view="back" type="button">Back (shaker)</button>
+      <button class="btn" id="theme" type="button" aria-label="Toggle light or dark">◐</button>
+    </div>
+  </section>
+
+  <aside>
+    <div>
+      <p class="label">Playback</p>
+      <div class="transport">
+        <button class="btn primary" id="play" type="button">Pause</button>
+        <button class="btn" id="back" type="button" aria-label="Previous frame">◀</button>
+        <button class="btn" id="fwd" type="button" aria-label="Next frame">▶</button>
+        <div class="speed" role="group" aria-label="Speed" id="speed">
+          <button type="button" data-s="0.25">¼×</button><button type="button" data-s="0.5">½×</button><button type="button" data-s="1" aria-pressed="true">1×</button>
+        </div>
+      </div>
+      <input type="range" id="scrub" min="0" max="1" value="0" step="1" aria-label="Timeline" style="margin-top:10px">
+      <div class="time" id="time">0.0 s</div>
+    </div>
+
+    <div>
+      <p class="label">Readouts</p>
+      <dl class="read">
+        <dt>Drawer (secondary cylinder)</dt><dd id="r-drawer">—</dd>
+        <dt>Press foot (main cylinder)</dt><dd id="r-ram">—</dd>
+        <dt>Soil / brick height</dt><dd id="r-soil">—</dd>
+        <dt>Shaker</dt><dd id="r-shaker">—</dd>
+        <dt>Bricks made</dt><dd id="r-count">0</dd>
+      </dl>
+    </div>
+
+    <div>
+      <p class="label">Inspect</p>
+      <div class="toggles">
+        <label><input type="checkbox" id="t-cut"> Cut away the near half (see the chamber)</label>
+        <label><input type="checkbox" id="t-hopper"> Hide the hopper and grate</label>
+        <label><input type="checkbox" id="t-edges" checked> Show edges</label>
+      </div>
+    </div>
+
+    <div>
+      <p class="label">Press cycle</p>
+      <ol class="phases" id="phases"></ol>
+    </div>
+    <ul class="notes" id="notes"></ul>
+    <p class="hint">Drag to orbit, scroll to zoom, right-drag to pan. <kbd>Space</kbd> play or pause, <kbd>←</kbd> <kbd>→</kbd> step a frame. <a href="../index.html">Drawings</a></p>
+  </aside>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(async function () {
+  const $ = id => document.getElementById(id);
+  let data;
+  try {
+    data = await (await fetch("press.json")).json();
+  } catch (e) {
+    $("loading").textContent = "Could not load press.json. Serve this folder over http (python3 -m http.server).";
+    return;
+  }
+  $("loading").remove();
+  const M = data.meta, F = data.frames, C = Object.fromEntries(data.columns.map((c, i) => [c, i]));
+  document.title = `${M.title} Animation`;
+  $("title").textContent = `${M.title} · ${M.label}`;
+  (M.notes || []).forEach(n => { const li = document.createElement("li"); li.textContent = n; $("notes").appendChild(li); });
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+  // ---------- scene ----------
+  const view = $("view");
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.localClippingEnabled = true;
+  view.appendChild(renderer.domElement);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.5, 3000);
+  camera.up.set(0, 0, 1);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x60656a, 0.75));
+  const sun = new THREE.DirectionalLight(0xffffff, 0.75); sun.position.set(-60, -90, 140); scene.add(sun);
+  const fillLight = new THREE.DirectionalLight(0xffffff, 0.3); fillLight.position.set(80, 60, 40); scene.add(fillLight);
+  const grid = new THREE.GridHelper(240, 40);
+  grid.rotation.x = Math.PI / 2; grid.position.set(20, 0, -3.4);
+  scene.add(grid);
+  function applyTheme() {
+    scene.background = new THREE.Color(css("--stage"));
+    grid.material.color = new THREE.Color(css("--stage-grid"));
+    grid.material.opacity = 0.6; grid.material.transparent = true;
+  }
+  applyTheme();
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme);
+  $("theme").addEventListener("click", () => {
+    const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = dark ? "light" : "dark";
+    applyTheme();
+  });
+
+  const cut = new THREE.Plane(new THREE.Vector3(0, 1, 0), 9.5);   // keeps y >= -9.5 (chamber centre)
+  const clip = [];
+  const edgeMats = [];
+  const groups = {};
+  for (const g of data.groups) {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.Float32BufferAttribute(g.positions, 3));
+    geo.setAttribute("color", new THREE.Float32BufferAttribute(g.colors, 3));
+    geo.setIndex(g.indices);
+    geo.computeVertexNormals();
+    const mat = new THREE.MeshStandardMaterial({ vertexColors: true, metalness: 0.25, roughness: 0.6, clippingPlanes: clip, clipShadows: true, side: THREE.DoubleSide });
+    const mesh = new THREE.Mesh(geo, mat);
+    const em = new THREE.LineBasicMaterial({ color: 0x15191c, transparent: true, opacity: 0.5, clippingPlanes: clip });
+    edgeMats.push(em);
+    mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, 28), em));
+    mesh.matrixAutoUpdate = false;
+    scene.add(mesh);
+    groups[g.name] = mesh;
+  }
+
+  // soil boxes (loose = light, pressed = dark)
+  const LOOSE = new THREE.Color(0xc9a276), PRESSED = new THREE.Color(0x8f5f3a);
+  const boxGeo = new THREE.BoxGeometry(1, 1, 1), boxEdges = new THREE.EdgesGeometry(boxGeo);
+  const boxes = [];
+  function box(i) {
+    while (boxes.length <= i) {
+      const b = new THREE.Mesh(boxGeo, new THREE.MeshStandardMaterial({ roughness: 0.95, metalness: 0, clippingPlanes: clip, side: THREE.DoubleSide }));
+      b.add(new THREE.LineSegments(boxEdges, new THREE.LineBasicMaterial({ color: 0x3b2a1a, transparent: true, opacity: 0.5 })));
+      scene.add(b); boxes.push(b);
+    }
+    return boxes[i];
+  }
+  const stack = [];
+  function stackSlot(k) {   // finished bricks stacked on the ground beside the output table
+    const layer = k % 5, row = Math.floor(k / 5) % 4;
+    return [M.brick[0] / 2 + 14.2 + row * (M.brick[0] + 1.5) - 40, -48, -3.4 + M.brick[2] * (layer + 0.5)];
+  }
+
+  // ---------- motions ----------
+  const T = (x, y, z) => new THREE.Matrix4().makeTranslation(x, y, z);
+  function motion(name, f) {
+    const mo = M.motions[name];
+    if (!mo) return new THREE.Matrix4();
+    const v = f[C[mo.col]];
+    if (mo.type === "translate") return T(mo.axis[0] * v, mo.axis[1] * v, mo.axis[2] * v);
+    const [ox, oy, oz] = mo.origin;
+    const r = new THREE.Matrix4().makeRotationAxis(new THREE.Vector3(...mo.axis).normalize(), v * Math.PI / 180);
+    return T(ox, oy, oz).multiply(r).multiply(T(-ox, -oy, -oz));
+  }
+
+  let loops = 0;
+  const PH_LIFT = data.phases.length - 1;
+  function show(i) {
+    const f = F[i], ph = f[C.phase], s = f[C.s];
+    for (const [name, mesh] of Object.entries(groups)) mesh.matrix.copy(motion(name, f));
+    groups.hopper && (groups.hopper.visible = !$("t-hopper").checked);
+    const bx = f[C.boxes];
+    boxes.forEach(b => b.visible = false);
+    bx.forEach((b, k) => {
+      const [x0, x1, y0, y1, z0, z1, kind] = b;
+      const m = box(k);
+      if (z1 - z0 < 0.01) return;
+      if (k === 0 && $("t-hopper").checked) return;
+      m.visible = true;
+      let cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, cz = (z0 + z1) / 2;
+      if (ph === PH_LIFT && kind === 1) {     // carry the brick to the stack
+        const end = stackSlot(loops), up = 50;
+        if (s < 0.35) cz = cz + (up - cz) * (s / 0.35);
+        else if (s < 0.75) { const t = (s - 0.35) / 0.4; cx += (end[0] - cx) * t; cy += (end[1] - cy) * t; cz = up; }
+        else { cx = end[0]; cy = end[1]; cz = up + (end[2] - up) * ((s - 0.75) / 0.25); }
+      }
+      m.position.set(cx, cy, cz); m.scale.set(x1 - x0, y1 - y0, z1 - z0);
+      m.material.color.copy(kind ? PRESSED : LOOSE);
+    });
+    const count = loops + (ph === PH_LIFT && s > 0.99 ? 1 : 0);
+    while (stack.length < 20) { const b = new THREE.Mesh(boxGeo, new THREE.MeshStandardMaterial({ color: PRESSED, roughness: 0.95 })); b.add(new THREE.LineSegments(boxEdges, new THREE.LineBasicMaterial({ color: 0x3b2a1a, transparent: true, opacity: 0.5 }))); scene.add(b); stack.push(b); }
+    stack.forEach((b, k) => { const q = stackSlot(k); b.position.set(...q); b.scale.set(...M.brick); b.visible = k < Math.min(count, 20); });
+
+    $("step").innerHTML = `<b>${ph + 1}.</b> ${data.phases[ph]}`;
+    const d = f[C.drawer], st = M.stations;
+    const where = Math.abs(d - st.drawer_fill) < 0.05 ? "fill" : Math.abs(d - st.drawer_press) < 0.05 ? "compress"
+      : Math.abs(d - st.drawer_eject) < 0.05 ? "eject" : "moving";
+    $("r-drawer").textContent = `${(d - st.drawer_fill).toFixed(2)} in · ${where}`;
+    $("r-ram").textContent = `${(f[C.foot] - st.table >= 0 ? "+" : "−")}${Math.abs(f[C.foot] - st.table).toFixed(2)} in to table`;
+    const soil = bx.find(b => b[0] > 14 && b[2] < -12 && b[3] > -7 && b[5] <= 34);
+    $("r-soil").textContent = soil ? `${(soil[5] - soil[4]).toFixed(2)} in ${soil[6] ? "pressed" : "loose"}` : "—";
+    $("r-shaker").textContent = ph === 0 ? "running" : "off";
+    $("r-count").textContent = count;
+    $("time").textContent = `${(i / M.fps).toFixed(1)} s of ${(F.length / M.fps).toFixed(1)} s`;
+    document.querySelectorAll("#phases button").forEach((btn, k) => k === ph ? btn.setAttribute("aria-current", "step") : btn.removeAttribute("aria-current"));
+  }
+
+  // ---------- UI ----------
+  const phaseStart = [];
+  F.forEach((f, i) => { if (phaseStart[f[C.phase]] === undefined) phaseStart[f[C.phase]] = i; });
+  data.phases.forEach((name, k) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<button type="button"><span>${String(k + 1).padStart(2, "0")}</span>${name}</button>`;
+    li.firstChild.addEventListener("click", () => { frame = phaseStart[k]; playing = false; sync(); });
+    $("phases").appendChild(li);
+  });
+  const scrub = $("scrub");
+  scrub.max = F.length - 1;
+  let frame = 0, playing = !matchMedia("(prefers-reduced-motion: reduce)").matches, speed = 1, acc = 0;
+  function sync() { scrub.value = frame; $("play").textContent = playing ? "Pause" : "Play"; show(frame); }
+  $("play").addEventListener("click", () => { playing = !playing; sync(); });
+  $("back").addEventListener("click", () => { playing = false; frame = Math.max(0, frame - 1); sync(); });
+  $("fwd").addEventListener("click", () => { playing = false; frame = Math.min(F.length - 1, frame + 1); sync(); });
+  scrub.addEventListener("input", () => { frame = +scrub.value; playing = false; sync(); });
+  $("speed").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    speed = +b.dataset.s;
+    $("speed").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  });
+  $("t-cut").addEventListener("change", e => { clip.length = 0; if (e.target.checked) clip.push(cut); scene.traverse(o => { if (o.material) o.material.needsUpdate = true; }); show(frame); });
+  $("t-hopper").addEventListener("change", () => show(frame));
+  $("t-edges").addEventListener("change", e => edgeMats.forEach(m => m.visible = e.target.checked));
+  document.addEventListener("keydown", e => {
+    if (e.target.closest("input[type=range]") && e.key !== " ") return;
+    if (e.key === " ") { playing = !playing; sync(); e.preventDefault(); }
+    if (e.key === "ArrowRight") { playing = false; frame = Math.min(F.length - 1, frame + 1); sync(); }
+    if (e.key === "ArrowLeft") { playing = false; frame = Math.max(0, frame - 1); sync(); }
+  });
+
+  // default view like the makers' photos: front corner, a little above
+  const target = new THREE.Vector3(...(M.view_target || [20, 0, 34]));
+  const VIEWS = M.views;
+  function setView(k) { const v = VIEWS[k]; camera.position.set(v[0], v[1], v[2]); controls.target.copy(target); controls.update(); }
+  document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
+  setView(new URLSearchParams(location.search).get("view") in VIEWS ? new URLSearchParams(location.search).get("view") : "iso");
+
+  function resize() {
+    const w = view.clientWidth, h = view.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(view);
+  resize();
+
+  let last = performance.now();
+  function tick(now) {
+    const dt = (now - last) / 1000; last = now;
+    if (playing) {
+      acc += dt * M.fps * speed;
+      while (acc >= 1) {
+        acc -= 1; frame++;
+        if (frame >= F.length) { frame = 0; loops = (loops + 1) % 20; }
+      }
+      scrub.value = frame;
+      show(frame);
+    }
+    controls.update();
+    renderer.render(scene, camera);
+    requestAnimationFrame(tick);
+  }
+  const deep = /^#p(\d+)$/.exec(location.hash);
+  if (deep && phaseStart[+deep[1] - 1] !== undefined) {
+    frame = phaseStart[+deep[1] - 1] + Math.floor(((phaseStart[+deep[1]] ?? F.length) - phaseStart[+deep[1] - 1]) / 2);
+    playing = false;
+  }
+  sync();
+  requestAnimationFrame(tick);
+})();
+</script>

@@ -1,0 +1,392 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>OSRL CEB Press Animation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 3D shop-floor viewport on the left, control rail on the right (stacks below on phones). */
+:root {
+  --bg: #e7e9e4;
+  --panel: #f4f5f1;
+  --ink: #1d2226;
+  --muted: #5b646a;
+  --rule: #c5cac3;
+  --accent: #1f5f7a;
+  --accent-ink: #ffffff;
+  --stage: #d9ddd6;          /* viewport backdrop */
+  --stage-grid: #b9bfb6;
+  --soil: #b98b5b;
+  --f-ui: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --f-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161a1c; --panel: #1f2427; --ink: #e3e6e2; --muted: #9aa3a8; --rule: #353c40;
+    --accent: #6fb4cf; --accent-ink: #0d1417; --stage: #22282b; --stage-grid: #3a4246; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161a1c; --panel: #1f2427; --ink: #e3e6e2; --muted: #9aa3a8; --rule: #353c40;
+  --accent: #6fb4cf; --accent-ink: #0d1417; --stage: #22282b; --stage-grid: #3a4246; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-ui); font-size: 15px; line-height: 1.4; }
+.app { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 340px; }
+.stage { position: relative; min-height: 0; background: var(--stage); }
+#view { position: absolute; inset: 0; }
+#view canvas { display: block; width: 100%; height: 100%; }
+.caption {
+  position: absolute; left: 16px; top: 14px; right: 16px; pointer-events: none;
+  display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline;
+}
+.caption h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -.005em; }
+.caption .step { font-size: 15px; color: var(--muted); }
+.caption .step b { color: var(--ink); font-weight: 600; }
+.views { position: absolute; left: 16px; bottom: 14px; display: flex; gap: 4px; flex-wrap: wrap; }
+.loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-family: var(--f-data); font-size: 13px; }
+
+aside {
+  background: var(--panel); border-left: 1px solid var(--rule); overflow-y: auto;
+  padding-inline: 16px; padding-block: 16px 24px; display: grid; gap: 16px; align-content: start;
+}
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-weight: 600; margin: 0 0 6px; }
+.transport { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.btn {
+  font: 500 14px/1 var(--f-ui); color: var(--ink); background: var(--bg);
+  border: 1px solid var(--rule); border-radius: 3px; padding: 8px 11px; cursor: pointer;
+}
+.btn:hover { border-color: var(--ink); }
+.btn:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); min-width: 74px; }
+.btn[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.views .btn { background: color-mix(in srgb, var(--panel) 85%, transparent); }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+.speed { display: inline-flex; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; margin-left: auto; }
+.speed button { font: 500 12.5px/1 var(--f-data); border: 0; background: transparent; color: var(--ink); padding: 8px 8px; cursor: pointer; }
+.speed button + button { border-left: 1px solid var(--rule); }
+.speed button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.time { font: 500 12.5px/1 var(--f-data); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+dl.read { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; margin: 0; }
+dl.read dt { color: var(--muted); font-size: 13.5px; }
+dl.read dd { margin: 0; text-align: right; font: 500 14px/1.3 var(--f-data); font-variant-numeric: tabular-nums; }
+.bar { height: 6px; border-radius: 3px; background: var(--rule); overflow: hidden; margin-top: 4px; grid-column: 1 / -1; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); }
+
+ol.phases { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: ph; }
+ol.phases li button {
+  width: 100%; text-align: left; display: grid; grid-template-columns: 22px 1fr; gap: 6px; align-items: baseline;
+  font: 400 13.5px/1.3 var(--f-ui); color: var(--ink); background: transparent; border: 0; border-radius: 3px;
+  padding: 5px 6px; cursor: pointer;
+}
+ol.phases li button span { font: 500 11.5px/1 var(--f-data); color: var(--muted); }
+ol.phases li button:hover { background: var(--bg); }
+ol.phases li button[aria-current="step"] { background: var(--accent); color: var(--accent-ink); }
+ol.phases li button[aria-current="step"] span { color: var(--accent-ink); }
+.toggles { display: grid; gap: 6px; }
+.toggles label { display: flex; gap: 8px; align-items: center; font-size: 14px; cursor: pointer; }
+.toggles input { accent-color: var(--accent); width: 16px; height: 16px; }
+.hint { color: var(--muted); font-size: 12.5px; margin: 0; }
+.hint kbd { font: 500 11px/1 var(--f-data); border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 3px; padding: 1px 4px; background: var(--bg); color: var(--ink); }
+
+@media (max-width: 820px) {
+  .app { grid-template-columns: minmax(0, 1fr); grid-template-rows: 62vh auto; height: auto; min-height: 100%; }
+  aside { border-left: 0; border-top: 1px solid var(--rule); }
+}
+</style>
+
+<div class="app">
+  <section class="stage" aria-label="3D view of the press">
+    <div id="view"></div>
+    <div class="loading" id="loading">Loading press model…</div>
+    <div class="caption">
+      <h1 id="title">CINVA-Ram 14 × 7 × 4</h1>
+      <span class="step" id="step"><b>—</b></span>
+    </div>
+    <div class="views" role="group" aria-label="Camera">
+      <button class="btn" data-view="iso" type="button">Iso</button>
+      <button class="btn" data-view="front" type="button">Front</button>
+      <button class="btn" data-view="side" type="button">End</button>
+      <button class="btn" data-view="top" type="button">Top</button>
+    </div>
+  </section>
+
+  <aside>
+    <div>
+      <p class="label">Playback</p>
+      <div class="transport">
+        <button class="btn primary" id="play" type="button">Pause</button>
+        <button class="btn" id="back" type="button" aria-label="Previous frame">◀</button>
+        <button class="btn" id="fwd" type="button" aria-label="Next frame">▶</button>
+        <div class="speed" role="group" aria-label="Speed" id="speed">
+          <button type="button" data-s="0.25">¼×</button><button type="button" data-s="0.5">½×</button><button type="button" data-s="1" aria-pressed="true">1×</button>
+        </div>
+      </div>
+      <input type="range" id="scrub" min="0" max="1" value="0" step="1" aria-label="Timeline" style="margin-top:10px">
+      <div class="time" id="time">0.0 s</div>
+    </div>
+
+    <div>
+      <p class="label">Measured from the linkage</p>
+      <dl class="read">
+        <dt>Lever angle</dt><dd id="r-psi">—</dd>
+        <dt>Yoke tilt</dt><dd id="r-theta">—</dd>
+        <dt id="r-claw-dt">Latch</dt><dd id="r-claw">—</dd>
+        <dt>Piston top</dt><dd id="r-piston">—</dd>
+        <dt>Soil in mold</dt><dd id="r-soil">—</dd>
+        <dt>Push on handle (200 psi)</dt><dd id="r-force">—</dd>
+        <div class="bar" aria-hidden="true"><i id="r-force-bar"></i></div>
+        <dt>Bricks made</dt><dd id="r-count">0</dd>
+      </dl>
+    </div>
+
+    <div>
+      <p class="label">Inspect</p>
+      <div class="toggles">
+        <label><input type="checkbox" id="t-cut"> Cut away the near half (see inside the mold)</label>
+        <label><input type="checkbox" id="t-lid"> Hide the lid</label>
+        <label><input type="checkbox" id="t-edges" checked> Show edges</label>
+      </div>
+    </div>
+
+    <div>
+      <p class="label">Press cycle</p>
+      <ol class="phases" id="phases"></ol>
+    </div>
+    <p class="hint">Drag to orbit, scroll to zoom, right-drag to pan. <kbd>Space</kbd> play or pause, <kbd>←</kbd> <kbd>→</kbd> step a frame.</p>
+  </aside>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(async function () {
+  const $ = id => document.getElementById(id);
+  const SRC = "press.json";
+  let data;
+  try {
+    data = await (await fetch(SRC)).json();
+  } catch (e) {
+    $("loading").textContent = `Could not load ${SRC}. Serve this folder over http (python3 -m http.server).`;
+    return;
+  }
+  $("loading").remove();
+  const M = data.meta, F = data.frames, C = Object.fromEntries(data.columns.map((c, i) => [c, i]));
+  const PH_PRESS = M.phase_press ?? 4, PH_PRESSED = M.phase_pressed ?? 5, PH_LIFT = M.phase_lift ?? 11;
+  if (M.title) { document.title = `${M.title} Animation`; $("title").textContent = `${M.title} ${M.label.replaceAll("x", " × ")}`; }
+  if (!M.claw_pivot) $("r-claw").parentElement.querySelectorAll("#r-claw, #r-claw-dt").forEach(e => e.remove());
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+  // ---------- scene ----------
+  const view = $("view");
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.localClippingEnabled = true;
+  view.appendChild(renderer.domElement);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.5, 2000);
+  camera.up.set(0, 0, 1);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x60656a, 0.75));
+  const sun = new THREE.DirectionalLight(0xffffff, 0.75); sun.position.set(-40, -60, 90); scene.add(sun);
+  const fillLight = new THREE.DirectionalLight(0xffffff, 0.3); fillLight.position.set(60, 40, 30); scene.add(fillLight);
+
+  const grid = new THREE.GridHelper(160, 32);
+  grid.rotation.x = Math.PI / 2; grid.position.set(20, -10, 0);
+  scene.add(grid);
+  function applyTheme() {
+    scene.background = new THREE.Color(css("--stage"));
+    grid.material.color = new THREE.Color(css("--stage-grid"));
+    grid.material.opacity = 0.6; grid.material.transparent = true;
+  }
+  applyTheme();
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme);
+
+  const cut = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);   // keeps y >= 0 when enabled
+  const clip = [];
+  const edgeMats = [];
+  const groups = {};
+  for (const g of data.groups) {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.Float32BufferAttribute(g.positions, 3));
+    geo.setAttribute("color", new THREE.Float32BufferAttribute(g.colors, 3));
+    geo.setIndex(g.indices);
+    geo.computeVertexNormals();
+    const mat = new THREE.MeshStandardMaterial({ vertexColors: true, metalness: 0.25, roughness: 0.6, clippingPlanes: clip, clipShadows: true, side: THREE.DoubleSide });
+    const mesh = new THREE.Mesh(geo, mat);
+    const em = new THREE.LineBasicMaterial({ color: 0x15191c, transparent: true, opacity: 0.55, clippingPlanes: clip });
+    edgeMats.push(em);
+    mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, 28), em));
+    mesh.matrixAutoUpdate = false;
+    scene.add(mesh);
+    groups[g.name] = mesh;
+  }
+  const soilMat = new THREE.MeshStandardMaterial({ color: 0xb98b5b, roughness: 0.95, metalness: 0, clippingPlanes: clip, side: THREE.DoubleSide });
+  const brickGeo = new THREE.BoxGeometry(1, 1, 1);
+  const brickEdges = new THREE.EdgesGeometry(brickGeo);
+  function makeBrick() {
+    const b = new THREE.Mesh(brickGeo, soilMat.clone());
+    b.add(new THREE.LineSegments(brickEdges, new THREE.LineBasicMaterial({ color: 0x3b2a1a, transparent: true, opacity: 0.5 })));
+    scene.add(b);
+    return b;
+  }
+  const moldBrick = makeBrick();
+  const stack = [];
+  const LOOSE = new THREE.Color(0xc9a276), PRESSED = new THREE.Color(0x8f5f3a);
+
+  // ---------- kinematics (same transforms as the build123d model) ----------
+  const T = (x, y, z) => new THREE.Matrix4().makeTranslation(x, y, z);
+  const Ry = deg => new THREE.Matrix4().makeRotationY(deg * Math.PI / 180);
+  const mul = (...ms) => ms.reduce((a, b) => a.multiply(b), new THREE.Matrix4());
+  const HEAD = M.head || [0, M.yoke];   // toggle/handle pivot in the yoke frame (off the yoke axis on the OSRL press)
+  const H = (th, psi, zp) => mul(T(M.xc, 0, zp), Ry(th), T(HEAD[0], 0, HEAD[1]), Ry(-psi));
+  const Href = new THREE.Matrix4().copy(H(0, M.psi_ref, M.zp_ref)).invert();
+  const [hx, hz] = M.hinge;
+  const bw = M.L - M.clear, bd = M.W - M.clear;
+
+  function slot(i) {             // where the i-th finished brick lands beside the press
+    const layer = i % 5, row = Math.floor(i / 5) % 3;
+    return new THREE.Vector3(M.xc, -(M.rail_y + 13 + row * (bd + 1.5)), M.H * layer + M.H / 2);
+  }
+  function setBrick(b, x, y, z, h, color) {
+    b.position.set(x, y, z); b.scale.set(bw, bd, Math.max(h, 0.001)); b.material.color.copy(color); b.visible = h > 0.01;
+  }
+
+  let loops = 0;
+  function show(i) {
+    const f = F[i];
+    const th = f[C.theta], psi = f[C.psi], zp = f[C.zp], cover = f[C.cover], claw = f[C.claw];
+    const ph = f[C.phase], s = f[C.s];
+    groups.frame.matrix.identity();
+    groups.lid.matrix.copy(mul(T(hx, 0, hz), Ry(cover), T(-hx, 0, -hz)));
+    groups.piston.matrix.copy(T(0, 0, zp - M.zp_ref));
+    const yoke = mul(T(M.xc, 0, zp), Ry(th), T(-M.xc, 0, -M.zp_ref));
+    groups.yoke.matrix.copy(yoke);
+    groups.handle.matrix.copy(H(th, psi, zp).multiply(Href));
+    if (groups.claw) {                    // the latch turns about its pivot on the yoke (full press) or on the head
+      const [cpx, cpz] = M.claw_pivot;
+      const base = M.claw_on === "handle" ? groups.handle.matrix : yoke;
+      groups.claw.matrix.copy(base.clone().multiply(mul(T(cpx, 0, cpz), Ry(claw), T(-cpx, 0, -cpz))));
+    }
+    groups.lid.visible = !$("t-lid").checked;
+    if (groups.feeder && C.feed !== undefined) {   // feed box slides in -Y from park; the gate slides back in +Y
+      const fy = -f[C.feed] * M.feed_park;
+      groups.feeder.matrix.copy(T(0, fy, 0));
+      if (groups.gate) groups.gate.matrix.copy(T(0, fy + f[C.gate] * M.gate_travel, 0));
+    }
+
+    // soil / brick
+    const bb = f[C.brick_bottom], bt = f[C.brick_top], h = bt - bb;
+    const pressed = Math.min(1, Math.max(0, (M.fill - h) / (M.fill - M.H)));
+    const col = LOOSE.clone().lerp(PRESSED, ph >= PH_PRESSED ? 1 : pressed);
+    const count = loops + (ph === data.phases.length - 1 ? 1 : 0);
+    if (ph === PH_LIFT) {        // lift off and carry to the stack
+      const start = new THREE.Vector3(M.xc, 0, bb + M.H / 2), end = slot(loops), up = M.zt + 12;
+      let p;
+      if (s < 0.35) p = start.clone().setZ(start.z + (up - start.z) * (s / 0.35));
+      else if (s < 0.75) p = start.clone().lerp(end, (s - 0.35) / 0.4).setZ(up);
+      else p = end.clone().setZ(up + (end.z - up) * ((s - 0.75) / 0.25));
+      setBrick(moldBrick, p.x, p.y, p.z, M.H, PRESSED);
+    } else {
+      setBrick(moldBrick, M.xc, 0, (bb + bt) / 2, h, col);
+    }
+    while (stack.length < count) stack.push(makeBrick());
+    stack.forEach((b, k) => {
+      const q = slot(k);
+      setBrick(b, q.x, q.y, q.z, M.H, PRESSED);
+      b.visible = k < count;
+    });
+
+    // readouts
+    $("step").innerHTML = `<b>${ph + 1}.</b> ${data.phases[ph]}`;
+    const psiS = C.psi_show !== undefined ? f[C.psi_show] : psi, thS = C.theta_show !== undefined ? f[C.theta_show] : th;
+    const over = M.over_at !== undefined ? psiS > M.over_at : M.claw_on === "handle" ? psiS > 0.05 : psiS > 90.05;
+    $("r-psi").textContent = `${psiS.toFixed(1)}°` + (over ? " (over centre)" : "");
+    $("r-theta").textContent = `${thS.toFixed(1)}°`;
+    if (M.claw_pivot) $("r-claw").textContent = claw < 0.5 ? "shut" : claw > M.claw_open - 0.5 ? (M.claw_on === "handle" ? "open" : "open (on stop)") : "moving";
+    const pt = zp + M.pin_below_cap - M.zt;
+    $("r-piston").textContent = `${pt >= 0 ? "+" : "−"}${Math.abs(pt).toFixed(3)} in`;
+    $("r-soil").textContent = h > 0.01 && ph < PH_LIFT ? `${h.toFixed(3)} in` : "—";
+    const force = f[C.hand_force];
+    $("r-force").textContent = ph === PH_PRESS ? `${force.toFixed(0)} lbf` : "—";
+    $("r-force-bar").style.width = ph === PH_PRESS ? `${Math.min(100, force / 2)}%` : "0";
+    $("r-count").textContent = count;
+    $("time").textContent = `${(i / M.fps).toFixed(1)} s of ${(F.length / M.fps).toFixed(1)} s`;
+    document.querySelectorAll("#phases button").forEach((btn, k) => k === ph ? btn.setAttribute("aria-current", "step") : btn.removeAttribute("aria-current"));
+  }
+
+  // ---------- UI ----------
+  const phaseStart = [];
+  F.forEach((f, i) => { if (phaseStart[f[C.phase]] === undefined) phaseStart[f[C.phase]] = i; });
+  const ol = $("phases");
+  data.phases.forEach((name, k) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<button type="button"><span>${String(k + 1).padStart(2, "0")}</span>${name}</button>`;
+    li.firstChild.addEventListener("click", () => { frame = phaseStart[k]; playing = false; sync(); });
+    ol.appendChild(li);
+  });
+  const scrub = $("scrub");
+  scrub.max = F.length - 1;
+  let frame = 0, playing = !matchMedia("(prefers-reduced-motion: reduce)").matches, speed = 1, acc = 0;
+  function sync() { scrub.value = frame; $("play").textContent = playing ? "Pause" : "Play"; show(frame); }
+  $("play").addEventListener("click", () => { playing = !playing; sync(); });
+  $("back").addEventListener("click", () => { playing = false; frame = Math.max(0, frame - 1); sync(); });
+  $("fwd").addEventListener("click", () => { playing = false; frame = Math.min(F.length - 1, frame + 1); sync(); });
+  scrub.addEventListener("input", () => { frame = +scrub.value; playing = false; sync(); });
+  $("speed").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    speed = +b.dataset.s;
+    $("speed").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  });
+  $("t-cut").addEventListener("change", e => { clip.length = 0; if (e.target.checked) clip.push(cut); scene.traverse(o => { if (o.material) o.material.needsUpdate = true; }); });
+  $("t-lid").addEventListener("change", () => show(frame));
+  $("t-edges").addEventListener("change", e => edgeMats.forEach(m => m.visible = e.target.checked));
+  document.addEventListener("keydown", e => {
+    if (e.target.closest("input[type=range]") && e.key !== " ") return;
+    if (e.key === " ") { playing = !playing; sync(); e.preventDefault(); }
+    if (e.key === "ArrowRight") { playing = false; frame = Math.min(F.length - 1, frame + 1); sync(); }
+    if (e.key === "ArrowLeft") { playing = false; frame = Math.max(0, frame - 1); sync(); }
+  });
+
+  // default view like a maker's catalogue photo: front corner, a little above, handle rising on the
+  // left, feed hopper on the right (the press may override via meta.view_target / meta.views)
+  const target = new THREE.Vector3(...(M.view_target || [18, 0, 20]));
+  const VIEWS = Object.assign({ iso: [-38, -95, 70], front: [18, -140, 24], side: [-120, 0, 28], top: [18, -1, 160] }, M.views || {});
+  function setView(k) { const v = VIEWS[k]; camera.position.set(v[0], v[1], v[2]); controls.target.copy(target); controls.update(); }
+  document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
+  setView("iso");
+
+  function resize() {
+    const w = view.clientWidth, h = view.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(view);
+  resize();
+
+  let last = performance.now();
+  function tick(now) {
+    const dt = (now - last) / 1000; last = now;
+    if (playing) {
+      acc += dt * M.fps * speed;
+      while (acc >= 1) {
+        acc -= 1; frame++;
+        if (frame >= F.length) { frame = 0; loops = (loops + 1) % 15; }
+      }
+      scrub.value = frame;
+      show(frame);
+    }
+    controls.update();
+    renderer.render(scene, camera);
+    requestAnimationFrame(tick);
+  }
+  const deep = /^#p(\d+)$/.exec(location.hash);
+  if (deep && phaseStart[+deep[1] - 1] !== undefined) {
+    frame = phaseStart[+deep[1] - 1] + Math.floor((phaseStart[+deep[1]] ?? F.length) - phaseStart[+deep[1] - 1]) - 1;
+    playing = false;
+  }
+  sync();
+  requestAnimationFrame(tick);
+})();
+</script>

@@ -546,7 +546,7 @@ def part_sheet(p: m.Params, part: m.Part, sheet_no, n_sheets, path, dxf_dir=None
         sh.text(title, M_LEFT + 6, y + 3, TXT_SMALL)
         _table(sh, M_LEFT + 6, y, [i * cw for i in range(n + 1)], rows, head=head, rowh=4.8)
     general_notes(sh, part.notes)
-    title_block(sh, part.name, f"{_title()}, {p.label} brick", f"{_dwg()}-{p.label}-{part.item:02d}",
+    title_block(sh, part.name, getattr(m, "PART_SUBTITLE", None) or f"{_title()}, {p.label} brick", f"{_dwg()}-{p.label}-{part.item:02d}",
                 sheet_no, n_sheets, scale_str(sc), part.stock, part.qty, "Detail drawing", key=part.key)
     sh.svg(path)
     if dxf_dir and part.flat:

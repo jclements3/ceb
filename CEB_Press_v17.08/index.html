@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CEB Press Drawings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f3ef; --panel: #ffffff; --ink: #1d2124; --muted: #5c6469; --line: #d7d5cd; --line-strong: #b9b6ab;
+  --accent: #b5471b; --accent-ink: #ffffff; --chip: #ebe9e2; --sheet: #ffffff; --shadow: 0 1px 2px rgba(0,0,0,.06);
+  --overlay: rgba(20,22,24,.97);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15181a; --panel: #1d2124; --ink: #e8e6e1; --muted: #9aa1a5; --line: #2f3539; --line-strong: #444b50;
+    --accent: #e0703f; --accent-ink: #15181a; --chip: #262b2e; --sheet: #f7f7f4; --shadow: none; --overlay: rgba(8,9,10,.98);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15181a; --panel: #1d2124; --ink: #e8e6e1; --muted: #9aa1a5; --line: #2f3539; --line-strong: #444b50;
+  --accent: #e0703f; --accent-ink: #15181a; --chip: #262b2e; --sheet: #f7f7f4; --shadow: none; --overlay: rgba(8,9,10,.98);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 "IBM Plex Sans", system-ui, sans-serif; overflow-x: hidden; }
+a { color: var(--accent); }
+.mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+header.top { border-bottom: 1px solid var(--line); background: var(--panel); }
+header.top .wrap:not(.mwrap) { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: flex-end; justify-content: space-between; padding-top: 22px; padding-bottom: 18px; }
+h1 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -.01em; }
+.kicker { font: 500 12px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1px solid var(--line-strong); border-radius: 6px; color: var(--ink); text-decoration: none; font-weight: 500; font-size: 14px; background: var(--panel); white-space: nowrap; }
+.btn:hover { border-color: var(--ink); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+nav.toc { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+nav.toc .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 8px; padding-bottom: 8px; scrollbar-width: thin; }
+nav.toc a { flex: none; padding: 4px 10px; border-radius: 99px; background: var(--chip); color: var(--ink); text-decoration: none; font-size: 13px; }
+nav.toc a:hover { background: var(--line); }
+section { padding: 28px 0 8px; scroll-margin-top: 48px; }
+h2 { font-size: 20px; font-weight: 600; margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+h2 .tag { font: 500 12px "IBM Plex Mono", monospace; color: var(--muted); }
+.lede { color: var(--muted); margin: 0 0 14px; max-width: 78ch; }
+.overview { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.stat { background: var(--panel); padding: 14px 16px; }
+.stat b { display: block; font: 500 24px/1.1 "IBM Plex Mono", monospace; }
+.stat span { color: var(--muted); font-size: 13px; }
+.overview p { margin: 0 0 10px; }
+.src { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.feature { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 16px; align-items: start; margin-bottom: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); cursor: pointer; text-align: left; padding: 0; color: inherit; font: inherit; width: 100%; display: block; }
+.card:hover, .card:focus-visible { border-color: var(--accent); outline: none; }
+.card .img { background: var(--sheet); aspect-ratio: 1.414; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--line); }
+.card img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.card .meta { padding: 8px 10px 10px; }
+.card .t { font-weight: 600; font-size: 14px; display: flex; justify-content: space-between; gap: 8px; }
+.card .t .no { font: 500 12px "IBM Plex Mono", monospace; color: var(--muted); white-space: nowrap; }
+.card .s { font-size: 12.5px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.feature .side { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; font-size: 14px; }
+.feature .side dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 8px 0 0; }
+.feature .side dt { color: var(--muted); }
+.feature .side dd { margin: 0; font-family: "IBM Plex Mono", monospace; font-size: 13px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.filters input, .filters select { font: inherit; font-size: 14px; padding: 7px 10px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--panel); color: var(--ink); min-width: 0; }
+.filters input { flex: 1 1 220px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { padding: 7px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+th { font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); background: var(--chip); position: sticky; top: 0; cursor: pointer; user-select: none; }
+td.num, th.num { text-align: right; font-family: "IBM Plex Mono", monospace; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--chip); }
+.count { font-size: 13px; color: var(--muted); margin: 8px 2px 0; }
+footer { color: var(--muted); font-size: 13px; padding: 30px 0 40px; border-top: 1px solid var(--line); margin-top: 30px; }
+/* lightbox */
+.lb { position: fixed; inset: 0; background: var(--overlay); z-index: 50; display: none; flex-direction: column; color: #eee; }
+.lb.open { display: flex; }
+.lb .bar { background: #16191b; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,.12); }
+.lb .bar .title { flex: 1 1 260px; min-width: 0; }
+.lb .bar .title b { display: block; font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb .bar .title span { font: 12px "IBM Plex Mono", monospace; color: #aab; }
+.lb .bar a, .lb .bar button { color: #eee; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 6px; padding: 6px 10px; font: 500 13px "IBM Plex Sans", sans-serif; text-decoration: none; cursor: pointer; }
+.lb .bar a:hover, .lb .bar button:hover { background: rgba(255,255,255,.18); }
+.lb .stage { flex: 1; overflow: hidden; position: relative; cursor: grab; touch-action: none; }
+.lb .stage.drag { cursor: grabbing; }
+.lb .stage img { position: absolute; left: 0; top: 0; transform-origin: 0 0; background: #fff; box-shadow: 0 6px 30px rgba(0,0,0,.5); user-select: none; -webkit-user-drag: none; }
+.lb .hint { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 12px; color: #aab; background: rgba(0,0,0,.4); padding: 3px 10px; border-radius: 99px; pointer-events: none; white-space: nowrap; }
+.lb .nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 64px; border: 0; background: rgba(0,0,0,.35); color: #fff; font-size: 26px; cursor: pointer; border-radius: 6px; }
+.lb .nav.prev { left: 8px; } .lb .nav.next { right: 8px; }
+@media (max-width: 860px) {
+  .overview, .feature { grid-template-columns: minmax(0, 1fr); }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  h1 { font-size: 22px; }
+  .lb .hint { display: none; }
+  .machines { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(220px, 72%); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+  .mcard { scroll-snap-align: start; }
+}
+/* machine switcher */
+.mwrap { padding-bottom: 16px; }
+.machines { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.mcard { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; text-align: left; font: inherit; color: inherit; cursor: pointer; display: flex; flex-direction: column; gap: 4px; box-shadow: var(--shadow); }
+.mcard:hover, .mcard:focus-visible { border-color: var(--ink); outline: none; }
+.mcard[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.mcard .k { font: 500 11px/1.2 "IBM Plex Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.mcard .t { font-weight: 600; font-size: 15.5px; line-height: 1.25; }
+.mcard .d { font-size: 13px; color: var(--muted); }
+.mcard .n { font: 12.5px "IBM Plex Mono", monospace; color: var(--ink); margin-top: 2px; }
+.mcard.missing { opacity: .6; cursor: default; }
+.mcard.missing .n { color: var(--muted); font-style: italic; }
+.pill { display: inline-block; font: 500 11px "IBM Plex Mono", monospace; padding: 1px 7px; border-radius: 99px; background: var(--chip); color: var(--muted); }
+td .pill { margin-right: 4px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div>
+      <div class="kicker">CEB press drawing library · ISO 128</div>
+      <h1 id="m-title">CEB Press Drawings</h1>
+    </div>
+    <div class="actions" id="actions"></div>
+  </div>
+  <div class="wrap mwrap"><div class="machines" id="machines" role="tablist" aria-label="Machines"></div></div>
+</header>
+<nav class="toc" aria-label="Sections"><div class="wrap" id="toc"></div></nav>
+
+<main class="wrap">
+  <section id="overview">
+    <div class="overview">
+      <div>
+        <h2 id="ov-title">The machine</h2>
+        <div id="ov-desc"></div>
+        <p class="src" id="ov-src"></p>
+      </div>
+      <div class="stats" id="stats"></div>
+    </div>
+  </section>
+  <div id="sections"></div>
+  <section id="parts">
+    <h2>Parts list <span class="tag">filter · search · click a row to open the sheet</span></h2>
+    <div class="filters">
+      <input id="q" type="search" placeholder="Search name, stock, sheet…" aria-label="Search parts">
+      <select id="f-set" aria-label="Machine"><option value="">This machine</option><option value="*">All machines</option></select>
+      <select id="f-sub" aria-label="Module"><option value="">All modules</option></select>
+      <select id="f-type" aria-label="Stock type"><option value="">All stock</option></select>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th data-k="no">Sheet</th><th data-k="name">Part</th><th data-k="module">Module</th><th class="num" data-k="qty">Qty</th><th data-k="stock">Stock</th><th class="num" data-k="mass">lb ea</th><th data-k="scale">Scale</th><th>Files</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+    <div class="count" id="count"></div>
+  </section>
+</main>
+<footer><div class="wrap">Drawings generated with build123d (<span class="mono">cinva_drawings.py</span> sheet engine) by each set's script: <span class="mono">v1708_drawings.py</span>, <span class="mono">shaker/shaker.py</span>, <span class="mono">osrl/</span>, <span class="mono">press6/</span>. Thumbnails and this page's data by <span class="mono">site/build_site.py</span>. Weights assume steel unless the part says otherwise.</div></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Sheet viewer">
+  <div class="bar">
+    <div class="title"><b id="lb-title"></b><span id="lb-sub"></span></div>
+    <button id="lb-fit" type="button">Fit</button>
+    <a id="lb-svg" href="#" target="_blank" rel="noopener">SVG</a>
+    <a id="lb-dxf" href="#" download>DXF</a>
+    <a id="lb-pdf" href="#" target="_blank" rel="noopener">PDF</a>
+    <button id="lb-close" type="button" aria-label="Close">✕ Close</button>
+  </div>
+  <div class="stage" id="stage">
+    <img id="lb-img" alt="">
+    <button class="nav prev" id="lb-prev" type="button" aria-label="Previous sheet">‹</button>
+    <button class="nav next" id="lb-next" type="button" aria-label="Next sheet">›</button>
+    <div class="hint">wheel / pinch to zoom · drag to pan · ← → sheets · Esc closes</div>
+  </div>
+</div>
+
+<script src="site/data.js"></script>
+<script>
+(function () {
+  const MS = window.LIBRARY.machines;
+  const byKey = Object.fromEntries(MS.map(m => [m.key, m]));
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const pad = (n, w = 3) => String(n).padStart(w, "0");
+  const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const fmt = n => n.toLocaleString("en-US", { maximumFractionDigits: 0 });
+  const sumMass = ps => ps.reduce((a, s) => a + s.mass * s.qty, 0);
+  const pieces = ps => ps.reduce((a, s) => a + s.qty, 0);
+
+  // per-machine derived data: sheet ids, parts, modules
+  MS.forEach(m => {
+    m.sheets.forEach(s => { s.m = m.key; s.id = `${m.key}/sheet-${pad(s.sheet)}`; });
+    m.parts = m.sheets.filter(s => s.part);
+    m.front = m.sheets.filter(s => !s.part);
+    m.asm = m.front.find(s => s.key === "assembly") || m.front[0];
+    m.modules = [...new Set(m.parts.map(p => p.module))].map((name, i) => ({
+      name, i, sheet: m.front.find(s => /^sub\d+$/.test(s.key) && s.name === name), parts: m.parts.filter(p => p.module === name) }));
+    m.otherFront = m.front.filter(s => s !== m.asm && !m.modules.some(mod => mod.sheet === s));
+  });
+  const allParts = MS.flatMap(m => m.parts);
+
+  // machine cards
+  $("machines").innerHTML = MS.map(m => `<button class="mcard${m.missing ? " missing" : ""}" role="tab" type="button" data-m="${m.key}"
+      aria-selected="false" ${m.missing ? 'aria-disabled="true"' : ""}>
+      <span class="k">${esc(m.kicker)}</span><span class="t">${esc(m.title)}</span><span class="d">${esc(m.short)}</span>
+      <span class="n">${m.missing ? "drawings not built yet" : `${m.sheets.length} sheets · ${m.parts.length} parts · ${fmt(pieces(m.parts))} pcs · ${fmt(sumMass(m.parts))} lb`}</span></button>`).join("");
+  $("machines").addEventListener("click", e => {
+    const b = e.target.closest(".mcard[data-m]");
+    if (b && !byKey[b.dataset.m].missing) location.hash = b.dataset.m;
+  });
+
+  let M = null;           // current machine
+  let order = [];         // sheets of the current machine, page order
+  const card = (s, big) => {
+    order.push(s);
+    const no = s.item ? `#${pad(s.item, M.parts.length > 99 ? 3 : 2)}` : `sheet ${s.sheet}`;
+    const sub = s.part ? `${s.qty}× · ${esc(s.stock)}` : esc(M.title);
+    return `<button class="card" type="button" data-id="${s.id}" title="${esc(s.name)}">
+      <div class="img"><img loading="lazy" src="${big ? s.svg : s.thumb}" alt="${esc(s.name)} drawing"></div>
+      <div class="meta"><div class="t"><span>${esc(s.name)}</span><span class="no">${no}</span></div><div class="s">${sub}</div></div></button>`;
+  };
+  const side = (rows, extra = "") => `<div class="side">${extra}<dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></div>`;
+  const secId = name => `${M.key}/${slug(name)}`;
+
+  function render(key) {
+    M = byKey[key]; order = [];
+    document.querySelectorAll(".mcard").forEach(b => b.setAttribute("aria-selected", b.dataset.m === key ? "true" : "false"));
+    $("m-title").textContent = M.title + " drawings";
+    document.title = `${M.title} · CEB Press Drawings`;
+    const act = [];
+    if (M.animation) act.push(`<a class="btn primary" href="${M.animation}">${esc(M.animation_label || "▶ Animation")}</a>`);
+    if (M.pdf) act.push(`<a class="btn" href="${M.pdf}">PDF set</a>`);
+    if (M.step) act.push(`<a class="btn" href="${M.step}">STEP</a>`);
+    if (M.readme) act.push(`<a class="btn" href="${M.readme}">README</a>`);
+    $("actions").innerHTML = act.join("");
+    $("ov-title").textContent = M.title;
+    $("ov-desc").innerHTML = M.desc.map(p => `<p>${p}</p>`).join("");
+    $("ov-src").innerHTML = "Sources: " + (M.source_note ? esc(M.source_note) : M.source);
+    const P = M.parts;
+    $("stats").innerHTML = [
+      [fmt(pieces(P)), "pieces"], [P.length, "distinct parts"],
+      [fmt(sumMass(P)) + " lb", "weight"], [M.modules.length, M.modules.length === 1 ? "module" : "modules"],
+      [M.sheets.length, "sheets"], [P.filter(s => s.dxf).length, "DXF cut files"],
+    ].map(([b, t]) => `<div class="stat"><b>${b}</b><span>${t}</span></div>`).join("");
+
+    const toc = [[`${M.key}/overview`, "Overview"], [secId("assembly"), "General assembly"]];
+    let html = `<section id="${secId("assembly")}"><h2>General assembly <span class="tag">sheet ${M.asm.sheet}</span></h2>
+      <p class="lede">${M.modules.length > 1 ? `${M.modules.length} modules; each has its parts below${M.modules.some(m => m.sheet) ? ", after its own sub-assembly sheet" : ""}.` : "Parts below."}</p>
+      <div class="feature">${card(M.asm, true)}${side(M.modules.map(mod =>
+        [`<a href="#${secId(mod.name)}">${esc(mod.name)}</a>`, `${pieces(mod.parts)} pcs · ${fmt(sumMass(mod.parts))} lb`]),
+        `<b>${M.modules.length > 1 ? "Modules" : "Parts"}</b>`)}</div>`;
+    if (M.otherFront.length) html += `<div class="grid">${M.otherFront.map(s => card(s)).join("")}</div>`;
+    html += `</section>`;
+    M.modules.forEach((mod, i) => {
+      const ps = mod.parts, lab = M.modules.some(x => x.sheet) ? `S${i + 1} · ` : "";
+      toc.push([secId(mod.name), `${lab}${mod.name}`]);
+      html += `<section id="${secId(mod.name)}"><h2>${lab}${esc(mod.name)} <span class="tag">${ps.length} distinct parts · ${pieces(ps)} pieces · ${fmt(sumMass(ps))} lb</span></h2>`;
+      if (mod.sheet) html += `<div class="feature">${card(mod.sheet, true)}${side([
+          ["Sheet", `${mod.sheet.sheet} of ${M.sheets.length}`], ["Parts", `items ${ps[0].item}–${ps[ps.length - 1].item}`],
+          ["Plate", ps.filter(p => /plate|sheet/.test(p.stype)).length + " kinds"], ["DXF", ps.filter(p => p.dxf).length + " files"],
+        ], `<b>${esc(mod.name)} sub-assembly</b>`)}</div>`;
+      html += `<div class="grid">${ps.map(p => card(p)).join("")}</div></section>`;
+    });
+    toc.push(["parts", "Parts list"]);
+    $("sections").innerHTML = html;
+    $("overview").id = "overview"; $("overview").dataset.sec = `${M.key}/overview`;
+    $("toc").innerHTML = toc.map(([h, t]) => `<a href="#${h === "parts" ? M.key + "/parts" : h}">${esc(t)}</a>`).join("");
+    fillFilters(); renderRows();
+  }
+  document.addEventListener("click", e => { const c = e.target.closest(".card[data-id]"); if (c) openSheet(c.dataset.id); });
+
+  // parts table
+  let sortK = "no", sortDir = 1;
+  function scope() { return $("f-set").value === "*" ? allParts : M.parts; }
+  function fillFilters() {
+    const ps = scope(), keepS = $("f-sub").value, keepT = $("f-type").value;
+    const mods = [...new Set(ps.map(s => s.module))];
+    $("f-sub").innerHTML = `<option value="">All modules</option>` + mods.map(s => `<option>${esc(s)}</option>`).join("");
+    $("f-type").innerHTML = `<option value="">All stock</option>` + [...new Set(ps.map(s => s.stype))].sort().map(s => `<option>${esc(s)}</option>`).join("");
+    if (mods.includes(keepS)) $("f-sub").value = keepS;
+    if ([...$("f-type").options].some(o => o.value === keepT)) $("f-type").value = keepT;
+  }
+  const mIndex = Object.fromEntries(MS.map((m, i) => [m.key, i]));
+  const val = (s, k) => k === "no" ? mIndex[s.m] * 10000 + s.sheet : s[k];
+  function renderRows() {
+    const q = $("q").value.trim().toLowerCase(), fu = $("f-sub").value, ft = $("f-type").value, all = $("f-set").value === "*";
+    const base = scope();
+    const rows = base.filter(s => (!fu || s.module === fu) && (!ft || s.stype === ft)
+      && (!q || `${s.name} ${s.stock} ${s.module} ${s.sheet} ${s.key} ${byKey[s.m].title}`.toLowerCase().includes(q)))
+      .sort((a, b) => { const x = val(a, sortK), y = val(b, sortK); return (x > y ? 1 : x < y ? -1 : 0) * sortDir; });
+    $("rows").innerHTML = rows.map(s => `<tr data-id="${s.id}"><td class="mono">${all ? `<span class="pill">${esc(s.m)}</span>` : ""}${pad(s.sheet)}</td>
+      <td>${esc(s.name)}</td><td>${esc(s.module)}</td><td class="num">${s.qty}</td><td>${esc(s.stock)}</td><td class="num">${s.mass.toFixed(1)}</td>
+      <td class="mono">${esc(s.scale)} ${esc(s.size)}</td><td><a href="${s.svg}" target="_blank" rel="noopener">SVG</a>${s.dxf ? ` · <a href="${s.dxf}" download>DXF</a>` : ""}</td></tr>`).join("");
+    $("count").textContent = `${rows.length} of ${base.length} parts · ${fmt(pieces(rows))} pieces · ${fmt(sumMass(rows))} lb`;
+  }
+  $("f-set").addEventListener("input", () => { fillFilters(); renderRows(); });
+  ["q", "f-sub", "f-type"].forEach(id => $(id).addEventListener("input", renderRows));
+  document.querySelectorAll("th[data-k]").forEach(th => th.addEventListener("click", () => {
+    sortDir = sortK === th.dataset.k ? -sortDir : 1; sortK = th.dataset.k; renderRows();
+  }));
+  $("rows").addEventListener("click", e => { if (e.target.closest("a")) return; const r = e.target.closest("tr[data-id]"); if (r) openSheet(r.dataset.id); });
+
+  // lightbox with zoom / pan
+  const lb = $("lb"), stage = $("stage"), img = $("lb-img");
+  let cur = -1, z = 1, tx = 0, ty = 0, natW = 1, natH = 1;
+  const apply = () => { img.style.transform = `translate(${tx}px, ${ty}px) scale(${z})`; };
+  function fit() {
+    const W = stage.clientWidth, H = stage.clientHeight;
+    z = Math.min((W - 24) / natW, (H - 24) / natH);
+    tx = (W - natW * z) / 2; ty = (H - natH * z) / 2; apply();
+  }
+  function openSheet(id, push = true) {
+    const mk = id.split("/")[0];
+    if (!M || M.key !== mk) { if (!byKey[mk] || byKey[mk].missing) return; render(mk); }
+    const i = order.findIndex(s => s.id === id);
+    if (i < 0) return;
+    cur = i;
+    const s = order[i];
+    $("lb-title").textContent = s.name;
+    $("lb-sub").textContent = `${M.title} · sheet ${s.sheet}/${M.sheets.length}${s.part ? ` · ${s.qty}× ${s.stock} · ${s.scale} ${s.size}` : ""}`;
+    $("lb-svg").href = s.svg;
+    $("lb-dxf").style.display = s.dxf ? "" : "none";
+    if (s.dxf) $("lb-dxf").href = s.dxf;
+    $("lb-pdf").style.display = M.pdf ? "" : "none";
+    if (M.pdf) $("lb-pdf").href = M.pdf;
+    lb.classList.add("open");
+    document.body.style.overflow = "hidden";
+    img.onload = () => { natW = img.naturalWidth || 1600; natH = img.naturalHeight || 1131; img.style.width = natW + "px"; img.style.height = natH + "px"; fit(); };
+    img.src = s.svg;
+    img.alt = s.name;
+    if (push && location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
+  }
+  function close() {
+    lb.classList.remove("open"); document.body.style.overflow = ""; img.removeAttribute("src");
+    if (/\/sheet-\d+$/.test(location.hash)) history.replaceState(null, "", "#" + M.key);
+  }
+  const step = d => { if (cur >= 0) openSheet(order[(cur + d + order.length) % order.length].id); };
+  $("lb-close").onclick = close; $("lb-fit").onclick = fit;
+  $("lb-prev").onclick = () => step(-1); $("lb-next").onclick = () => step(1);
+  document.addEventListener("keydown", e => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowRight") step(1);
+    else if (e.key === "ArrowLeft") step(-1);
+    else if (e.key === "0") fit();
+  });
+  stage.addEventListener("wheel", e => {
+    e.preventDefault();
+    const r = stage.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+    const k = Math.exp(-e.deltaY * 0.0015), nz = Math.min(Math.max(z * k, 0.05), 20);
+    tx = mx - (mx - tx) * nz / z; ty = my - (my - ty) * nz / z; z = nz; apply();
+  }, { passive: false });
+  const ptrs = new Map(); let last = null, pinch = null;
+  stage.addEventListener("pointerdown", e => {
+    if (e.target.closest(".nav")) return;
+    stage.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]); stage.classList.add("drag");
+    last = [e.clientX, e.clientY];
+    if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), z }; }
+  });
+  stage.addEventListener("pointermove", e => {
+    if (!ptrs.has(e.pointerId)) return;
+    ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+    if (ptrs.size === 2 && pinch) {
+      const [a, b] = [...ptrs.values()], r = stage.getBoundingClientRect();
+      const mx = (a[0] + b[0]) / 2 - r.left, my = (a[1] + b[1]) / 2 - r.top;
+      const nz = Math.min(Math.max(pinch.z * Math.hypot(a[0] - b[0], a[1] - b[1]) / pinch.d, 0.05), 20);
+      tx = mx - (mx - tx) * nz / z; ty = my - (my - ty) * nz / z; z = nz; apply(); return;
+    }
+    tx += e.clientX - last[0]; ty += e.clientY - last[1]; last = [e.clientX, e.clientY]; apply();
+  });
+  const up = e => { ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch = null; if (!ptrs.size) stage.classList.remove("drag"); const p = [...ptrs.values()][0]; if (p) last = p; };
+  stage.addEventListener("pointerup", up); stage.addEventListener("pointercancel", up);
+  stage.addEventListener("dblclick", fit);
+  window.addEventListener("resize", () => { if (lb.classList.contains("open")) fit(); });
+
+  // routing: #key, #key/sheet-NNN, #key/<section>; old #sheet-NNN and #shaker-NN still work
+  let firstRoute = true;
+  function route() {
+    let h = decodeURIComponent(location.hash.slice(1));
+    let a = /^sheet-(\d+)$/.exec(h); if (a) h = `v1708/sheet-${a[1]}`;
+    a = /^shaker-(\d+)$/.exec(h); if (a) h = `shaker/sheet-${a[1]}`;
+    const [mk, rest] = h.split("/");
+    const key = byKey[mk] && !byKey[mk].missing ? mk : (M ? M.key : MS.find(m => !m.missing).key);
+    if (!M || M.key !== key) render(key);
+    if (!rest) { if (lb.classList.contains("open")) close(); return; }
+    const sh = /^sheet-(\d+)$/.exec(rest);
+    if (sh) { const id = `${key}/sheet-${pad(+sh[1])}`; if (id !== location.hash.slice(1)) history.replaceState(null, "", "#" + id); openSheet(id, false); return; }
+    if (lb.classList.contains("open")) close();
+    const el = rest === "overview" ? $("overview") : rest === "parts" ? $("parts") : document.getElementById(`${key}/${rest}`);
+    if (el) el.scrollIntoView({ behavior: firstRoute ? "instant" : "smooth", block: "start" });
+  }
+  window.addEventListener("hashchange", () => { firstRoute = false; route(); });
+  route(); firstRoute = false;
+})();
+</script>
+</body>
+</html>

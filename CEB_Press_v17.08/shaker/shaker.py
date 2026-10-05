@@ -37,6 +37,7 @@ TITLE = "OSE CEB Soil Shaker"
 DWG_PREFIX = "OSESH"
 REVISIONS = {"A": ("2026-10-03", "Drawn from OSE CEB a-z Build 1.0 steps 3-4 and weldments 001-0042..0048, 0077")}
 CURRENT_REV = "A"
+PART_SUBTITLE = "OSE CEB soil shaker (a-z Build 1.0)"
 ATTACHMENT_GROUPS = ()
 OUT = os.path.join(HERE, "drawings")
 

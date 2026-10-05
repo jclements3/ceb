@@ -1,0 +1,49 @@
+OSRL CEB Press 12x6x4 -> /home/clementsj/projects/ceb/CEB_Press_v17.08/osrl/drawings
+  00a_assembly.svg
+  00b_assembly_views.svg
+  00c_positions.svg
+  00d_design.svg
+  01 Front Channel                A3 1:5
+  02 Rear Channel                 A4 1:5
+  03 Side Plate                   A4 1:5
+  04 Base Plate                   A4 1:5
+  05 Outrigger Mount              A4 1:2
+  06 Lid Hinge                    A4 1:1
+  07 Guide Rod                    A3 1:5
+  08 Rod Top                      A4 1:1
+  09 Rod Bottom                   A4 1:1
+  10 Eject Axle                   A4 1:5
+  11 Eject Roller                 A4 1:2
+  12 Outrigger                    A4 1:5
+  13 Mounting Tab                 A4 1:1
+  14 Piston Top Plate             A4 1:2
+  15 Plate Stiffener              A4 1:2
+  16 Piston Guide                 A4 1:5
+  17 Piston Side                  A4 1:5
+  18 Pivot Tube                   A4 1:5
+  19 Piston Pin                   A4 1:5
+  20 Pin Spacer                   A4 1:1
+  21 Lower Insert                 A4 1:2
+  22 Yoke Arm                     A3 1:5
+  23 Head Body                    A4 1:1
+  24 Head Side                    A4 1:2
+  25 Pivot Mount                  A4 1:1
+  26 Toggle Body                  A4 1:5
+  27 Lower Toggle                 A4 1:1
+  28 Toggle Axle                  A4 1:1
+  29 Follower Axle                A4 1:2
+  30 Toggle Follower              A4 1:1
+  31 Lever                        A3 1:10
+  32 Latch Body                   A4 1:1
+  33 Latch Hook                   A4 1:1
+  34 Latch Pivot                  A4 1:1
+  35 Latch Handle                 A4 1:1
+  36 Lid                          A4 1:2
+  37 Lid Rail                     A4 1:2
+  38 Counterweight Arm            A4 1:2
+  39 Counterweight                A4 1:2
+  40 Counterweight Pin            A4 2:1
+  41 Hinge Pin                    A4 5:1
+  42 Upper Insert                 A4 1:2
+  OSRL-CEB-Press_12x6x4.pdf, OSRL-CEB-Press_12x6x4.step, manifest.json
+wrote /home/clementsj/projects/ceb/CEB_Press_v17.08/osrl/animation/press.json: 732 frames (24.4 s), 59,928 vertices, 3.0 MB
